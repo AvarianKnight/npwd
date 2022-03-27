@@ -1,23 +1,23 @@
 {
   "PhoneAsItem": {
-    "enabled": false,
-    "exportResource": "my-core-resource",
-    "exportFunction": "myCheckerFunction"
+    "enabled": true,
+    "exportResource": "pma-lib",
+    "exportFunction": "canUsePhone"
   },
   "general": {
-    "useResourceIntegration": false,
-    "toggleKey": "f1",
+    "useResourceIntegration": true,
+    "toggleKey": "U",
     "toggleCommand": "phone",
     "defaultLanguage": "en"
   },
   "profanityFilter": {
-    "enabled": false,
+    "enabled": true,
     "badWords": ["esx"]
   },
   "database": {
     "useIdentifierPrefix": false,
     "playerTable": "users",
-    "identifierColumn": "identifier",
+    "identifierColumn": "id",
     "identifierType": "license",
     "profileQueries": true,
     "phoneNumberColumn": "phone_number"

@@ -19,18 +19,18 @@
     "phoneNumberColumn": "phone_number"
   },
   "images": {
-    "url": "https://api.imgur.com/3/image",
+    "url": "https://i.pma.network/v1/image",
     "type": "imgur",
     "imageEncoding": "jpg",
     "contentType": "multipart/form-data",
     "authorizationPrefix": "Client-ID",
-    "useAuthorization": true,
+    "useAuthorization": false,
     "returnedDataIndexes": ["data", "link"]
   },
   "imageSafety": {
     "filterUnsafeImageUrls": true,
-    "embedUnsafeImages": false,
-    "embedUrl": "https://i.example.com/embed",
+    "embedUnsafeImages": true,
+    "embedUrl": "https://i.pma.network/v1/embed",
     "safeImageUrls": [
       "imgur.com",
       "file.glass",
@@ -38,7 +38,8 @@
       "tenor.com",
       "discord.com",
       "discordapp.com",
-      "wikipedia.org"
+      "wikipedia.org",
+      "i.pma.network"
     ]
   },
   "profanityFilter": {
