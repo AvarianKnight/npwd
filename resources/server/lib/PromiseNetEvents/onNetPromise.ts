@@ -2,10 +2,11 @@ import { getSource } from '../../utils/miscUtils';
 import { mainLogger } from '../../sv_logger';
 import { CBSignature, PromiseEventResp, PromiseRequest } from './promise.types';
 import { ServerPromiseResp } from '../../../../typings/common';
+import { RateLimiter } from '../RateLimiter';
 
 const netEventLogger = mainLogger.child({ module: 'events' });
 
-export function onNetPromise<T = any, P = any>(eventName: string, cb: CBSignature<T, P>): void {
+export function onNetPromise<T = any, P = any>(eventName: string, cb: CBSignature<T, P>, rateLimiter: RateLimiter = null): void {
   onNet(eventName, async (respEventName: string, data: T) => {
     const startTime = process.hrtime.bigint();
     const src = getSource();
@@ -31,6 +32,15 @@ export function onNetPromise<T = any, P = any>(eventName: string, cb: CBSignatur
       netEventLogger.silly(`Response Promise Event ${respEventName} (${totalTime}ms), Data >>`);
       netEventLogger.silly(data);
     };
+
+    
+    if (rateLimiter) {
+      if (rateLimiter.isPlayerRateLimited(src)) {
+        return promiseResp({ status: 'error', errorMsg: 'ERROR_RATE_LIMITED' });
+      } else {
+        rateLimiter.rateLimitPlayer(src);
+      }
+    }
 
     // In case the cb is a promise, we use Promise.resolve
     Promise.resolve(cb(promiseRequest, promiseResp)).catch((e) => {
