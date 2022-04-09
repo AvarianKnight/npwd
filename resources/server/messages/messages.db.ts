@@ -13,9 +13,9 @@ const MESSAGES_PER_PAGE = 20;
 export class _MessagesDB {
   async getConversations(phoneNumber: string): Promise<MessageConversation[]> {
     const query = `SELECT npwd_messages_conversations.id,
-                          npwd_messages_conversations.conversation_list as conversationList,
-                          npwd_messages_participants.unread_count       as unreadCount,
-                          npwd_messages_conversations.is_group_chat     as isGroupChat,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_participants.unread_count               as unreadCount,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
                           npwd_messages_conversations.label,
                           UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt,
                           npwd_messages_participants.participant
@@ -27,6 +27,22 @@ export class _MessagesDB {
     const [results] = await DbInterface._rawExec(query, [phoneNumber]);
 
     return <MessageConversation[]>results;
+  }
+
+  async getConversation(conversationId: number): Promise<MessageConversation> {
+    const query = `SELECT npwd_messages_conversations.id,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
+                          npwd_messages_conversations.label,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.createdAt) as createdAt,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt
+                   FROM npwd_messages_conversations
+                   WHERE id = ?
+                   LIMIT 1`;
+    const [results] = await DbInterface._rawExec(query, [conversationId]);
+
+    const result = <MessageConversation[]>results;
+    return result[0];
   }
 
   async getMessages(dto: MessagesRequest): Promise<Message[]> {
@@ -108,16 +124,16 @@ export class _MessagesDB {
 
     const result = <ResultSetHeader>results;
 
-    const updateConversation = `UPDATE npwd_messages_conversations SET updatedAt = current_timestamp() WHERE id = ?`;
-
+    const updateConversation = `UPDATE npwd_messages_conversations
+                                SET updatedAt = current_timestamp()
+                                WHERE id = ?`;
 
     // We await here so we're not blocking the return call
     setImmediate(async () => {
-      await DbInterface._rawExec(updateConversation, [dto.conversationId])
-        .catch((err) => 
-          messagesLogger.error(`Error occurred in message update Error: ${err.message}`)
-        );
-    })
+      await DbInterface._rawExec(updateConversation, [dto.conversationId]).catch((err) =>
+        messagesLogger.error(`Error occurred in message update Error: ${err.message}`),
+      );
+    });
 
     return result.insertId;
   }

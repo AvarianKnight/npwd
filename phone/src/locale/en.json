@@ -113,7 +113,8 @@
         "REPORT_TWEET_SUCCESS": "Successfully reported tweet",
         "REPORT_TWEET_FAILED": "Failed to report tweet",
         "FETCH_TWEETS_FAILED": "Failed to fetch tweets",
-        "DELETE_TWEET_FAILED": "Failed to delete tweet"
+        "DELETE_TWEET_FAILED": "Failed to delete tweet",
+        "FILTER_FETCH_FAILED": "Failed to get filtered tweets"
       },
       "MESSAGES": {
         "NEW_RETWEET_BROADCAST": "@{{ profile_name }} retweeted someone!",
@@ -228,6 +229,10 @@
       "GROUP_CHAT_LABEL": "Group chat label...",
       "MEDIA_OPTION": "Camera / Gallery",
       "CONTACT_OPTION": "Share contact",
+      "CONTACT_SHARED": "Contact Shared",
+      "LOCATION_OPTION": "Share location",
+      "LOCATION_MESSAGE": "Location shared",
+      "LOCATION_TOOLTIP": "Set waypoint",
       "NEW_MESSAGE_GROUP_SUBMIT": "Send",
       "INPUT_NAME_OR_NUMBER": "Search contacts or type number and press enter",
       "ACTIONS_TITLE": "Actions",

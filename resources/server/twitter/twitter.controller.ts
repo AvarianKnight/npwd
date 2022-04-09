@@ -32,8 +32,6 @@ onNetPromise<Profile, Profile>(TwitterEvents.UPDATE_PROFILE, async (reqObj, resp
   );
 });
 
-const filteredTweetsRatelimiter = new RateLimiter(5000);
-
 onNetPromise<{ searchValue: string }, Tweet[]>(
   TwitterEvents.FETCH_TWEETS_FILTERED,
   async (reqObj, resp) => {
@@ -44,7 +42,7 @@ onNetPromise<{ searchValue: string }, Tweet[]>(
       ),
     );
   },
-  filteredTweetsRatelimiter
+  { rateLimit: 5000 },
 );
 
 onNetPromise<Tweet, void>(TwitterEvents.CREATE_TWEET, async (reqObj, resp) => {

@@ -14,6 +14,7 @@ import {
   MessagesRequest,
   PreDBConversation,
   PreDBMessage,
+  Location,
 } from '../../../typings/messages';
 import PlayerService from '../players/player.service';
 import { emitNetTyped } from '../utils/miscUtils';
@@ -77,7 +78,7 @@ class _MessagesService {
           isGroupChat: conversation.isGroupChat,
         };
 
-        resp({ status: 'ok', data: { ...respData, participant: playerPhoneNumber } });
+        return resp({ status: 'ok', data: { ...respData, participant: playerPhoneNumber } });
       }
     }
 
@@ -128,7 +129,10 @@ class _MessagesService {
     try {
       const messages = await MessagesDB.getMessages(reqObj.data);
 
-      resp({ status: 'ok', data: messages });
+      // its just 20 elements, won't do that much harm
+      const sortedMessages = messages.sort((a, b) => a.id - b.id);
+
+      resp({ status: 'ok', data: sortedMessages });
     } catch (err) {
       resp({ status: 'error', errorMsg: err.message });
     }
@@ -141,6 +145,8 @@ class _MessagesService {
       const messageData = reqObj.data;
       const participants = getIdentifiersFromParticipants(messageData.conversationList);
       const userIdentifier = player.getIdentifier();
+
+      const conversationDetails = await this.messagesDB.getConversation(messageData.conversationId);
 
       const messageId = await this.messagesDB.createMessage({
         userIdentifier,
@@ -164,10 +170,30 @@ class _MessagesService {
         },
       });
 
+      const conversationData = {
+        id: messageData.conversationId,
+        label: conversationDetails.label,
+        conversationList: conversationDetails.conversationList,
+        isGroupChat: conversationDetails.isGroupChat,
+      };
+
       // participantId is the participants phone number
       for (const participantId of participants) {
-        if (participantId !== player.getPhoneNumber()) {
+        if (participantId !== authorPhoneNumber) {
           try {
+            const playerHasConversation = await this.messagesDB.doesConversationExistForPlayer(
+              messageData.conversationList,
+              participantId,
+            );
+
+            // We need to create a conversation for the participant before broadcasting
+            if (!playerHasConversation) {
+              const conversationId = await this.messagesDB.addParticipantToConversation(
+                conversationDetails.conversationList,
+                participantId,
+              );
+            }
+
             const participantIdentifier = await PlayerService.getIdentifierByPhoneNumber(
               participantId,
               true,
@@ -182,13 +208,24 @@ class _MessagesService {
             await this.messagesDB.setMessageUnread(messageData.conversationId, participantNumber);
 
             if (participantPlayer) {
+              if (!playerHasConversation) {
+                emitNetTyped<MessageConversation>(
+                  MessageEvents.CREATE_MESSAGE_CONVERSATION_SUCCESS,
+                  {
+                    ...conversationData,
+                    participant: authorPhoneNumber,
+                  },
+                  participantPlayer.source,
+                );
+              }
+
               emitNet(MessageEvents.SEND_MESSAGE_SUCCESS, participantPlayer.source, {
                 ...messageData,
                 conversation_id: messageData.conversationId,
                 author: authorPhoneNumber,
               });
               emitNet(MessageEvents.CREATE_MESSAGE_BROADCAST, participantPlayer.source, {
-                conversationName: player.getPhoneNumber(),
+                conversationName: authorPhoneNumber,
                 conversation_id: messageData.conversationId,
                 message: messageData.message,
                 is_embed: messageData.is_embed,
@@ -295,6 +332,19 @@ class _MessagesService {
     } catch (err) {
       console.log(`Failed to emit message. Error: ${err.message}`);
     }
+  }
+
+  async handleGetLocation(reqObj: PromiseRequest, resp: PromiseEventResp<Location>) {
+    const phoneNumber = PlayerService.getPlayer(reqObj.source).getPhoneNumber();
+    const playerPed = GetPlayerPed(reqObj.source.toString());
+
+    resp({
+      status: 'ok',
+      data: {
+        phoneNumber,
+        coords: GetEntityCoords(playerPed),
+      },
+    });
   }
 }
 
