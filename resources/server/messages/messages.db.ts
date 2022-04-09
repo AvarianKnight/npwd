@@ -32,16 +32,20 @@ export class _MessagesDB {
   async getMessages(dto: MessagesRequest): Promise<Message[]> {
     const offset = MESSAGES_PER_PAGE * dto.page;
 
-    const query = `SELECT npwd_messages.id,
-                          npwd_messages.conversation_id,
-                          npwd_messages.author,
-                          npwd_messages.message,
-                          npwd_messages.is_embed,
-                          npwd_messages.embed
-                   FROM npwd_messages
-                   WHERE conversation_id = ?
-                   ORDER BY id
-                   LIMIT ? OFFSET ?`;
+    const query = `SELECT * FROM (SELECT
+          id,
+          conversation_id,
+          author,
+          message,
+          is_embed,
+          embed
+        FROM npwd_messages
+        WHERE conversation_id = ?
+        ORDER BY id DESC
+        LIMIT ?
+        OFFSET ?
+      ) as nm
+    ORDER BY id`;
 
     const [results] = await DbInterface._rawExec(query, [
       dto.conversationId,

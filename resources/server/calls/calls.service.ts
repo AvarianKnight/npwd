@@ -161,6 +161,7 @@ class CallsService {
     emitNetTyped<ActiveCall>(
       CallEvents.WAS_ACCEPTED,
       {
+        ...targetCallItem,
         is_accepted: true,
         transmitter: transmitterNumber,
         receiver: targetCallItem.receiver,
@@ -176,6 +177,7 @@ class CallsService {
     emitNetTyped<ActiveCall>(
       CallEvents.WAS_ACCEPTED,
       {
+        ...targetCallItem,
         is_accepted: true,
         transmitter: transmitterNumber,
         receiver: targetCallItem.receiver,

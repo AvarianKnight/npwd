@@ -38856,21 +38856,21 @@ var init_calls_service = __esm({
           const channelId = targetCallItem.transmitterSource;
           yield this.callsDB.updateCall(targetCallItem, true, null);
           callLogger.debug(`Call with key ${transmitterNumber} was updated to be accepted`);
-          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, {
+          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, __spreadProps(__spreadValues({}, targetCallItem), {
             is_accepted: true,
             transmitter: transmitterNumber,
             receiver: targetCallItem.receiver,
             isTransmitter: false,
             channelId
-          }, targetCallItem.receiverSource);
+          }), targetCallItem.receiverSource);
           mainLogger.debug(targetCallItem);
-          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, {
+          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, __spreadProps(__spreadValues({}, targetCallItem), {
             is_accepted: true,
             transmitter: transmitterNumber,
             receiver: targetCallItem.receiver,
             isTransmitter: true,
             channelId
-          }, targetCallItem.transmitterSource);
+          }), targetCallItem.transmitterSource);
         });
       }
       handleFetchCalls(reqObj, resp) {
@@ -39539,16 +39539,20 @@ var init_messages_db = __esm({
       getMessages(dto) {
         return __async(this, null, function* () {
           const offset = MESSAGES_PER_PAGE * dto.page;
-          const query = `SELECT npwd_messages.id,
-                          npwd_messages.conversation_id,
-                          npwd_messages.author,
-                          npwd_messages.message,
-                          npwd_messages.is_embed,
-                          npwd_messages.embed
-                   FROM npwd_messages
-                   WHERE conversation_id = ?
-                   ORDER BY id
-                   LIMIT ? OFFSET ?`;
+          const query = `SELECT * FROM (SELECT
+          id,
+          conversation_id,
+          author,
+          message,
+          is_embed,
+          embed
+        FROM npwd_messages
+        WHERE conversation_id = ?
+        ORDER BY id DESC
+        LIMIT ?
+        OFFSET ?
+      ) as nm
+    ORDER BY id`;
           const [results] = yield db_wrapper_default._rawExec(query, [
             dto.conversationId,
             MESSAGES_PER_PAGE.toString(),
