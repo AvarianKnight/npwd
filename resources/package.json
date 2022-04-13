@@ -7,9 +7,9 @@
   "private": false,
   "repository": "https://github.com/project-error/new-phone-who-dis",
   "scripts": {
-    "build": "cd ../ && go run build.go",
+    "build": "node build.prod.js",
+    "watch": "node build.dev.js",
     "build:release": "cross-env IS_SENTRY=true webpack --mode production",
-    "watch": "cd ../ && go run watch.go",
     "test": "jest",
     "lint": "eslint . --ext .ts"
   },
@@ -18,6 +18,7 @@
     "@project-error/pe-utils": "^0.1.6",
     "axios": "^0.21.4",
     "dayjs": "^1.10.7",
+    "esbuild": "^0.14.34",
     "logform": "^2.3.2",
     "md5": "^2.3.0",
     "mysql2": "^2.3.3",

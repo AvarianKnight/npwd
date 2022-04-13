@@ -55,10 +55,10 @@
     });
   };
 
-  // resources/utils/fivem.ts
+  // utils/fivem.ts
   var Delay, uuidv4;
   var init_fivem = __esm({
-    "resources/utils/fivem.ts"() {
+    "utils/fivem.ts"() {
       Delay = (ms) => new Promise((res) => setTimeout(res, ms));
       uuidv4 = () => {
         let uuid = "";
@@ -86,10 +86,10 @@
     }
   });
 
-  // resources/client/cl_utils.ts
+  // client/cl_utils.ts
   var ClientUtils, RegisterNuiCB, playerLoaded, RegisterNuiProxy, verifyExportArgType;
   var init_cl_utils = __esm({
-    "resources/client/cl_utils.ts"() {
+    "client/cl_utils.ts"() {
       init_fivem();
       init_client();
       ClientUtils = class {
@@ -156,7 +156,7 @@
     }
   });
 
-  // shared/deepMergeObjects.ts
+  // ../shared/deepMergeObjects.ts
   function isObject(item) {
     return item && typeof item === "object" && !Array.isArray(item);
   }
@@ -178,14 +178,14 @@
     return deepMergeObjects(target, ...sources);
   }
   var init_deepMergeObjects = __esm({
-    "shared/deepMergeObjects.ts"() {
+    "../shared/deepMergeObjects.ts"() {
     }
   });
 
-  // config.default.json
+  // ../config.default.json
   var PhoneAsItem, general, database, images, imageSafety, profanityFilter, twitter, match, debug, config_default_default;
   var init_config_default = __esm({
-    "config.default.json"() {
+    "../config.default.json"() {
       PhoneAsItem = {
         enabled: false,
         exportResource: "my-core-resource",
@@ -270,10 +270,10 @@
     }
   });
 
-  // resources/client/cl_config.ts
+  // client/cl_config.ts
   var config;
   var init_cl_config = __esm({
-    "resources/client/cl_config.ts"() {
+    "client/cl_config.ts"() {
       init_deepMergeObjects();
       init_config_default();
       config = (() => {
@@ -293,10 +293,10 @@
     }
   });
 
-  // resources/utils/apps.ts
+  // utils/apps.ts
   var apps_default;
   var init_apps = __esm({
-    "resources/utils/apps.ts"() {
+    "utils/apps.ts"() {
       apps_default = {
         TWITTER: "TWITTER",
         MATCH: "MATCH",
@@ -310,7 +310,7 @@
     }
   });
 
-  // resources/utils/messages.ts
+  // utils/messages.ts
   function sendMessage(app, method, data) {
     return SendNUIMessage({
       app,
@@ -343,18 +343,18 @@
     return sendMessage(apps_default.PHONE, method, data);
   }
   var init_messages = __esm({
-    "resources/utils/messages.ts"() {
+    "utils/messages.ts"() {
       init_apps();
     }
   });
 
-  // typings/phone.ts
+  // ../typings/phone.ts
   var init_phone = __esm({
-    "typings/phone.ts"() {
+    "../typings/phone.ts"() {
     }
   });
 
-  // resources/client/functions.ts
+  // client/functions.ts
   function removePhoneProp() {
     if (prop != 0) {
       DeleteEntity(prop);
@@ -364,7 +364,7 @@
   }
   var prop, propCreated, phoneModel, newPhoneProp;
   var init_functions = __esm({
-    "resources/client/functions.ts"() {
+    "client/functions.ts"() {
       init_fivem();
       prop = 0;
       propCreated = false;
@@ -389,10 +389,10 @@
     }
   });
 
-  // resources/client/animations/animation.service.ts
+  // client/animations/animation.service.ts
   var AnimationService;
   var init_animation_service = __esm({
-    "resources/client/animations/animation.service.ts"() {
+    "client/animations/animation.service.ts"() {
       init_functions();
       init_fivem();
       AnimationService = class {
@@ -594,16 +594,16 @@
     }
   });
 
-  // resources/client/animations/animation.controller.ts
+  // client/animations/animation.controller.ts
   var animationService;
   var init_animation_controller = __esm({
-    "resources/client/animations/animation.controller.ts"() {
+    "client/animations/animation.controller.ts"() {
       init_animation_service();
       animationService = new AnimationService();
     }
   });
 
-  // resources/client/cl_main.ts
+  // client/cl_main.ts
   function togglePhone() {
     return __async(this, null, function* () {
       const canAccess = yield checkHasPhone();
@@ -616,7 +616,7 @@
   }
   var exps, getCurrentGameTime, showPhone, hidePhone, checkHasPhone;
   var init_cl_main = __esm({
-    "resources/client/cl_main.ts"() {
+    "client/cl_main.ts"() {
       init_messages();
       init_phone();
       init_cl_config();
@@ -718,15 +718,15 @@
     }
   });
 
-  // typings/twitter.ts
+  // ../typings/twitter.ts
   var init_twitter = __esm({
-    "typings/twitter.ts"() {
+    "../typings/twitter.ts"() {
     }
   });
 
-  // resources/client/cl_twitter.ts
+  // client/cl_twitter.ts
   var init_cl_twitter = __esm({
-    "resources/client/cl_twitter.ts"() {
+    "client/cl_twitter.ts"() {
       init_twitter();
       init_messages();
       init_cl_utils();
@@ -746,15 +746,15 @@
     }
   });
 
-  // typings/contact.ts
+  // ../typings/contact.ts
   var init_contact = __esm({
-    "typings/contact.ts"() {
+    "../typings/contact.ts"() {
     }
   });
 
-  // resources/client/cl_contacts.ts
+  // client/cl_contacts.ts
   var init_cl_contacts = __esm({
-    "resources/client/cl_contacts.ts"() {
+    "client/cl_contacts.ts"() {
       init_contact();
       init_cl_utils();
       RegisterNuiProxy("npwd:getContacts" /* GET_CONTACTS */);
@@ -764,15 +764,15 @@
     }
   });
 
-  // typings/marketplace.ts
+  // ../typings/marketplace.ts
   var init_marketplace = __esm({
-    "typings/marketplace.ts"() {
+    "../typings/marketplace.ts"() {
     }
   });
 
-  // resources/client/cl_marketplace.ts
+  // client/cl_marketplace.ts
   var init_cl_marketplace = __esm({
-    "resources/client/cl_marketplace.ts"() {
+    "client/cl_marketplace.ts"() {
       init_marketplace();
       init_cl_utils();
       init_messages();
@@ -789,15 +789,15 @@
     }
   });
 
-  // typings/notes.ts
+  // ../typings/notes.ts
   var init_notes = __esm({
-    "typings/notes.ts"() {
+    "../typings/notes.ts"() {
     }
   });
 
-  // resources/client/cl_notes.ts
+  // client/cl_notes.ts
   var init_cl_notes = __esm({
-    "resources/client/cl_notes.ts"() {
+    "client/cl_notes.ts"() {
       init_notes();
       init_cl_utils();
       RegisterNuiProxy("npwd:addNote" /* ADD_NOTE */);
@@ -807,15 +807,15 @@
     }
   });
 
-  // typings/photo.ts
+  // ../typings/photo.ts
   var init_photo = __esm({
-    "typings/photo.ts"() {
+    "../typings/photo.ts"() {
     }
   });
 
-  // resources/client/cl_photo.ts
+  // client/cl_photo.ts
   var require_cl_photo = __commonJS({
-    "resources/client/cl_photo.ts"(exports) {
+    "client/cl_photo.ts"(exports) {
       init_photo();
       init_fivem();
       init_messages();
@@ -926,15 +926,15 @@
     }
   });
 
-  // typings/messages.ts
+  // ../typings/messages.ts
   var init_messages2 = __esm({
-    "typings/messages.ts"() {
+    "../typings/messages.ts"() {
     }
   });
 
-  // resources/client/cl_messages.ts
+  // client/cl_messages.ts
   var init_cl_messages = __esm({
-    "resources/client/cl_messages.ts"() {
+    "client/cl_messages.ts"() {
       init_messages2();
       init_messages();
       init_cl_utils();
@@ -945,6 +945,10 @@
       RegisterNuiProxy("nwpd:deleteConversation" /* DELETE_CONVERSATION */);
       RegisterNuiProxy("npwd:sendMessage" /* SEND_MESSAGE */);
       RegisterNuiProxy("npwd:setReadMessages" /* SET_MESSAGE_READ */);
+      RegisterNuiProxy("npwd:getMessageLocation" /* GET_MESSAGE_LOCATION */);
+      RegisterNuiCB("npwd:setWaypoint" /* MESSAGES_SET_WAYPOINT */, ({ coords }) => {
+        SetNewWaypoint(coords[0], coords[1]);
+      });
       onNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, (messageDto) => {
         sendMessageEvent("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, messageDto);
       });
@@ -957,16 +961,16 @@
     }
   });
 
-  // typings/call.ts
+  // ../typings/call.ts
   var init_call = __esm({
-    "typings/call.ts"() {
+    "../typings/call.ts"() {
     }
   });
 
-  // resources/client/sounds/client-sound.class.ts
+  // client/sounds/client-sound.class.ts
   var Sound;
   var init_client_sound_class = __esm({
-    "resources/client/sounds/client-sound.class.ts"() {
+    "client/sounds/client-sound.class.ts"() {
       Sound = class {
         constructor(soundName, soundSetName) {
           this._soundName = soundName;
@@ -983,10 +987,10 @@
     }
   });
 
-  // resources/client/calls/cl_calls.service.ts
+  // client/calls/cl_calls.service.ts
   var exp, CallService;
   var init_cl_calls_service = __esm({
-    "resources/client/calls/cl_calls.service.ts"() {
+    "client/calls/cl_calls.service.ts"() {
       init_cl_main();
       init_call();
       init_client_sound_class();
@@ -1033,8 +1037,8 @@
             return;
           if (this.callSound)
             this.callSound.stop();
-          this.openCallModal(false);
           this.currentPendingCall = null;
+          this.openCallModal(false);
           CallService.sendCallAction("npwd:setCaller" /* SET_CALL_INFO */, null);
           const hangUpSound = new Sound(this.hangUpSoundName, this.hangUpSoundSet);
           hangUpSound.play();
@@ -1071,8 +1075,8 @@
             this.callSound.stop();
           this.currentCall = 0;
           exp["pma-voice"].setCallChannel(0);
-          this.openCallModal(false);
           this.currentPendingCall = null;
+          this.openCallModal(false);
           CallService.sendCallAction("npwd:setCaller" /* SET_CALL_INFO */, null);
           const hangUpSound = new Sound(this.hangUpSoundName, this.hangUpSoundSet);
           hangUpSound.play();
@@ -1088,10 +1092,10 @@
     }
   });
 
-  // resources/server/utils/miscUtils.ts
+  // server/utils/miscUtils.ts
   var onNetTyped, emitNetTyped;
   var init_miscUtils = __esm({
-    "resources/server/utils/miscUtils.ts"() {
+    "server/utils/miscUtils.ts"() {
       onNetTyped = (eventName, cb) => onNet(eventName, cb);
       emitNetTyped = (eventName, data, src) => {
         if (src) {
@@ -1102,10 +1106,10 @@
     }
   });
 
-  // resources/client/calls/cl_calls.controller.ts
+  // client/calls/cl_calls.controller.ts
   var callService, initializeCallHandler;
   var init_cl_calls_controller = __esm({
-    "resources/client/calls/cl_calls.controller.ts"() {
+    "client/calls/cl_calls.controller.ts"() {
       init_call();
       init_cl_calls_service();
       init_animation_controller();
@@ -1131,10 +1135,10 @@
         }
       });
       RegisterNuiCB("npwd:beginCall" /* INITIALIZE_CALL */, initializeCallHandler);
-      onNetTyped("npwd:startCall" /* START_CALL */, (data) => {
+      onNetTyped("npwd:startCall" /* START_CALL */, (data) => __async(void 0, null, function* () {
         const { transmitter, isTransmitter, receiver, isUnavailable } = data;
         callService.handleStartCall(transmitter, receiver, isTransmitter, isUnavailable);
-      });
+      }));
       RegisterNuiCB("npwd:acceptCall" /* ACCEPT_CALL */, (data, cb) => {
         animationService.startPhoneCall();
         emitNetTyped("npwd:acceptCall" /* ACCEPT_CALL */, data);
@@ -1142,7 +1146,6 @@
       });
       onNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, (callData) => {
         callService.handleCallAccepted(callData);
-        CallService.sendDialerAction("npwd:callAccepted" /* WAS_ACCEPTED */, callData);
       });
       RegisterNuiCB("npwd:rejectCall" /* REJECTED */, (data, cb) => {
         emitNetTyped("npwd:rejectCall" /* REJECTED */, data);
@@ -1158,7 +1161,6 @@
           const serverRes = yield ClUtils.emitNetPromise("npwd:endCall" /* END_CALL */, data);
           if (serverRes.status === "error")
             return console.error(serverRes.errorMsg);
-          callService.handleEndCall();
           cb({});
         } catch (e) {
           console.error(e);
@@ -1182,15 +1184,15 @@
     }
   });
 
-  // typings/match.ts
+  // ../typings/match.ts
   var init_match = __esm({
-    "typings/match.ts"() {
+    "../typings/match.ts"() {
     }
   });
 
-  // resources/client/cl_match.ts
+  // client/cl_match.ts
   var init_cl_match = __esm({
-    "resources/client/cl_match.ts"() {
+    "client/cl_match.ts"() {
       init_match();
       init_messages();
       init_cl_utils();
@@ -1209,9 +1211,9 @@
     }
   });
 
-  // resources/client/cl_exports.ts
+  // client/cl_exports.ts
   var require_cl_exports = __commonJS({
-    "resources/client/cl_exports.ts"(exports) {
+    "client/cl_exports.ts"(exports) {
       init_messages();
       init_phone();
       init_cl_utils();
@@ -1259,16 +1261,16 @@
     }
   });
 
-  // typings/settings.ts
+  // ../typings/settings.ts
   var init_settings = __esm({
-    "typings/settings.ts"() {
+    "../typings/settings.ts"() {
     }
   });
 
-  // resources/client/settings/client-kvp.service.ts
+  // client/settings/client-kvp.service.ts
   var _KvpService, KvpService, client_kvp_service_default;
   var init_client_kvp_service = __esm({
-    "resources/client/settings/client-kvp.service.ts"() {
+    "client/settings/client-kvp.service.ts"() {
       _KvpService = class {
         setKvp(key, value) {
           SetResourceKvp(key, value);
@@ -1294,9 +1296,9 @@
     }
   });
 
-  // resources/client/settings/client-settings.ts
+  // client/settings/client-settings.ts
   var init_client_settings = __esm({
-    "resources/client/settings/client-settings.ts"() {
+    "client/settings/client-settings.ts"() {
       init_cl_utils();
       init_settings();
       init_client_kvp_service();
@@ -1309,10 +1311,10 @@
     }
   });
 
-  // resources/client/client.ts
+  // client/client.ts
   var import_cl_photo, import_cl_exports, ClUtils;
   var init_client = __esm({
-    "resources/client/client.ts"() {
+    "client/client.ts"() {
       init_cl_utils();
       init_cl_config();
       init_cl_main();

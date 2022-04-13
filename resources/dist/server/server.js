@@ -62,10 +62,10 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// config.default.json
+// ../config.default.json
 var PhoneAsItem, general, database, images, imageSafety, profanityFilter, twitter, match, debug, config_default_default;
 var init_config_default = __esm({
-  "config.default.json"() {
+  "../config.default.json"() {
     PhoneAsItem = {
       enabled: false,
       exportResource: "my-core-resource",
@@ -150,36 +150,36 @@ var init_config_default = __esm({
   }
 });
 
-// shared/deepMergeObjects.ts
+// ../shared/deepMergeObjects.ts
 function isObject(item) {
   return item && typeof item === "object" && !Array.isArray(item);
 }
 function deepMergeObjects(target, ...sources) {
   if (!sources.length)
     return target;
-  const source = sources.shift();
-  if (isObject(target) && isObject(source)) {
-    for (const key in source) {
-      if (isObject(source[key])) {
+  const source2 = sources.shift();
+  if (isObject(target) && isObject(source2)) {
+    for (const key in source2) {
+      if (isObject(source2[key])) {
         if (!target[key])
           Object.assign(target, { [key]: {} });
-        deepMergeObjects(target[key], source[key]);
+        deepMergeObjects(target[key], source2[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        Object.assign(target, { [key]: source2[key] });
       }
     }
   }
   return deepMergeObjects(target, ...sources);
 }
 var init_deepMergeObjects = __esm({
-  "shared/deepMergeObjects.ts"() {
+  "../shared/deepMergeObjects.ts"() {
   }
 });
 
-// resources/server/utils/config.ts
+// server/utils/config.ts
 var getConfig;
 var init_config = __esm({
-  "resources/server/utils/config.ts"() {
+  "server/utils/config.ts"() {
     init_config_default();
     init_deepMergeObjects();
     getConfig = () => {
@@ -190,10 +190,10 @@ var init_config = __esm({
   }
 });
 
-// resources/server/config.ts
+// server/config.ts
 var config;
 var init_config2 = __esm({
-  "resources/server/config.ts"() {
+  "server/config.ts"() {
     init_config();
     config = (() => {
       const config3 = getConfig();
@@ -216,9 +216,9 @@ var init_config2 = __esm({
   }
 });
 
-// resources/node_modules/tslib/tslib.js
+// node_modules/tslib/tslib.js
 var require_tslib = __commonJS({
-  "resources/node_modules/tslib/tslib.js"(exports, module2) {
+  "node_modules/tslib/tslib.js"(exports, module2) {
     var __extends;
     var __assign;
     var __rest;
@@ -616,9 +616,9 @@ var require_tslib = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/async.js
+// node_modules/@sentry/utils/dist/async.js
 var require_async = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/async.js"(exports) {
+  "node_modules/@sentry/utils/dist/async.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function forget(promise) {
       void promise.then(null, function(e) {
@@ -629,9 +629,9 @@ var require_async = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/node.js
+// node_modules/@sentry/utils/dist/node.js
 var require_node = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/node.js"(exports, module2) {
+  "node_modules/@sentry/utils/dist/node.js"(exports, module2) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function isNodeEnv() {
       return Object.prototype.toString.call(typeof process !== "undefined" ? process : 0) === "[object process]";
@@ -658,9 +658,9 @@ var require_node = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/global.js
+// node_modules/@sentry/utils/dist/global.js
 var require_global = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/global.js"(exports) {
+  "node_modules/@sentry/utils/dist/global.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var node_1 = require_node();
     var fallbackGlobalObject = {};
@@ -671,9 +671,9 @@ var require_global = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/is.js
+// node_modules/@sentry/utils/dist/is.js
 var require_is = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/is.js"(exports) {
+  "node_modules/@sentry/utils/dist/is.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function isError(wat) {
       switch (Object.prototype.toString.call(wat)) {
@@ -743,9 +743,9 @@ var require_is = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/browser.js
+// node_modules/@sentry/utils/dist/browser.js
 var require_browser = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/browser.js"(exports) {
+  "node_modules/@sentry/utils/dist/browser.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var global_1 = require_global();
     var is_1 = require_is();
@@ -831,9 +831,9 @@ var require_browser = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/polyfill.js
+// node_modules/@sentry/utils/dist/polyfill.js
 var require_polyfill = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/polyfill.js"(exports) {
+  "node_modules/@sentry/utils/dist/polyfill.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setPrototypeOf = Object.setPrototypeOf || ({ __proto__: [] } instanceof Array ? setProtoOf : mixinProperties);
     function setProtoOf(obj, proto) {
@@ -851,9 +851,9 @@ var require_polyfill = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/error.js
+// node_modules/@sentry/utils/dist/error.js
 var require_error = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/error.js"(exports) {
+  "node_modules/@sentry/utils/dist/error.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var polyfill_1 = require_polyfill();
@@ -873,9 +873,9 @@ var require_error = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/dsn.js
+// node_modules/@sentry/utils/dist/dsn.js
 var require_dsn = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/dsn.js"(exports) {
+  "node_modules/@sentry/utils/dist/dsn.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var error_1 = require_error();
@@ -954,9 +954,9 @@ var require_dsn = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/logger.js
+// node_modules/@sentry/utils/dist/logger.js
 var require_logger = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/logger.js"(exports) {
+  "node_modules/@sentry/utils/dist/logger.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var global_1 = require_global();
     var global2 = global_1.getGlobalObject();
@@ -1036,9 +1036,9 @@ var require_logger = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/memo.js
+// node_modules/@sentry/utils/dist/memo.js
 var require_memo = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/memo.js"(exports) {
+  "node_modules/@sentry/utils/dist/memo.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var Memo = function() {
       function Memo2() {
@@ -1080,9 +1080,9 @@ var require_memo = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/stacktrace.js
+// node_modules/@sentry/utils/dist/stacktrace.js
 var require_stacktrace = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/stacktrace.js"(exports) {
+  "node_modules/@sentry/utils/dist/stacktrace.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var defaultFunctionName = "<anonymous>";
     function getFunctionName(fn) {
@@ -1099,9 +1099,9 @@ var require_stacktrace = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/string.js
+// node_modules/@sentry/utils/dist/string.js
 var require_string = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/string.js"(exports) {
+  "node_modules/@sentry/utils/dist/string.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var is_1 = require_is();
     function truncate(str, max) {
@@ -1180,9 +1180,9 @@ var require_string = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/object.js
+// node_modules/@sentry/utils/dist/object.js
 var require_object = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/object.js"(exports) {
+  "node_modules/@sentry/utils/dist/object.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var browser_1 = require_browser();
@@ -1190,11 +1190,11 @@ var require_object = __commonJS({
     var memo_1 = require_memo();
     var stacktrace_1 = require_stacktrace();
     var string_1 = require_string();
-    function fill(source, name, replacementFactory) {
-      if (!(name in source)) {
+    function fill(source2, name, replacementFactory) {
+      if (!(name in source2)) {
         return;
       }
-      var original = source[name];
+      var original = source2[name];
       var wrapped = replacementFactory(original);
       if (typeof wrapped === "function") {
         try {
@@ -1208,7 +1208,7 @@ var require_object = __commonJS({
         } catch (_Oo) {
         }
       }
-      source[name] = wrapped;
+      source2[name] = wrapped;
     }
     exports.fill = fill;
     function urlEncode(object) {
@@ -1234,27 +1234,27 @@ var require_object = __commonJS({
       }
       if (is_1.isEvent(value)) {
         var event_1 = value;
-        var source = {};
-        source.type = event_1.type;
+        var source2 = {};
+        source2.type = event_1.type;
         try {
-          source.target = is_1.isElement(event_1.target) ? browser_1.htmlTreeAsString(event_1.target) : Object.prototype.toString.call(event_1.target);
+          source2.target = is_1.isElement(event_1.target) ? browser_1.htmlTreeAsString(event_1.target) : Object.prototype.toString.call(event_1.target);
         } catch (_oO) {
-          source.target = "<unknown>";
+          source2.target = "<unknown>";
         }
         try {
-          source.currentTarget = is_1.isElement(event_1.currentTarget) ? browser_1.htmlTreeAsString(event_1.currentTarget) : Object.prototype.toString.call(event_1.currentTarget);
+          source2.currentTarget = is_1.isElement(event_1.currentTarget) ? browser_1.htmlTreeAsString(event_1.currentTarget) : Object.prototype.toString.call(event_1.currentTarget);
         } catch (_oO) {
-          source.currentTarget = "<unknown>";
+          source2.currentTarget = "<unknown>";
         }
         if (typeof CustomEvent !== "undefined" && is_1.isInstanceOf(value, CustomEvent)) {
-          source.detail = event_1.detail;
+          source2.detail = event_1.detail;
         }
         for (var attr in event_1) {
           if (Object.prototype.hasOwnProperty.call(event_1, attr)) {
-            source[attr] = event_1[attr];
+            source2[attr] = event_1[attr];
           }
         }
-        return source;
+        return source2;
       }
       return value;
     }
@@ -1345,16 +1345,16 @@ var require_object = __commonJS({
       if (is_1.isPrimitive(normalized)) {
         return normalized;
       }
-      var source = getWalkSource(value);
+      var source2 = getWalkSource(value);
       var acc = Array.isArray(value) ? [] : {};
       if (memo.memoize(value)) {
         return "[Circular ~]";
       }
-      for (var innerKey in source) {
-        if (!Object.prototype.hasOwnProperty.call(source, innerKey)) {
+      for (var innerKey in source2) {
+        if (!Object.prototype.hasOwnProperty.call(source2, innerKey)) {
           continue;
         }
-        acc[innerKey] = walk(innerKey, source[innerKey], depth - 1, memo);
+        acc[innerKey] = walk(innerKey, source2[innerKey], depth - 1, memo);
       }
       memo.unmemoize(value);
       return acc;
@@ -1448,9 +1448,9 @@ var require_object = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/supports.js
+// node_modules/@sentry/utils/dist/supports.js
 var require_supports = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/supports.js"(exports) {
+  "node_modules/@sentry/utils/dist/supports.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var global_1 = require_global();
     var logger_1 = require_logger();
@@ -1554,9 +1554,9 @@ var require_supports = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/instrument.js
+// node_modules/@sentry/utils/dist/instrument.js
 var require_instrument = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/instrument.js"(exports) {
+  "node_modules/@sentry/utils/dist/instrument.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var global_1 = require_global();
@@ -1995,9 +1995,9 @@ var require_instrument = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/misc.js
+// node_modules/@sentry/utils/dist/misc.js
 var require_misc = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/misc.js"(exports) {
+  "node_modules/@sentry/utils/dist/misc.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var global_1 = require_global();
@@ -2149,9 +2149,9 @@ var require_misc = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/path.js
+// node_modules/@sentry/utils/dist/path.js
 var require_path = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/path.js"(exports) {
+  "node_modules/@sentry/utils/dist/path.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function normalizeArray(parts, allowAboveRoot) {
       var up = 0;
@@ -2290,9 +2290,9 @@ var require_path = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/syncpromise.js
+// node_modules/@sentry/utils/dist/syncpromise.js
 var require_syncpromise = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/syncpromise.js"(exports) {
+  "node_modules/@sentry/utils/dist/syncpromise.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var is_1 = require_is();
     var States;
@@ -2465,9 +2465,9 @@ var require_syncpromise = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/promisebuffer.js
+// node_modules/@sentry/utils/dist/promisebuffer.js
 var require_promisebuffer = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/promisebuffer.js"(exports) {
+  "node_modules/@sentry/utils/dist/promisebuffer.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var error_1 = require_error();
     var syncpromise_1 = require_syncpromise();
@@ -2525,9 +2525,9 @@ var require_promisebuffer = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/time.js
+// node_modules/@sentry/utils/dist/time.js
 var require_time = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/time.js"(exports, module2) {
+  "node_modules/@sentry/utils/dist/time.js"(exports, module2) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var global_1 = require_global();
     var node_1 = require_node();
@@ -2597,9 +2597,9 @@ var require_time = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/utils/dist/index.js
+// node_modules/@sentry/utils/dist/index.js
 var require_dist = __commonJS({
-  "resources/node_modules/@sentry/utils/dist/index.js"(exports) {
+  "node_modules/@sentry/utils/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     tslib_1.__exportStar(require_async(), exports);
@@ -2624,9 +2624,9 @@ var require_dist = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/angular.js
+// node_modules/@sentry/integrations/dist/angular.js
 var require_angular = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/angular.js"(exports) {
+  "node_modules/@sentry/integrations/dist/angular.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -2694,9 +2694,9 @@ var require_angular = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/loglevel.js
+// node_modules/@sentry/types/dist/loglevel.js
 var require_loglevel = __commonJS({
-  "resources/node_modules/@sentry/types/dist/loglevel.js"(exports) {
+  "node_modules/@sentry/types/dist/loglevel.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var LogLevel;
     (function(LogLevel2) {
@@ -2708,9 +2708,9 @@ var require_loglevel = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/session.js
+// node_modules/@sentry/types/dist/session.js
 var require_session = __commonJS({
-  "resources/node_modules/@sentry/types/dist/session.js"(exports) {
+  "node_modules/@sentry/types/dist/session.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var SessionStatus;
     (function(SessionStatus2) {
@@ -2728,9 +2728,9 @@ var require_session = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/severity.js
+// node_modules/@sentry/types/dist/severity.js
 var require_severity = __commonJS({
-  "resources/node_modules/@sentry/types/dist/severity.js"(exports) {
+  "node_modules/@sentry/types/dist/severity.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var Severity;
     (function(Severity2) {
@@ -2768,9 +2768,9 @@ var require_severity = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/status.js
+// node_modules/@sentry/types/dist/status.js
 var require_status = __commonJS({
-  "resources/node_modules/@sentry/types/dist/status.js"(exports) {
+  "node_modules/@sentry/types/dist/status.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var Status;
     (function(Status2) {
@@ -2802,9 +2802,9 @@ var require_status = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/transaction.js
+// node_modules/@sentry/types/dist/transaction.js
 var require_transaction = __commonJS({
-  "resources/node_modules/@sentry/types/dist/transaction.js"(exports) {
+  "node_modules/@sentry/types/dist/transaction.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var TransactionSamplingMethod;
     (function(TransactionSamplingMethod2) {
@@ -2816,9 +2816,9 @@ var require_transaction = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/transport.js
+// node_modules/@sentry/types/dist/transport.js
 var require_transport = __commonJS({
-  "resources/node_modules/@sentry/types/dist/transport.js"(exports) {
+  "node_modules/@sentry/types/dist/transport.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var Outcome;
     (function(Outcome2) {
@@ -2832,9 +2832,9 @@ var require_transport = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/types/dist/index.js
+// node_modules/@sentry/types/dist/index.js
 var require_dist2 = __commonJS({
-  "resources/node_modules/@sentry/types/dist/index.js"(exports) {
+  "node_modules/@sentry/types/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var loglevel_1 = require_loglevel();
     exports.LogLevel = loglevel_1.LogLevel;
@@ -2852,9 +2852,9 @@ var require_dist2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/captureconsole.js
+// node_modules/@sentry/integrations/dist/captureconsole.js
 var require_captureconsole = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/captureconsole.js"(exports) {
+  "node_modules/@sentry/integrations/dist/captureconsole.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var types_1 = require_dist2();
     var utils_1 = require_dist();
@@ -2921,9 +2921,9 @@ var require_captureconsole = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/debug.js
+// node_modules/@sentry/integrations/dist/debug.js
 var require_debug = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/debug.js"(exports) {
+  "node_modules/@sentry/integrations/dist/debug.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -2963,9 +2963,9 @@ var require_debug = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/dedupe.js
+// node_modules/@sentry/integrations/dist/dedupe.js
 var require_dedupe = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/dedupe.js"(exports) {
+  "node_modules/@sentry/integrations/dist/dedupe.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var Dedupe = function() {
@@ -3101,9 +3101,9 @@ var require_dedupe = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/ember.js
+// node_modules/@sentry/integrations/dist/ember.js
 var require_ember = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/ember.js"(exports) {
+  "node_modules/@sentry/integrations/dist/ember.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var Ember = function() {
@@ -3152,9 +3152,9 @@ var require_ember = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/extraerrordata.js
+// node_modules/@sentry/integrations/dist/extraerrordata.js
 var require_extraerrordata = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/extraerrordata.js"(exports) {
+  "node_modules/@sentry/integrations/dist/extraerrordata.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -3260,9 +3260,9 @@ var require_extraerrordata = __commonJS({
   }
 });
 
-// resources/node_modules/localforage/dist/localforage.js
+// node_modules/localforage/dist/localforage.js
 var require_localforage = __commonJS({
-  "resources/node_modules/localforage/dist/localforage.js"(exports, module2) {
+  "node_modules/localforage/dist/localforage.js"(exports, module2) {
     (function(f2) {
       if (typeof exports === "object" && typeof module2 !== "undefined") {
         module2.exports = f2();
@@ -5390,9 +5390,9 @@ var require_localforage = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/offline.js
+// node_modules/@sentry/integrations/dist/offline.js
 var require_offline = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/offline.js"(exports) {
+  "node_modules/@sentry/integrations/dist/offline.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -5506,9 +5506,9 @@ var require_offline = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/reportingobserver.js
+// node_modules/@sentry/integrations/dist/reportingobserver.js
 var require_reportingobserver = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/reportingobserver.js"(exports) {
+  "node_modules/@sentry/integrations/dist/reportingobserver.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -5591,9 +5591,9 @@ var require_reportingobserver = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/rewriteframes.js
+// node_modules/@sentry/integrations/dist/rewriteframes.js
 var require_rewriteframes = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/rewriteframes.js"(exports) {
+  "node_modules/@sentry/integrations/dist/rewriteframes.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -5679,9 +5679,9 @@ var require_rewriteframes = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/sessiontiming.js
+// node_modules/@sentry/integrations/dist/sessiontiming.js
 var require_sessiontiming = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/sessiontiming.js"(exports) {
+  "node_modules/@sentry/integrations/dist/sessiontiming.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var SessionTiming = function() {
@@ -5710,9 +5710,9 @@ var require_sessiontiming = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/transaction.js
+// node_modules/@sentry/integrations/dist/transaction.js
 var require_transaction2 = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/transaction.js"(exports) {
+  "node_modules/@sentry/integrations/dist/transaction.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var Transaction = function() {
       function Transaction2() {
@@ -5752,9 +5752,9 @@ var require_transaction2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/vue.js
+// node_modules/@sentry/integrations/dist/vue.js
 var require_vue = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/vue.js"(exports) {
+  "node_modules/@sentry/integrations/dist/vue.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -5981,9 +5981,9 @@ var require_vue = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/integrations/dist/index.js
+// node_modules/@sentry/integrations/dist/index.js
 var require_dist3 = __commonJS({
-  "resources/node_modules/@sentry/integrations/dist/index.js"(exports) {
+  "node_modules/@sentry/integrations/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var angular_1 = require_angular();
     exports.Angular = angular_1.Angular;
@@ -6012,9 +6012,9 @@ var require_dist3 = __commonJS({
   }
 });
 
-// resources/node_modules/logform/format.js
+// node_modules/logform/format.js
 var require_format = __commonJS({
-  "resources/node_modules/logform/format.js"(exports, module2) {
+  "node_modules/logform/format.js"(exports, module2) {
     "use strict";
     var InvalidFormatError = class extends Error {
       constructor(formatFn) {
@@ -6041,9 +6041,9 @@ Found: ${formatFn.toString().split("\n")[0]}
   }
 });
 
-// resources/node_modules/colors/lib/styles.js
+// node_modules/colors/lib/styles.js
 var require_styles = __commonJS({
-  "resources/node_modules/colors/lib/styles.js"(exports, module2) {
+  "node_modules/colors/lib/styles.js"(exports, module2) {
     var styles = {};
     module2["exports"] = styles;
     var codes = {
@@ -6107,9 +6107,9 @@ var require_styles = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/system/has-flag.js
+// node_modules/colors/lib/system/has-flag.js
 var require_has_flag = __commonJS({
-  "resources/node_modules/colors/lib/system/has-flag.js"(exports, module2) {
+  "node_modules/colors/lib/system/has-flag.js"(exports, module2) {
     "use strict";
     module2.exports = function(flag, argv) {
       argv = argv || process.argv;
@@ -6121,9 +6121,9 @@ var require_has_flag = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/system/supports-colors.js
+// node_modules/colors/lib/system/supports-colors.js
 var require_supports_colors = __commonJS({
-  "resources/node_modules/colors/lib/system/supports-colors.js"(exports, module2) {
+  "node_modules/colors/lib/system/supports-colors.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var hasFlag = require_has_flag();
@@ -6217,9 +6217,9 @@ var require_supports_colors = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/custom/trap.js
+// node_modules/colors/lib/custom/trap.js
 var require_trap = __commonJS({
-  "resources/node_modules/colors/lib/custom/trap.js"(exports, module2) {
+  "node_modules/colors/lib/custom/trap.js"(exports, module2) {
     module2["exports"] = function runTheTrap(text, options) {
       var result = "";
       text = text || "Run the trap, drop the bass";
@@ -6286,9 +6286,9 @@ var require_trap = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/custom/zalgo.js
+// node_modules/colors/lib/custom/zalgo.js
 var require_zalgo = __commonJS({
-  "resources/node_modules/colors/lib/custom/zalgo.js"(exports, module2) {
+  "node_modules/colors/lib/custom/zalgo.js"(exports, module2) {
     module2["exports"] = function zalgo(text, options) {
       text = text || "   he is here   ";
       var soul = {
@@ -6473,9 +6473,9 @@ var require_zalgo = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/maps/america.js
+// node_modules/colors/lib/maps/america.js
 var require_america = __commonJS({
-  "resources/node_modules/colors/lib/maps/america.js"(exports, module2) {
+  "node_modules/colors/lib/maps/america.js"(exports, module2) {
     module2["exports"] = function(colors) {
       return function(letter, i, exploded) {
         if (letter === " ")
@@ -6493,9 +6493,9 @@ var require_america = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/maps/zebra.js
+// node_modules/colors/lib/maps/zebra.js
 var require_zebra = __commonJS({
-  "resources/node_modules/colors/lib/maps/zebra.js"(exports, module2) {
+  "node_modules/colors/lib/maps/zebra.js"(exports, module2) {
     module2["exports"] = function(colors) {
       return function(letter, i, exploded) {
         return i % 2 === 0 ? letter : colors.inverse(letter);
@@ -6504,9 +6504,9 @@ var require_zebra = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/maps/rainbow.js
+// node_modules/colors/lib/maps/rainbow.js
 var require_rainbow = __commonJS({
-  "resources/node_modules/colors/lib/maps/rainbow.js"(exports, module2) {
+  "node_modules/colors/lib/maps/rainbow.js"(exports, module2) {
     module2["exports"] = function(colors) {
       var rainbowColors = ["red", "yellow", "green", "blue", "magenta"];
       return function(letter, i, exploded) {
@@ -6520,9 +6520,9 @@ var require_rainbow = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/maps/random.js
+// node_modules/colors/lib/maps/random.js
 var require_random = __commonJS({
-  "resources/node_modules/colors/lib/maps/random.js"(exports, module2) {
+  "node_modules/colors/lib/maps/random.js"(exports, module2) {
     module2["exports"] = function(colors) {
       var available = [
         "underline",
@@ -6550,9 +6550,9 @@ var require_random = __commonJS({
   }
 });
 
-// resources/node_modules/colors/lib/colors.js
+// node_modules/colors/lib/colors.js
 var require_colors = __commonJS({
-  "resources/node_modules/colors/lib/colors.js"(exports, module2) {
+  "node_modules/colors/lib/colors.js"(exports, module2) {
     var colors = {};
     module2["exports"] = colors;
     colors.themes = {};
@@ -6694,17 +6694,17 @@ var require_colors = __commonJS({
   }
 });
 
-// resources/node_modules/colors/safe.js
+// node_modules/colors/safe.js
 var require_safe = __commonJS({
-  "resources/node_modules/colors/safe.js"(exports, module2) {
+  "node_modules/colors/safe.js"(exports, module2) {
     var colors = require_colors();
     module2["exports"] = colors;
   }
 });
 
-// resources/node_modules/triple-beam/config/cli.js
+// node_modules/triple-beam/config/cli.js
 var require_cli = __commonJS({
-  "resources/node_modules/triple-beam/config/cli.js"(exports) {
+  "node_modules/triple-beam/config/cli.js"(exports) {
     "use strict";
     exports.levels = {
       error: 0,
@@ -6733,9 +6733,9 @@ var require_cli = __commonJS({
   }
 });
 
-// resources/node_modules/triple-beam/config/npm.js
+// node_modules/triple-beam/config/npm.js
 var require_npm = __commonJS({
-  "resources/node_modules/triple-beam/config/npm.js"(exports) {
+  "node_modules/triple-beam/config/npm.js"(exports) {
     "use strict";
     exports.levels = {
       error: 0,
@@ -6758,9 +6758,9 @@ var require_npm = __commonJS({
   }
 });
 
-// resources/node_modules/triple-beam/config/syslog.js
+// node_modules/triple-beam/config/syslog.js
 var require_syslog = __commonJS({
-  "resources/node_modules/triple-beam/config/syslog.js"(exports) {
+  "node_modules/triple-beam/config/syslog.js"(exports) {
     "use strict";
     exports.levels = {
       emerg: 0,
@@ -6785,9 +6785,9 @@ var require_syslog = __commonJS({
   }
 });
 
-// resources/node_modules/triple-beam/config/index.js
+// node_modules/triple-beam/config/index.js
 var require_config = __commonJS({
-  "resources/node_modules/triple-beam/config/index.js"(exports) {
+  "node_modules/triple-beam/config/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "cli", {
       value: require_cli()
@@ -6801,9 +6801,9 @@ var require_config = __commonJS({
   }
 });
 
-// resources/node_modules/triple-beam/index.js
+// node_modules/triple-beam/index.js
 var require_triple_beam = __commonJS({
-  "resources/node_modules/triple-beam/index.js"(exports) {
+  "node_modules/triple-beam/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "LEVEL", {
       value: Symbol.for("level")
@@ -6820,9 +6820,9 @@ var require_triple_beam = __commonJS({
   }
 });
 
-// resources/node_modules/logform/colorize.js
+// node_modules/logform/colorize.js
 var require_colorize = __commonJS({
-  "resources/node_modules/logform/colorize.js"(exports, module2) {
+  "node_modules/logform/colorize.js"(exports, module2) {
     "use strict";
     var colors = require_safe();
     var { LEVEL, MESSAGE } = require_triple_beam();
@@ -6876,9 +6876,9 @@ var require_colorize = __commonJS({
   }
 });
 
-// resources/node_modules/logform/levels.js
+// node_modules/logform/levels.js
 var require_levels = __commonJS({
-  "resources/node_modules/logform/levels.js"(exports, module2) {
+  "node_modules/logform/levels.js"(exports, module2) {
     "use strict";
     var { Colorizer } = require_colorize();
     module2.exports = (config3) => {
@@ -6888,9 +6888,9 @@ var require_levels = __commonJS({
   }
 });
 
-// resources/node_modules/logform/align.js
+// node_modules/logform/align.js
 var require_align = __commonJS({
-  "resources/node_modules/logform/align.js"(exports, module2) {
+  "node_modules/logform/align.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     module2.exports = format2((info) => {
@@ -6900,9 +6900,9 @@ var require_align = __commonJS({
   }
 });
 
-// resources/node_modules/logform/errors.js
+// node_modules/logform/errors.js
 var require_errors = __commonJS({
-  "resources/node_modules/logform/errors.js"(exports, module2) {
+  "node_modules/logform/errors.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     var { LEVEL, MESSAGE } = require_triple_beam();
@@ -6931,9 +6931,9 @@ var require_errors = __commonJS({
   }
 });
 
-// resources/node_modules/logform/pad-levels.js
+// node_modules/logform/pad-levels.js
 var require_pad_levels = __commonJS({
-  "resources/node_modules/logform/pad-levels.js"(exports, module2) {
+  "node_modules/logform/pad-levels.js"(exports, module2) {
     "use strict";
     var { configs, LEVEL, MESSAGE } = require_triple_beam();
     var Padder = class {
@@ -6971,9 +6971,9 @@ var require_pad_levels = __commonJS({
   }
 });
 
-// resources/node_modules/logform/cli.js
+// node_modules/logform/cli.js
 var require_cli2 = __commonJS({
-  "resources/node_modules/logform/cli.js"(exports, module2) {
+  "node_modules/logform/cli.js"(exports, module2) {
     "use strict";
     var { Colorizer } = require_colorize();
     var { Padder } = require_pad_levels();
@@ -6998,9 +6998,9 @@ var require_cli2 = __commonJS({
   }
 });
 
-// resources/node_modules/logform/combine.js
+// node_modules/logform/combine.js
 var require_combine = __commonJS({
-  "resources/node_modules/logform/combine.js"(exports, module2) {
+  "node_modules/logform/combine.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     function cascade(formats) {
@@ -7038,9 +7038,9 @@ var require_combine = __commonJS({
   }
 });
 
-// resources/node_modules/safe-stable-stringify/stable.js
+// node_modules/safe-stable-stringify/stable.js
 var require_stable = __commonJS({
-  "resources/node_modules/safe-stable-stringify/stable.js"(exports, module2) {
+  "node_modules/safe-stable-stringify/stable.js"(exports, module2) {
     "use strict";
     module2.exports = stringify2;
     var indentation = "";
@@ -7653,9 +7653,9 @@ ${originalIndentation}`;
   }
 });
 
-// resources/node_modules/safe-stable-stringify/index.js
+// node_modules/safe-stable-stringify/index.js
 var require_safe_stable_stringify = __commonJS({
-  "resources/node_modules/safe-stable-stringify/index.js"(exports, module2) {
+  "node_modules/safe-stable-stringify/index.js"(exports, module2) {
     "use strict";
     var stringify2 = require_stable();
     module2.exports = stringify2;
@@ -7663,9 +7663,9 @@ var require_safe_stable_stringify = __commonJS({
   }
 });
 
-// resources/node_modules/logform/json.js
+// node_modules/logform/json.js
 var require_json = __commonJS({
-  "resources/node_modules/logform/json.js"(exports, module2) {
+  "node_modules/logform/json.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     var { MESSAGE } = require_triple_beam();
@@ -7684,9 +7684,9 @@ var require_json = __commonJS({
   }
 });
 
-// resources/node_modules/logform/label.js
+// node_modules/logform/label.js
 var require_label = __commonJS({
-  "resources/node_modules/logform/label.js"(exports, module2) {
+  "node_modules/logform/label.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     module2.exports = format2((info, opts) => {
@@ -7700,9 +7700,9 @@ var require_label = __commonJS({
   }
 });
 
-// resources/node_modules/logform/logstash.js
+// node_modules/logform/logstash.js
 var require_logstash = __commonJS({
-  "resources/node_modules/logform/logstash.js"(exports, module2) {
+  "node_modules/logform/logstash.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     var { MESSAGE } = require_triple_beam();
@@ -7724,9 +7724,9 @@ var require_logstash = __commonJS({
   }
 });
 
-// resources/node_modules/logform/metadata.js
+// node_modules/logform/metadata.js
 var require_metadata = __commonJS({
-  "resources/node_modules/logform/metadata.js"(exports, module2) {
+  "node_modules/logform/metadata.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     function fillExcept(info, fillExceptKeys, metadataKey) {
@@ -7777,9 +7777,9 @@ var require_metadata = __commonJS({
   }
 });
 
-// resources/node_modules/ms/index.js
+// node_modules/ms/index.js
 var require_ms = __commonJS({
-  "resources/node_modules/ms/index.js"(exports, module2) {
+  "node_modules/ms/index.js"(exports, module2) {
     var s = 1e3;
     var m = s * 60;
     var h2 = m * 60;
@@ -7889,9 +7889,9 @@ var require_ms = __commonJS({
   }
 });
 
-// resources/node_modules/logform/ms.js
+// node_modules/logform/ms.js
 var require_ms2 = __commonJS({
-  "resources/node_modules/logform/ms.js"(exports, module2) {
+  "node_modules/logform/ms.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     var ms = require_ms();
@@ -7905,9 +7905,9 @@ var require_ms2 = __commonJS({
   }
 });
 
-// resources/node_modules/logform/pretty-print.js
+// node_modules/logform/pretty-print.js
 var require_pretty_print = __commonJS({
-  "resources/node_modules/logform/pretty-print.js"(exports, module2) {
+  "node_modules/logform/pretty-print.js"(exports, module2) {
     "use strict";
     var inspect = require("util").inspect;
     var format2 = require_format();
@@ -7923,9 +7923,9 @@ var require_pretty_print = __commonJS({
   }
 });
 
-// resources/node_modules/logform/printf.js
+// node_modules/logform/printf.js
 var require_printf = __commonJS({
-  "resources/node_modules/logform/printf.js"(exports, module2) {
+  "node_modules/logform/printf.js"(exports, module2) {
     "use strict";
     var { MESSAGE } = require_triple_beam();
     var Printf = class {
@@ -7942,9 +7942,9 @@ var require_printf = __commonJS({
   }
 });
 
-// resources/node_modules/logform/simple.js
+// node_modules/logform/simple.js
 var require_simple = __commonJS({
-  "resources/node_modules/logform/simple.js"(exports, module2) {
+  "node_modules/logform/simple.js"(exports, module2) {
     "use strict";
     var format2 = require_format();
     var { MESSAGE } = require_triple_beam();
@@ -7966,9 +7966,9 @@ var require_simple = __commonJS({
   }
 });
 
-// resources/node_modules/logform/splat.js
+// node_modules/logform/splat.js
 var require_splat = __commonJS({
-  "resources/node_modules/logform/splat.js"(exports, module2) {
+  "node_modules/logform/splat.js"(exports, module2) {
     "use strict";
     var util = require("util");
     var { SPLAT } = require_triple_beam();
@@ -8022,9 +8022,9 @@ var require_splat = __commonJS({
   }
 });
 
-// resources/node_modules/fecha/lib/fecha.umd.js
+// node_modules/fecha/lib/fecha.umd.js
 var require_fecha_umd = __commonJS({
-  "resources/node_modules/fecha/lib/fecha.umd.js"(exports, module2) {
+  "node_modules/fecha/lib/fecha.umd.js"(exports, module2) {
     (function(global2, factory) {
       typeof exports === "object" && typeof module2 !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : factory(global2.fecha = {});
     })(exports, function(exports2) {
@@ -8431,9 +8431,9 @@ var require_fecha_umd = __commonJS({
   }
 });
 
-// resources/node_modules/logform/timestamp.js
+// node_modules/logform/timestamp.js
 var require_timestamp = __commonJS({
-  "resources/node_modules/logform/timestamp.js"(exports, module2) {
+  "node_modules/logform/timestamp.js"(exports, module2) {
     "use strict";
     var fecha = require_fecha_umd();
     var format2 = require_format();
@@ -8452,9 +8452,9 @@ var require_timestamp = __commonJS({
   }
 });
 
-// resources/node_modules/logform/uncolorize.js
+// node_modules/logform/uncolorize.js
 var require_uncolorize = __commonJS({
-  "resources/node_modules/logform/uncolorize.js"(exports, module2) {
+  "node_modules/logform/uncolorize.js"(exports, module2) {
     "use strict";
     var colors = require_safe();
     var format2 = require_format();
@@ -8474,9 +8474,9 @@ var require_uncolorize = __commonJS({
   }
 });
 
-// resources/node_modules/logform/index.js
+// node_modules/logform/index.js
 var require_logform = __commonJS({
-  "resources/node_modules/logform/index.js"(exports) {
+  "node_modules/logform/index.js"(exports) {
     "use strict";
     var format2 = exports.format = require_format();
     exports.levels = require_levels();
@@ -8542,9 +8542,9 @@ var require_logform = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/common.js
+// node_modules/winston/lib/winston/common.js
 var require_common = __commonJS({
-  "resources/node_modules/winston/lib/winston/common.js"(exports) {
+  "node_modules/winston/lib/winston/common.js"(exports) {
     "use strict";
     var { format: format2 } = require("util");
     exports.warn = {
@@ -8593,9 +8593,9 @@ var require_common = __commonJS({
   }
 });
 
-// resources/node_modules/winston/package.json
+// node_modules/winston/package.json
 var require_package = __commonJS({
-  "resources/node_modules/winston/package.json"(exports, module2) {
+  "node_modules/winston/package.json"(exports, module2) {
     module2.exports = {
       name: "winston",
       description: "A logger for just about everything.",
@@ -8670,23 +8670,23 @@ var require_package = __commonJS({
   }
 });
 
-// resources/node_modules/util-deprecate/node.js
+// node_modules/util-deprecate/node.js
 var require_node2 = __commonJS({
-  "resources/node_modules/util-deprecate/node.js"(exports, module2) {
+  "node_modules/util-deprecate/node.js"(exports, module2) {
     module2.exports = require("util").deprecate;
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module2) {
     module2.exports = require("stream");
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module2) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -8777,9 +8777,9 @@ var require_destroy = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/errors.js
+// node_modules/winston-transport/node_modules/readable-stream/errors.js
 var require_errors2 = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/errors.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/errors.js"(exports, module2) {
     "use strict";
     var codes = {};
     function createErrorType(code, message, Base) {
@@ -8877,9 +8877,9 @@ var require_errors2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module2) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors2().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -8902,9 +8902,9 @@ var require_state = __commonJS({
   }
 });
 
-// resources/node_modules/inherits/inherits_browser.js
+// node_modules/inherits/inherits_browser.js
 var require_inherits_browser = __commonJS({
-  "resources/node_modules/inherits/inherits_browser.js"(exports, module2) {
+  "node_modules/inherits/inherits_browser.js"(exports, module2) {
     if (typeof Object.create === "function") {
       module2.exports = function inherits(ctor, superCtor) {
         if (superCtor) {
@@ -8934,9 +8934,9 @@ var require_inherits_browser = __commonJS({
   }
 });
 
-// resources/node_modules/inherits/inherits.js
+// node_modules/inherits/inherits.js
 var require_inherits = __commonJS({
-  "resources/node_modules/inherits/inherits.js"(exports, module2) {
+  "node_modules/inherits/inherits.js"(exports, module2) {
     try {
       util = require("util");
       if (typeof util.inherits !== "function")
@@ -8949,9 +8949,9 @@ var require_inherits = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module2) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -8967,16 +8967,16 @@ var require_buffer_list = __commonJS({
     }
     function _objectSpread(target) {
       for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i] != null ? arguments[i] : {};
+        var source2 = arguments[i] != null ? arguments[i] : {};
         if (i % 2) {
-          ownKeys(Object(source), true).forEach(function(key) {
-            _defineProperty(target, key, source[key]);
+          ownKeys(Object(source2), true).forEach(function(key) {
+            _defineProperty(target, key, source2[key]);
           });
         } else if (Object.getOwnPropertyDescriptors) {
-          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source2));
         } else {
-          ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          ownKeys(Object(source2)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source2, key));
           });
         }
       }
@@ -9196,9 +9196,9 @@ var require_buffer_list = __commonJS({
   }
 });
 
-// resources/node_modules/safe-buffer/index.js
+// node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "resources/node_modules/safe-buffer/index.js"(exports, module2) {
+  "node_modules/safe-buffer/index.js"(exports, module2) {
     var buffer = require("buffer");
     var Buffer2 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -9254,9 +9254,9 @@ var require_safe_buffer = __commonJS({
   }
 });
 
-// resources/node_modules/string_decoder/lib/string_decoder.js
+// node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "resources/node_modules/string_decoder/lib/string_decoder.js"(exports) {
+  "node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer2 = require_safe_buffer().Buffer;
     var isEncoding = Buffer2.isEncoding || function(encoding) {
@@ -9514,9 +9514,9 @@ var require_string_decoder = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module2) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors2().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once(callback) {
@@ -9615,9 +9615,9 @@ var require_end_of_stream = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js
 var require_async_iterator = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports, module2) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -9783,9 +9783,9 @@ var require_async_iterator = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
     "use strict";
     function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
       try {
@@ -9830,16 +9830,16 @@ var require_from = __commonJS({
     }
     function _objectSpread(target) {
       for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i] != null ? arguments[i] : {};
+        var source2 = arguments[i] != null ? arguments[i] : {};
         if (i % 2) {
-          ownKeys(Object(source), true).forEach(function(key) {
-            _defineProperty(target, key, source[key]);
+          ownKeys(Object(source2), true).forEach(function(key) {
+            _defineProperty(target, key, source2[key]);
           });
         } else if (Object.getOwnPropertyDescriptors) {
-          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source2));
         } else {
-          ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          ownKeys(Object(source2)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source2, key));
           });
         }
       }
@@ -9900,9 +9900,9 @@ var require_from = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js"(exports, module2) {
     "use strict";
     module2.exports = Readable;
     var Duplex;
@@ -10683,9 +10683,9 @@ var require_stream_readable = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js"(exports, module2) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -10771,9 +10771,9 @@ var require_stream_duplex = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js
+// node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable = __commonJS({
-  "resources/node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js"(exports, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js"(exports, module2) {
     "use strict";
     module2.exports = Writable;
     function CorkedRequest(state) {
@@ -11259,9 +11259,9 @@ var require_stream_writable = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/legacy.js
+// node_modules/winston-transport/legacy.js
 var require_legacy = __commonJS({
-  "resources/node_modules/winston-transport/legacy.js"(exports, module2) {
+  "node_modules/winston-transport/legacy.js"(exports, module2) {
     "use strict";
     var util = require("util");
     var { LEVEL } = require_triple_beam();
@@ -11320,9 +11320,9 @@ var require_legacy = __commonJS({
   }
 });
 
-// resources/node_modules/winston-transport/index.js
+// node_modules/winston-transport/index.js
 var require_winston_transport = __commonJS({
-  "resources/node_modules/winston-transport/index.js"(exports, module2) {
+  "node_modules/winston-transport/index.js"(exports, module2) {
     "use strict";
     var util = require("util");
     var Writable = require_stream_writable();
@@ -11434,9 +11434,9 @@ var require_winston_transport = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/transports/console.js
+// node_modules/winston/lib/winston/transports/console.js
 var require_console = __commonJS({
-  "resources/node_modules/winston/lib/winston/transports/console.js"(exports, module2) {
+  "node_modules/winston/lib/winston/transports/console.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var { LEVEL, MESSAGE } = require_triple_beam();
@@ -11501,9 +11501,9 @@ var require_console = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/isArrayLike.js
+// node_modules/async/internal/isArrayLike.js
 var require_isArrayLike = __commonJS({
-  "resources/node_modules/async/internal/isArrayLike.js"(exports, module2) {
+  "node_modules/async/internal/isArrayLike.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11516,9 +11516,9 @@ var require_isArrayLike = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/initialParams.js
+// node_modules/async/internal/initialParams.js
 var require_initialParams = __commonJS({
-  "resources/node_modules/async/internal/initialParams.js"(exports, module2) {
+  "node_modules/async/internal/initialParams.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11533,9 +11533,9 @@ var require_initialParams = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/setImmediate.js
+// node_modules/async/internal/setImmediate.js
 var require_setImmediate = __commonJS({
-  "resources/node_modules/async/internal/setImmediate.js"(exports) {
+  "node_modules/async/internal/setImmediate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11565,9 +11565,9 @@ var require_setImmediate = __commonJS({
   }
 });
 
-// resources/node_modules/async/asyncify.js
+// node_modules/async/asyncify.js
 var require_asyncify = __commonJS({
-  "resources/node_modules/async/asyncify.js"(exports, module2) {
+  "node_modules/async/asyncify.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11623,9 +11623,9 @@ var require_asyncify = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/wrapAsync.js
+// node_modules/async/internal/wrapAsync.js
 var require_wrapAsync = __commonJS({
-  "resources/node_modules/async/internal/wrapAsync.js"(exports) {
+  "node_modules/async/internal/wrapAsync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11657,9 +11657,9 @@ var require_wrapAsync = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/awaitify.js
+// node_modules/async/internal/awaitify.js
 var require_awaitify = __commonJS({
-  "resources/node_modules/async/internal/awaitify.js"(exports, module2) {
+  "node_modules/async/internal/awaitify.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11687,9 +11687,9 @@ var require_awaitify = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/parallel.js
+// node_modules/async/internal/parallel.js
 var require_parallel = __commonJS({
-  "resources/node_modules/async/internal/parallel.js"(exports, module2) {
+  "node_modules/async/internal/parallel.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11719,9 +11719,9 @@ var require_parallel = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/once.js
+// node_modules/async/internal/once.js
 var require_once = __commonJS({
-  "resources/node_modules/async/internal/once.js"(exports, module2) {
+  "node_modules/async/internal/once.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11742,9 +11742,9 @@ var require_once = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/getIterator.js
+// node_modules/async/internal/getIterator.js
 var require_getIterator = __commonJS({
-  "resources/node_modules/async/internal/getIterator.js"(exports, module2) {
+  "node_modules/async/internal/getIterator.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11756,9 +11756,9 @@ var require_getIterator = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/iterator.js
+// node_modules/async/internal/iterator.js
 var require_iterator = __commonJS({
-  "resources/node_modules/async/internal/iterator.js"(exports, module2) {
+  "node_modules/async/internal/iterator.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11811,9 +11811,9 @@ var require_iterator = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/onlyOnce.js
+// node_modules/async/internal/onlyOnce.js
 var require_onlyOnce = __commonJS({
-  "resources/node_modules/async/internal/onlyOnce.js"(exports, module2) {
+  "node_modules/async/internal/onlyOnce.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11832,9 +11832,9 @@ var require_onlyOnce = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/breakLoop.js
+// node_modules/async/internal/breakLoop.js
 var require_breakLoop = __commonJS({
-  "resources/node_modules/async/internal/breakLoop.js"(exports, module2) {
+  "node_modules/async/internal/breakLoop.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11845,9 +11845,9 @@ var require_breakLoop = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/asyncEachOfLimit.js
+// node_modules/async/internal/asyncEachOfLimit.js
 var require_asyncEachOfLimit = __commonJS({
-  "resources/node_modules/async/internal/asyncEachOfLimit.js"(exports, module2) {
+  "node_modules/async/internal/asyncEachOfLimit.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11915,9 +11915,9 @@ var require_asyncEachOfLimit = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/eachOfLimit.js
+// node_modules/async/internal/eachOfLimit.js
 var require_eachOfLimit = __commonJS({
-  "resources/node_modules/async/internal/eachOfLimit.js"(exports, module2) {
+  "node_modules/async/internal/eachOfLimit.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -11996,9 +11996,9 @@ var require_eachOfLimit = __commonJS({
   }
 });
 
-// resources/node_modules/async/eachOfLimit.js
+// node_modules/async/eachOfLimit.js
 var require_eachOfLimit2 = __commonJS({
-  "resources/node_modules/async/eachOfLimit.js"(exports, module2) {
+  "node_modules/async/eachOfLimit.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -12020,9 +12020,9 @@ var require_eachOfLimit2 = __commonJS({
   }
 });
 
-// resources/node_modules/async/eachOfSeries.js
+// node_modules/async/eachOfSeries.js
 var require_eachOfSeries = __commonJS({
-  "resources/node_modules/async/eachOfSeries.js"(exports, module2) {
+  "node_modules/async/eachOfSeries.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -12042,9 +12042,9 @@ var require_eachOfSeries = __commonJS({
   }
 });
 
-// resources/node_modules/async/series.js
+// node_modules/async/series.js
 var require_series = __commonJS({
-  "resources/node_modules/async/series.js"(exports, module2) {
+  "node_modules/async/series.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -12064,16 +12064,16 @@ var require_series = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module2) {
     module2.exports = require("stream");
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module2) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -12089,16 +12089,16 @@ var require_buffer_list2 = __commonJS({
     }
     function _objectSpread(target) {
       for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i] != null ? arguments[i] : {};
+        var source2 = arguments[i] != null ? arguments[i] : {};
         if (i % 2) {
-          ownKeys(Object(source), true).forEach(function(key) {
-            _defineProperty(target, key, source[key]);
+          ownKeys(Object(source2), true).forEach(function(key) {
+            _defineProperty(target, key, source2[key]);
           });
         } else if (Object.getOwnPropertyDescriptors) {
-          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source2));
         } else {
-          ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          ownKeys(Object(source2)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source2, key));
           });
         }
       }
@@ -12318,9 +12318,9 @@ var require_buffer_list2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module2) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -12411,9 +12411,9 @@ var require_destroy2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/errors.js
+// node_modules/winston/node_modules/readable-stream/errors.js
 var require_errors3 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/errors.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/errors.js"(exports, module2) {
     "use strict";
     var codes = {};
     function createErrorType(code, message, Base) {
@@ -12511,9 +12511,9 @@ var require_errors3 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js"(exports, module2) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors3().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -12536,9 +12536,9 @@ var require_state2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js
+// node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js"(exports, module2) {
     "use strict";
     module2.exports = Writable;
     function CorkedRequest(state) {
@@ -13024,9 +13024,9 @@ var require_stream_writable2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js
+// node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js"(exports, module2) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -13112,9 +13112,9 @@ var require_stream_duplex2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module2) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors3().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once(callback) {
@@ -13213,9 +13213,9 @@ var require_end_of_stream2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js
 var require_async_iterator2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports, module2) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -13381,9 +13381,9 @@ var require_async_iterator2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
     "use strict";
     function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
       try {
@@ -13428,16 +13428,16 @@ var require_from2 = __commonJS({
     }
     function _objectSpread(target) {
       for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i] != null ? arguments[i] : {};
+        var source2 = arguments[i] != null ? arguments[i] : {};
         if (i % 2) {
-          ownKeys(Object(source), true).forEach(function(key) {
-            _defineProperty(target, key, source[key]);
+          ownKeys(Object(source2), true).forEach(function(key) {
+            _defineProperty(target, key, source2[key]);
           });
         } else if (Object.getOwnPropertyDescriptors) {
-          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+          Object.defineProperties(target, Object.getOwnPropertyDescriptors(source2));
         } else {
-          ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+          ownKeys(Object(source2)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source2, key));
           });
         }
       }
@@ -13498,9 +13498,9 @@ var require_from2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js
+// node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable2 = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js"(exports, module2) {
     "use strict";
     module2.exports = Readable;
     var Duplex;
@@ -14281,9 +14281,9 @@ var require_stream_readable2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js
+// node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js
 var require_stream_transform = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js"(exports, module2) {
     "use strict";
     module2.exports = Transform;
     var _require$codes = require_errors3().codes;
@@ -14389,9 +14389,9 @@ var require_stream_transform = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js
+// node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js
 var require_stream_passthrough = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module2) {
     "use strict";
     module2.exports = PassThrough;
     var Transform = require_stream_transform();
@@ -14407,9 +14407,9 @@ var require_stream_passthrough = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js
+// node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module2) {
     "use strict";
     var eos;
     function once(callback) {
@@ -14506,9 +14506,9 @@ var require_pipeline = __commonJS({
   }
 });
 
-// resources/node_modules/winston/node_modules/readable-stream/readable.js
+// node_modules/winston/node_modules/readable-stream/readable.js
 var require_readable = __commonJS({
-  "resources/node_modules/winston/node_modules/readable-stream/readable.js"(exports, module2) {
+  "node_modules/winston/node_modules/readable-stream/readable.js"(exports, module2) {
     var Stream = require("stream");
     if (process.env.READABLE_STREAM === "disable" && Stream) {
       module2.exports = Stream.Readable;
@@ -14528,9 +14528,9 @@ var require_readable = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/diagnostics.js
+// node_modules/@dabh/diagnostics/diagnostics.js
 var require_diagnostics = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/diagnostics.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/diagnostics.js"(exports, module2) {
     var adapters = [];
     var modifiers = [];
     var logger = function devnull() {
@@ -14624,9 +14624,9 @@ var require_diagnostics = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/node/production.js
+// node_modules/@dabh/diagnostics/node/production.js
 var require_production = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/node/production.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/node/production.js"(exports, module2) {
     var create = require_diagnostics();
     var diagnostics = create(function prod(namespace, options) {
       options = options || {};
@@ -14641,9 +14641,9 @@ var require_production = __commonJS({
   }
 });
 
-// resources/node_modules/color-name/index.js
+// node_modules/color-name/index.js
 var require_color_name = __commonJS({
-  "resources/node_modules/color-name/index.js"(exports, module2) {
+  "node_modules/color-name/index.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "aliceblue": [240, 248, 255],
@@ -14798,9 +14798,9 @@ var require_color_name = __commonJS({
   }
 });
 
-// resources/node_modules/is-arrayish/index.js
+// node_modules/is-arrayish/index.js
 var require_is_arrayish = __commonJS({
-  "resources/node_modules/is-arrayish/index.js"(exports, module2) {
+  "node_modules/is-arrayish/index.js"(exports, module2) {
     module2.exports = function isArrayish(obj) {
       if (!obj || typeof obj === "string") {
         return false;
@@ -14810,9 +14810,9 @@ var require_is_arrayish = __commonJS({
   }
 });
 
-// resources/node_modules/simple-swizzle/index.js
+// node_modules/simple-swizzle/index.js
 var require_simple_swizzle = __commonJS({
-  "resources/node_modules/simple-swizzle/index.js"(exports, module2) {
+  "node_modules/simple-swizzle/index.js"(exports, module2) {
     "use strict";
     var isArrayish = require_is_arrayish();
     var concat = Array.prototype.concat;
@@ -14837,9 +14837,9 @@ var require_simple_swizzle = __commonJS({
   }
 });
 
-// resources/node_modules/color-string/index.js
+// node_modules/color-string/index.js
 var require_color_string = __commonJS({
-  "resources/node_modules/color-string/index.js"(exports, module2) {
+  "node_modules/color-string/index.js"(exports, module2) {
     var colorNames = require_color_name();
     var swizzle = require_simple_swizzle();
     var reverseNames = {};
@@ -15013,9 +15013,9 @@ var require_color_string = __commonJS({
   }
 });
 
-// resources/node_modules/color-convert/node_modules/color-name/index.js
+// node_modules/color-convert/node_modules/color-name/index.js
 var require_color_name2 = __commonJS({
-  "resources/node_modules/color-convert/node_modules/color-name/index.js"(exports, module2) {
+  "node_modules/color-convert/node_modules/color-name/index.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "aliceblue": [240, 248, 255],
@@ -15170,9 +15170,9 @@ var require_color_name2 = __commonJS({
   }
 });
 
-// resources/node_modules/color-convert/conversions.js
+// node_modules/color-convert/conversions.js
 var require_conversions = __commonJS({
-  "resources/node_modules/color-convert/conversions.js"(exports, module2) {
+  "node_modules/color-convert/conversions.js"(exports, module2) {
     var cssKeywords = require_color_name2();
     var reverseKeywords = {};
     for (key in cssKeywords) {
@@ -15883,9 +15883,9 @@ var require_conversions = __commonJS({
   }
 });
 
-// resources/node_modules/color-convert/route.js
+// node_modules/color-convert/route.js
 var require_route = __commonJS({
-  "resources/node_modules/color-convert/route.js"(exports, module2) {
+  "node_modules/color-convert/route.js"(exports, module2) {
     var conversions = require_conversions();
     function buildGraph() {
       var graph = {};
@@ -15951,9 +15951,9 @@ var require_route = __commonJS({
   }
 });
 
-// resources/node_modules/color-convert/index.js
+// node_modules/color-convert/index.js
 var require_color_convert = __commonJS({
-  "resources/node_modules/color-convert/index.js"(exports, module2) {
+  "node_modules/color-convert/index.js"(exports, module2) {
     var conversions = require_conversions();
     var route = require_route();
     var convert = {};
@@ -16010,9 +16010,9 @@ var require_color_convert = __commonJS({
   }
 });
 
-// resources/node_modules/color/index.js
+// node_modules/color/index.js
 var require_color = __commonJS({
-  "resources/node_modules/color/index.js"(exports, module2) {
+  "node_modules/color/index.js"(exports, module2) {
     "use strict";
     var colorString = require_color_string();
     var convert = require_color_convert();
@@ -16379,9 +16379,9 @@ var require_color = __commonJS({
   }
 });
 
-// resources/node_modules/text-hex/index.js
+// node_modules/text-hex/index.js
 var require_text_hex = __commonJS({
-  "resources/node_modules/text-hex/index.js"(exports, module2) {
+  "node_modules/text-hex/index.js"(exports, module2) {
     "use strict";
     module2.exports = function hex(str) {
       for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash))
@@ -16392,9 +16392,9 @@ var require_text_hex = __commonJS({
   }
 });
 
-// resources/node_modules/colorspace/index.js
+// node_modules/colorspace/index.js
 var require_colorspace = __commonJS({
-  "resources/node_modules/colorspace/index.js"(exports, module2) {
+  "node_modules/colorspace/index.js"(exports, module2) {
     "use strict";
     var color = require_color();
     var hex = require_text_hex();
@@ -16411,9 +16411,9 @@ var require_colorspace = __commonJS({
   }
 });
 
-// resources/node_modules/kuler/index.js
+// node_modules/kuler/index.js
 var require_kuler = __commonJS({
-  "resources/node_modules/kuler/index.js"(exports, module2) {
+  "node_modules/kuler/index.js"(exports, module2) {
     "use strict";
     function Kuler(text, color) {
       if (color)
@@ -16456,9 +16456,9 @@ var require_kuler = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js
+// node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js
 var require_namespace_ansi = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js"(exports, module2) {
     var colorspace = require_colorspace();
     var kuler = require_kuler();
     module2.exports = function ansiModifier(args, options) {
@@ -16470,9 +16470,9 @@ var require_namespace_ansi = __commonJS({
   }
 });
 
-// resources/node_modules/enabled/index.js
+// node_modules/enabled/index.js
 var require_enabled = __commonJS({
-  "resources/node_modules/enabled/index.js"(exports, module2) {
+  "node_modules/enabled/index.js"(exports, module2) {
     "use strict";
     module2.exports = function enabled(name, variable) {
       if (!variable)
@@ -16495,9 +16495,9 @@ var require_enabled = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/adapters/index.js
+// node_modules/@dabh/diagnostics/adapters/index.js
 var require_adapters = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/adapters/index.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/adapters/index.js"(exports, module2) {
     var enabled = require_enabled();
     module2.exports = function create(fn) {
       return function adapter(namespace) {
@@ -16511,9 +16511,9 @@ var require_adapters = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/adapters/process.env.js
+// node_modules/@dabh/diagnostics/adapters/process.env.js
 var require_process_env = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/adapters/process.env.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/adapters/process.env.js"(exports, module2) {
     var adapter = require_adapters();
     module2.exports = adapter(function processenv() {
       return process.env.DEBUG || process.env.DIAGNOSTICS;
@@ -16521,9 +16521,9 @@ var require_process_env = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/logger/console.js
+// node_modules/@dabh/diagnostics/logger/console.js
 var require_console2 = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/logger/console.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/logger/console.js"(exports, module2) {
     module2.exports = function(meta, messages) {
       try {
         Function.prototype.apply.call(console.log, console, messages);
@@ -16533,9 +16533,9 @@ var require_console2 = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/node/development.js
+// node_modules/@dabh/diagnostics/node/development.js
 var require_development = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/node/development.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/node/development.js"(exports, module2) {
     var create = require_diagnostics();
     var tty = require("tty").isatty(1);
     var diagnostics = create(function dev(namespace, options) {
@@ -16556,9 +16556,9 @@ var require_development = __commonJS({
   }
 });
 
-// resources/node_modules/@dabh/diagnostics/node/index.js
+// node_modules/@dabh/diagnostics/node/index.js
 var require_node3 = __commonJS({
-  "resources/node_modules/@dabh/diagnostics/node/index.js"(exports, module2) {
+  "node_modules/@dabh/diagnostics/node/index.js"(exports, module2) {
     if (process.env.NODE_ENV === "production") {
       module2.exports = require_production();
     } else {
@@ -16567,9 +16567,9 @@ var require_node3 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/tail-file.js
+// node_modules/winston/lib/winston/tail-file.js
 var require_tail_file = __commonJS({
-  "resources/node_modules/winston/lib/winston/tail-file.js"(exports, module2) {
+  "node_modules/winston/lib/winston/tail-file.js"(exports, module2) {
     "use strict";
     var fs = require("fs");
     var { StringDecoder } = require("string_decoder");
@@ -16662,9 +16662,9 @@ var require_tail_file = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/transports/file.js
+// node_modules/winston/lib/winston/transports/file.js
 var require_file = __commonJS({
-  "resources/node_modules/winston/lib/winston/transports/file.js"(exports, module2) {
+  "node_modules/winston/lib/winston/transports/file.js"(exports, module2) {
     "use strict";
     var fs = require("fs");
     var path2 = require("path");
@@ -16997,20 +16997,20 @@ var require_file = __commonJS({
           callback();
         }
       }
-      _createStream(source) {
+      _createStream(source2) {
         const fullpath = path2.join(this.dirname, this.filename);
         debug2("create stream start", fullpath, this.options);
         const dest = fs.createWriteStream(fullpath, this.options).on("error", (err) => debug2(err)).on("close", () => debug2("close", dest.path, dest.bytesWritten)).on("open", () => {
           debug2("file open ok", fullpath);
           this.emit("open", fullpath);
-          source.pipe(dest);
+          source2.pipe(dest);
           if (this.rotatedWhileOpening) {
             this._stream = new PassThrough();
             this._stream.setMaxListeners(30);
             this._rotateFile();
             this.rotatedWhileOpening = false;
             this._cleanupStream(dest);
-            source.end();
+            source2.end();
           }
         });
         debug2("create stream ok", fullpath);
@@ -17082,9 +17082,9 @@ var require_file = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/transports/http.js
+// node_modules/winston/lib/winston/transports/http.js
 var require_http = __commonJS({
-  "resources/node_modules/winston/lib/winston/transports/http.js"(exports, module2) {
+  "node_modules/winston/lib/winston/transports/http.js"(exports, module2) {
     "use strict";
     var http = require("http");
     var https = require("https");
@@ -17216,9 +17216,9 @@ var require_http = __commonJS({
   }
 });
 
-// resources/node_modules/is-stream/index.js
+// node_modules/is-stream/index.js
 var require_is_stream = __commonJS({
-  "resources/node_modules/is-stream/index.js"(exports, module2) {
+  "node_modules/is-stream/index.js"(exports, module2) {
     "use strict";
     var isStream = (stream) => stream !== null && typeof stream === "object" && typeof stream.pipe === "function";
     isStream.writable = (stream) => isStream(stream) && stream.writable !== false && typeof stream._write === "function" && typeof stream._writableState === "object";
@@ -17229,9 +17229,9 @@ var require_is_stream = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/transports/stream.js
+// node_modules/winston/lib/winston/transports/stream.js
 var require_stream3 = __commonJS({
-  "resources/node_modules/winston/lib/winston/transports/stream.js"(exports, module2) {
+  "node_modules/winston/lib/winston/transports/stream.js"(exports, module2) {
     "use strict";
     var isStream = require_is_stream();
     var { MESSAGE } = require_triple_beam();
@@ -17267,9 +17267,9 @@ var require_stream3 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/transports/index.js
+// node_modules/winston/lib/winston/transports/index.js
 var require_transports = __commonJS({
-  "resources/node_modules/winston/lib/winston/transports/index.js"(exports) {
+  "node_modules/winston/lib/winston/transports/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "Console", {
       configurable: true,
@@ -17302,9 +17302,9 @@ var require_transports = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/config/index.js
+// node_modules/winston/lib/winston/config/index.js
 var require_config2 = __commonJS({
-  "resources/node_modules/winston/lib/winston/config/index.js"(exports) {
+  "node_modules/winston/lib/winston/config/index.js"(exports) {
     "use strict";
     var logform = require_logform();
     var { configs } = require_triple_beam();
@@ -17315,9 +17315,9 @@ var require_config2 = __commonJS({
   }
 });
 
-// resources/node_modules/async/eachOf.js
+// node_modules/async/eachOf.js
 var require_eachOf = __commonJS({
-  "resources/node_modules/async/eachOf.js"(exports, module2) {
+  "node_modules/async/eachOf.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -17373,9 +17373,9 @@ var require_eachOf = __commonJS({
   }
 });
 
-// resources/node_modules/async/internal/withoutIndex.js
+// node_modules/async/internal/withoutIndex.js
 var require_withoutIndex = __commonJS({
-  "resources/node_modules/async/internal/withoutIndex.js"(exports, module2) {
+  "node_modules/async/internal/withoutIndex.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -17388,9 +17388,9 @@ var require_withoutIndex = __commonJS({
   }
 });
 
-// resources/node_modules/async/forEach.js
+// node_modules/async/forEach.js
 var require_forEach = __commonJS({
-  "resources/node_modules/async/forEach.js"(exports, module2) {
+  "node_modules/async/forEach.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -17414,9 +17414,9 @@ var require_forEach = __commonJS({
   }
 });
 
-// resources/node_modules/fn.name/index.js
+// node_modules/fn.name/index.js
 var require_fn = __commonJS({
-  "resources/node_modules/fn.name/index.js"(exports, module2) {
+  "node_modules/fn.name/index.js"(exports, module2) {
     "use strict";
     var toString = Object.prototype.toString;
     module2.exports = function name(fn) {
@@ -17438,9 +17438,9 @@ var require_fn = __commonJS({
   }
 });
 
-// resources/node_modules/one-time/index.js
+// node_modules/one-time/index.js
 var require_one_time = __commonJS({
-  "resources/node_modules/one-time/index.js"(exports, module2) {
+  "node_modules/one-time/index.js"(exports, module2) {
     "use strict";
     var name = require_fn();
     module2.exports = function one(fn) {
@@ -17459,9 +17459,9 @@ var require_one_time = __commonJS({
   }
 });
 
-// resources/node_modules/stack-trace/lib/stack-trace.js
+// node_modules/stack-trace/lib/stack-trace.js
 var require_stack_trace = __commonJS({
-  "resources/node_modules/stack-trace/lib/stack-trace.js"(exports) {
+  "node_modules/stack-trace/lib/stack-trace.js"(exports) {
     exports.get = function(belowFn) {
       var oldLimit = Error.stackTraceLimit;
       Error.stackTraceLimit = Infinity;
@@ -17582,9 +17582,9 @@ var require_stack_trace = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/exception-stream.js
+// node_modules/winston/lib/winston/exception-stream.js
 var require_exception_stream = __commonJS({
-  "resources/node_modules/winston/lib/winston/exception-stream.js"(exports, module2) {
+  "node_modules/winston/lib/winston/exception-stream.js"(exports, module2) {
     "use strict";
     var { Writable } = require_readable();
     module2.exports = class ExceptionStream extends Writable {
@@ -17607,9 +17607,9 @@ var require_exception_stream = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/exception-handler.js
+// node_modules/winston/lib/winston/exception-handler.js
 var require_exception_handler = __commonJS({
-  "resources/node_modules/winston/lib/winston/exception-handler.js"(exports, module2) {
+  "node_modules/winston/lib/winston/exception-handler.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var asyncForEach = require_forEach();
@@ -17754,9 +17754,9 @@ var require_exception_handler = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/rejection-handler.js
+// node_modules/winston/lib/winston/rejection-handler.js
 var require_rejection_handler = __commonJS({
-  "resources/node_modules/winston/lib/winston/rejection-handler.js"(exports, module2) {
+  "node_modules/winston/lib/winston/rejection-handler.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var asyncForEach = require_forEach();
@@ -17901,9 +17901,9 @@ var require_rejection_handler = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/profiler.js
+// node_modules/winston/lib/winston/profiler.js
 var require_profiler = __commonJS({
-  "resources/node_modules/winston/lib/winston/profiler.js"(exports, module2) {
+  "node_modules/winston/lib/winston/profiler.js"(exports, module2) {
     "use strict";
     module2.exports = class Profiler {
       constructor(logger) {
@@ -17927,9 +17927,9 @@ var require_profiler = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/logger.js
+// node_modules/winston/lib/winston/logger.js
 var require_logger2 = __commonJS({
-  "resources/node_modules/winston/lib/winston/logger.js"(exports, module2) {
+  "node_modules/winston/lib/winston/logger.js"(exports, module2) {
     "use strict";
     var { Stream, Transform } = require_readable();
     var asyncForEach = require_forEach();
@@ -18291,9 +18291,9 @@ var require_logger2 = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/create-logger.js
+// node_modules/winston/lib/winston/create-logger.js
 var require_create_logger = __commonJS({
-  "resources/node_modules/winston/lib/winston/create-logger.js"(exports, module2) {
+  "node_modules/winston/lib/winston/create-logger.js"(exports, module2) {
     "use strict";
     var { LEVEL } = require_triple_beam();
     var config3 = require_config2();
@@ -18341,9 +18341,9 @@ var require_create_logger = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston/container.js
+// node_modules/winston/lib/winston/container.js
 var require_container = __commonJS({
-  "resources/node_modules/winston/lib/winston/container.js"(exports, module2) {
+  "node_modules/winston/lib/winston/container.js"(exports, module2) {
     "use strict";
     var createLogger2 = require_create_logger();
     module2.exports = class Container {
@@ -18389,9 +18389,9 @@ var require_container = __commonJS({
   }
 });
 
-// resources/node_modules/winston/lib/winston.js
+// node_modules/winston/lib/winston.js
 var require_winston = __commonJS({
-  "resources/node_modules/winston/lib/winston.js"(exports) {
+  "node_modules/winston/lib/winston.js"(exports) {
     "use strict";
     var logform = require_logform();
     var { warn } = require_common();
@@ -18469,10 +18469,10 @@ var require_winston = __commonJS({
   }
 });
 
-// resources/server/sv_logger.ts
+// server/sv_logger.ts
 var import_path, import_winston, manualColorize, formatLogs, findLogPath, _a, mainLogger;
 var init_sv_logger = __esm({
-  "resources/server/sv_logger.ts"() {
+  "server/sv_logger.ts"() {
     init_config2();
     import_path = __toESM(require("path"));
     import_winston = __toESM(require_winston());
@@ -18500,9 +18500,9 @@ var init_sv_logger = __esm({
   }
 });
 
-// resources/node_modules/sqlstring/lib/SqlString.js
+// node_modules/sqlstring/lib/SqlString.js
 var require_SqlString = __commonJS({
-  "resources/node_modules/sqlstring/lib/SqlString.js"(exports) {
+  "node_modules/sqlstring/lib/SqlString.js"(exports) {
     var SqlString = exports;
     var ID_GLOBAL_REGEXP = /`/g;
     var QUAL_GLOBAL_REGEXP = /\./g;
@@ -18696,16 +18696,16 @@ var require_SqlString = __commonJS({
   }
 });
 
-// resources/node_modules/sqlstring/index.js
+// node_modules/sqlstring/index.js
 var require_sqlstring = __commonJS({
-  "resources/node_modules/sqlstring/index.js"(exports, module2) {
+  "node_modules/sqlstring/index.js"(exports, module2) {
     module2.exports = require_SqlString();
   }
 });
 
-// resources/node_modules/denque/index.js
+// node_modules/denque/index.js
 var require_denque = __commonJS({
-  "resources/node_modules/denque/index.js"(exports, module2) {
+  "node_modules/denque/index.js"(exports, module2) {
     "use strict";
     function Denque(array, options) {
       var options = options || {};
@@ -19030,9 +19030,9 @@ var require_denque = __commonJS({
   }
 });
 
-// resources/node_modules/yallist/iterator.js
+// node_modules/yallist/iterator.js
 var require_iterator2 = __commonJS({
-  "resources/node_modules/yallist/iterator.js"(exports, module2) {
+  "node_modules/yallist/iterator.js"(exports, module2) {
     "use strict";
     module2.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -19044,9 +19044,9 @@ var require_iterator2 = __commonJS({
   }
 });
 
-// resources/node_modules/yallist/yallist.js
+// node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "resources/node_modules/yallist/yallist.js"(exports, module2) {
+  "node_modules/yallist/yallist.js"(exports, module2) {
     "use strict";
     module2.exports = Yallist;
     Yallist.Node = Node;
@@ -19413,9 +19413,9 @@ var require_yallist = __commonJS({
   }
 });
 
-// resources/node_modules/lru-cache/index.js
+// node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "resources/node_modules/lru-cache/index.js"(exports, module2) {
+  "node_modules/lru-cache/index.js"(exports, module2) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -19681,9 +19681,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/errors.js
+// node_modules/mysql2/lib/constants/errors.js
 var require_errors4 = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/errors.js"(exports) {
+  "node_modules/mysql2/lib/constants/errors.js"(exports) {
     "use strict";
     exports.EE_CANTCREATEFILE = 1;
     exports.EE_READ = 2;
@@ -21764,9 +21764,9 @@ var require_errors4 = __commonJS({
   }
 });
 
-// resources/node_modules/long/src/long.js
+// node_modules/long/src/long.js
 var require_long = __commonJS({
-  "resources/node_modules/long/src/long.js"(exports, module2) {
+  "node_modules/long/src/long.js"(exports, module2) {
     module2.exports = Long;
     var wasm = null;
     try {
@@ -22589,9 +22589,9 @@ var require_long = __commonJS({
   }
 });
 
-// resources/node_modules/safer-buffer/safer.js
+// node_modules/safer-buffer/safer.js
 var require_safer = __commonJS({
-  "resources/node_modules/safer-buffer/safer.js"(exports, module2) {
+  "node_modules/safer-buffer/safer.js"(exports, module2) {
     "use strict";
     var buffer = require("buffer");
     var Buffer2 = buffer.Buffer;
@@ -22661,9 +22661,9 @@ var require_safer = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/lib/bom-handling.js
+// node_modules/iconv-lite/lib/bom-handling.js
 var require_bom_handling = __commonJS({
-  "resources/node_modules/iconv-lite/lib/bom-handling.js"(exports) {
+  "node_modules/iconv-lite/lib/bom-handling.js"(exports) {
     "use strict";
     var BOMChar = "\uFEFF";
     exports.PrependBOM = PrependBOMWrapper;
@@ -22705,9 +22705,9 @@ var require_bom_handling = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/internal.js
+// node_modules/iconv-lite/encodings/internal.js
 var require_internal = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/internal.js"(exports, module2) {
+  "node_modules/iconv-lite/encodings/internal.js"(exports, module2) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     module2.exports = {
@@ -22855,9 +22855,9 @@ var require_internal = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/utf32.js
+// node_modules/iconv-lite/encodings/utf32.js
 var require_utf32 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/utf32.js"(exports) {
+  "node_modules/iconv-lite/encodings/utf32.js"(exports) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     exports._utf32 = Utf32Codec;
@@ -23080,9 +23080,9 @@ var require_utf32 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/utf16.js
+// node_modules/iconv-lite/encodings/utf16.js
 var require_utf16 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/utf16.js"(exports) {
+  "node_modules/iconv-lite/encodings/utf16.js"(exports) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     exports.utf16be = Utf16BECodec;
@@ -23220,9 +23220,9 @@ var require_utf16 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/utf7.js
+// node_modules/iconv-lite/encodings/utf7.js
 var require_utf7 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/utf7.js"(exports) {
+  "node_modules/iconv-lite/encodings/utf7.js"(exports) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     exports.utf7 = Utf7Codec;
@@ -23421,9 +23421,9 @@ var require_utf7 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/sbcs-codec.js
+// node_modules/iconv-lite/encodings/sbcs-codec.js
 var require_sbcs_codec = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/sbcs-codec.js"(exports) {
+  "node_modules/iconv-lite/encodings/sbcs-codec.js"(exports) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     exports._sbcs = SBCSCodec;
@@ -23477,9 +23477,9 @@ var require_sbcs_codec = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/sbcs-data.js
+// node_modules/iconv-lite/encodings/sbcs-data.js
 var require_sbcs_data = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/sbcs-data.js"(exports, module2) {
+  "node_modules/iconv-lite/encodings/sbcs-data.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "10029": "maccenteuro",
@@ -23628,9 +23628,9 @@ var require_sbcs_data = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/sbcs-data-generated.js
+// node_modules/iconv-lite/encodings/sbcs-data-generated.js
 var require_sbcs_data_generated = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/sbcs-data-generated.js"(exports, module2) {
+  "node_modules/iconv-lite/encodings/sbcs-data-generated.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "437": "cp437",
@@ -24083,9 +24083,9 @@ var require_sbcs_data_generated = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/dbcs-codec.js
+// node_modules/iconv-lite/encodings/dbcs-codec.js
 var require_dbcs_codec = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/dbcs-codec.js"(exports) {
+  "node_modules/iconv-lite/encodings/dbcs-codec.js"(exports) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     exports._dbcs = DBCSCodec;
@@ -24504,9 +24504,9 @@ var require_dbcs_codec = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/shiftjis.json
+// node_modules/iconv-lite/encodings/tables/shiftjis.json
 var require_shiftjis = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/shiftjis.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/shiftjis.json"(exports, module2) {
     module2.exports = [
       ["0", "\0", 128],
       ["a1", "\uFF61", 62],
@@ -24635,9 +24635,9 @@ var require_shiftjis = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/eucjp.json
+// node_modules/iconv-lite/encodings/tables/eucjp.json
 var require_eucjp = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/eucjp.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/eucjp.json"(exports, module2) {
     module2.exports = [
       ["0", "\0", 127],
       ["8ea1", "\uFF61", 62],
@@ -24823,9 +24823,9 @@ var require_eucjp = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/cp936.json
+// node_modules/iconv-lite/encodings/tables/cp936.json
 var require_cp936 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/cp936.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/cp936.json"(exports, module2) {
     module2.exports = [
       ["0", "\0", 127, "\u20AC"],
       ["8140", "\u4E02\u4E04\u4E05\u4E06\u4E0F\u4E12\u4E17\u4E1F\u4E20\u4E21\u4E23\u4E26\u4E29\u4E2E\u4E2F\u4E31\u4E33\u4E35\u4E37\u4E3C\u4E40\u4E41\u4E42\u4E44\u4E46\u4E4A\u4E51\u4E55\u4E57\u4E5A\u4E5B\u4E62\u4E63\u4E64\u4E65\u4E67\u4E68\u4E6A", 5, "\u4E72\u4E74", 9, "\u4E7F", 6, "\u4E87\u4E8A"],
@@ -25093,9 +25093,9 @@ var require_cp936 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/gbk-added.json
+// node_modules/iconv-lite/encodings/tables/gbk-added.json
 var require_gbk_added = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/gbk-added.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/gbk-added.json"(exports, module2) {
     module2.exports = [
       ["a140", "\uE4C6", 62],
       ["a180", "\uE505", 32],
@@ -25155,16 +25155,16 @@ var require_gbk_added = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json
+// node_modules/iconv-lite/encodings/tables/gb18030-ranges.json
 var require_gb18030_ranges = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/gb18030-ranges.json"(exports, module2) {
     module2.exports = { uChars: [128, 165, 169, 178, 184, 216, 226, 235, 238, 244, 248, 251, 253, 258, 276, 284, 300, 325, 329, 334, 364, 463, 465, 467, 469, 471, 473, 475, 477, 506, 594, 610, 712, 716, 730, 930, 938, 962, 970, 1026, 1104, 1106, 8209, 8215, 8218, 8222, 8231, 8241, 8244, 8246, 8252, 8365, 8452, 8454, 8458, 8471, 8482, 8556, 8570, 8596, 8602, 8713, 8720, 8722, 8726, 8731, 8737, 8740, 8742, 8748, 8751, 8760, 8766, 8777, 8781, 8787, 8802, 8808, 8816, 8854, 8858, 8870, 8896, 8979, 9322, 9372, 9548, 9588, 9616, 9622, 9634, 9652, 9662, 9672, 9676, 9680, 9702, 9735, 9738, 9793, 9795, 11906, 11909, 11913, 11917, 11928, 11944, 11947, 11951, 11956, 11960, 11964, 11979, 12284, 12292, 12312, 12319, 12330, 12351, 12436, 12447, 12535, 12543, 12586, 12842, 12850, 12964, 13200, 13215, 13218, 13253, 13263, 13267, 13270, 13384, 13428, 13727, 13839, 13851, 14617, 14703, 14801, 14816, 14964, 15183, 15471, 15585, 16471, 16736, 17208, 17325, 17330, 17374, 17623, 17997, 18018, 18212, 18218, 18301, 18318, 18760, 18811, 18814, 18820, 18823, 18844, 18848, 18872, 19576, 19620, 19738, 19887, 40870, 59244, 59336, 59367, 59413, 59417, 59423, 59431, 59437, 59443, 59452, 59460, 59478, 59493, 63789, 63866, 63894, 63976, 63986, 64016, 64018, 64021, 64025, 64034, 64037, 64042, 65074, 65093, 65107, 65112, 65127, 65132, 65375, 65510, 65536], gbChars: [0, 36, 38, 45, 50, 81, 89, 95, 96, 100, 103, 104, 105, 109, 126, 133, 148, 172, 175, 179, 208, 306, 307, 308, 309, 310, 311, 312, 313, 341, 428, 443, 544, 545, 558, 741, 742, 749, 750, 805, 819, 820, 7922, 7924, 7925, 7927, 7934, 7943, 7944, 7945, 7950, 8062, 8148, 8149, 8152, 8164, 8174, 8236, 8240, 8262, 8264, 8374, 8380, 8381, 8384, 8388, 8390, 8392, 8393, 8394, 8396, 8401, 8406, 8416, 8419, 8424, 8437, 8439, 8445, 8482, 8485, 8496, 8521, 8603, 8936, 8946, 9046, 9050, 9063, 9066, 9076, 9092, 9100, 9108, 9111, 9113, 9131, 9162, 9164, 9218, 9219, 11329, 11331, 11334, 11336, 11346, 11361, 11363, 11366, 11370, 11372, 11375, 11389, 11682, 11686, 11687, 11692, 11694, 11714, 11716, 11723, 11725, 11730, 11736, 11982, 11989, 12102, 12336, 12348, 12350, 12384, 12393, 12395, 12397, 12510, 12553, 12851, 12962, 12973, 13738, 13823, 13919, 13933, 14080, 14298, 14585, 14698, 15583, 15847, 16318, 16434, 16438, 16481, 16729, 17102, 17122, 17315, 17320, 17402, 17418, 17859, 17909, 17911, 17915, 17916, 17936, 17939, 17961, 18664, 18703, 18814, 18962, 19043, 33469, 33470, 33471, 33484, 33485, 33490, 33497, 33501, 33505, 33513, 33520, 33536, 33550, 37845, 37921, 37948, 38029, 38038, 38064, 38065, 38066, 38069, 38075, 38076, 38078, 39108, 39109, 39113, 39114, 39115, 39116, 39265, 39394, 189e3] };
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/cp949.json
+// node_modules/iconv-lite/encodings/tables/cp949.json
 var require_cp949 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/cp949.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/cp949.json"(exports, module2) {
     module2.exports = [
       ["0", "\0", 127],
       ["8141", "\uAC02\uAC03\uAC05\uAC06\uAC0B", 4, "\uAC18\uAC1E\uAC1F\uAC21\uAC22\uAC23\uAC25", 6, "\uAC2E\uAC32\uAC33\uAC34"],
@@ -25441,9 +25441,9 @@ var require_cp949 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/cp950.json
+// node_modules/iconv-lite/encodings/tables/cp950.json
 var require_cp950 = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/cp950.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/cp950.json"(exports, module2) {
     module2.exports = [
       ["0", "\0", 127],
       ["a140", "\u3000\uFF0C\u3001\u3002\uFF0E\u2027\uFF1B\uFF1A\uFF1F\uFF01\uFE30\u2026\u2025\uFE50\uFE51\uFE52\xB7\uFE54\uFE55\uFE56\uFE57\uFF5C\u2013\uFE31\u2014\uFE33\u2574\uFE34\uFE4F\uFF08\uFF09\uFE35\uFE36\uFF5B\uFF5D\uFE37\uFE38\u3014\u3015\uFE39\uFE3A\u3010\u3011\uFE3B\uFE3C\u300A\u300B\uFE3D\uFE3E\u3008\u3009\uFE3F\uFE40\u300C\u300D\uFE41\uFE42\u300E\u300F\uFE43\uFE44\uFE59\uFE5A"],
@@ -25624,9 +25624,9 @@ var require_cp950 = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/tables/big5-added.json
+// node_modules/iconv-lite/encodings/tables/big5-added.json
 var require_big5_added = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/tables/big5-added.json"(exports, module2) {
+  "node_modules/iconv-lite/encodings/tables/big5-added.json"(exports, module2) {
     module2.exports = [
       ["8740", "\u43F0\u4C32\u4603\u45A6\u4578\u{27267}\u4D77\u45B3\u{27CB1}\u4CE2\u{27CC5}\u3B95\u4736\u4744\u4C47\u4C40\u{242BF}\u{23617}\u{27352}\u{26E8B}\u{270D2}\u4C57\u{2A351}\u474F\u45DA\u4C85\u{27C6C}\u4D07\u4AA4\u46A1\u{26B23}\u7225\u{25A54}\u{21A63}\u{23E06}\u{23F61}\u664D\u56FB"],
       ["8767", "\u7D95\u591D\u{28BB9}\u3DF4\u9734\u{27BEF}\u5BDB\u{21D5E}\u5AA4\u3625\u{29EB0}\u5AD1\u5BB7\u5CFC\u676E\u8593\u{29945}\u7461\u749D\u3875\u{21D53}\u{2369E}\u{26021}\u3EEC"],
@@ -25752,9 +25752,9 @@ var require_big5_added = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/dbcs-data.js
+// node_modules/iconv-lite/encodings/dbcs-data.js
 var require_dbcs_data = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/dbcs-data.js"(exports, module2) {
+  "node_modules/iconv-lite/encodings/dbcs-data.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "shiftjis": {
@@ -25926,9 +25926,9 @@ var require_dbcs_data = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/encodings/index.js
+// node_modules/iconv-lite/encodings/index.js
 var require_encodings = __commonJS({
-  "resources/node_modules/iconv-lite/encodings/index.js"(exports, module2) {
+  "node_modules/iconv-lite/encodings/index.js"(exports, module2) {
     "use strict";
     var modules = [
       require_internal(),
@@ -25953,9 +25953,9 @@ var require_encodings = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/lib/streams.js
+// node_modules/iconv-lite/lib/streams.js
 var require_streams = __commonJS({
-  "resources/node_modules/iconv-lite/lib/streams.js"(exports, module2) {
+  "node_modules/iconv-lite/lib/streams.js"(exports, module2) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     module2.exports = function(stream_module) {
@@ -26052,9 +26052,9 @@ var require_streams = __commonJS({
   }
 });
 
-// resources/node_modules/iconv-lite/lib/index.js
+// node_modules/iconv-lite/lib/index.js
 var require_lib = __commonJS({
-  "resources/node_modules/iconv-lite/lib/index.js"(exports, module2) {
+  "node_modules/iconv-lite/lib/index.js"(exports, module2) {
     "use strict";
     var Buffer2 = require_safer().Buffer;
     var bomHandling = require_bom_handling();
@@ -26172,9 +26172,9 @@ var require_lib = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/parsers/string.js
+// node_modules/mysql2/lib/parsers/string.js
 var require_string2 = __commonJS({
-  "resources/node_modules/mysql2/lib/parsers/string.js"(exports) {
+  "node_modules/mysql2/lib/parsers/string.js"(exports) {
     "use strict";
     var Iconv = require_lib();
     exports.decode = function(buffer, encoding, start, end, options) {
@@ -26198,9 +26198,9 @@ var require_string2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/packet.js
+// node_modules/mysql2/lib/packets/packet.js
 var require_packet = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/packet.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/packet.js"(exports, module2) {
     "use strict";
     var ErrorCodeToName = require_errors4();
     var NativeBuffer = require("buffer").Buffer;
@@ -26941,9 +26941,9 @@ var require_packet = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packet_parser.js
+// node_modules/mysql2/lib/packet_parser.js
 var require_packet_parser = __commonJS({
-  "resources/node_modules/mysql2/lib/packet_parser.js"(exports, module2) {
+  "node_modules/mysql2/lib/packet_parser.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var MAX_PACKET_LENGTH = 16777215;
@@ -27084,9 +27084,9 @@ var require_packet_parser = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/auth_switch_request.js
+// node_modules/mysql2/lib/packets/auth_switch_request.js
 var require_auth_switch_request = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/auth_switch_request.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/auth_switch_request.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var AuthSwitchRequest = class {
@@ -27118,9 +27118,9 @@ var require_auth_switch_request = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/auth_switch_request_more_data.js
+// node_modules/mysql2/lib/packets/auth_switch_request_more_data.js
 var require_auth_switch_request_more_data = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/auth_switch_request_more_data.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/auth_switch_request_more_data.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var AuthSwitchRequestMoreData = class {
@@ -27149,9 +27149,9 @@ var require_auth_switch_request_more_data = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/auth_switch_response.js
+// node_modules/mysql2/lib/packets/auth_switch_response.js
 var require_auth_switch_response = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/auth_switch_response.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/auth_switch_response.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var AuthSwitchResponse = class {
@@ -27178,9 +27178,9 @@ var require_auth_switch_response = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/types.js
+// node_modules/mysql2/lib/constants/types.js
 var require_types = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/types.js"(exports) {
+  "node_modules/mysql2/lib/constants/types.js"(exports) {
     "use strict";
     exports.DECIMAL = 0;
     exports.TINY = 1;
@@ -27213,9 +27213,9 @@ var require_types = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/binary_row.js
+// node_modules/mysql2/lib/packets/binary_row.js
 var require_binary_row = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/binary_row.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/binary_row.js"(exports, module2) {
     "use strict";
     var Types = require_types();
     var Packet = require_packet();
@@ -27257,9 +27257,9 @@ var require_binary_row = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/commands.js
+// node_modules/mysql2/lib/constants/commands.js
 var require_commands = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/commands.js"(exports, module2) {
+  "node_modules/mysql2/lib/constants/commands.js"(exports, module2) {
     "use strict";
     module2.exports = {
       SLEEP: 0,
@@ -27298,9 +27298,9 @@ var require_commands = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/binlog_dump.js
+// node_modules/mysql2/lib/packets/binlog_dump.js
 var require_binlog_dump = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/binlog_dump.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/binlog_dump.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var CommandCodes = require_commands();
@@ -27328,9 +27328,9 @@ var require_binlog_dump = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/client.js
+// node_modules/mysql2/lib/constants/client.js
 var require_client = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/client.js"(exports) {
+  "node_modules/mysql2/lib/constants/client.js"(exports) {
     "use strict";
     exports.LONG_PASSWORD = 1;
     exports.FOUND_ROWS = 2;
@@ -27362,9 +27362,9 @@ var require_client = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/auth_41.js
+// node_modules/mysql2/lib/auth_41.js
 var require_auth_41 = __commonJS({
-  "resources/node_modules/mysql2/lib/auth_41.js"(exports) {
+  "node_modules/mysql2/lib/auth_41.js"(exports) {
     "use strict";
     var crypto = require("crypto");
     function sha1(msg, msg1, msg2) {
@@ -27433,9 +27433,9 @@ var require_auth_41 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/charset_encodings.js
+// node_modules/mysql2/lib/constants/charset_encodings.js
 var require_charset_encodings = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/charset_encodings.js"(exports, module2) {
+  "node_modules/mysql2/lib/constants/charset_encodings.js"(exports, module2) {
     "use strict";
     module2.exports = [
       "utf8",
@@ -27748,9 +27748,9 @@ var require_charset_encodings = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/change_user.js
+// node_modules/mysql2/lib/packets/change_user.js
 var require_change_user = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/change_user.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/change_user.js"(exports, module2) {
     "use strict";
     var CommandCode = require_commands();
     var ClientConstants = require_client();
@@ -27826,9 +27826,9 @@ var require_change_user = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/close_statement.js
+// node_modules/mysql2/lib/packets/close_statement.js
 var require_close_statement = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/close_statement.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/close_statement.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var CommandCodes = require_commands();
@@ -27848,9 +27848,9 @@ var require_close_statement = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/column_definition.js
+// node_modules/mysql2/lib/packets/column_definition.js
 var require_column_definition = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/column_definition.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/column_definition.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var StringParser = require_string2();
@@ -27952,9 +27952,9 @@ var require_column_definition = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/cursor.js
+// node_modules/mysql2/lib/constants/cursor.js
 var require_cursor = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/cursor.js"(exports, module2) {
+  "node_modules/mysql2/lib/constants/cursor.js"(exports, module2) {
     "use strict";
     module2.exports = {
       NO_CURSOR: 0,
@@ -27965,9 +27965,9 @@ var require_cursor = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/execute.js
+// node_modules/mysql2/lib/packets/execute.js
 var require_execute = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/execute.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/execute.js"(exports, module2) {
     "use strict";
     var CursorType = require_cursor();
     var CommandCodes = require_commands();
@@ -28084,9 +28084,9 @@ var require_execute = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/handshake.js
+// node_modules/mysql2/lib/packets/handshake.js
 var require_handshake = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/handshake.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/handshake.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var ClientConstants = require_client();
@@ -28186,9 +28186,9 @@ var require_handshake = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/handshake_response.js
+// node_modules/mysql2/lib/packets/handshake_response.js
 var require_handshake_response = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/handshake_response.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/handshake_response.js"(exports, module2) {
     "use strict";
     var ClientConstants = require_client();
     var CharsetToEncoding = require_charset_encodings();
@@ -28312,9 +28312,9 @@ var require_handshake_response = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/prepare_statement.js
+// node_modules/mysql2/lib/packets/prepare_statement.js
 var require_prepare_statement = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/prepare_statement.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/prepare_statement.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var CommandCodes = require_commands();
@@ -28341,9 +28341,9 @@ var require_prepare_statement = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/prepared_statement_header.js
+// node_modules/mysql2/lib/packets/prepared_statement_header.js
 var require_prepared_statement_header = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/prepared_statement_header.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/prepared_statement_header.js"(exports, module2) {
     "use strict";
     var PreparedStatementHeader = class {
       constructor(packet) {
@@ -28359,9 +28359,9 @@ var require_prepared_statement_header = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/query.js
+// node_modules/mysql2/lib/packets/query.js
 var require_query = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/query.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/query.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var CommandCode = require_commands();
@@ -28388,9 +28388,9 @@ var require_query = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/register_slave.js
+// node_modules/mysql2/lib/packets/register_slave.js
 var require_register_slave = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/register_slave.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/register_slave.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var CommandCodes = require_commands();
@@ -28427,9 +28427,9 @@ var require_register_slave = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/server_status.js
+// node_modules/mysql2/lib/constants/server_status.js
 var require_server_status = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/server_status.js"(exports) {
+  "node_modules/mysql2/lib/constants/server_status.js"(exports) {
     "use strict";
     exports.SERVER_STATUS_IN_TRANS = 1;
     exports.SERVER_STATUS_AUTOCOMMIT = 2;
@@ -28448,9 +28448,9 @@ var require_server_status = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/encoding_charset.js
+// node_modules/mysql2/lib/constants/encoding_charset.js
 var require_encoding_charset = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/encoding_charset.js"(exports, module2) {
+  "node_modules/mysql2/lib/constants/encoding_charset.js"(exports, module2) {
     "use strict";
     module2.exports = {
       big5: 1,
@@ -28499,9 +28499,9 @@ var require_encoding_charset = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/session_track.js
+// node_modules/mysql2/lib/constants/session_track.js
 var require_session_track = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/session_track.js"(exports) {
+  "node_modules/mysql2/lib/constants/session_track.js"(exports) {
     "use strict";
     exports.SYSTEM_VARIABLES = 0;
     exports.SCHEMA = 1;
@@ -28514,9 +28514,9 @@ var require_session_track = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/resultset_header.js
+// node_modules/mysql2/lib/packets/resultset_header.js
 var require_resultset_header = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/resultset_header.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/resultset_header.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var ClientConstants = require_client();
@@ -28614,9 +28614,9 @@ var require_resultset_header = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/ssl_request.js
+// node_modules/mysql2/lib/packets/ssl_request.js
 var require_ssl_request = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/ssl_request.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/ssl_request.js"(exports, module2) {
     "use strict";
     var ClientConstants = require_client();
     var Packet = require_packet();
@@ -28641,9 +28641,9 @@ var require_ssl_request = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/text_row.js
+// node_modules/mysql2/lib/packets/text_row.js
 var require_text_row = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/text_row.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/text_row.js"(exports, module2) {
     "use strict";
     var Packet = require_packet();
     var TextRow = class {
@@ -28688,9 +28688,9 @@ var require_text_row = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/index.js
+// node_modules/mysql2/lib/packets/index.js
 var require_packets = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/index.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/index.js"(exports, module2) {
     "use strict";
     var process2 = require("process");
     var AuthSwitchRequest = require_auth_switch_request();
@@ -28816,9 +28816,9 @@ var require_packets = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/command.js
+// node_modules/mysql2/lib/commands/command.js
 var require_command = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/command.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/command.js"(exports, module2) {
     "use strict";
     var EventEmitter = require("events").EventEmitter;
     var Timers = require("timers");
@@ -28869,9 +28869,9 @@ var require_command = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/auth_plugins/sha256_password.js
+// node_modules/mysql2/lib/auth_plugins/sha256_password.js
 var require_sha256_password = __commonJS({
-  "resources/node_modules/mysql2/lib/auth_plugins/sha256_password.js"(exports, module2) {
+  "node_modules/mysql2/lib/auth_plugins/sha256_password.js"(exports, module2) {
     "use strict";
     var PLUGIN_NAME = "sha256_password";
     var crypto = require("crypto");
@@ -28916,9 +28916,9 @@ var require_sha256_password = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js
+// node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js
 var require_caching_sha2_password = __commonJS({
-  "resources/node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js"(exports, module2) {
+  "node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js"(exports, module2) {
     "use strict";
     var PLUGIN_NAME = "caching_sha2_password";
     var crypto = require("crypto");
@@ -28995,9 +28995,9 @@ var require_caching_sha2_password = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/auth_plugins/mysql_native_password.js
+// node_modules/mysql2/lib/auth_plugins/mysql_native_password.js
 var require_mysql_native_password = __commonJS({
-  "resources/node_modules/mysql2/lib/auth_plugins/mysql_native_password.js"(exports, module2) {
+  "node_modules/mysql2/lib/auth_plugins/mysql_native_password.js"(exports, module2) {
     "use strict";
     var auth41 = require_auth_41();
     module2.exports = (pluginOptions) => ({ connection, command }) => {
@@ -29018,9 +29018,9 @@ var require_mysql_native_password = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/auth_switch.js
+// node_modules/mysql2/lib/commands/auth_switch.js
 var require_auth_switch = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/auth_switch.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/auth_switch.js"(exports, module2) {
     "use strict";
     var Packets = require_packets();
     var sha256_password = require_sha256_password();
@@ -29099,9 +29099,9 @@ var require_auth_switch = __commonJS({
   }
 });
 
-// resources/node_modules/seq-queue/lib/seq-queue.js
+// node_modules/seq-queue/lib/seq-queue.js
 var require_seq_queue = __commonJS({
-  "resources/node_modules/seq-queue/lib/seq-queue.js"(exports, module2) {
+  "node_modules/seq-queue/lib/seq-queue.js"(exports, module2) {
     var EventEmitter = require("events").EventEmitter;
     var util = require("util");
     var DEFAULT_TIMEOUT = 3e3;
@@ -29213,16 +29213,16 @@ var require_seq_queue = __commonJS({
   }
 });
 
-// resources/node_modules/seq-queue/index.js
+// node_modules/seq-queue/index.js
 var require_seq_queue2 = __commonJS({
-  "resources/node_modules/seq-queue/index.js"(exports, module2) {
+  "node_modules/seq-queue/index.js"(exports, module2) {
     module2.exports = require_seq_queue();
   }
 });
 
-// resources/node_modules/mysql2/lib/compressed_protocol.js
+// node_modules/mysql2/lib/compressed_protocol.js
 var require_compressed_protocol = __commonJS({
-  "resources/node_modules/mysql2/lib/compressed_protocol.js"(exports, module2) {
+  "node_modules/mysql2/lib/compressed_protocol.js"(exports, module2) {
     "use strict";
     var zlib = require("zlib");
     var PacketParser = require_packet_parser();
@@ -29318,9 +29318,9 @@ var require_compressed_protocol = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/client_handshake.js
+// node_modules/mysql2/lib/commands/client_handshake.js
 var require_client_handshake = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/client_handshake.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/client_handshake.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Packets = require_packets();
@@ -29472,9 +29472,9 @@ var require_client_handshake = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/server_handshake.js
+// node_modules/mysql2/lib/commands/server_handshake.js
 var require_server_handshake = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/server_handshake.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/server_handshake.js"(exports, module2) {
     "use strict";
     var CommandCode = require_commands();
     var Errors = require_errors4();
@@ -29589,9 +29589,9 @@ var require_server_handshake = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/charsets.js
+// node_modules/mysql2/lib/constants/charsets.js
 var require_charsets = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/charsets.js"(exports) {
+  "node_modules/mysql2/lib/constants/charsets.js"(exports) {
     "use strict";
     exports.BIG5_CHINESE_CI = 1;
     exports.LATIN2_CZECH_CS = 2;
@@ -29881,9 +29881,9 @@ var require_charsets = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/helpers.js
+// node_modules/mysql2/lib/helpers.js
 var require_helpers = __commonJS({
-  "resources/node_modules/mysql2/lib/helpers.js"(exports) {
+  "node_modules/mysql2/lib/helpers.js"(exports) {
     "use strict";
     function srcEscape(str) {
       return JSON.stringify({
@@ -29923,9 +29923,9 @@ ${msg}:
   }
 });
 
-// resources/node_modules/is-property/is-property.js
+// node_modules/is-property/is-property.js
 var require_is_property = __commonJS({
-  "resources/node_modules/is-property/is-property.js"(exports, module2) {
+  "node_modules/is-property/is-property.js"(exports, module2) {
     "use strict";
     function isProperty(str) {
       return /^[$A-Z\_a-z\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0370-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05d0-\u05ea\u05f0-\u05f2\u0620-\u064a\u066e\u066f\u0671-\u06d3\u06d5\u06e5\u06e6\u06ee\u06ef\u06fa-\u06fc\u06ff\u0710\u0712-\u072f\u074d-\u07a5\u07b1\u07ca-\u07ea\u07f4\u07f5\u07fa\u0800-\u0815\u081a\u0824\u0828\u0840-\u0858\u08a0\u08a2-\u08ac\u0904-\u0939\u093d\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097f\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bd\u09ce\u09dc\u09dd\u09df-\u09e1\u09f0\u09f1\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a59-\u0a5c\u0a5e\u0a72-\u0a74\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abd\u0ad0\u0ae0\u0ae1\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3d\u0b5c\u0b5d\u0b5f-\u0b61\u0b71\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bd0\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d\u0c58\u0c59\u0c60\u0c61\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbd\u0cde\u0ce0\u0ce1\u0cf1\u0cf2\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d\u0d4e\u0d60\u0d61\u0d7a-\u0d7f\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0e01-\u0e30\u0e32\u0e33\u0e40-\u0e46\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb0\u0eb2\u0eb3\u0ebd\u0ec0-\u0ec4\u0ec6\u0edc-\u0edf\u0f00\u0f40-\u0f47\u0f49-\u0f6c\u0f88-\u0f8c\u1000-\u102a\u103f\u1050-\u1055\u105a-\u105d\u1061\u1065\u1066\u106e-\u1070\u1075-\u1081\u108e\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176c\u176e-\u1770\u1780-\u17b3\u17d7\u17dc\u1820-\u1877\u1880-\u18a8\u18aa\u18b0-\u18f5\u1900-\u191c\u1950-\u196d\u1970-\u1974\u1980-\u19ab\u19c1-\u19c7\u1a00-\u1a16\u1a20-\u1a54\u1aa7\u1b05-\u1b33\u1b45-\u1b4b\u1b83-\u1ba0\u1bae\u1baf\u1bba-\u1be5\u1c00-\u1c23\u1c4d-\u1c4f\u1c5a-\u1c7d\u1ce9-\u1cec\u1cee-\u1cf1\u1cf5\u1cf6\u1d00-\u1dbf\u1e00-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u2071\u207f\u2090-\u209c\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cee\u2cf2\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d80-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2e2f\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303c\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua61f\ua62a\ua62b\ua640-\ua66e\ua67f-\ua697\ua6a0-\ua6ef\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua801\ua803-\ua805\ua807-\ua80a\ua80c-\ua822\ua840-\ua873\ua882-\ua8b3\ua8f2-\ua8f7\ua8fb\ua90a-\ua925\ua930-\ua946\ua960-\ua97c\ua984-\ua9b2\ua9cf\uaa00-\uaa28\uaa40-\uaa42\uaa44-\uaa4b\uaa60-\uaa76\uaa7a\uaa80-\uaaaf\uaab1\uaab5\uaab6\uaab9-\uaabd\uaac0\uaac2\uaadb-\uaadd\uaae0-\uaaea\uaaf2-\uaaf4\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabe2\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d\ufb1f-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\uff21-\uff3a\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc][$A-Z\_a-z\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0370-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05d0-\u05ea\u05f0-\u05f2\u0620-\u064a\u066e\u066f\u0671-\u06d3\u06d5\u06e5\u06e6\u06ee\u06ef\u06fa-\u06fc\u06ff\u0710\u0712-\u072f\u074d-\u07a5\u07b1\u07ca-\u07ea\u07f4\u07f5\u07fa\u0800-\u0815\u081a\u0824\u0828\u0840-\u0858\u08a0\u08a2-\u08ac\u0904-\u0939\u093d\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097f\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bd\u09ce\u09dc\u09dd\u09df-\u09e1\u09f0\u09f1\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a59-\u0a5c\u0a5e\u0a72-\u0a74\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abd\u0ad0\u0ae0\u0ae1\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3d\u0b5c\u0b5d\u0b5f-\u0b61\u0b71\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bd0\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d\u0c58\u0c59\u0c60\u0c61\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbd\u0cde\u0ce0\u0ce1\u0cf1\u0cf2\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d\u0d4e\u0d60\u0d61\u0d7a-\u0d7f\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0e01-\u0e30\u0e32\u0e33\u0e40-\u0e46\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb0\u0eb2\u0eb3\u0ebd\u0ec0-\u0ec4\u0ec6\u0edc-\u0edf\u0f00\u0f40-\u0f47\u0f49-\u0f6c\u0f88-\u0f8c\u1000-\u102a\u103f\u1050-\u1055\u105a-\u105d\u1061\u1065\u1066\u106e-\u1070\u1075-\u1081\u108e\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176c\u176e-\u1770\u1780-\u17b3\u17d7\u17dc\u1820-\u1877\u1880-\u18a8\u18aa\u18b0-\u18f5\u1900-\u191c\u1950-\u196d\u1970-\u1974\u1980-\u19ab\u19c1-\u19c7\u1a00-\u1a16\u1a20-\u1a54\u1aa7\u1b05-\u1b33\u1b45-\u1b4b\u1b83-\u1ba0\u1bae\u1baf\u1bba-\u1be5\u1c00-\u1c23\u1c4d-\u1c4f\u1c5a-\u1c7d\u1ce9-\u1cec\u1cee-\u1cf1\u1cf5\u1cf6\u1d00-\u1dbf\u1e00-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u2071\u207f\u2090-\u209c\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cee\u2cf2\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d80-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2e2f\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303c\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua61f\ua62a\ua62b\ua640-\ua66e\ua67f-\ua697\ua6a0-\ua6ef\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua801\ua803-\ua805\ua807-\ua80a\ua80c-\ua822\ua840-\ua873\ua882-\ua8b3\ua8f2-\ua8f7\ua8fb\ua90a-\ua925\ua930-\ua946\ua960-\ua97c\ua984-\ua9b2\ua9cf\uaa00-\uaa28\uaa40-\uaa42\uaa44-\uaa4b\uaa60-\uaa76\uaa7a\uaa80-\uaaaf\uaab1\uaab5\uaab6\uaab9-\uaabd\uaac0\uaac2\uaadb-\uaadd\uaae0-\uaaea\uaaf2-\uaaf4\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabe2\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d\ufb1f-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\uff21-\uff3a\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc0-9\u0300-\u036f\u0483-\u0487\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u0610-\u061a\u064b-\u0669\u0670\u06d6-\u06dc\u06df-\u06e4\u06e7\u06e8\u06ea-\u06ed\u06f0-\u06f9\u0711\u0730-\u074a\u07a6-\u07b0\u07c0-\u07c9\u07eb-\u07f3\u0816-\u0819\u081b-\u0823\u0825-\u0827\u0829-\u082d\u0859-\u085b\u08e4-\u08fe\u0900-\u0903\u093a-\u093c\u093e-\u094f\u0951-\u0957\u0962\u0963\u0966-\u096f\u0981-\u0983\u09bc\u09be-\u09c4\u09c7\u09c8\u09cb-\u09cd\u09d7\u09e2\u09e3\u09e6-\u09ef\u0a01-\u0a03\u0a3c\u0a3e-\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a51\u0a66-\u0a71\u0a75\u0a81-\u0a83\u0abc\u0abe-\u0ac5\u0ac7-\u0ac9\u0acb-\u0acd\u0ae2\u0ae3\u0ae6-\u0aef\u0b01-\u0b03\u0b3c\u0b3e-\u0b44\u0b47\u0b48\u0b4b-\u0b4d\u0b56\u0b57\u0b62\u0b63\u0b66-\u0b6f\u0b82\u0bbe-\u0bc2\u0bc6-\u0bc8\u0bca-\u0bcd\u0bd7\u0be6-\u0bef\u0c01-\u0c03\u0c3e-\u0c44\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0c62\u0c63\u0c66-\u0c6f\u0c82\u0c83\u0cbc\u0cbe-\u0cc4\u0cc6-\u0cc8\u0cca-\u0ccd\u0cd5\u0cd6\u0ce2\u0ce3\u0ce6-\u0cef\u0d02\u0d03\u0d3e-\u0d44\u0d46-\u0d48\u0d4a-\u0d4d\u0d57\u0d62\u0d63\u0d66-\u0d6f\u0d82\u0d83\u0dca\u0dcf-\u0dd4\u0dd6\u0dd8-\u0ddf\u0df2\u0df3\u0e31\u0e34-\u0e3a\u0e47-\u0e4e\u0e50-\u0e59\u0eb1\u0eb4-\u0eb9\u0ebb\u0ebc\u0ec8-\u0ecd\u0ed0-\u0ed9\u0f18\u0f19\u0f20-\u0f29\u0f35\u0f37\u0f39\u0f3e\u0f3f\u0f71-\u0f84\u0f86\u0f87\u0f8d-\u0f97\u0f99-\u0fbc\u0fc6\u102b-\u103e\u1040-\u1049\u1056-\u1059\u105e-\u1060\u1062-\u1064\u1067-\u106d\u1071-\u1074\u1082-\u108d\u108f-\u109d\u135d-\u135f\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17b4-\u17d3\u17dd\u17e0-\u17e9\u180b-\u180d\u1810-\u1819\u18a9\u1920-\u192b\u1930-\u193b\u1946-\u194f\u19b0-\u19c0\u19c8\u19c9\u19d0-\u19d9\u1a17-\u1a1b\u1a55-\u1a5e\u1a60-\u1a7c\u1a7f-\u1a89\u1a90-\u1a99\u1b00-\u1b04\u1b34-\u1b44\u1b50-\u1b59\u1b6b-\u1b73\u1b80-\u1b82\u1ba1-\u1bad\u1bb0-\u1bb9\u1be6-\u1bf3\u1c24-\u1c37\u1c40-\u1c49\u1c50-\u1c59\u1cd0-\u1cd2\u1cd4-\u1ce8\u1ced\u1cf2-\u1cf4\u1dc0-\u1de6\u1dfc-\u1dff\u200c\u200d\u203f\u2040\u2054\u20d0-\u20dc\u20e1\u20e5-\u20f0\u2cef-\u2cf1\u2d7f\u2de0-\u2dff\u302a-\u302f\u3099\u309a\ua620-\ua629\ua66f\ua674-\ua67d\ua69f\ua6f0\ua6f1\ua802\ua806\ua80b\ua823-\ua827\ua880\ua881\ua8b4-\ua8c4\ua8d0-\ua8d9\ua8e0-\ua8f1\ua900-\ua909\ua926-\ua92d\ua947-\ua953\ua980-\ua983\ua9b3-\ua9c0\ua9d0-\ua9d9\uaa29-\uaa36\uaa43\uaa4c\uaa4d\uaa50-\uaa59\uaa7b\uaab0\uaab2-\uaab4\uaab7\uaab8\uaabe\uaabf\uaac1\uaaeb-\uaaef\uaaf5\uaaf6\uabe3-\uabea\uabec\uabed\uabf0-\uabf9\ufb1e\ufe00-\ufe0f\ufe20-\ufe26\ufe33\ufe34\ufe4d-\ufe4f\uff10-\uff19\uff3f]*$/.test(str);
@@ -29934,9 +29934,9 @@ var require_is_property = __commonJS({
   }
 });
 
-// resources/node_modules/generate-function/index.js
+// node_modules/generate-function/index.js
 var require_generate_function = __commonJS({
-  "resources/node_modules/generate-function/index.js"(exports, module2) {
+  "node_modules/generate-function/index.js"(exports, module2) {
     var util = require("util");
     var isProperty = require_is_property();
     var INDENT_START = /[\{\[]/;
@@ -30101,9 +30101,9 @@ var require_generate_function = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/parsers/parser_cache.js
+// node_modules/mysql2/lib/parsers/parser_cache.js
 var require_parser_cache = __commonJS({
-  "resources/node_modules/mysql2/lib/parsers/parser_cache.js"(exports, module2) {
+  "node_modules/mysql2/lib/parsers/parser_cache.js"(exports, module2) {
     "use strict";
     var LRU = require_lru_cache();
     var parserCache = new LRU({
@@ -30141,9 +30141,9 @@ var require_parser_cache = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/parsers/text_parser.js
+// node_modules/mysql2/lib/parsers/text_parser.js
 var require_text_parser = __commonJS({
-  "resources/node_modules/mysql2/lib/parsers/text_parser.js"(exports, module2) {
+  "node_modules/mysql2/lib/parsers/text_parser.js"(exports, module2) {
     "use strict";
     var Types = require_types();
     var Charsets = require_charsets();
@@ -30300,9 +30300,9 @@ var require_text_parser = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/query.js
+// node_modules/mysql2/lib/commands/query.js
 var require_query2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/query.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/query.js"(exports, module2) {
     "use strict";
     var process2 = require("process");
     var Timers = require("timers");
@@ -30568,9 +30568,9 @@ var require_query2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/close_statement.js
+// node_modules/mysql2/lib/commands/close_statement.js
 var require_close_statement2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/close_statement.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/close_statement.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Packets = require_packets();
@@ -30588,9 +30588,9 @@ var require_close_statement2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/field_flags.js
+// node_modules/mysql2/lib/constants/field_flags.js
 var require_field_flags = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/field_flags.js"(exports) {
+  "node_modules/mysql2/lib/constants/field_flags.js"(exports) {
     "use strict";
     exports.NOT_NULL = 1;
     exports.PRI_KEY = 2;
@@ -30610,9 +30610,9 @@ var require_field_flags = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/parsers/binary_parser.js
+// node_modules/mysql2/lib/parsers/binary_parser.js
 var require_binary_parser = __commonJS({
-  "resources/node_modules/mysql2/lib/parsers/binary_parser.js"(exports, module2) {
+  "node_modules/mysql2/lib/parsers/binary_parser.js"(exports, module2) {
     "use strict";
     var FieldFlags = require_field_flags();
     var Charsets = require_charsets();
@@ -30754,9 +30754,9 @@ var require_binary_parser = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/execute.js
+// node_modules/mysql2/lib/commands/execute.js
 var require_execute2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/execute.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/execute.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Query = require_query2();
@@ -30834,9 +30834,9 @@ var require_execute2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/prepare.js
+// node_modules/mysql2/lib/commands/prepare.js
 var require_prepare = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/prepare.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/prepare.js"(exports, module2) {
     "use strict";
     var Packets = require_packets();
     var Command = require_command();
@@ -30945,9 +30945,9 @@ var require_prepare = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/ping.js
+// node_modules/mysql2/lib/commands/ping.js
 var require_ping = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/ping.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/ping.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var CommandCode = require_commands();
@@ -30973,9 +30973,9 @@ var require_ping = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/register_slave.js
+// node_modules/mysql2/lib/commands/register_slave.js
 var require_register_slave2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/register_slave.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/register_slave.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Packets = require_packets();
@@ -31001,9 +31001,9 @@ var require_register_slave2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/packets/binlog_query_statusvars.js
+// node_modules/mysql2/lib/packets/binlog_query_statusvars.js
 var require_binlog_query_statusvars = __commonJS({
-  "resources/node_modules/mysql2/lib/packets/binlog_query_statusvars.js"(exports, module2) {
+  "node_modules/mysql2/lib/packets/binlog_query_statusvars.js"(exports, module2) {
     "use strict";
     var keys = {
       FLAGS2: 0,
@@ -31102,9 +31102,9 @@ var require_binlog_query_statusvars = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/binlog_dump.js
+// node_modules/mysql2/lib/commands/binlog_dump.js
 var require_binlog_dump2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/binlog_dump.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/binlog_dump.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Packets = require_packets();
@@ -31199,9 +31199,9 @@ var require_binlog_dump2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/change_user.js
+// node_modules/mysql2/lib/commands/change_user.js
 var require_change_user2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/change_user.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/change_user.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var Packets = require_packets();
@@ -31245,9 +31245,9 @@ var require_change_user2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/quit.js
+// node_modules/mysql2/lib/commands/quit.js
 var require_quit = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/quit.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/quit.js"(exports, module2) {
     "use strict";
     var Command = require_command();
     var CommandCode = require_commands();
@@ -31271,9 +31271,9 @@ var require_quit = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/commands/index.js
+// node_modules/mysql2/lib/commands/index.js
 var require_commands2 = __commonJS({
-  "resources/node_modules/mysql2/lib/commands/index.js"(exports, module2) {
+  "node_modules/mysql2/lib/commands/index.js"(exports, module2) {
     "use strict";
     var ClientHandshake = require_client_handshake();
     var ServerHandshake = require_server_handshake();
@@ -31302,9 +31302,9 @@ var require_commands2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/constants/ssl_profiles.js
+// node_modules/mysql2/lib/constants/ssl_profiles.js
 var require_ssl_profiles = __commonJS({
-  "resources/node_modules/mysql2/lib/constants/ssl_profiles.js"(exports) {
+  "node_modules/mysql2/lib/constants/ssl_profiles.js"(exports) {
     "use strict";
     exports["Amazon RDS"] = {
       ca: [
@@ -31359,9 +31359,9 @@ var require_ssl_profiles = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/connection_config.js
+// node_modules/mysql2/lib/connection_config.js
 var require_connection_config = __commonJS({
-  "resources/node_modules/mysql2/lib/connection_config.js"(exports, module2) {
+  "node_modules/mysql2/lib/connection_config.js"(exports, module2) {
     "use strict";
     var { URL } = require("url");
     var ClientConstants = require_client();
@@ -31576,9 +31576,9 @@ var require_connection_config = __commonJS({
   }
 });
 
-// resources/node_modules/pseudomap/pseudomap.js
+// node_modules/pseudomap/pseudomap.js
 var require_pseudomap = __commonJS({
-  "resources/node_modules/pseudomap/pseudomap.js"(exports, module2) {
+  "node_modules/pseudomap/pseudomap.js"(exports, module2) {
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     module2.exports = PseudoMap;
     function PseudoMap(set2) {
@@ -31671,9 +31671,9 @@ var require_pseudomap = __commonJS({
   }
 });
 
-// resources/node_modules/pseudomap/map.js
+// node_modules/pseudomap/map.js
 var require_map = __commonJS({
-  "resources/node_modules/pseudomap/map.js"(exports, module2) {
+  "node_modules/pseudomap/map.js"(exports, module2) {
     if (process.env.npm_package_name === "pseudomap" && process.env.npm_lifecycle_script === "test")
       process.env.TEST_PSEUDOMAP = "true";
     if (typeof Map === "function" && !process.env.TEST_PSEUDOMAP) {
@@ -31684,9 +31684,9 @@ var require_map = __commonJS({
   }
 });
 
-// resources/node_modules/named-placeholders/node_modules/yallist/yallist.js
+// node_modules/named-placeholders/node_modules/yallist/yallist.js
 var require_yallist2 = __commonJS({
-  "resources/node_modules/named-placeholders/node_modules/yallist/yallist.js"(exports, module2) {
+  "node_modules/named-placeholders/node_modules/yallist/yallist.js"(exports, module2) {
     module2.exports = Yallist;
     Yallist.Node = Node;
     Yallist.create = Yallist;
@@ -32010,9 +32010,9 @@ var require_yallist2 = __commonJS({
   }
 });
 
-// resources/node_modules/named-placeholders/node_modules/lru-cache/index.js
+// node_modules/named-placeholders/node_modules/lru-cache/index.js
 var require_lru_cache2 = __commonJS({
-  "resources/node_modules/named-placeholders/node_modules/lru-cache/index.js"(exports, module2) {
+  "node_modules/named-placeholders/node_modules/lru-cache/index.js"(exports, module2) {
     "use strict";
     module2.exports = LRUCache;
     var Map2 = require_map();
@@ -32406,9 +32406,9 @@ var require_lru_cache2 = __commonJS({
   }
 });
 
-// resources/node_modules/named-placeholders/index.js
+// node_modules/named-placeholders/index.js
 var require_named_placeholders = __commonJS({
-  "resources/node_modules/named-placeholders/index.js"(exports, module2) {
+  "node_modules/named-placeholders/index.js"(exports, module2) {
     "use strict";
     var RE_PARAM = /(?:\?)|(?::(\d+|(?:[a-zA-Z][a-zA-Z0-9_]*)))/g;
     var DQUOTE = 34;
@@ -32571,9 +32571,9 @@ var require_named_placeholders = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/connection.js
+// node_modules/mysql2/lib/connection.js
 var require_connection = __commonJS({
-  "resources/node_modules/mysql2/lib/connection.js"(exports, module2) {
+  "node_modules/mysql2/lib/connection.js"(exports, module2) {
     "use strict";
     var Net = require("net");
     var Tls = require("tls");
@@ -33276,9 +33276,9 @@ var require_connection = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/pool_connection.js
+// node_modules/mysql2/lib/pool_connection.js
 var require_pool_connection = __commonJS({
-  "resources/node_modules/mysql2/lib/pool_connection.js"(exports, module2) {
+  "node_modules/mysql2/lib/pool_connection.js"(exports, module2) {
     "use strict";
     var Connection = require_mysql2().Connection;
     var PoolConnection = class extends Connection {
@@ -33327,9 +33327,9 @@ var require_pool_connection = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/pool.js
+// node_modules/mysql2/lib/pool.js
 var require_pool = __commonJS({
-  "resources/node_modules/mysql2/lib/pool.js"(exports, module2) {
+  "node_modules/mysql2/lib/pool.js"(exports, module2) {
     "use strict";
     var process2 = require("process");
     var mysql2 = require_mysql2();
@@ -33505,9 +33505,9 @@ var require_pool = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/pool_config.js
+// node_modules/mysql2/lib/pool_config.js
 var require_pool_config = __commonJS({
-  "resources/node_modules/mysql2/lib/pool_config.js"(exports, module2) {
+  "node_modules/mysql2/lib/pool_config.js"(exports, module2) {
     "use strict";
     var ConnectionConfig = require_connection_config();
     var PoolConfig = class {
@@ -33525,9 +33525,9 @@ var require_pool_config = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/pool_cluster.js
+// node_modules/mysql2/lib/pool_cluster.js
 var require_pool_cluster = __commonJS({
-  "resources/node_modules/mysql2/lib/pool_cluster.js"(exports, module2) {
+  "node_modules/mysql2/lib/pool_cluster.js"(exports, module2) {
     "use strict";
     var process2 = require("process");
     var Pool = require_pool();
@@ -33760,9 +33760,9 @@ var require_pool_cluster = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/lib/server.js
+// node_modules/mysql2/lib/server.js
 var require_server = __commonJS({
-  "resources/node_modules/mysql2/lib/server.js"(exports, module2) {
+  "node_modules/mysql2/lib/server.js"(exports, module2) {
     "use strict";
     var net = require("net");
     var EventEmitter = require("events").EventEmitter;
@@ -33795,9 +33795,9 @@ var require_server = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/index.js
+// node_modules/mysql2/index.js
 var require_mysql2 = __commonJS({
-  "resources/node_modules/mysql2/index.js"(exports) {
+  "node_modules/mysql2/index.js"(exports) {
     "use strict";
     var SqlString = require_sqlstring();
     var Connection = require_connection();
@@ -33849,9 +33849,9 @@ var require_mysql2 = __commonJS({
   }
 });
 
-// resources/node_modules/mysql2/promise.js
+// node_modules/mysql2/promise.js
 var require_promise = __commonJS({
-  "resources/node_modules/mysql2/promise.js"(exports) {
+  "node_modules/mysql2/promise.js"(exports) {
     "use strict";
     var core = require_mysql2();
     var EventEmitter = require("events").EventEmitter;
@@ -33870,11 +33870,11 @@ var require_promise = __commonJS({
         }
       };
     }
-    function inheritEvents(source, target, events) {
+    function inheritEvents(source2, target, events) {
       const listeners = {};
       target.on("newListener", (eventName) => {
         if (events.indexOf(eventName) >= 0 && !target.listenerCount(eventName)) {
-          source.on(eventName, listeners[eventName] = function() {
+          source2.on(eventName, listeners[eventName] = function() {
             const args = [].slice.call(arguments);
             args.unshift(eventName);
             target.emit.apply(target, args);
@@ -33882,7 +33882,7 @@ var require_promise = __commonJS({
         }
       }).on("removeListener", (eventName) => {
         if (events.indexOf(eventName) >= 0 && !target.listenerCount(eventName)) {
-          source.removeListener(eventName, listeners[eventName]);
+          source2.removeListener(eventName, listeners[eventName]);
           delete listeners[eventName];
         }
       });
@@ -34298,7 +34298,7 @@ var require_promise = __commonJS({
   }
 });
 
-// resources/server/db/db_utils.ts
+// server/db/db_utils.ts
 function parseSemiColonFormat(connectionString) {
   const parts = connectionString.replace(/(?:host(?:name)|ip|server|data\s?source|addr(?:ess)?)=/gi, "host=").replace(/(?:user\s?(?:id|name)?|uid)=/gi, "user=").replace(/(?:pwd|pass)=/gi, "password=").replace(/(?:db)=/gi, "database=").split(";");
   if (parts.length === 1) {
@@ -34313,12 +34313,12 @@ function parseSemiColonFormat(connectionString) {
 }
 var CONNECTION_STRING;
 var init_db_utils = __esm({
-  "resources/server/db/db_utils.ts"() {
+  "server/db/db_utils.ts"() {
     CONNECTION_STRING = "mysql_connection_string";
   }
 });
 
-// resources/server/db/pool.ts
+// server/db/pool.ts
 function generateConnectionPool() {
   try {
     const config3 = mysqlConnectionString.includes("mysql://") ? { uri: mysqlConnectionString } : parseSemiColonFormat(mysqlConnectionString);
@@ -34333,7 +34333,7 @@ function generateConnectionPool() {
 }
 var import_promise, mysqlConnectionString, pool;
 var init_pool = __esm({
-  "resources/server/db/pool.ts"() {
+  "server/db/pool.ts"() {
     import_promise = __toESM(require_promise());
     init_db_utils();
     init_sv_logger();
@@ -34347,10 +34347,10 @@ var init_pool = __esm({
   }
 });
 
-// resources/server/db/db_wrapper.ts
+// server/db/db_wrapper.ts
 var RESOURCE_NAME, _DbInterface, DbInterface, db_wrapper_default;
 var init_db_wrapper = __esm({
-  "resources/server/db/db_wrapper.ts"() {
+  "server/db/db_wrapper.ts"() {
     init_pool();
     init_sv_logger();
     init_config2();
@@ -34409,17 +34409,17 @@ var init_db_wrapper = __esm({
   }
 });
 
-// resources/server/db/index.ts
+// server/db/index.ts
 var init_db = __esm({
-  "resources/server/db/index.ts"() {
+  "server/db/index.ts"() {
     init_db_utils();
   }
 });
 
-// resources/server/db/parseUri.ts
+// server/db/parseUri.ts
 var regex, parseUri;
 var init_parseUri = __esm({
-  "resources/server/db/parseUri.ts"() {
+  "server/db/parseUri.ts"() {
     regex = new RegExp("^(?:([^:/?#.]+):)?(?://(?:([^/?#]*)@)?([\\w\\d\\-\\u0100-\\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\\?([^#]*))?$");
     parseUri = (connectionUri) => {
       const splitMatchGroups = connectionUri.match(regex);
@@ -34444,10 +34444,10 @@ var init_parseUri = __esm({
   }
 });
 
-// resources/server/commands/registerCommands.ts
+// server/commands/registerCommands.ts
 var mysqlConnectionString2, npwdDebugDumpCommand, registerCommands;
 var init_registerCommands = __esm({
-  "resources/server/commands/registerCommands.ts"() {
+  "server/commands/registerCommands.ts"() {
     init_sv_logger();
     init_config2();
     init_db_wrapper();
@@ -34492,10 +34492,10 @@ var init_registerCommands = __esm({
   }
 });
 
-// resources/server/boot/boot.db.ts
+// server/boot/boot.db.ts
 var mysqlConnectionString3, _BootDb, BootDb, boot_db_default;
 var init_boot_db = __esm({
-  "resources/server/boot/boot.db.ts"() {
+  "server/boot/boot.db.ts"() {
     init_db();
     init_db_wrapper();
     init_parseUri();
@@ -34526,10 +34526,10 @@ var init_boot_db = __esm({
   }
 });
 
-// resources/server/boot/boot.utils.ts
+// server/boot/boot.utils.ts
 var bootLogger, fatalDbError, identifierColumn, phoneNumberColumn, requiredDbColumns, frameworkDependencies;
 var init_boot_utils = __esm({
-  "resources/server/boot/boot.utils.ts"() {
+  "server/boot/boot.utils.ts"() {
     init_sv_logger();
     init_config2();
     bootLogger = mainLogger.child({
@@ -34556,10 +34556,10 @@ This error is most likely caused by incorrect values in the config.json file.
   }
 });
 
-// resources/server/boot/boot.service.ts
+// server/boot/boot.service.ts
 var _BootService, BootService, boot_service_default;
 var init_boot_service = __esm({
-  "resources/server/boot/boot.service.ts"() {
+  "server/boot/boot.service.ts"() {
     init_boot_db();
     init_boot_utils();
     init_config2();
@@ -34626,9 +34626,9 @@ var init_boot_service = __esm({
   }
 });
 
-// resources/server/boot/boot.controller.ts
+// server/boot/boot.controller.ts
 var require_boot_controller = __commonJS({
-  "resources/server/boot/boot.controller.ts"(exports) {
+  "server/boot/boot.controller.ts"(exports) {
     init_boot_service();
     on("onServerResourceStart", (resource) => __async(exports, null, function* () {
       if (resource === GetCurrentResourceName()) {
@@ -34638,10 +34638,10 @@ var require_boot_controller = __commonJS({
   }
 });
 
-// resources/server/utils/miscUtils.ts
+// server/utils/miscUtils.ts
 var getSource, clean, onNetTyped, emitNetTyped;
 var init_miscUtils = __esm({
-  "resources/server/utils/miscUtils.ts"() {
+  "server/utils/miscUtils.ts"() {
     getSource = () => global.source;
     clean = (input) => input ? input.replace(/[^0-9a-z]/gi, "") : input;
     onNetTyped = (eventName, cb) => onNet(eventName, cb);
@@ -34654,7 +34654,7 @@ var init_miscUtils = __esm({
   }
 });
 
-// resources/server/misc/generateUniquePhoneNumber.ts
+// server/misc/generateUniquePhoneNumber.ts
 function generateUniquePhoneNumber() {
   return __async(this, null, function* () {
     const query = `SELECT EXISTS(SELECT * FROM ${config2.database.playerTable} WHERE ${config2.database.phoneNumberColumn} = ?)`;
@@ -34667,7 +34667,7 @@ function generateUniquePhoneNumber() {
 }
 var genNumber, generateUsNumber;
 var init_generateUniquePhoneNumber = __esm({
-  "resources/server/misc/generateUniquePhoneNumber.ts"() {
+  "server/misc/generateUniquePhoneNumber.ts"() {
     init_server();
     init_db_wrapper();
     genNumber = (length) => {
@@ -34689,11 +34689,11 @@ var init_generateUniquePhoneNumber = __esm({
   }
 });
 
-// resources/server/players/player.utils.ts
-function getDefaultProfileNames(source) {
+// server/players/player.utils.ts
+function getDefaultProfileNames(source2) {
   return __async(this, null, function* () {
     const defaultProfileNames = [];
-    const player = player_service_default.getPlayer(source);
+    const player = player_service_default.getPlayer(source2);
     if (player.getFirstName() && player.getLastName()) {
       defaultProfileNames.push(`${player.getFirstName()}_${player.getLastName()}`);
     } else if (player.getFirstName()) {
@@ -34709,7 +34709,7 @@ function getDefaultProfileNames(source) {
 }
 var playerLogger;
 var init_player_utils = __esm({
-  "resources/server/players/player.utils.ts"() {
+  "server/players/player.utils.ts"() {
     init_sv_logger();
     init_player_service();
     playerLogger = mainLogger.child({
@@ -34718,7 +34718,7 @@ var init_player_utils = __esm({
   }
 });
 
-// resources/server/misc/functions.ts
+// server/misc/functions.ts
 function findOrGeneratePhoneNumber(identifier) {
   return __async(this, null, function* () {
     const query = `SELECT ${config2.database.phoneNumberColumn} FROM ${config2.database.playerTable} WHERE ${config2.database.identifierColumn} = ? LIMIT 1`;
@@ -34742,7 +34742,7 @@ function findOrGeneratePhoneNumber(identifier) {
   });
 }
 var init_functions = __esm({
-  "resources/server/misc/functions.ts"() {
+  "server/misc/functions.ts"() {
     init_server();
     init_db_wrapper();
     init_generateUniquePhoneNumber();
@@ -34750,19 +34750,19 @@ var init_functions = __esm({
   }
 });
 
-// typings/phone.ts
+// ../typings/phone.ts
 var init_phone = __esm({
-  "typings/phone.ts"() {
+  "../typings/phone.ts"() {
   }
 });
 
-// resources/server/players/player.class.ts
+// server/players/player.class.ts
 var Player;
 var init_player_class = __esm({
-  "resources/server/players/player.class.ts"() {
+  "server/players/player.class.ts"() {
     Player = class {
-      constructor({ source, identifier, phoneNumber, username }) {
-        this.source = source;
+      constructor({ source: source2, identifier, phoneNumber, username }) {
+        this.source = source2;
         this._identifier = identifier;
         this._phoneNumber = phoneNumber;
         this.username = username;
@@ -34804,10 +34804,10 @@ var init_player_class = __esm({
   }
 });
 
-// resources/node_modules/@discordjs/collection/dist/index.mjs
+// node_modules/@discordjs/collection/dist/index.mjs
 var h, r, o, c, f;
 var init_dist = __esm({
-  "resources/node_modules/@discordjs/collection/dist/index.mjs"() {
+  "node_modules/@discordjs/collection/dist/index.mjs"() {
     h = Object.defineProperty;
     r = (u, e) => h(u, "name", { value: e, configurable: true });
     o = class extends Map {
@@ -35017,10 +35017,10 @@ var init_dist = __esm({
   }
 });
 
-// resources/server/utils/getPlayerGameLicense.ts
+// server/utils/getPlayerGameLicense.ts
 var getPlayerGameLicense;
 var init_getPlayerGameLicense = __esm({
-  "resources/server/utils/getPlayerGameLicense.ts"() {
+  "server/utils/getPlayerGameLicense.ts"() {
     init_server();
     getPlayerGameLicense = (src) => {
       const playerIdentifiers = getPlayerIdentifiers(src.toString());
@@ -35040,10 +35040,10 @@ var init_getPlayerGameLicense = __esm({
   }
 });
 
-// resources/server/players/player.db.ts
+// server/players/player.db.ts
 var PlayerRepo, player_db_default;
 var init_player_db = __esm({
-  "resources/server/players/player.db.ts"() {
+  "server/players/player.db.ts"() {
     init_config2();
     init_db_wrapper();
     PlayerRepo = class {
@@ -35066,19 +35066,19 @@ var init_player_db = __esm({
   }
 });
 
-// resources/server/marketplace/marketplace.utils.ts
+// server/marketplace/marketplace.utils.ts
 var marketplaceLogger;
 var init_marketplace_utils = __esm({
-  "resources/server/marketplace/marketplace.utils.ts"() {
+  "server/marketplace/marketplace.utils.ts"() {
     init_sv_logger();
     marketplaceLogger = mainLogger.child({ module: "marketplace" });
   }
 });
 
-// resources/server/marketplace/marketplace.db.ts
+// server/marketplace/marketplace.db.ts
 var _MarketplaceDB, MarketplaceDB, marketplace_db_default;
 var init_marketplace_db = __esm({
-  "resources/server/marketplace/marketplace.db.ts"() {
+  "server/marketplace/marketplace.db.ts"() {
     init_db_wrapper();
     _MarketplaceDB = class {
       addListing(identifier, username, name, number, listing) {
@@ -35159,15 +35159,15 @@ var init_marketplace_db = __esm({
   }
 });
 
-// typings/marketplace.ts
+// ../typings/marketplace.ts
 var init_marketplace = __esm({
-  "typings/marketplace.ts"() {
+  "../typings/marketplace.ts"() {
   }
 });
 
-// resources/node_modules/axios/lib/helpers/bind.js
+// node_modules/axios/lib/helpers/bind.js
 var require_bind = __commonJS({
-  "resources/node_modules/axios/lib/helpers/bind.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/bind.js"(exports, module2) {
     "use strict";
     module2.exports = function bind(fn, thisArg) {
       return function wrap() {
@@ -35181,9 +35181,9 @@ var require_bind = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/utils.js
+// node_modules/axios/lib/utils.js
 var require_utils = __commonJS({
-  "resources/node_modules/axios/lib/utils.js"(exports, module2) {
+  "node_modules/axios/lib/utils.js"(exports, module2) {
     "use strict";
     var bind = require_bind();
     var toString = Object.prototype.toString;
@@ -35334,9 +35334,9 @@ var require_utils = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/buildURL.js
+// node_modules/axios/lib/helpers/buildURL.js
 var require_buildURL = __commonJS({
-  "resources/node_modules/axios/lib/helpers/buildURL.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/buildURL.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     function encode(val) {
@@ -35385,9 +35385,9 @@ var require_buildURL = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/InterceptorManager.js
+// node_modules/axios/lib/core/InterceptorManager.js
 var require_InterceptorManager = __commonJS({
-  "resources/node_modules/axios/lib/core/InterceptorManager.js"(exports, module2) {
+  "node_modules/axios/lib/core/InterceptorManager.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     function InterceptorManager() {
@@ -35418,9 +35418,9 @@ var require_InterceptorManager = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/normalizeHeaderName.js
+// node_modules/axios/lib/helpers/normalizeHeaderName.js
 var require_normalizeHeaderName = __commonJS({
-  "resources/node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     module2.exports = function normalizeHeaderName(headers, normalizedName) {
@@ -35434,9 +35434,9 @@ var require_normalizeHeaderName = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/enhanceError.js
+// node_modules/axios/lib/core/enhanceError.js
 var require_enhanceError = __commonJS({
-  "resources/node_modules/axios/lib/core/enhanceError.js"(exports, module2) {
+  "node_modules/axios/lib/core/enhanceError.js"(exports, module2) {
     "use strict";
     module2.exports = function enhanceError(error, config3, code, request, response) {
       error.config = config3;
@@ -35465,9 +35465,9 @@ var require_enhanceError = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/createError.js
+// node_modules/axios/lib/core/createError.js
 var require_createError = __commonJS({
-  "resources/node_modules/axios/lib/core/createError.js"(exports, module2) {
+  "node_modules/axios/lib/core/createError.js"(exports, module2) {
     "use strict";
     var enhanceError = require_enhanceError();
     module2.exports = function createError(message, config3, code, request, response) {
@@ -35477,9 +35477,9 @@ var require_createError = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/settle.js
+// node_modules/axios/lib/core/settle.js
 var require_settle = __commonJS({
-  "resources/node_modules/axios/lib/core/settle.js"(exports, module2) {
+  "node_modules/axios/lib/core/settle.js"(exports, module2) {
     "use strict";
     var createError = require_createError();
     module2.exports = function settle(resolve, reject, response) {
@@ -35493,9 +35493,9 @@ var require_settle = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/cookies.js
+// node_modules/axios/lib/helpers/cookies.js
 var require_cookies = __commonJS({
-  "resources/node_modules/axios/lib/helpers/cookies.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/cookies.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     module2.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
@@ -35539,9 +35539,9 @@ var require_cookies = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/isAbsoluteURL.js
+// node_modules/axios/lib/helpers/isAbsoluteURL.js
 var require_isAbsoluteURL = __commonJS({
-  "resources/node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module2) {
     "use strict";
     module2.exports = function isAbsoluteURL(url) {
       return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
@@ -35549,9 +35549,9 @@ var require_isAbsoluteURL = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/combineURLs.js
+// node_modules/axios/lib/helpers/combineURLs.js
 var require_combineURLs = __commonJS({
-  "resources/node_modules/axios/lib/helpers/combineURLs.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/combineURLs.js"(exports, module2) {
     "use strict";
     module2.exports = function combineURLs(baseURL, relativeURL) {
       return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
@@ -35559,9 +35559,9 @@ var require_combineURLs = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/buildFullPath.js
+// node_modules/axios/lib/core/buildFullPath.js
 var require_buildFullPath = __commonJS({
-  "resources/node_modules/axios/lib/core/buildFullPath.js"(exports, module2) {
+  "node_modules/axios/lib/core/buildFullPath.js"(exports, module2) {
     "use strict";
     var isAbsoluteURL = require_isAbsoluteURL();
     var combineURLs = require_combineURLs();
@@ -35574,9 +35574,9 @@ var require_buildFullPath = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/parseHeaders.js
+// node_modules/axios/lib/helpers/parseHeaders.js
 var require_parseHeaders = __commonJS({
-  "resources/node_modules/axios/lib/helpers/parseHeaders.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/parseHeaders.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var ignoreDuplicateOf = [
@@ -35626,9 +35626,9 @@ var require_parseHeaders = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/isURLSameOrigin.js
+// node_modules/axios/lib/helpers/isURLSameOrigin.js
 var require_isURLSameOrigin = __commonJS({
-  "resources/node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     module2.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
@@ -35666,9 +35666,9 @@ var require_isURLSameOrigin = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/adapters/xhr.js
+// node_modules/axios/lib/adapters/xhr.js
 var require_xhr = __commonJS({
-  "resources/node_modules/axios/lib/adapters/xhr.js"(exports, module2) {
+  "node_modules/axios/lib/adapters/xhr.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var settle = require_settle();
@@ -35790,9 +35790,9 @@ var require_xhr = __commonJS({
   }
 });
 
-// resources/node_modules/debug/src/common.js
+// node_modules/debug/src/common.js
 var require_common2 = __commonJS({
-  "resources/node_modules/debug/src/common.js"(exports, module2) {
+  "node_modules/debug/src/common.js"(exports, module2) {
     function setup(env) {
       createDebug.debug = createDebug;
       createDebug.default = createDebug;
@@ -35953,9 +35953,9 @@ var require_common2 = __commonJS({
   }
 });
 
-// resources/node_modules/debug/src/browser.js
+// node_modules/debug/src/browser.js
 var require_browser2 = __commonJS({
-  "resources/node_modules/debug/src/browser.js"(exports, module2) {
+  "node_modules/debug/src/browser.js"(exports, module2) {
     exports.formatArgs = formatArgs;
     exports.save = save;
     exports.load = load;
@@ -36118,9 +36118,9 @@ var require_browser2 = __commonJS({
   }
 });
 
-// resources/node_modules/has-flag/index.js
+// node_modules/has-flag/index.js
 var require_has_flag2 = __commonJS({
-  "resources/node_modules/has-flag/index.js"(exports, module2) {
+  "node_modules/has-flag/index.js"(exports, module2) {
     "use strict";
     module2.exports = (flag, argv = process.argv) => {
       const prefix = flag.startsWith("-") ? "" : flag.length === 1 ? "-" : "--";
@@ -36131,9 +36131,9 @@ var require_has_flag2 = __commonJS({
   }
 });
 
-// resources/node_modules/supports-color/index.js
+// node_modules/supports-color/index.js
 var require_supports_color = __commonJS({
-  "resources/node_modules/supports-color/index.js"(exports, module2) {
+  "node_modules/supports-color/index.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var tty = require("tty");
@@ -36233,9 +36233,9 @@ var require_supports_color = __commonJS({
   }
 });
 
-// resources/node_modules/debug/src/node.js
+// node_modules/debug/src/node.js
 var require_node4 = __commonJS({
-  "resources/node_modules/debug/src/node.js"(exports, module2) {
+  "node_modules/debug/src/node.js"(exports, module2) {
     var tty = require("tty");
     var util = require("util");
     exports.init = init2;
@@ -36404,9 +36404,9 @@ var require_node4 = __commonJS({
   }
 });
 
-// resources/node_modules/debug/src/index.js
+// node_modules/debug/src/index.js
 var require_src = __commonJS({
-  "resources/node_modules/debug/src/index.js"(exports, module2) {
+  "node_modules/debug/src/index.js"(exports, module2) {
     if (typeof process === "undefined" || process.type === "renderer" || process.browser === true || process.__nwjs) {
       module2.exports = require_browser2();
     } else {
@@ -36415,9 +36415,9 @@ var require_src = __commonJS({
   }
 });
 
-// resources/node_modules/follow-redirects/debug.js
+// node_modules/follow-redirects/debug.js
 var require_debug2 = __commonJS({
-  "resources/node_modules/follow-redirects/debug.js"(exports, module2) {
+  "node_modules/follow-redirects/debug.js"(exports, module2) {
     var debug2;
     module2.exports = function() {
       if (!debug2) {
@@ -36435,9 +36435,9 @@ var require_debug2 = __commonJS({
   }
 });
 
-// resources/node_modules/follow-redirects/index.js
+// node_modules/follow-redirects/index.js
 var require_follow_redirects = __commonJS({
-  "resources/node_modules/follow-redirects/index.js"(exports, module2) {
+  "node_modules/follow-redirects/index.js"(exports, module2) {
     var url = require("url");
     var URL = url.URL;
     var http = require("http");
@@ -36829,9 +36829,9 @@ var require_follow_redirects = __commonJS({
   }
 });
 
-// resources/node_modules/axios/package.json
+// node_modules/axios/package.json
 var require_package2 = __commonJS({
-  "resources/node_modules/axios/package.json"(exports, module2) {
+  "node_modules/axios/package.json"(exports, module2) {
     module2.exports = {
       name: "axios",
       version: "0.21.4",
@@ -36919,9 +36919,9 @@ var require_package2 = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/adapters/http.js
+// node_modules/axios/lib/adapters/http.js
 var require_http2 = __commonJS({
-  "resources/node_modules/axios/lib/adapters/http.js"(exports, module2) {
+  "node_modules/axios/lib/adapters/http.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var settle = require_settle();
@@ -37164,9 +37164,9 @@ var require_http2 = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/defaults.js
+// node_modules/axios/lib/defaults.js
 var require_defaults = __commonJS({
-  "resources/node_modules/axios/lib/defaults.js"(exports, module2) {
+  "node_modules/axios/lib/defaults.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var normalizeHeaderName = require_normalizeHeaderName();
@@ -37270,9 +37270,9 @@ var require_defaults = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/transformData.js
+// node_modules/axios/lib/core/transformData.js
 var require_transformData = __commonJS({
-  "resources/node_modules/axios/lib/core/transformData.js"(exports, module2) {
+  "node_modules/axios/lib/core/transformData.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var defaults = require_defaults();
@@ -37286,9 +37286,9 @@ var require_transformData = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/cancel/isCancel.js
+// node_modules/axios/lib/cancel/isCancel.js
 var require_isCancel = __commonJS({
-  "resources/node_modules/axios/lib/cancel/isCancel.js"(exports, module2) {
+  "node_modules/axios/lib/cancel/isCancel.js"(exports, module2) {
     "use strict";
     module2.exports = function isCancel(value) {
       return !!(value && value.__CANCEL__);
@@ -37296,9 +37296,9 @@ var require_isCancel = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/dispatchRequest.js
+// node_modules/axios/lib/core/dispatchRequest.js
 var require_dispatchRequest = __commonJS({
-  "resources/node_modules/axios/lib/core/dispatchRequest.js"(exports, module2) {
+  "node_modules/axios/lib/core/dispatchRequest.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var transformData = require_transformData();
@@ -37335,9 +37335,9 @@ var require_dispatchRequest = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/mergeConfig.js
+// node_modules/axios/lib/core/mergeConfig.js
 var require_mergeConfig = __commonJS({
-  "resources/node_modules/axios/lib/core/mergeConfig.js"(exports, module2) {
+  "node_modules/axios/lib/core/mergeConfig.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     module2.exports = function mergeConfig(config1, config22) {
@@ -37371,15 +37371,15 @@ var require_mergeConfig = __commonJS({
         "responseEncoding"
       ];
       var directMergeKeys = ["validateStatus"];
-      function getMergedValue(target, source) {
-        if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
-          return utils.merge(target, source);
-        } else if (utils.isPlainObject(source)) {
-          return utils.merge({}, source);
-        } else if (utils.isArray(source)) {
-          return source.slice();
+      function getMergedValue(target, source2) {
+        if (utils.isPlainObject(target) && utils.isPlainObject(source2)) {
+          return utils.merge(target, source2);
+        } else if (utils.isPlainObject(source2)) {
+          return utils.merge({}, source2);
+        } else if (utils.isArray(source2)) {
+          return source2.slice();
         }
-        return source;
+        return source2;
       }
       function mergeDeepProperties(prop) {
         if (!utils.isUndefined(config22[prop])) {
@@ -37418,9 +37418,9 @@ var require_mergeConfig = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/validator.js
+// node_modules/axios/lib/helpers/validator.js
 var require_validator = __commonJS({
-  "resources/node_modules/axios/lib/helpers/validator.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/validator.js"(exports, module2) {
     "use strict";
     var pkg = require_package2();
     var validators = {};
@@ -37489,9 +37489,9 @@ var require_validator = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/core/Axios.js
+// node_modules/axios/lib/core/Axios.js
 var require_Axios = __commonJS({
-  "resources/node_modules/axios/lib/core/Axios.js"(exports, module2) {
+  "node_modules/axios/lib/core/Axios.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var buildURL = require_buildURL();
@@ -37601,9 +37601,9 @@ var require_Axios = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/cancel/Cancel.js
+// node_modules/axios/lib/cancel/Cancel.js
 var require_Cancel = __commonJS({
-  "resources/node_modules/axios/lib/cancel/Cancel.js"(exports, module2) {
+  "node_modules/axios/lib/cancel/Cancel.js"(exports, module2) {
     "use strict";
     function Cancel(message) {
       this.message = message;
@@ -37616,9 +37616,9 @@ var require_Cancel = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/cancel/CancelToken.js
+// node_modules/axios/lib/cancel/CancelToken.js
 var require_CancelToken = __commonJS({
-  "resources/node_modules/axios/lib/cancel/CancelToken.js"(exports, module2) {
+  "node_modules/axios/lib/cancel/CancelToken.js"(exports, module2) {
     "use strict";
     var Cancel = require_Cancel();
     function CancelToken(executor) {
@@ -37643,7 +37643,7 @@ var require_CancelToken = __commonJS({
         throw this.reason;
       }
     };
-    CancelToken.source = function source() {
+    CancelToken.source = function source2() {
       var cancel;
       var token = new CancelToken(function executor(c2) {
         cancel = c2;
@@ -37657,9 +37657,9 @@ var require_CancelToken = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/spread.js
+// node_modules/axios/lib/helpers/spread.js
 var require_spread = __commonJS({
-  "resources/node_modules/axios/lib/helpers/spread.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/spread.js"(exports, module2) {
     "use strict";
     module2.exports = function spread(callback) {
       return function wrap(arr) {
@@ -37669,9 +37669,9 @@ var require_spread = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/helpers/isAxiosError.js
+// node_modules/axios/lib/helpers/isAxiosError.js
 var require_isAxiosError = __commonJS({
-  "resources/node_modules/axios/lib/helpers/isAxiosError.js"(exports, module2) {
+  "node_modules/axios/lib/helpers/isAxiosError.js"(exports, module2) {
     "use strict";
     module2.exports = function isAxiosError(payload) {
       return typeof payload === "object" && payload.isAxiosError === true;
@@ -37679,9 +37679,9 @@ var require_isAxiosError = __commonJS({
   }
 });
 
-// resources/node_modules/axios/lib/axios.js
+// node_modules/axios/lib/axios.js
 var require_axios = __commonJS({
-  "resources/node_modules/axios/lib/axios.js"(exports, module2) {
+  "node_modules/axios/lib/axios.js"(exports, module2) {
     "use strict";
     var utils = require_utils();
     var bind = require_bind();
@@ -37713,14 +37713,14 @@ var require_axios = __commonJS({
   }
 });
 
-// resources/node_modules/axios/index.js
+// node_modules/axios/index.js
 var require_axios2 = __commonJS({
-  "resources/node_modules/axios/index.js"(exports, module2) {
+  "node_modules/axios/index.js"(exports, module2) {
     module2.exports = require_axios();
   }
 });
 
-// resources/server/misc/discord.ts
+// server/misc/discord.ts
 function reportTweetToDiscord(tweet, reportingProfile) {
   return __async(this, null, function* () {
     const guaranteedFields = [
@@ -37789,7 +37789,7 @@ User Identifier: ${listing.identifier}\`\`\``
 }
 var import_axios, IMAGE_DELIMITER, discordLogger, DISCORD_WEBHOOK, postToWebhook, createDiscordMsgObj;
 var init_discord = __esm({
-  "resources/server/misc/discord.ts"() {
+  "server/misc/discord.ts"() {
     import_axios = __toESM(require_axios2());
     init_sv_logger();
     IMAGE_DELIMITER = "||!||";
@@ -37822,10 +37822,10 @@ var init_discord = __esm({
   }
 });
 
-// resources/server/utils/imageFiltering.ts
+// server/utils/imageFiltering.ts
 var imageRegex, checkAndFilterImage;
 var init_imageFiltering = __esm({
-  "resources/server/utils/imageFiltering.ts"() {
+  "server/utils/imageFiltering.ts"() {
     init_config2();
     imageRegex = new RegExp(config.imageSafety.safeImageUrls.join("|"));
     checkAndFilterImage = (imageUrl) => {
@@ -37844,10 +37844,10 @@ var init_imageFiltering = __esm({
   }
 });
 
-// resources/server/marketplace/marketplace.service.ts
+// server/marketplace/marketplace.service.ts
 var _MarketplaceService, MarketplaceService, marketplace_service_default;
 var init_marketplace_service = __esm({
-  "resources/server/marketplace/marketplace.service.ts"() {
+  "server/marketplace/marketplace.service.ts"() {
     init_player_service();
     init_marketplace_utils();
     init_marketplace_db();
@@ -37960,18 +37960,18 @@ var init_marketplace_service = __esm({
   }
 });
 
-// resources/utils/fivem.ts
+// utils/fivem.ts
 var Delay;
 var init_fivem = __esm({
-  "resources/utils/fivem.ts"() {
+  "utils/fivem.ts"() {
     Delay = (ms) => new Promise((res) => setTimeout(res, ms));
   }
 });
 
-// resources/server/players/player.service.ts
+// server/players/player.service.ts
 var _PlayerService, PlayerService, player_service_default;
 var init_player_service = __esm({
-  "resources/server/players/player.service.ts"() {
+  "server/players/player.service.ts"() {
     init_functions();
     init_phone();
     init_player_class();
@@ -37988,23 +37988,23 @@ var init_player_service = __esm({
         this.playerDB = player_db_default;
         playerLogger.debug("Player Service started");
       }
-      addPlayerToMaps(source, player) {
-        this.playersBySource.set(source, player);
+      addPlayerToMaps(source2, player) {
+        this.playersBySource.set(source2, player);
         this.playersByIdentifier.set(player.getIdentifier(), player);
       }
-      deletePlayerFromMaps(source) {
-        const identifier = this.playersBySource.get(source).getIdentifier();
+      deletePlayerFromMaps(source2) {
+        const identifier = this.playersBySource.get(source2).getIdentifier();
         this.playersByIdentifier.delete(identifier);
-        this.playersBySource.delete(source);
+        this.playersBySource.delete(source2);
       }
-      getPlayer(source) {
-        const player = this.playersBySource.get(source);
+      getPlayer(source2) {
+        const player = this.playersBySource.get(source2);
         if (!player)
           return null;
         return player;
       }
-      getIdentifier(source) {
-        return this.getPlayer(source).getIdentifier();
+      getIdentifier(source2) {
+        return this.getPlayer(source2).getIdentifier();
       }
       getPlayerFromIdentifier(identifier) {
         const player = this.playersByIdentifier.get(identifier);
@@ -38135,9 +38135,9 @@ var init_player_service = __esm({
   }
 });
 
-// resources/server/players/player.controller.ts
+// server/players/player.controller.ts
 var require_player_controller = __commonJS({
-  "resources/server/players/player.controller.ts"(exports) {
+  "server/players/player.controller.ts"(exports) {
     init_miscUtils();
     init_player_service();
     init_config2();
@@ -38175,22 +38175,22 @@ var require_player_controller = __commonJS({
   }
 });
 
-// typings/call.ts
+// ../typings/call.ts
 var init_call = __esm({
-  "typings/call.ts"() {
+  "../typings/call.ts"() {
   }
 });
 
-// resources/server/utils/ServerConstants.ts
+// server/utils/ServerConstants.ts
 var init_ServerConstants = __esm({
-  "resources/server/utils/ServerConstants.ts"() {
+  "server/utils/ServerConstants.ts"() {
   }
 });
 
-// resources/server/calls/calls.db.ts
+// server/calls/calls.db.ts
 var CallsRepo, calls_db_default;
 var init_calls_db = __esm({
-  "resources/server/calls/calls.db.ts"() {
+  "server/calls/calls.db.ts"() {
     init_ServerConstants();
     init_db_wrapper();
     CallsRepo = class {
@@ -38227,9 +38227,9 @@ var init_calls_db = __esm({
   }
 });
 
-// resources/node_modules/uuid/dist/rng.js
+// node_modules/uuid/dist/rng.js
 var require_rng = __commonJS({
-  "resources/node_modules/uuid/dist/rng.js"(exports) {
+  "node_modules/uuid/dist/rng.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38251,9 +38251,9 @@ var require_rng = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/regex.js
+// node_modules/uuid/dist/regex.js
 var require_regex = __commonJS({
-  "resources/node_modules/uuid/dist/regex.js"(exports) {
+  "node_modules/uuid/dist/regex.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38264,9 +38264,9 @@ var require_regex = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/validate.js
+// node_modules/uuid/dist/validate.js
 var require_validate = __commonJS({
-  "resources/node_modules/uuid/dist/validate.js"(exports) {
+  "node_modules/uuid/dist/validate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38284,9 +38284,9 @@ var require_validate = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/stringify.js
+// node_modules/uuid/dist/stringify.js
 var require_stringify = __commonJS({
-  "resources/node_modules/uuid/dist/stringify.js"(exports) {
+  "node_modules/uuid/dist/stringify.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38312,9 +38312,9 @@ var require_stringify = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/v1.js
+// node_modules/uuid/dist/v1.js
 var require_v1 = __commonJS({
-  "resources/node_modules/uuid/dist/v1.js"(exports) {
+  "node_modules/uuid/dist/v1.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38382,9 +38382,9 @@ var require_v1 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/parse.js
+// node_modules/uuid/dist/parse.js
 var require_parse = __commonJS({
-  "resources/node_modules/uuid/dist/parse.js"(exports) {
+  "node_modules/uuid/dist/parse.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38423,9 +38423,9 @@ var require_parse = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/v35.js
+// node_modules/uuid/dist/v35.js
 var require_v35 = __commonJS({
-  "resources/node_modules/uuid/dist/v35.js"(exports) {
+  "node_modules/uuid/dist/v35.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38486,9 +38486,9 @@ var require_v35 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/md5.js
+// node_modules/uuid/dist/md5.js
 var require_md5 = __commonJS({
-  "resources/node_modules/uuid/dist/md5.js"(exports) {
+  "node_modules/uuid/dist/md5.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38511,9 +38511,9 @@ var require_md5 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/v3.js
+// node_modules/uuid/dist/v3.js
 var require_v3 = __commonJS({
-  "resources/node_modules/uuid/dist/v3.js"(exports) {
+  "node_modules/uuid/dist/v3.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38530,9 +38530,9 @@ var require_v3 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/v4.js
+// node_modules/uuid/dist/v4.js
 var require_v4 = __commonJS({
-  "resources/node_modules/uuid/dist/v4.js"(exports) {
+  "node_modules/uuid/dist/v4.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38562,9 +38562,9 @@ var require_v4 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/sha1.js
+// node_modules/uuid/dist/sha1.js
 var require_sha1 = __commonJS({
-  "resources/node_modules/uuid/dist/sha1.js"(exports) {
+  "node_modules/uuid/dist/sha1.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38587,9 +38587,9 @@ var require_sha1 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/v5.js
+// node_modules/uuid/dist/v5.js
 var require_v5 = __commonJS({
-  "resources/node_modules/uuid/dist/v5.js"(exports) {
+  "node_modules/uuid/dist/v5.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38606,9 +38606,9 @@ var require_v5 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/nil.js
+// node_modules/uuid/dist/nil.js
 var require_nil = __commonJS({
-  "resources/node_modules/uuid/dist/nil.js"(exports) {
+  "node_modules/uuid/dist/nil.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38619,9 +38619,9 @@ var require_nil = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/version.js
+// node_modules/uuid/dist/version.js
 var require_version = __commonJS({
-  "resources/node_modules/uuid/dist/version.js"(exports) {
+  "node_modules/uuid/dist/version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38642,9 +38642,9 @@ var require_version = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/dist/index.js
+// node_modules/uuid/dist/index.js
 var require_dist4 = __commonJS({
-  "resources/node_modules/uuid/dist/index.js"(exports) {
+  "node_modules/uuid/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", {
       value: true
@@ -38718,10 +38718,10 @@ var require_dist4 = __commonJS({
   }
 });
 
-// resources/node_modules/uuid/wrapper.mjs
+// node_modules/uuid/wrapper.mjs
 var import_dist, v1, v3, v4, v5, NIL, version, validate, stringify, parse;
 var init_wrapper = __esm({
-  "resources/node_modules/uuid/wrapper.mjs"() {
+  "node_modules/uuid/wrapper.mjs"() {
     import_dist = __toESM(require_dist4(), 1);
     v1 = import_dist.default.v1;
     v3 = import_dist.default.v3;
@@ -38735,19 +38735,19 @@ var init_wrapper = __esm({
   }
 });
 
-// resources/server/calls/calls.utils.ts
+// server/calls/calls.utils.ts
 var callLogger;
 var init_calls_utils = __esm({
-  "resources/server/calls/calls.utils.ts"() {
+  "server/calls/calls.utils.ts"() {
     init_sv_logger();
     callLogger = mainLogger.child({ module: "calls" });
   }
 });
 
-// resources/server/calls/calls.service.ts
+// server/calls/calls.service.ts
 var CallsService, calls_service_default;
 var init_calls_service = __esm({
-  "resources/server/calls/calls.service.ts"() {
+  "server/calls/calls.service.ts"() {
     init_dist();
     init_call();
     init_calls_db();
@@ -38894,8 +38894,8 @@ var init_calls_service = __esm({
             callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
             return;
           }
-          emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
           emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
+          emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
           yield this.callsDB.updateCall(currentCall, false, endCallTimeUnix);
           this.callMap.delete(transmitterNumber);
         });
@@ -38907,19 +38907,20 @@ var init_calls_service = __esm({
           if (reqObj.data.isUnavailable) {
             emitNet("npwd:callEnded" /* WAS_ENDED */, reqObj.source);
             resp({ status: "ok" });
+            return;
           }
           const currentCall = this.callMap.get(transmitterNumber);
           if (!currentCall) {
             callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
-            resp({ status: "error", errorMsg: "DOES_NOT_EXIST" });
+            return resp({ status: "error", errorMsg: "DOES_NOT_EXIST" });
           }
           if (currentCall) {
             if (currentCall.is_accepted) {
-              emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.transmitterSource, currentCall.transmitterSource, currentCall);
               emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.receiverSource, currentCall.transmitterSource, currentCall);
+              emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.transmitterSource, currentCall.transmitterSource, currentCall);
             } else {
-              emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
               emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
+              emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
             }
           }
           resp({ status: "ok" });
@@ -38932,8 +38933,37 @@ var init_calls_service = __esm({
   }
 });
 
-// resources/server/lib/PromiseNetEvents/onNetPromise.ts
-function onNetPromise(eventName, cb, rateLimiter = null) {
+// server/lib/GlobalRateLimiter.ts
+var GlobalRateLimiter;
+var init_GlobalRateLimiter = __esm({
+  "server/lib/GlobalRateLimiter.ts"() {
+    GlobalRateLimiter = class {
+      constructor(timeBetweenReq = 250) {
+        this.rateLimits = /* @__PURE__ */ new Map();
+        this.timeBetweenRequests = timeBetweenReq;
+      }
+      registerNewEvent(event, options) {
+        this.rateLimits.set(event, { limiters: /* @__PURE__ */ new Map(), options });
+      }
+      isPlayerRateLimited(event, source2) {
+        var _a2;
+        return !!((_a2 = this.rateLimits) == null ? void 0 : _a2.get(event).limiters.get(source2));
+      }
+      rateLimitPlayer(event, source2) {
+        var _a2;
+        let rateLimiter = this.rateLimits.get(event);
+        rateLimiter.limiters.set(source2, true);
+        setTimeout(() => {
+          rateLimiter.limiters.delete(source2);
+        }, ((_a2 = rateLimiter.options) == null ? void 0 : _a2.rateLimit) || this.timeBetweenRequests);
+      }
+    };
+  }
+});
+
+// server/lib/PromiseNetEvents/onNetPromise.ts
+function onNetPromise(eventName, cb, options = null) {
+  globalRateLimiter.registerNewEvent(eventName, options);
   onNet(eventName, (respEventName, data) => __async(this, null, function* () {
     const startTime = process.hrtime.bigint();
     const src = getSource();
@@ -38953,12 +38983,10 @@ function onNetPromise(eventName, cb, rateLimiter = null) {
       netEventLogger.silly(`Response Promise Event ${respEventName} (${totalTime}ms), Data >>`);
       netEventLogger.silly(data2);
     };
-    if (rateLimiter) {
-      if (rateLimiter.isPlayerRateLimited(src)) {
-        return promiseResp({ status: "error", errorMsg: "ERROR_RATE_LIMITED" });
-      } else {
-        rateLimiter.rateLimitPlayer(src);
-      }
+    if (globalRateLimiter.isPlayerRateLimited(eventName, src)) {
+      return promiseResp({ status: "error", errorMsg: "ERROR_RATE_LIMITED" });
+    } else {
+      globalRateLimiter.rateLimitPlayer(eventName, source);
     }
     Promise.resolve(cb(promiseRequest, promiseResp)).catch((e) => {
       netEventLogger.error(`An error occured for a onNetPromise (${eventName}), Error: ${e.message}`);
@@ -38966,18 +38994,20 @@ function onNetPromise(eventName, cb, rateLimiter = null) {
     });
   }));
 }
-var netEventLogger;
+var netEventLogger, globalRateLimiter;
 var init_onNetPromise = __esm({
-  "resources/server/lib/PromiseNetEvents/onNetPromise.ts"() {
+  "server/lib/PromiseNetEvents/onNetPromise.ts"() {
     init_miscUtils();
     init_sv_logger();
+    init_GlobalRateLimiter();
     netEventLogger = mainLogger.child({ module: "events" });
+    globalRateLimiter = new GlobalRateLimiter(250);
   }
 });
 
-// resources/server/calls/calls.controller.ts
+// server/calls/calls.controller.ts
 var init_calls_controller = __esm({
-  "resources/server/calls/calls.controller.ts"() {
+  "server/calls/calls.controller.ts"() {
     init_call();
     init_miscUtils();
     init_calls_service();
@@ -39012,16 +39042,16 @@ var init_calls_controller = __esm({
   }
 });
 
-// typings/notes.ts
+// ../typings/notes.ts
 var init_notes = __esm({
-  "typings/notes.ts"() {
+  "../typings/notes.ts"() {
   }
 });
 
-// resources/server/notes/notes.db.ts
+// server/notes/notes.db.ts
 var _NotesDB, NotesDB, notes_db_default;
 var init_notes_db = __esm({
-  "resources/server/notes/notes.db.ts"() {
+  "server/notes/notes.db.ts"() {
     init_db_wrapper();
     _NotesDB = class {
       addNote(identifier, note) {
@@ -39056,19 +39086,19 @@ var init_notes_db = __esm({
   }
 });
 
-// resources/server/notes/notes.utils.ts
+// server/notes/notes.utils.ts
 var notesLogger;
 var init_notes_utils = __esm({
-  "resources/server/notes/notes.utils.ts"() {
+  "server/notes/notes.utils.ts"() {
     init_sv_logger();
     notesLogger = mainLogger.child({ module: "notes" });
   }
 });
 
-// resources/server/notes/notes.service.ts
+// server/notes/notes.service.ts
 var _NotesService, NotesService, notes_service_default;
 var init_notes_service = __esm({
-  "resources/server/notes/notes.service.ts"() {
+  "server/notes/notes.service.ts"() {
     init_player_service();
     init_notes_db();
     init_notes_utils();
@@ -39136,9 +39166,9 @@ var init_notes_service = __esm({
   }
 });
 
-// resources/server/notes/notes.controller.ts
+// server/notes/notes.controller.ts
 var require_notes_controller = __commonJS({
-  "resources/server/notes/notes.controller.ts"(exports) {
+  "server/notes/notes.controller.ts"(exports) {
     init_notes();
     init_notes_service();
     init_notes_utils();
@@ -39170,25 +39200,25 @@ var require_notes_controller = __commonJS({
   }
 });
 
-// typings/contact.ts
+// ../typings/contact.ts
 var init_contact = __esm({
-  "typings/contact.ts"() {
+  "../typings/contact.ts"() {
   }
 });
 
-// resources/server/contacts/contacts.utils.ts
+// server/contacts/contacts.utils.ts
 var contactsLogger;
 var init_contacts_utils = __esm({
-  "resources/server/contacts/contacts.utils.ts"() {
+  "server/contacts/contacts.utils.ts"() {
     init_sv_logger();
     contactsLogger = mainLogger.child({ module: "contact" });
   }
 });
 
-// resources/server/contacts/contacts.db.ts
+// server/contacts/contacts.db.ts
 var _ContactsDB, ContactsDB, contacts_db_default;
 var init_contacts_db = __esm({
-  "resources/server/contacts/contacts.db.ts"() {
+  "server/contacts/contacts.db.ts"() {
     init_db_wrapper();
     _ContactsDB = class {
       fetchAllContacts(identifier) {
@@ -39234,10 +39264,10 @@ var init_contacts_db = __esm({
   }
 });
 
-// resources/server/contacts/contacts.service.ts
+// server/contacts/contacts.service.ts
 var _ContactService, ContactService, contacts_service_default;
 var init_contacts_service = __esm({
-  "resources/server/contacts/contacts.service.ts"() {
+  "server/contacts/contacts.service.ts"() {
     init_player_service();
     init_contacts_utils();
     init_contacts_db();
@@ -39312,9 +39342,9 @@ var init_contacts_service = __esm({
   }
 });
 
-// resources/server/contacts/contacts.controller.ts
+// server/contacts/contacts.controller.ts
 var init_contacts_controller = __esm({
-  "resources/server/contacts/contacts.controller.ts"() {
+  "server/contacts/contacts.controller.ts"() {
     init_contact();
     init_contacts_service();
     init_contacts_utils();
@@ -39346,16 +39376,16 @@ var init_contacts_controller = __esm({
   }
 });
 
-// typings/photo.ts
+// ../typings/photo.ts
 var init_photo = __esm({
-  "typings/photo.ts"() {
+  "../typings/photo.ts"() {
   }
 });
 
-// resources/server/photo/photo.db.ts
+// server/photo/photo.db.ts
 var _PhotoDB, PhotoDB, photo_db_default;
 var init_photo_db = __esm({
-  "resources/server/photo/photo.db.ts"() {
+  "server/photo/photo.db.ts"() {
     init_db_wrapper();
     _PhotoDB = class {
       uploadPhoto(identifier, image) {
@@ -39384,19 +39414,19 @@ var init_photo_db = __esm({
   }
 });
 
-// resources/server/photo/photo.utils.ts
+// server/photo/photo.utils.ts
 var photoLogger;
 var init_photo_utils = __esm({
-  "resources/server/photo/photo.utils.ts"() {
+  "server/photo/photo.utils.ts"() {
     init_sv_logger();
     photoLogger = mainLogger.child({ module: "photo" });
   }
 });
 
-// resources/server/photo/photo.service.ts
+// server/photo/photo.service.ts
 var _PhotoService, PhotoService, photo_service_default;
 var init_photo_service = __esm({
-  "resources/server/photo/photo.service.ts"() {
+  "server/photo/photo.service.ts"() {
     init_player_service();
     init_photo();
     init_photo_db();
@@ -39461,9 +39491,9 @@ var init_photo_service = __esm({
   }
 });
 
-// resources/server/photo/photo.controller.ts
+// server/photo/photo.controller.ts
 var init_photo_controller = __esm({
-  "resources/server/photo/photo.controller.ts"() {
+  "server/photo/photo.controller.ts"() {
     init_photo();
     init_photo_service();
     init_photo_utils();
@@ -39489,13 +39519,13 @@ var init_photo_controller = __esm({
   }
 });
 
-// typings/messages.ts
+// ../typings/messages.ts
 var init_messages = __esm({
-  "typings/messages.ts"() {
+  "../typings/messages.ts"() {
   }
 });
 
-// resources/server/messages/messages.utils.ts
+// server/messages/messages.utils.ts
 function createGroupHashID(participants) {
   participants.sort();
   return participants.join("+");
@@ -39505,16 +39535,16 @@ function getIdentifiersFromParticipants(conversationId) {
 }
 var messagesLogger;
 var init_messages_utils = __esm({
-  "resources/server/messages/messages.utils.ts"() {
+  "server/messages/messages.utils.ts"() {
     init_sv_logger();
     messagesLogger = mainLogger.child({ module: "messages" });
   }
 });
 
-// resources/server/messages/messages.db.ts
+// server/messages/messages.db.ts
 var MESSAGES_PER_PAGE, _MessagesDB, MessagesDB, messages_db_default;
 var init_messages_db = __esm({
-  "resources/server/messages/messages.db.ts"() {
+  "server/messages/messages.db.ts"() {
     init_db_wrapper();
     init_messages_utils();
     MESSAGES_PER_PAGE = 20;
@@ -39522,9 +39552,9 @@ var init_messages_db = __esm({
       getConversations(phoneNumber) {
         return __async(this, null, function* () {
           const query = `SELECT npwd_messages_conversations.id,
-                          npwd_messages_conversations.conversation_list as conversationList,
-                          npwd_messages_participants.unread_count       as unreadCount,
-                          npwd_messages_conversations.is_group_chat     as isGroupChat,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_participants.unread_count               as unreadCount,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
                           npwd_messages_conversations.label,
                           UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt,
                           npwd_messages_participants.participant
@@ -39534,6 +39564,22 @@ var init_messages_db = __esm({
                    WHERE npwd_messages_participants.participant = ?`;
           const [results] = yield db_wrapper_default._rawExec(query, [phoneNumber]);
           return results;
+        });
+      }
+      getConversation(conversationId) {
+        return __async(this, null, function* () {
+          const query = `SELECT npwd_messages_conversations.id,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
+                          npwd_messages_conversations.label,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.createdAt) as createdAt,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt
+                   FROM npwd_messages_conversations
+                   WHERE id = ?
+                   LIMIT 1`;
+          const [results] = yield db_wrapper_default._rawExec(query, [conversationId]);
+          const result = results;
+          return result[0];
         });
       }
       getMessages(dto) {
@@ -39602,7 +39648,9 @@ var init_messages_db = __esm({
             dto.embed || ""
           ]);
           const result = results;
-          const updateConversation = `UPDATE npwd_messages_conversations SET updatedAt = current_timestamp() WHERE id = ?`;
+          const updateConversation = `UPDATE npwd_messages_conversations
+                                SET updatedAt = current_timestamp()
+                                WHERE id = ?`;
           setImmediate(() => __async(this, null, function* () {
             yield db_wrapper_default._rawExec(updateConversation, [dto.conversationId]).catch((err) => messagesLogger.error(`Error occurred in message update Error: ${err.message}`));
           }));
@@ -39687,10 +39735,10 @@ var init_messages_db = __esm({
   }
 });
 
-// resources/server/messages/messages.service.ts
+// server/messages/messages.service.ts
 var _MessagesService, MessagesService, messages_service_default;
 var init_messages_service = __esm({
-  "resources/server/messages/messages.service.ts"() {
+  "server/messages/messages.service.ts"() {
     init_messages_db();
     init_messages_utils();
     init_messages();
@@ -39734,7 +39782,7 @@ var init_messages_service = __esm({
                 conversationList,
                 isGroupChat: conversation.isGroupChat
               };
-              resp({ status: "ok", data: __spreadProps(__spreadValues({}, respData), { participant: playerPhoneNumber }) });
+              return resp({ status: "ok", data: __spreadProps(__spreadValues({}, respData), { participant: playerPhoneNumber }) });
             }
           }
           try {
@@ -39766,7 +39814,8 @@ var init_messages_service = __esm({
         return __async(this, null, function* () {
           try {
             const messages = yield messages_db_default.getMessages(reqObj.data);
-            resp({ status: "ok", data: messages });
+            const sortedMessages = messages.sort((a, b) => a.id - b.id);
+            resp({ status: "ok", data: sortedMessages });
           } catch (err) {
             resp({ status: "error", errorMsg: err.message });
           }
@@ -39780,6 +39829,7 @@ var init_messages_service = __esm({
             const messageData = reqObj.data;
             const participants = getIdentifiersFromParticipants(messageData.conversationList);
             const userIdentifier = player.getIdentifier();
+            const conversationDetails = yield this.messagesDB.getConversation(messageData.conversationId);
             const messageId = yield this.messagesDB.createMessage({
               userIdentifier,
               authorPhoneNumber,
@@ -39799,20 +39849,35 @@ var init_messages_service = __esm({
                 is_embed: messageData.is_embed
               })
             });
+            const conversationData = {
+              id: messageData.conversationId,
+              label: conversationDetails.label,
+              conversationList: conversationDetails.conversationList,
+              isGroupChat: conversationDetails.isGroupChat
+            };
             for (const participantId of participants) {
-              if (participantId !== player.getPhoneNumber()) {
+              if (participantId !== authorPhoneNumber) {
                 try {
+                  const playerHasConversation = yield this.messagesDB.doesConversationExistForPlayer(messageData.conversationList, participantId);
+                  if (!playerHasConversation) {
+                    const conversationId = yield this.messagesDB.addParticipantToConversation(conversationDetails.conversationList, participantId);
+                  }
                   const participantIdentifier = yield player_service_default.getIdentifierByPhoneNumber(participantId, true);
                   const participantNumber = yield player_service_default.getPhoneNumberFromIdentifier(participantIdentifier);
                   const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
                   yield this.messagesDB.setMessageUnread(messageData.conversationId, participantNumber);
                   if (participantPlayer) {
+                    if (!playerHasConversation) {
+                      emitNetTyped("npwd:createMessageConversationSuccess" /* CREATE_MESSAGE_CONVERSATION_SUCCESS */, __spreadProps(__spreadValues({}, conversationData), {
+                        participant: authorPhoneNumber
+                      }), participantPlayer.source);
+                    }
                     emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, participantPlayer.source, __spreadProps(__spreadValues({}, messageData), {
                       conversation_id: messageData.conversationId,
                       author: authorPhoneNumber
                     }));
                     emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, participantPlayer.source, {
-                      conversationName: player.getPhoneNumber(),
+                      conversationName: authorPhoneNumber,
                       conversation_id: messageData.conversationId,
                       message: messageData.message,
                       is_embed: messageData.is_embed,
@@ -39906,16 +39971,29 @@ var init_messages_service = __esm({
           }
         });
       }
+      handleGetLocation(reqObj, resp) {
+        return __async(this, null, function* () {
+          const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+          const playerPed = GetPlayerPed(reqObj.source.toString());
+          resp({
+            status: "ok",
+            data: {
+              phoneNumber,
+              coords: GetEntityCoords(playerPed)
+            }
+          });
+        });
+      }
     };
     MessagesService = new _MessagesService();
     messages_service_default = MessagesService;
   }
 });
 
-// resources/server/messages/middleware/onMessage.ts
+// server/messages/middleware/onMessage.ts
 var exp, OnMessageExportMap;
 var init_onMessage = __esm({
-  "resources/server/messages/middleware/onMessage.ts"() {
+  "server/messages/middleware/onMessage.ts"() {
     exp = global.exports;
     OnMessageExportMap = /* @__PURE__ */ new Map();
     exp("onMessage", (phoneNumber, cb) => {
@@ -39924,9 +40002,9 @@ var init_onMessage = __esm({
   }
 });
 
-// resources/server/messages/messages.controller.ts
+// server/messages/messages.controller.ts
 var require_messages_controller = __commonJS({
-  "resources/server/messages/messages.controller.ts"(exports) {
+  "server/messages/messages.controller.ts"(exports) {
     init_miscUtils();
     init_messages();
     init_messages_service();
@@ -39982,12 +40060,18 @@ var require_messages_controller = __commonJS({
       const src = getSource();
       messages_service_default.handleSetMessageRead(reqObj, resp).catch((e) => messagesLogger.error(`Error occurred in set message read event (${src}), Error: ${e.message}`));
     }));
+    onNetPromise("npwd:getMessageLocation" /* GET_MESSAGE_LOCATION */, (reqObj, resp) => __async(exports, null, function* () {
+      const src = getSource();
+      messages_service_default.handleGetLocation(reqObj, resp).catch((e) => {
+        messagesLogger.error(`Error occurred in get location event (${src}), Error: ${e.message}`);
+      });
+    }));
   }
 });
 
-// resources/server/marketplace/marketplace.controller.ts
+// server/marketplace/marketplace.controller.ts
 var require_marketplace_controller = __commonJS({
-  "resources/server/marketplace/marketplace.controller.ts"(exports) {
+  "server/marketplace/marketplace.controller.ts"(exports) {
     init_marketplace();
     init_marketplace_utils();
     init_marketplace_service();
@@ -40024,22 +40108,22 @@ var require_marketplace_controller = __commonJS({
   }
 });
 
-// resources/server/twitter/twitter.utils.ts
+// server/twitter/twitter.utils.ts
 var twitterLogger;
 var init_twitter_utils = __esm({
-  "resources/server/twitter/twitter.utils.ts"() {
+  "server/twitter/twitter.utils.ts"() {
     init_sv_logger();
     twitterLogger = mainLogger.child({ module: "twitter" });
   }
 });
 
-// typings/twitter.ts
+// ../typings/twitter.ts
 var init_twitter = __esm({
-  "typings/twitter.ts"() {
+  "../typings/twitter.ts"() {
   }
 });
 
-// resources/server/utils/generateProfileName.ts
+// server/utils/generateProfileName.ts
 function generateProfileName(identifier, delimiter = "_") {
   return __async(this, null, function* () {
     const player = player_service_default.getPlayerFromIdentifier(identifier);
@@ -40059,16 +40143,16 @@ function generateProfileName(identifier, delimiter = "_") {
   });
 }
 var init_generateProfileName = __esm({
-  "resources/server/utils/generateProfileName.ts"() {
+  "server/utils/generateProfileName.ts"() {
     init_player_service();
     init_miscUtils();
   }
 });
 
-// resources/server/twitter/twitter.db.ts
+// server/twitter/twitter.db.ts
 var SELECT_FIELDS, TWEETS_PER_PAGE, formatTweets, _TwitterDB, TwitterDB, twitter_db_default;
 var init_twitter_db = __esm({
-  "resources/server/twitter/twitter.db.ts"() {
+  "server/twitter/twitter.db.ts"() {
     init_pool();
     init_config2();
     init_generateProfileName();
@@ -40185,14 +40269,15 @@ var init_twitter_db = __esm({
         return __async(this, null, function* () {
           const profile = yield this.getProfile(identifier);
           const query = `
-        INSERT INTO npwd_twitter_tweets (identifier, message, images, retweet)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO npwd_twitter_tweets (identifier, message, images, retweet, profile_id)
+        VALUES (?, ?, ?, ?, ?)
 		`;
           const [results] = yield db_wrapper_default._rawExec(query, [
             identifier,
             tweet.message,
             tweet.images,
-            tweet.retweet
+            tweet.retweet,
+            profile.id
           ]);
           const insertData = results;
           return yield this.getTweet(profile.id, insertData.insertId);
@@ -40340,10 +40425,10 @@ var init_twitter_db = __esm({
   }
 });
 
-// resources/server/twitter/twitter.service.ts
+// server/twitter/twitter.service.ts
 var _TwitterService, TwitterService, twitter_service_default;
 var init_twitter_service = __esm({
-  "resources/server/twitter/twitter.service.ts"() {
+  "server/twitter/twitter.service.ts"() {
     init_player_service();
     init_twitter_db();
     init_twitter();
@@ -40416,8 +40501,10 @@ var init_twitter_service = __esm({
           try {
             const identifier = player_service_default.getIdentifier(src);
             const profile = yield this.twitterDB.getProfile(identifier);
-            if (!profile)
-              return twitterLogger.warn(`Aborted fetching tweets for user ${identifier} because they do not have a profile.`);
+            if (!profile) {
+              twitterLogger.warn(`Aborted fetching tweets for user ${identifier} because they do not have a profile.`);
+              return resp({ status: "ok", data: [] });
+            }
             const tweets = yield this.twitterDB.fetchAllTweets(profile.id, pageIdx);
             resp({ data: tweets, status: "ok" });
           } catch (e) {
@@ -40439,7 +40526,7 @@ var init_twitter_service = __esm({
             twitterLogger.error(`Fetch filtered tweets failed, ${e.message}`, {
               source: reqObj.source
             });
-            resp({ status: "error", errorMsg: e.message });
+            resp({ status: "error", errorMsg: "TWITTER.FEEDBACK.FILTERED_FETCH_FAILED" });
           }
         });
       }
@@ -40554,38 +40641,15 @@ var init_twitter_service = __esm({
   }
 });
 
-// resources/server/lib/RateLimiter.ts
-var RateLimiter;
-var init_RateLimiter = __esm({
-  "resources/server/lib/RateLimiter.ts"() {
-    RateLimiter = class {
-      constructor(timeBetweenReq) {
-        this.rateLimits = /* @__PURE__ */ new Map();
-        this.timeBetweenRequests = timeBetweenReq;
-      }
-      isPlayerRateLimited(source) {
-        return !!this.rateLimits.get(source);
-      }
-      rateLimitPlayer(source) {
-        this.rateLimits.set(source, true);
-        setTimeout(() => {
-          this.rateLimits.delete(source);
-        }, this.timeBetweenRequests);
-      }
-    };
-  }
-});
-
-// resources/server/twitter/twitter.controller.ts
+// server/twitter/twitter.controller.ts
 var require_twitter_controller = __commonJS({
-  "resources/server/twitter/twitter.controller.ts"(exports) {
+  "server/twitter/twitter.controller.ts"(exports) {
     init_config2();
     init_twitter_utils();
     init_twitter();
     init_miscUtils();
     init_twitter_service();
     init_onNetPromise();
-    init_RateLimiter();
     onNetPromise("npwd:getOrCreateTwitterProfile" /* GET_OR_CREATE_PROFILE */, (reqObj, resp) => __async(exports, null, function* () {
       const _source = getSource();
       twitter_service_default.handleGetOrCreateProfile(reqObj, resp).catch((e) => {
@@ -40600,11 +40664,10 @@ var require_twitter_controller = __commonJS({
       const _source = getSource();
       twitter_service_default.handleUpdateProfile(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in updateProfile event (${_source}), Error: ${e.message}`));
     }));
-    var filteredTweetsRatelimiter = new RateLimiter(5e3);
     onNetPromise("npwd:fetchTweetsFiltered" /* FETCH_TWEETS_FILTERED */, (reqObj, resp) => __async(exports, null, function* () {
       const _source = getSource();
       twitter_service_default.handleFetchTweetsFiltered(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in fetchTweetsFiltered event (${_source}), Error: ${e.message}`));
-    }), filteredTweetsRatelimiter);
+    }), { rateLimit: 5e3 });
     onNetPromise("npwd:createTweet" /* CREATE_TWEET */, (reqObj, resp) => __async(exports, null, function* () {
       twitter_service_default.handleCreateTweet(reqObj, resp).catch((e) => {
         twitterLogger.error(`Error occurred in createTweet event (${reqObj.source}), Error: ${e.message}`);
@@ -40640,15 +40703,15 @@ var require_twitter_controller = __commonJS({
   }
 });
 
-// typings/match.ts
+// ../typings/match.ts
 var init_match = __esm({
-  "typings/match.ts"() {
+  "../typings/match.ts"() {
   }
 });
 
-// resources/node_modules/dayjs/dayjs.min.js
+// node_modules/dayjs/dayjs.min.js
 var require_dayjs_min = __commonJS({
-  "resources/node_modules/dayjs/dayjs.min.js"(exports, module2) {
+  "node_modules/dayjs/dayjs.min.js"(exports, module2) {
     !function(t, e) {
       typeof exports == "object" && typeof module2 != "undefined" ? module2.exports = e() : typeof define == "function" && define.amd ? define(e) : (t = typeof globalThis != "undefined" ? globalThis : t || self).dayjs = e();
     }(exports, function() {
@@ -40851,7 +40914,7 @@ var require_dayjs_min = __commonJS({
   }
 });
 
-// resources/server/match/match.utils.ts
+// server/match/match.utils.ts
 function formatProfile(profile) {
   return __spreadProps(__spreadValues({}, profile), {
     tagList: profile.tags.split(",").filter((t) => t),
@@ -40868,23 +40931,24 @@ function formatMatches(match2) {
 }
 var import_dayjs, matchLogger;
 var init_match_utils = __esm({
-  "resources/server/match/match.utils.ts"() {
+  "server/match/match.utils.ts"() {
     init_sv_logger();
     import_dayjs = __toESM(require_dayjs_min());
     matchLogger = mainLogger.child({ module: "match" });
   }
 });
 
-// resources/server/match/match.db.ts
-var DEFAULT_IMAGE, _MatchDB, MatchDB, match_db_default;
+// server/match/match.db.ts
+var DEFAULT_IMAGE, MATCHES_PER_PAGE, _MatchDB, MatchDB, match_db_default;
 var init_match_db = __esm({
-  "resources/server/match/match.db.ts"() {
+  "server/match/match.db.ts"() {
     init_pool();
     init_config2();
     init_generateProfileName();
     init_match_utils();
     init_db_wrapper();
     DEFAULT_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+    MATCHES_PER_PAGE = 20;
     _MatchDB = class {
       getPotentialProfiles(identifier) {
         return __async(this, null, function* () {
@@ -40933,13 +40997,14 @@ var init_match_db = __esm({
           return results;
         });
       }
-      findAllMatches(identifier) {
+      findAllMatches(identifier, page) {
         return __async(this, null, function* () {
+          const offset = MATCHES_PER_PAGE * page;
           const query = `
         SELECT targetProfile.*,
                UNIX_TIMESTAMP(targetProfile.updatedAt)                                     AS lastActive,
                UNIX_TIMESTAMP(GREATEST(npwd_match_views.createdAt, targetViews.createdAt)) AS matchedAt,
-               targetUser.${config.database.phoneNumberColumn}                                                     AS phoneNumber
+               targetUser.${config.database.phoneNumberColumn}                             AS phoneNumber
         FROM npwd_match_views
                  LEFT OUTER JOIN npwd_match_profiles AS targetProfile ON npwd_match_views.profile = targetProfile.id
                  LEFT OUTER JOIN npwd_match_profiles AS myProfile ON npwd_match_views.identifier = myProfile.identifier
@@ -40951,8 +41016,13 @@ var init_match_db = __esm({
           AND npwd_match_views.liked = 1
           AND targetViews.liked = 1
         ORDER BY matchedAt DESC
+        LIMIT ? OFFSET ?
 		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
+          const [results] = yield db_wrapper_default._rawExec(query, [
+            identifier,
+            MATCHES_PER_PAGE.toString(),
+            offset.toString()
+          ]);
           return results;
         });
       }
@@ -40974,9 +41044,9 @@ var init_match_db = __esm({
         return __async(this, null, function* () {
           const { name, image, bio, location, job, tags } = profile;
           const query = `
-    INSERT INTO npwd_match_profiles (identifier, name, image, bio, location, job, tags)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
+        INSERT INTO npwd_match_profiles (identifier, name, image, bio, location, job, tags)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+		`;
           yield pool.execute(query, [identifier, name, image, bio, location, job, tags]);
           return yield this.getPlayerProfile(identifier);
         });
@@ -40985,10 +41055,15 @@ var init_match_db = __esm({
         return __async(this, null, function* () {
           const { image, name, bio, location, job, tags } = profile;
           const query = `
-      UPDATE npwd_match_profiles
-      SET image = ?, name = ?, bio = ?, location = ?, job = ?, tags = ?
-      WHERE identifier = ?
-      `;
+        UPDATE npwd_match_profiles
+        SET image    = ?,
+            name     = ?,
+            bio      = ?,
+            location = ?,
+            job      = ?,
+            tags     = ?
+        WHERE identifier = ?
+		`;
           yield pool.execute(query, [image, name, bio, location, job, tags, identifier]);
           return yield this.getPlayerProfile(identifier);
         });
@@ -41027,10 +41102,10 @@ var init_match_db = __esm({
       updateLastActive(identifier) {
         return __async(this, null, function* () {
           const query = `
-    UPDATE npwd_match_profiles
-    SET updatedAt = CURRENT_TIMESTAMP()
-    WHERE identifier = ?
-  `;
+        UPDATE npwd_match_profiles
+        SET updatedAt = CURRENT_TIMESTAMP()
+        WHERE identifier = ?
+		`;
           yield pool.execute(query, [identifier]);
         });
       }
@@ -41040,10 +41115,10 @@ var init_match_db = __esm({
   }
 });
 
-// resources/server/match/match.service.ts
+// server/match/match.service.ts
 var _MatchService, MatchService, match_service_default;
 var init_match_service = __esm({
-  "resources/server/match/match.service.ts"() {
+  "server/match/match.service.ts"() {
     init_match_utils();
     init_match_db();
     init_match();
@@ -41113,7 +41188,7 @@ var init_match_service = __esm({
         return __async(this, null, function* () {
           const identifier = player_service_default.getIdentifier(reqObj.source);
           try {
-            const matchedProfiles = yield this.matchDB.findAllMatches(identifier);
+            const matchedProfiles = yield this.matchDB.findAllMatches(identifier, reqObj.data.page);
             const formattedMatches = matchedProfiles.map(formatMatches);
             resp({ status: "ok", data: formattedMatches });
           } catch (e) {
@@ -41198,9 +41273,9 @@ var init_match_service = __esm({
   }
 });
 
-// resources/server/match/match.controller.ts
+// server/match/match.controller.ts
 var init_match_controller = __esm({
-  "resources/server/match/match.controller.ts"() {
+  "server/match/match.controller.ts"() {
     init_match();
     init_match_service();
     init_miscUtils();
@@ -41254,18 +41329,18 @@ var init_match_controller = __esm({
   }
 });
 
-// resources/server/bridge/bridge.utils.ts
+// server/bridge/bridge.utils.ts
 var bridgeLogger;
 var init_bridge_utils = __esm({
-  "resources/server/bridge/bridge.utils.ts"() {
+  "server/bridge/bridge.utils.ts"() {
     init_sv_logger();
     bridgeLogger = mainLogger.child({ module: "bridge" });
   }
 });
 
-// resources/server/bridge/sv_exports.ts
+// server/bridge/sv_exports.ts
 var require_sv_exports = __commonJS({
-  "resources/server/bridge/sv_exports.ts"(exports) {
+  "server/bridge/sv_exports.ts"(exports) {
     init_generateUniquePhoneNumber();
     init_bridge_utils();
     init_config2();
@@ -41300,9 +41375,9 @@ var require_sv_exports = __commonJS({
   }
 });
 
-// resources/server/messages/middleware/emitMessage.ts
+// server/messages/middleware/emitMessage.ts
 var require_emitMessage = __commonJS({
-  "resources/server/messages/middleware/emitMessage.ts"(exports) {
+  "server/messages/middleware/emitMessage.ts"(exports) {
     init_messages_service();
     var exp2 = global.exports;
     exp2("emitMessage", (_0) => __async(exports, [_0], function* ({ senderNumber, targetNumber, message }) {
@@ -41311,9 +41386,9 @@ var require_emitMessage = __commonJS({
   }
 });
 
-// resources/server/rcon/exports.ts
+// server/rcon/exports.ts
 var init_exports = __esm({
-  "resources/server/rcon/exports.ts"() {
+  "server/rcon/exports.ts"() {
     init_messages();
     global.exports("emitRconMessage", (src, data) => {
       emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, src, data);
@@ -41321,9 +41396,9 @@ var init_exports = __esm({
   }
 });
 
-// resources/node_modules/@sentry/hub/dist/scope.js
+// node_modules/@sentry/hub/dist/scope.js
 var require_scope = __commonJS({
-  "resources/node_modules/@sentry/hub/dist/scope.js"(exports) {
+  "node_modules/@sentry/hub/dist/scope.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -41625,9 +41700,9 @@ var require_scope = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/hub/dist/session.js
+// node_modules/@sentry/hub/dist/session.js
 var require_session2 = __commonJS({
-  "resources/node_modules/@sentry/hub/dist/session.js"(exports) {
+  "node_modules/@sentry/hub/dist/session.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var types_1 = require_dist2();
     var utils_1 = require_dist();
@@ -41734,9 +41809,9 @@ var require_session2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/hub/dist/hub.js
+// node_modules/@sentry/hub/dist/hub.js
 var require_hub = __commonJS({
-  "resources/node_modules/@sentry/hub/dist/hub.js"(exports) {
+  "node_modules/@sentry/hub/dist/hub.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var types_1 = require_dist2();
@@ -42072,9 +42147,9 @@ var require_hub = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/hub/dist/sessionflusher.js
+// node_modules/@sentry/hub/dist/sessionflusher.js
 var require_sessionflusher = __commonJS({
-  "resources/node_modules/@sentry/hub/dist/sessionflusher.js"(exports) {
+  "node_modules/@sentry/hub/dist/sessionflusher.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var types_1 = require_dist2();
     var utils_1 = require_dist();
@@ -42161,9 +42236,9 @@ var require_sessionflusher = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/hub/dist/index.js
+// node_modules/@sentry/hub/dist/index.js
 var require_dist5 = __commonJS({
-  "resources/node_modules/@sentry/hub/dist/index.js"(exports) {
+  "node_modules/@sentry/hub/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var scope_1 = require_scope();
     exports.addGlobalEventProcessor = scope_1.addGlobalEventProcessor;
@@ -42183,9 +42258,9 @@ var require_dist5 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/minimal/dist/index.js
+// node_modules/@sentry/minimal/dist/index.js
 var require_dist6 = __commonJS({
-  "resources/node_modules/@sentry/minimal/dist/index.js"(exports) {
+  "node_modules/@sentry/minimal/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -42281,9 +42356,9 @@ var require_dist6 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/api.js
+// node_modules/@sentry/core/dist/api.js
 var require_api = __commonJS({
-  "resources/node_modules/@sentry/core/dist/api.js"(exports) {
+  "node_modules/@sentry/core/dist/api.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var SENTRY_API_VERSION = "7";
@@ -42394,9 +42469,9 @@ var require_api = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/integration.js
+// node_modules/@sentry/core/dist/integration.js
 var require_integration = __commonJS({
-  "resources/node_modules/@sentry/core/dist/integration.js"(exports) {
+  "node_modules/@sentry/core/dist/integration.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -42458,9 +42533,9 @@ var require_integration = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/baseclient.js
+// node_modules/@sentry/core/dist/baseclient.js
 var require_baseclient = __commonJS({
-  "resources/node_modules/@sentry/core/dist/baseclient.js"(exports) {
+  "node_modules/@sentry/core/dist/baseclient.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -42799,9 +42874,9 @@ var require_baseclient = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/transports/noop.js
+// node_modules/@sentry/core/dist/transports/noop.js
 var require_noop = __commonJS({
-  "resources/node_modules/@sentry/core/dist/transports/noop.js"(exports) {
+  "node_modules/@sentry/core/dist/transports/noop.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var types_1 = require_dist2();
     var utils_1 = require_dist();
@@ -42823,9 +42898,9 @@ var require_noop = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/basebackend.js
+// node_modules/@sentry/core/dist/basebackend.js
 var require_basebackend = __commonJS({
-  "resources/node_modules/@sentry/core/dist/basebackend.js"(exports) {
+  "node_modules/@sentry/core/dist/basebackend.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var noop_1 = require_noop();
@@ -42869,9 +42944,9 @@ var require_basebackend = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/request.js
+// node_modules/@sentry/core/dist/request.js
 var require_request = __commonJS({
-  "resources/node_modules/@sentry/core/dist/request.js"(exports) {
+  "node_modules/@sentry/core/dist/request.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     function getSdkMetadataForEnvelopeHeader(api) {
@@ -42937,9 +43012,9 @@ var require_request = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/sdk.js
+// node_modules/@sentry/core/dist/sdk.js
 var require_sdk = __commonJS({
-  "resources/node_modules/@sentry/core/dist/sdk.js"(exports) {
+  "node_modules/@sentry/core/dist/sdk.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var hub_1 = require_dist5();
     var utils_1 = require_dist();
@@ -42957,17 +43032,17 @@ var require_sdk = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/version.js
+// node_modules/@sentry/core/dist/version.js
 var require_version2 = __commonJS({
-  "resources/node_modules/@sentry/core/dist/version.js"(exports) {
+  "node_modules/@sentry/core/dist/version.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SDK_VERSION = "6.15.0";
   }
 });
 
-// resources/node_modules/@sentry/core/dist/integrations/functiontostring.js
+// node_modules/@sentry/core/dist/integrations/functiontostring.js
 var require_functiontostring = __commonJS({
-  "resources/node_modules/@sentry/core/dist/integrations/functiontostring.js"(exports) {
+  "node_modules/@sentry/core/dist/integrations/functiontostring.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var originalFunctionToString;
     var FunctionToString = function() {
@@ -42992,9 +43067,9 @@ var require_functiontostring = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/integrations/inboundfilters.js
+// node_modules/@sentry/core/dist/integrations/inboundfilters.js
 var require_inboundfilters = __commonJS({
-  "resources/node_modules/@sentry/core/dist/integrations/inboundfilters.js"(exports) {
+  "node_modules/@sentry/core/dist/integrations/inboundfilters.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -43146,9 +43221,9 @@ var require_inboundfilters = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/integrations/index.js
+// node_modules/@sentry/core/dist/integrations/index.js
 var require_integrations = __commonJS({
-  "resources/node_modules/@sentry/core/dist/integrations/index.js"(exports) {
+  "node_modules/@sentry/core/dist/integrations/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var functiontostring_1 = require_functiontostring();
     exports.FunctionToString = functiontostring_1.FunctionToString;
@@ -43157,9 +43232,9 @@ var require_integrations = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/core/dist/index.js
+// node_modules/@sentry/core/dist/index.js
 var require_dist7 = __commonJS({
-  "resources/node_modules/@sentry/core/dist/index.js"(exports) {
+  "node_modules/@sentry/core/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var minimal_1 = require_dist6();
     exports.addBreadcrumb = minimal_1.addBreadcrumb;
@@ -43202,9 +43277,9 @@ var require_dist7 = __commonJS({
   }
 });
 
-// resources/node_modules/lru_map/lru.js
+// node_modules/lru_map/lru.js
 var require_lru = __commonJS({
-  "resources/node_modules/lru_map/lru.js"(exports) {
+  "node_modules/lru_map/lru.js"(exports) {
     (function(g, f2) {
       const e = typeof exports == "object" ? exports : typeof g == "object" ? g : {};
       f2(e);
@@ -43444,9 +43519,9 @@ var require_lru = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/stacktrace.js
+// node_modules/@sentry/node/dist/stacktrace.js
 var require_stacktrace2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/stacktrace.js"(exports) {
+  "node_modules/@sentry/node/dist/stacktrace.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function parse2(err) {
       if (!err.stack) {
@@ -43518,9 +43593,9 @@ var require_stacktrace2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/parsers.js
+// node_modules/@sentry/node/dist/parsers.js
 var require_parsers = __commonJS({
-  "resources/node_modules/@sentry/node/dist/parsers.js"(exports) {
+  "node_modules/@sentry/node/dist/parsers.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var fs_1 = require("fs");
@@ -43696,17 +43771,17 @@ var require_parsers = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/version.js
+// node_modules/@sentry/node/dist/version.js
 var require_version3 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/version.js"(exports) {
+  "node_modules/@sentry/node/dist/version.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SDK_NAME = "sentry.javascript.node";
   }
 });
 
-// resources/node_modules/@sentry/node/dist/transports/base/index.js
+// node_modules/@sentry/node/dist/transports/base/index.js
 var require_base = __commonJS({
-  "resources/node_modules/@sentry/node/dist/transports/base/index.js"(exports) {
+  "node_modules/@sentry/node/dist/transports/base/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -43905,9 +43980,9 @@ var require_base = __commonJS({
   }
 });
 
-// resources/node_modules/agent-base/dist/src/promisify.js
+// node_modules/agent-base/dist/src/promisify.js
 var require_promisify = __commonJS({
-  "resources/node_modules/agent-base/dist/src/promisify.js"(exports) {
+  "node_modules/agent-base/dist/src/promisify.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function promisify(fn) {
@@ -43927,9 +44002,9 @@ var require_promisify = __commonJS({
   }
 });
 
-// resources/node_modules/agent-base/dist/src/index.js
+// node_modules/agent-base/dist/src/index.js
 var require_src2 = __commonJS({
-  "resources/node_modules/agent-base/dist/src/index.js"(exports, module2) {
+  "node_modules/agent-base/dist/src/index.js"(exports, module2) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -44104,9 +44179,9 @@ var require_src2 = __commonJS({
   }
 });
 
-// resources/node_modules/https-proxy-agent/dist/parse-proxy-response.js
+// node_modules/https-proxy-agent/dist/parse-proxy-response.js
 var require_parse_proxy_response = __commonJS({
-  "resources/node_modules/https-proxy-agent/dist/parse-proxy-response.js"(exports) {
+  "node_modules/https-proxy-agent/dist/parse-proxy-response.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -44170,9 +44245,9 @@ var require_parse_proxy_response = __commonJS({
   }
 });
 
-// resources/node_modules/https-proxy-agent/dist/agent.js
+// node_modules/https-proxy-agent/dist/agent.js
 var require_agent = __commonJS({
-  "resources/node_modules/https-proxy-agent/dist/agent.js"(exports) {
+  "node_modules/https-proxy-agent/dist/agent.js"(exports) {
     "use strict";
     var __awaiter = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -44327,9 +44402,9 @@ var require_agent = __commonJS({
   }
 });
 
-// resources/node_modules/https-proxy-agent/dist/index.js
+// node_modules/https-proxy-agent/dist/index.js
 var require_dist8 = __commonJS({
-  "resources/node_modules/https-proxy-agent/dist/index.js"(exports, module2) {
+  "node_modules/https-proxy-agent/dist/index.js"(exports, module2) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -44346,9 +44421,9 @@ var require_dist8 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/transports/http.js
+// node_modules/@sentry/node/dist/transports/http.js
 var require_http3 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/transports/http.js"(exports) {
+  "node_modules/@sentry/node/dist/transports/http.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44376,9 +44451,9 @@ var require_http3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/transports/https.js
+// node_modules/@sentry/node/dist/transports/https.js
 var require_https = __commonJS({
-  "resources/node_modules/@sentry/node/dist/transports/https.js"(exports) {
+  "node_modules/@sentry/node/dist/transports/https.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44406,9 +44481,9 @@ var require_https = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/transports/index.js
+// node_modules/@sentry/node/dist/transports/index.js
 var require_transports2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/transports/index.js"(exports) {
+  "node_modules/@sentry/node/dist/transports/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var base_1 = require_base();
     exports.BaseTransport = base_1.BaseTransport;
@@ -44419,9 +44494,9 @@ var require_transports2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/backend.js
+// node_modules/@sentry/node/dist/backend.js
 var require_backend = __commonJS({
-  "resources/node_modules/@sentry/node/dist/backend.js"(exports) {
+  "node_modules/@sentry/node/dist/backend.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44510,9 +44585,9 @@ var require_backend = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/client.js
+// node_modules/@sentry/node/dist/client.js
 var require_client2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/client.js"(exports) {
+  "node_modules/@sentry/node/dist/client.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44596,9 +44671,9 @@ var require_client2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/console.js
+// node_modules/@sentry/node/dist/integrations/console.js
 var require_console3 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/console.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/console.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44669,9 +44744,9 @@ var require_console3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/utils/http.js
+// node_modules/@sentry/node/dist/integrations/utils/http.js
 var require_http4 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/utils/http.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/utils/http.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44760,9 +44835,9 @@ var require_http4 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/http.js
+// node_modules/@sentry/node/dist/integrations/http.js
 var require_http5 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/http.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/http.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -44872,9 +44947,9 @@ var require_http5 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/utils/errorhandling.js
+// node_modules/@sentry/node/dist/integrations/utils/errorhandling.js
 var require_errorhandling = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/utils/errorhandling.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/utils/errorhandling.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_dist7();
     var utils_1 = require_dist();
@@ -44900,9 +44975,9 @@ var require_errorhandling = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/onuncaughtexception.js
+// node_modules/@sentry/node/dist/integrations/onuncaughtexception.js
 var require_onuncaughtexception = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/onuncaughtexception.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/onuncaughtexception.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_dist7();
     var types_1 = require_dist2();
@@ -44979,9 +45054,9 @@ var require_onuncaughtexception = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/onunhandledrejection.js
+// node_modules/@sentry/node/dist/integrations/onunhandledrejection.js
 var require_onunhandledrejection = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/onunhandledrejection.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/onunhandledrejection.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_dist7();
     var utils_1 = require_dist();
@@ -45043,9 +45118,9 @@ var require_onunhandledrejection = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/linkederrors.js
+// node_modules/@sentry/node/dist/integrations/linkederrors.js
 var require_linkederrors = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/linkederrors.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/linkederrors.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -45113,9 +45188,9 @@ var require_linkederrors = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/modules.js
+// node_modules/@sentry/node/dist/integrations/modules.js
 var require_modules = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/modules.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/modules.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var fs_1 = require("fs");
@@ -45185,9 +45260,9 @@ var require_modules = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/integrations/index.js
+// node_modules/@sentry/node/dist/integrations/index.js
 var require_integrations2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/integrations/index.js"(exports) {
+  "node_modules/@sentry/node/dist/integrations/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var console_1 = require_console3();
     exports.Console = console_1.Console;
@@ -45204,9 +45279,9 @@ var require_integrations2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/sdk.js
+// node_modules/@sentry/node/dist/sdk.js
 var require_sdk2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/sdk.js"(exports) {
+  "node_modules/@sentry/node/dist/sdk.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -45333,9 +45408,9 @@ var require_sdk2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/utils.js
+// node_modules/@sentry/node/dist/utils.js
 var require_utils2 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/utils.js"(exports) {
+  "node_modules/@sentry/node/dist/utils.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var fs = require("fs");
@@ -45365,9 +45440,9 @@ var require_utils2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/spanstatus.js
+// node_modules/@sentry/tracing/dist/spanstatus.js
 var require_spanstatus = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/spanstatus.js"(exports) {
+  "node_modules/@sentry/tracing/dist/spanstatus.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var SpanStatus;
     (function(SpanStatus2) {
@@ -45431,9 +45506,9 @@ var require_spanstatus = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/utils.js
+// node_modules/@sentry/tracing/dist/utils.js
 var require_utils3 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/utils.js"(exports) {
+  "node_modules/@sentry/tracing/dist/utils.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var hub_1 = require_dist5();
     exports.TRACEPARENT_REGEXP = new RegExp("^[ \\t]*([0-9a-f]{32})?-?([0-9a-f]{16})?-?([01])?[ \\t]*$");
@@ -45487,9 +45562,9 @@ var require_utils3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/errors.js
+// node_modules/@sentry/tracing/dist/errors.js
 var require_errors5 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/errors.js"(exports) {
+  "node_modules/@sentry/tracing/dist/errors.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var spanstatus_1 = require_spanstatus();
@@ -45515,9 +45590,9 @@ var require_errors5 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/span.js
+// node_modules/@sentry/tracing/dist/span.js
 var require_span = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/span.js"(exports) {
+  "node_modules/@sentry/tracing/dist/span.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -45693,9 +45768,9 @@ var require_span = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/transaction.js
+// node_modules/@sentry/tracing/dist/transaction.js
 var require_transaction3 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/transaction.js"(exports) {
+  "node_modules/@sentry/tracing/dist/transaction.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -45799,9 +45874,9 @@ var require_transaction3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/idletransaction.js
+// node_modules/@sentry/tracing/dist/idletransaction.js
 var require_idletransaction = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/idletransaction.js"(exports) {
+  "node_modules/@sentry/tracing/dist/idletransaction.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -46013,9 +46088,9 @@ var require_idletransaction = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/hubextensions.js
+// node_modules/@sentry/tracing/dist/hubextensions.js
 var require_hubextensions = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/hubextensions.js"(exports, module2) {
+  "node_modules/@sentry/tracing/dist/hubextensions.js"(exports, module2) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var hub_1 = require_dist5();
@@ -46184,9 +46259,9 @@ var require_hubextensions = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/backgroundtab.js
+// node_modules/@sentry/tracing/dist/browser/backgroundtab.js
 var require_backgroundtab = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/backgroundtab.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/backgroundtab.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var spanstatus_1 = require_spanstatus();
@@ -46213,9 +46288,9 @@ var require_backgroundtab = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/bindReporter.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/bindReporter.js
 var require_bindReporter = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/bindReporter.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/bindReporter.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.bindReporter = function(callback, metric, reportAllChanges) {
       var prevValue;
@@ -46234,9 +46309,9 @@ var require_bindReporter = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/generateUniqueID.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/generateUniqueID.js
 var require_generateUniqueID = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/generateUniqueID.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/generateUniqueID.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.generateUniqueID = function() {
       return "v2-" + Date.now() + "-" + (Math.floor(Math.random() * (9e12 - 1)) + 1e12);
@@ -46244,9 +46319,9 @@ var require_generateUniqueID = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/initMetric.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/initMetric.js
 var require_initMetric = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/initMetric.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/initMetric.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var generateUniqueID_1 = require_generateUniqueID();
     exports.initMetric = function(name, value) {
@@ -46261,9 +46336,9 @@ var require_initMetric = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/observe.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/observe.js
 var require_observe = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/observe.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/observe.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.observe = function(type, callback) {
       try {
@@ -46284,9 +46359,9 @@ var require_observe = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/onHidden.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/onHidden.js
 var require_onHidden = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/onHidden.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/onHidden.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     exports.onHidden = function(cb, once) {
@@ -46305,9 +46380,9 @@ var require_onHidden = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getCLS.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/getCLS.js
 var require_getCLS = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getCLS.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/getCLS.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var bindReporter_1 = require_bindReporter();
     var initMetric_1 = require_initMetric();
@@ -46350,9 +46425,9 @@ var require_getCLS = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/getVisibilityWatcher.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/lib/getVisibilityWatcher.js
 var require_getVisibilityWatcher = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/lib/getVisibilityWatcher.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/lib/getVisibilityWatcher.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var onHidden_1 = require_onHidden();
@@ -46380,9 +46455,9 @@ var require_getVisibilityWatcher = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getFID.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/getFID.js
 var require_getFID = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getFID.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/getFID.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var bindReporter_1 = require_bindReporter();
     var getVisibilityWatcher_1 = require_getVisibilityWatcher();
@@ -46412,9 +46487,9 @@ var require_getFID = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getLCP.js
+// node_modules/@sentry/tracing/dist/browser/web-vitals/getLCP.js
 var require_getLCP = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/web-vitals/getLCP.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/web-vitals/getLCP.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var bindReporter_1 = require_bindReporter();
     var getVisibilityWatcher_1 = require_getVisibilityWatcher();
@@ -46456,9 +46531,9 @@ var require_getLCP = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/metrics.js
+// node_modules/@sentry/tracing/dist/browser/metrics.js
 var require_metrics = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/metrics.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/metrics.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -46611,8 +46686,8 @@ var require_metrics = __commonJS({
         }
         if (this._clsEntry && this._clsEntry.sources) {
           utils_1.logger.log("[Measurements] Adding CLS Data");
-          this._clsEntry.sources.forEach(function(source, index) {
-            return transaction.setTag("cls.source." + (index + 1), utils_1.htmlTreeAsString(source.node));
+          this._clsEntry.sources.forEach(function(source2, index) {
+            return transaction.setTag("cls.source." + (index + 1), utils_1.htmlTreeAsString(source2.node));
           });
         }
       };
@@ -46791,9 +46866,9 @@ var require_metrics = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/request.js
+// node_modules/@sentry/tracing/dist/browser/request.js
 var require_request2 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/request.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/request.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -46926,9 +47001,9 @@ var require_request2 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/router.js
+// node_modules/@sentry/tracing/dist/browser/router.js
 var require_router = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/router.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/router.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var global2 = utils_1.getGlobalObject();
@@ -46973,9 +47048,9 @@ var require_router = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/browsertracing.js
+// node_modules/@sentry/tracing/dist/browser/browsertracing.js
 var require_browsertracing = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/browsertracing.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/browsertracing.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -47070,9 +47145,9 @@ var require_browsertracing = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/browser/index.js
+// node_modules/@sentry/tracing/dist/browser/index.js
 var require_browser3 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/browser/index.js"(exports) {
+  "node_modules/@sentry/tracing/dist/browser/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var browsertracing_1 = require_browsertracing();
     exports.BrowserTracing = browsertracing_1.BrowserTracing;
@@ -47082,9 +47157,9 @@ var require_browser3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/integrations/node/express.js
+// node_modules/@sentry/tracing/dist/integrations/node/express.js
 var require_express = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/integrations/node/express.js"(exports) {
+  "node_modules/@sentry/tracing/dist/integrations/node/express.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -47207,9 +47282,9 @@ var require_express = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/integrations/node/postgres.js
+// node_modules/@sentry/tracing/dist/integrations/node/postgres.js
 var require_postgres = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/integrations/node/postgres.js"(exports) {
+  "node_modules/@sentry/tracing/dist/integrations/node/postgres.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var Postgres = function() {
@@ -47275,9 +47350,9 @@ var require_postgres = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/integrations/node/mysql.js
+// node_modules/@sentry/tracing/dist/integrations/node/mysql.js
 var require_mysql = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/integrations/node/mysql.js"(exports) {
+  "node_modules/@sentry/tracing/dist/integrations/node/mysql.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var utils_1 = require_dist();
     var Mysql = function() {
@@ -47324,9 +47399,9 @@ var require_mysql = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/integrations/node/mongo.js
+// node_modules/@sentry/tracing/dist/integrations/node/mongo.js
 var require_mongo = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/integrations/node/mongo.js"(exports) {
+  "node_modules/@sentry/tracing/dist/integrations/node/mongo.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var utils_1 = require_dist();
@@ -47486,9 +47561,9 @@ var require_mongo = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/integrations/index.js
+// node_modules/@sentry/tracing/dist/integrations/index.js
 var require_integrations3 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/integrations/index.js"(exports) {
+  "node_modules/@sentry/tracing/dist/integrations/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var express_1 = require_express();
     exports.Express = express_1.Express;
@@ -47501,9 +47576,9 @@ var require_integrations3 = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/tracing/dist/index.js
+// node_modules/@sentry/tracing/dist/index.js
 var require_dist9 = __commonJS({
-  "resources/node_modules/@sentry/tracing/dist/index.js"(exports) {
+  "node_modules/@sentry/tracing/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var browser_1 = require_browser3();
@@ -47535,9 +47610,9 @@ var require_dist9 = __commonJS({
   }
 });
 
-// resources/node_modules/cookie/index.js
+// node_modules/cookie/index.js
 var require_cookie = __commonJS({
-  "resources/node_modules/cookie/index.js"(exports) {
+  "node_modules/cookie/index.js"(exports) {
     "use strict";
     exports.parse = parse2;
     exports.serialize = serialize;
@@ -47646,9 +47721,9 @@ var require_cookie = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/handlers.js
+// node_modules/@sentry/node/dist/handlers.js
 var require_handlers = __commonJS({
-  "resources/node_modules/@sentry/node/dist/handlers.js"(exports) {
+  "node_modules/@sentry/node/dist/handlers.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var core_1 = require_dist7();
@@ -47913,9 +47988,9 @@ var require_handlers = __commonJS({
   }
 });
 
-// resources/node_modules/@sentry/node/dist/index.js
+// node_modules/@sentry/node/dist/index.js
 var require_dist10 = __commonJS({
-  "resources/node_modules/@sentry/node/dist/index.js"(exports) {
+  "node_modules/@sentry/node/dist/index.js"(exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = require_tslib();
     var types_1 = require_dist2();
@@ -47975,7 +48050,7 @@ var require_dist10 = __commonJS({
   }
 });
 
-// resources/server/server.ts
+// server/server.ts
 var server_exports = {};
 __export(server_exports, {
   config: () => config2
@@ -47983,7 +48058,7 @@ __export(server_exports, {
 module.exports = __toCommonJS(server_exports);
 var import_integrations, import_boot4, import_player16, import_notes3, import_messages6, import_marketplace5, import_twitter5, import_sv_exports, import_emitMessage, Sentry, config2;
 var init_server = __esm({
-  "resources/server/server.ts"() {
+  "server/server.ts"() {
     init_config2();
     import_integrations = __toESM(require_dist3());
     init_config2();

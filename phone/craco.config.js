@@ -27,7 +27,7 @@ module.exports = {
 
       if (webpackConfig.mode === 'development' && !process.env.REACT_IN_GAME) {
         webpackConfig.devtool = 'eval';
-      } else if (webpackConfig.mode === 'development') {
+      } else {
         webpackConfig.devtool = 'eval-source-map';
       }
 
