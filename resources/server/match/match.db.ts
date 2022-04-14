@@ -83,7 +83,7 @@ export class _MatchDB {
    * @param page
    * @returns Match[] - all matches associated with the current player
    */
-  async findAllMatches(identifier: string, page: number): Promise<Match[]> {
+  async findAllMatches(identifier: string, page: number = 0): Promise<Match[]> {
     const offset = MATCHES_PER_PAGE * page;
 
     const query = `

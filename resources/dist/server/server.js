@@ -40997,7 +40997,7 @@ var init_match_db = __esm({
           return results;
         });
       }
-      findAllMatches(identifier, page) {
+      findAllMatches(identifier, page = 0) {
         return __async(this, null, function* () {
           const offset = MATCHES_PER_PAGE * page;
           const query = `
