@@ -41186,9 +41186,10 @@ var init_match_service = __esm({
       }
       handleGetMatches(reqObj, resp) {
         return __async(this, null, function* () {
+          var _a2;
           const identifier = player_service_default.getIdentifier(reqObj.source);
           try {
-            const matchedProfiles = yield this.matchDB.findAllMatches(identifier, reqObj.data.page);
+            const matchedProfiles = yield this.matchDB.findAllMatches(identifier, (_a2 = reqObj == null ? void 0 : reqObj.data) == null ? void 0 : _a2.page);
             const formattedMatches = matchedProfiles.map(formatMatches);
             resp({ status: "ok", data: formattedMatches });
           } catch (e) {

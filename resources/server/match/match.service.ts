@@ -89,7 +89,7 @@ class _MatchService {
   ) {
     const identifier = PlayerService.getIdentifier(reqObj.source);
     try {
-      const matchedProfiles = await this.matchDB.findAllMatches(identifier, reqObj.data.page);
+      const matchedProfiles = await this.matchDB.findAllMatches(identifier, reqObj?.data?.page);
       const formattedMatches = matchedProfiles.map(formatMatches);
       resp({ status: 'ok', data: formattedMatches });
     } catch (e) {
