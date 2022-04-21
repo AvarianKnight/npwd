@@ -31,7 +31,7 @@ if (
   process.env.REACT_APP_VERSION
 ) {
   Sentry.init({
-    dsn: 'https://0c8321c22b794dc7a648a571cc8c3c34@sentry.projecterror.dev/2',
+    dsn: 'https://5291190817ea42cbac42c95336c8b96a@sentry.pma.network/2',
     autoSessionTracking: true,
     release: process.env.REACT_APP_VERSION,
     integrations: [
