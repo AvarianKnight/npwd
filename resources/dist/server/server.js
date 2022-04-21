@@ -48086,7 +48086,7 @@ var init_server = __esm({
       Sentry.init({
         dsn: "https://fa466f5b83ab4f029052b06bc9dec5cb@sentry.pma.network/3",
         integrations: [new import_integrations.RewriteFrames()],
-        release: process.env.SENTRY_RELEASE || "0.0.0",
+        release: process.env.SENTRY_VERSION || "0.0.0",
         tracesSampleRate: 1
       });
     }

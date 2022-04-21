@@ -1,10 +1,10 @@
 const SentryCli = require('@sentry/cli');
 
 const createSourceMap = async () =>  {
-	const release = process.env.REACT_APP_VERSION; 
+	const release = process.env.SENTRY_VERSION; 
 	
 	if (!release) {
-	  console.warn('REACT_APP_VERSION is not set');
+	  console.warn('SENTRY_RELEASE is not set');
 	  return;
 	}  
 	
