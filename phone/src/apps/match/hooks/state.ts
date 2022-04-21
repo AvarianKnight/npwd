@@ -17,7 +17,7 @@ export const matchState = {
             MatchEvents.GET_PROFILES,
           );
           LogDebugEvent({ action: 'fetchProfiles', data: resp.data });
-          return resp.data;
+          return resp.data || [];
         } catch (e) {
           if (isEnvBrowser()) {
             return MockProfilesData;
