@@ -54,7 +54,7 @@ export const useMatchActions = () => {
   const addMatchAccount = useRecoilCallback(
     ({ snapshot, set }) =>
       async (profile: FormattedProfile, myProfile: FormattedProfile) => {
-        if (profile.identifier === myProfile.identifier) return;
+        if (profile.identifier === myProfile?.identifier) return;
 
         const matchesLoading = getIsMatchesLoading(snapshot);
         if (matchesLoading) return;
