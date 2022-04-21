@@ -26,7 +26,7 @@ export const useMessagesService = () => {
   // This is only called for the receiver of the message. We'll be using the standardized pattern for the transmitter.
   const handleUpdateMessages = useCallback(
     (messageDto: Message) => {
-      if (messageDto.conversation_id !== activeConversation.id) return;
+      if (messageDto.conversation_id !== activeConversation?.id) return;
 
       updateLocalMessages(messageDto);
     },
