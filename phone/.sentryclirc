@@ -1,0 +1,4 @@
+[defaults]
+url=https://sentry.pma.network
+project=npwd
+org=npwd

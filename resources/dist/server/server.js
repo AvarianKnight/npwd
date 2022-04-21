@@ -48083,7 +48083,6 @@ var init_server = __esm({
     config2 = config;
     registerCommands();
     if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
-      console.log("sentry?");
       Sentry.init({
         dsn: "https://fa466f5b83ab4f029052b06bc9dec5cb@sentry.pma.network/3",
         integrations: [new import_integrations.RewriteFrames()],
