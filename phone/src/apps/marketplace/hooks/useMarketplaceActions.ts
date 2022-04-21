@@ -18,7 +18,7 @@ export const useMarketplaceActions = (): MarketplaceActionValues => {
         if (state !== 'hasValue') return;
         // Tts possible for the init fetch to fail and empty array is passed. In that case
         // block dispatch
-        if (!contents.length) return;
+        if (!contents?.length) return;
 
         setListings((curListings) =>
           [...curListings].filter((listing) => !ids.includes(listing.id)),

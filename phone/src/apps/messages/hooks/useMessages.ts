@@ -30,7 +30,7 @@ const useMessages = (): IUseMessages => {
     (id: number): MessageConversation | null => {
       if (conversationLoading !== 'hasValue') return;
 
-      if (!contents.length) return;
+      if (!contents?.length) return;
 
       // FIXME: Make sure we have contents as a number as well..
       return contents && contents.find((c) => c.id === id);
