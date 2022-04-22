@@ -42,7 +42,7 @@ export const StatusButton: React.FC<
   return (
     <Button
       variant={variant}
-      className={`${classes.root} ${classes[variant] || ''} ${className}`}
+      className={`${classes.root} ${classes[variant as string] || ''} ${className}`}
       {...props}
     />
   );

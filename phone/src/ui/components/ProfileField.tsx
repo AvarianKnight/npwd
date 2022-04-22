@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 interface ProfileFieldProps {
   label: string;
   value: string;
-  handleChange?: (val: string) => void;
+  handleChange: (val: string) => void;
   allowChange?: boolean;
   multiline?: boolean;
   maxLength?: number;

@@ -17,7 +17,7 @@ interface MessageActionProps {
   updateLocalMessages: (messageDto: Message) => void;
   deleteLocalMessage: (messageId: number) => void;
   setMessageReadState: (conversationId: number, unreadCount: number) => void;
-  getLabelOrContact: (messageConversation: MessageConversation) => string;
+  getLabelOrContact: (messageConversation: MessageConversation) => string | null;
   getConversationParticipant: (conversationList: string) => Contact | null;
 }
 
@@ -59,7 +59,7 @@ export const useMessageActions = (): MessageActionProps => {
   );
 
   const getLabelOrContact = useCallback(
-    (messageConversation: MessageConversation): string => {
+    (messageConversation: MessageConversation): string | null => {
       const conversationLabel = messageConversation.label;
       // This is the source
       const participant = messageConversation.participant;
@@ -74,6 +74,8 @@ export const useMessageActions = (): MessageActionProps => {
           return contact ? contact.display : p;
         }
       }
+
+      return null;
     },
     [getContactByNumber],
   );

@@ -31,9 +31,9 @@ export const useMessageNotifications = () => {
   });
 
   const setNotification = ({ conversationName, conversationId, message }) => {
-    let group: MessageConversation = null;
+    let group = getMessageConversationById(conversationId) as MessageConversation;
 
-    group = getMessageConversationById(conversationId);
+    if (!group) return;
 
     const id = `${NOTIFICATION_ID}:${conversationId}`;
 
@@ -50,10 +50,10 @@ export const useMessageNotifications = () => {
 
     addNotificationAlert(notification, (n) => {
       removeId(id);
-      if (group.unread > 1) {
+      if (group.unread && group.unread > 1) {
         addNotification({
           ...n,
-          title: group.participant,
+          title: group.participant || "",
           content: t('MESSAGES.MESSAGES.UNREAD_MESSAGES', {
             count: group.unread,
           }),

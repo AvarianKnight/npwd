@@ -31,7 +31,8 @@ export const useNotesAPI = (): NotesAPIValue => {
         });
       }
 
-      addLocalNote(resp.data);
+      // We already check the status so just cast
+      addLocalNote(resp.data as NoteItem);
 
       addAlert({
         message: t('NOTES.FEEDBACK.ADD_SUCCESS'),
@@ -52,7 +53,8 @@ export const useNotesAPI = (): NotesAPIValue => {
         });
       }
 
-      deleteLocalNote(resp.data.id);
+      // We already check the status so just cast
+      deleteLocalNote((resp.data as DeleteNoteDTO).id);
 
       addAlert({
         message: t('NOTES.FEEDBACK.DELETE_SUCCESS'),

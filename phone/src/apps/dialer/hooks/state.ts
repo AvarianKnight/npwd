@@ -15,7 +15,7 @@ export const dialState = {
         try {
           const resp = await fetchNui<ServerPromiseResp<CallHistoryItem[]>>(CallEvents.FETCH_CALLS);
           LogDebugEvent({ action: CallEvents.FETCH_CALLS, data: resp.data });
-          return resp.data;
+          return resp.data || [];
         } catch (e) {
           if (isEnvBrowser()) {
             return MockHistoryData;

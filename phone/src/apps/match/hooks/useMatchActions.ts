@@ -43,7 +43,7 @@ export const useMatchActions = () => {
             type: 'info',
           });
           fetchNui<ServerPromiseResp<FormattedMatch[]>>(MatchEvents.GET_MATCHES).then((resp) => {
-            setMatches(resp.data);
+            setMatches(resp.data as FormattedMatch[]);
           });
         }
       });
@@ -66,7 +66,8 @@ export const useMatchActions = () => {
   const addMatchedAccount = async () => {
     fetchNui<ServerPromiseResp<FormattedMatch[]>>(MatchEvents.GET_MATCHES).then((resp) => {
       if (resp.status !== 'ok') return;
-      setMatches(resp.data);
+      if (resp.data) 
+        setMatches(resp.data);
     });
   };
 
@@ -75,7 +76,9 @@ export const useMatchActions = () => {
       (resp) => {
         if (resp.status !== 'ok') return;
 
-        setMatches(resp.data);
+        if (resp.data)
+          setMatches(resp.data);
+
       },
     );
   };

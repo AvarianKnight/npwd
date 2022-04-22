@@ -43,7 +43,7 @@ export const matchState = {
             { page: 0 },
           );
           LogDebugEvent({ action: 'fetchMatches', data: resp.data });
-          return resp.data;
+          return resp.data || [];
         } catch (e) {
           if (isEnvBrowser()) {
             return MockMatchesData;
@@ -67,7 +67,7 @@ export const matchState = {
             MatchEvents.GET_MY_PROFILE,
           );
           LogDebugEvent({ action: 'fetchMyProfile', data: resp.data });
-          return resp.data;
+          return resp.data || null;
         } catch (e) {
           if (isEnvBrowser()) {
             return MockMyProfileData;

@@ -12,7 +12,7 @@ import { MockMessageConversations } from '../utils/constants';
 import { contactsState } from '../../contacts/hooks/state';
 import { Contact } from '@typings/contact';
 
-const currentGroupId = atom({ key: 'currentGroupId', default: null });
+const currentGroupId = atom<number | null>({ key: 'currentGroupId', default: null });
 
 export const messageState = {
   messageCoversations: atom<MessageConversation[]>({
@@ -26,7 +26,7 @@ export const messageState = {
             undefined,
             buildRespObj(MockMessageConversations),
           );
-          return resp.data;
+          return resp.data || [];
         } catch (e) {
           console.error(e);
           return [];
@@ -70,7 +70,7 @@ export const messageState = {
     key: 'showNewMessageGroup',
     default: false,
   }),
-  createMessageGroupResult: atom<CreateMessageGroupResult>({
+  createMessageGroupResult: atom<CreateMessageGroupResult | null>({
     key: 'createMessageGroupResult',
     default: null,
   }),
@@ -82,7 +82,7 @@ export const messageState = {
     key: 'unreadMessagesCount',
     default: 0,
   }),
-  selectedMessage: atom<Message>({
+  selectedMessage: atom<Message | null>({
     key: 'selectedMessage',
     default: null,
   }),

@@ -28,12 +28,16 @@ const useMessages = (): IUseMessages => {
 
   const getMessageConversationById = useCallback(
     (id: number): MessageConversation | null => {
-      if (conversationLoading !== 'hasValue') return;
+      if (conversationLoading !== 'hasValue') return null;
+      if (!contents) return null;
+      if (!contents.length) return null;
 
-      if (!contents?.length) return;
+      const conversationGroup = contents.find((c) => c.id === id);
+
+      if (!conversationGroup) return null
 
       // FIXME: Make sure we have contents as a number as well..
-      return contents && contents.find((c) => c.id === id);
+      return conversationGroup;
     },
     [contents, conversationLoading],
   );

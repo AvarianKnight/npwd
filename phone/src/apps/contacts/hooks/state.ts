@@ -17,7 +17,7 @@ export const contactsState = {
             undefined,
             buildRespObj(BrowserContactsState),
           );
-          return resp.data;
+          return resp.data || [];
         } catch (e) {
           console.error(e);
           return [];
