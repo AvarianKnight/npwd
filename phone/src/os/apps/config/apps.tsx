@@ -123,14 +123,14 @@ export const APPS: IAppConfig[] = [
     path: '/bank',
     Route: () => <AppRoute id="BANK" path="/bank" component={BankApp} />,
   },*/
-  {
-    id: 'MATCH',
-    nameLocale: 'APPS_MATCH',
-    backgroundColor: MATCH_APP_PRIMARY_COLOR,
-    color: MATCH_APP_TEXT_COLOR,
-    path: '/match',
-    Route: () => <AppRoute id="MATCH" path="/match" component={MatchApp} emitOnOpen={true} />,
-  },
+  // {
+  //   id: 'MATCH',
+  //   nameLocale: 'APPS_MATCH',
+  //   backgroundColor: MATCH_APP_PRIMARY_COLOR,
+  //   color: MATCH_APP_TEXT_COLOR,
+  //   path: '/match',
+  //   Route: () => <AppRoute id="MATCH" path="/match" component={MatchApp} emitOnOpen={true} />,
+  // },
   {
     id: 'TWITTER',
     nameLocale: 'APPS_TWITTER',
