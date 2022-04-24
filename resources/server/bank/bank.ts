@@ -54,11 +54,11 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
 
     AC.log(
       '*Bank Transfer*',
-      `(${ply.source}) ${GetPlayerName(ply.source)} ${AC.getDiscordId(ply.source)} transfered ${
+      `${GetPlayerName(ply.source)} ${AC.getDiscordId(ply.source)} transfered ${
         transferData.transferAmount
-      } to (${tgtPly.source})${GetPlayerName(ply.source)} ${AC.getDiscordId(
-        ply.source,
-      )} with the message of ${transferData.message}`,
+      } to ${GetPlayerName(tgtPly.source)} ${AC.getDiscordId(tgtPly.source)} with the message of ${
+        transferData.message
+      }`,
       'red',
       'phoneBankTransfers',
     );
