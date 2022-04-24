@@ -11,7 +11,9 @@ import { BankEvents } from '@typings/bank';
 export const useBankService = () => {
   const setTransaction = useSetRecoilState(bankState.transactions);
   const setCredentials = useSetRecoilState(bankState.bankCredentials);
-  const setNotification = useSetRecoilState(bankState.notification);
+  // const setNotification = useSetRecoilState(bankState.notification);
+  const { setNotification } = useBankNotification();
+
   const { addAlert } = useSnackbar();
   const [t] = useTranslation();
 
@@ -23,7 +25,7 @@ export const useBankService = () => {
     });
   };
 
-  useNuiEvent('BANK', BankEvents.SEND_TRANSFERS, setTransaction);
+  useNuiEvent('BANK', BankEvents.FETCH_TRANSACTIONS, setTransaction);
   useNuiEvent('BANK', BankEvents.SEND_CREDENTIALS, setCredentials);
   useNuiEvent('BANK', BankEvents.SEND_ALERT, handleAddAlert);
   useNuiEvent('BANK', BankEvents.SEND_NOTIFICATION, setNotification);

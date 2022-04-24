@@ -6,7 +6,6 @@ import { useTransactions } from '../../hooks/useTransactions';
 
 export const TransactionList = () => {
   const transactionList = useTransactions();
-  const [t] = useTranslation();
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -26,18 +25,19 @@ export const TransactionList = () => {
     setPage(0);
   };
 
+  console.log(transactionList);
   return (
     <div id="transaction-section">
       <div className={classes.header}>
-        <h2 className={classes.title}>{t('APPS_BANK_ACCOUNT_TRANSACTIONS')}</h2>
+        <h2 className={classes.title}>Transactions</h2>
       </div>
 
       <div className={classes.transcationDiv}>
         {transactionList
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((transaction: any) => (
-            <div className={classes.transactions}>
-              <div>
+          .map((transaction: any, index: number) => (
+            <div className={classes.transactions} key={index}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <h1 className={classes.tranSource}>{transaction.source}</h1>
                 <p className={classes.tranType}>{transaction.type}</p>
               </div>
