@@ -40643,7 +40643,7 @@ var init_twitter_service = __esm({
 });
 
 // server/twitter/twitter.controller.ts
-var exp2, AC, PMA;
+var exp2, AC;
 var init_twitter_controller = __esm({
   "server/twitter/twitter.controller.ts"() {
     init_config2();
@@ -40654,10 +40654,6 @@ var init_twitter_controller = __esm({
     init_onNetPromise();
     exp2 = global.exports;
     AC = exp2["pma-anticheat"];
-    PMA = null;
-    emit("pma:getData", (obj) => {
-      PMA = obj;
-    });
     onNetPromise("npwd:getOrCreateTwitterProfile" /* GET_OR_CREATE_PROFILE */, (reqObj, resp) => __async(void 0, null, function* () {
       const _source = getSource();
       twitter_service_default.handleGetOrCreateProfile(reqObj, resp).catch((e) => {
@@ -40720,19 +40716,19 @@ var init_bank = __esm({
 });
 
 // server/bank/bank.ts
-var exp3, ox, PMA2, AC2, processTransaction, insertBankTransactions;
+var exp3, ox, PMA, AC2, processTransaction, insertBankTransactions;
 var init_bank2 = __esm({
   "server/bank/bank.ts"() {
     init_bank();
     exp3 = global.exports;
     ox = exp3.oxmysql;
-    PMA2 = null;
+    PMA = null;
     AC2 = exp3["pma-anticheat"];
     emit("pma:getData", (obj) => {
-      PMA2 = obj;
+      PMA = obj;
     });
     onNet("npwd:getBankCredentials" /* GET_CREDENTIALS */, () => __async(void 0, null, function* () {
-      const ply = PMA2.getPlayerFromId(source);
+      const ply = PMA.getPlayerFromId(source);
       const transactions = yield ox.query_async(`SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
       const credentials = {
         bank: ply.getAccount("bank").money,
@@ -40742,8 +40738,8 @@ var init_bank2 = __esm({
       ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
     }));
     onNet("npwd:addTransfer" /* ADD_TRANSFER */, (transferData) => __async(void 0, null, function* () {
-      const ply = PMA2.getPlayerFromId(source);
-      const tgtPly = PMA2.getPlayerFromId(transferData.targetID);
+      const ply = PMA.getPlayerFromId(source);
+      const tgtPly = PMA.getPlayerFromId(transferData.targetID);
       if (tgtPly) {
         processTransaction(ply, tgtPly, transferData);
       } else {

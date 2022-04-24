@@ -8,11 +8,6 @@ import { RateLimiter } from '../lib/RateLimiter';
 
 export const exp = (global as any).exports;
 const AC = exp['pma-anticheat'];
-export let PMA: any = null;
-
-emit('pma:getData', (obj: any) => {
-  PMA = obj;
-});
 
 onNetPromise<void, Profile | string[]>(
   TwitterEvents.GET_OR_CREATE_PROFILE,
