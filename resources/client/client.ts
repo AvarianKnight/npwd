@@ -13,5 +13,6 @@ import './cl_match';
 import './functions';
 import './cl_exports';
 import './settings/client-settings';
+import './cl_bank';
 
 export const ClUtils = new ClientUtils();

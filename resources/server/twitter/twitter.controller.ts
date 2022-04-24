@@ -6,6 +6,14 @@ import TwitterService from './twitter.service';
 import { onNetPromise } from '../lib/PromiseNetEvents/onNetPromise';
 import { RateLimiter } from '../lib/RateLimiter';
 
+export const exp = (global as any).exports;
+const AC = exp['pma-anticheat'];
+export let PMA: any = null;
+
+emit('pma:getData', (obj: any) => {
+  PMA = obj;
+});
+
 onNetPromise<void, Profile | string[]>(
   TwitterEvents.GET_OR_CREATE_PROFILE,
   async (reqObj, resp) => {
@@ -45,7 +53,15 @@ onNetPromise<{ searchValue: string }, Tweet[]>(
   { rateLimit: 5000 },
 );
 
-onNetPromise<Tweet, void>(TwitterEvents.CREATE_TWEET, async (reqObj, resp) => {
+onNetPromise<Tweet, void>(TwitterEvents.CREATE_TWEET, async (reqObj: any, resp) => {
+  AC.log(
+    '*Tweeted*',
+    `${GetPlayerName(reqObj.source)} ${AC.getDiscordId(reqObj.source)}} tweeted: \n ${
+      reqObj.data.message
+    }`,
+    'red',
+    'tweets',
+  );
   TwitterService.handleCreateTweet(reqObj, resp).catch((e) => {
     twitterLogger.error(
       `Error occurred in createTweet event (${reqObj.source}), Error: ${e.message}`,

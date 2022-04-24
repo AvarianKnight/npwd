@@ -1311,6 +1311,57 @@
     }
   });
 
+  // ../typings/bank.ts
+  var init_bank = __esm({
+    "../typings/bank.ts"() {
+    }
+  });
+
+  // client/cl_bank.ts
+  var iterator;
+  var init_cl_bank = __esm({
+    "client/cl_bank.ts"() {
+      init_bank();
+      RegisterNuiCallbackType("npwd:getBankCredentials" /* GET_CREDENTIALS */);
+      RegisterNuiCallbackType("npwd:addTransfer" /* ADD_TRANSFER */);
+      on(`__cfx_nui:${"npwd:getBankCredentials" /* GET_CREDENTIALS */}`, (data, cb) => {
+        emitNet("npwd:getBankCredentials" /* GET_CREDENTIALS */);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:addTransfer" /* ADD_TRANSFER */}`, (data, cb) => {
+        emitNet("npwd:addTransfer" /* ADD_TRANSFER */, data);
+        cb({});
+      });
+      onNet("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, (credentials) => {
+        SendNUIMessage({
+          app: "BANK",
+          method: "npwd:sendBankCredentials" /* SEND_CREDENTIALS */,
+          data: {
+            name: credentials.name,
+            balance: credentials.bank
+          }
+        });
+        SendNUIMessage({
+          app: "BANK",
+          method: "npwd:fetchAllTransactions" /* FETCH_TRANSACTIONS */,
+          data: credentials.transactions
+        });
+      });
+      iterator = 0;
+      onNet("npwd:sendBankNotification" /* SEND_NOTIFICATION */, (message) => {
+        SendNUIMessage({
+          app: "BANK",
+          method: "npwd:sendBankNotification" /* SEND_NOTIFICATION */,
+          data: {
+            title: "Bank Alert",
+            bankNotify: iterator += 1,
+            message
+          }
+        });
+      });
+    }
+  });
+
   // client/client.ts
   var import_cl_photo, import_cl_exports, ClUtils;
   var init_client = __esm({
@@ -1329,6 +1380,7 @@
       init_functions();
       import_cl_exports = __toESM(require_cl_exports());
       init_client_settings();
+      init_cl_bank();
       ClUtils = new ClientUtils();
     }
   });

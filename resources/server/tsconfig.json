@@ -2,7 +2,8 @@
   "compilerOptions": {
     "paths": {
       "*": ["./types/*"],
-      "@shared/*": ["../../shared/*"]
+      "@shared/*": ["../../shared/*"],
+      "@typings/*": ["../../typings/*"]
     },
     "outDir": "./",
     "noImplicitAny": true,
