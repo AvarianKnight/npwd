@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
 export const BankTitle = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.root} square variant="outlined" elevation={24}>
+    <Paper className={classes.root} square variant="outlined">
       <Typography id="bank-title" style={{ margin: 0 }} variant="h4">
-        WhoDis Banking
+        Banking
       </Typography>
     </Paper>
   );

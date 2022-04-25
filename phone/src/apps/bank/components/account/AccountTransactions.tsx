@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 import { useTransactions } from '../../hooks/useTransactions';
 import useStyles from './account.styles';
 
@@ -13,17 +13,18 @@ export const AccountTransactions = (): any => {
   };
 
   const transactionList = useTransactions();
-  const [t] = useTranslation();
   return (
     <div id="account-section">
       <div className={classes.header}>
-        <h2 className={classes.title}>{t('APPS_BANK_ACCOUNT_TRANSACTIONS')}</h2>
-        <Button className={classes.seeAll}>{t('APPS_BANK_ACCOUNT_SEE_TRANSACTION')}</Button>
+        <h2 className={classes.title}>Transactions</h2>
+        <Button id="actionButton" className={classes.seeAll}>
+          <NavLink to="/bank/transactions">View Transactions</NavLink>
+        </Button>
       </div>
 
       <div className={classes.transcationDiv}>
-        {transactionList.slice(0, 3).map((transaction: any) => (
-          <div className={classes.transactions}>
+        {transactionList.slice(0, 3).map((transaction: any, index: number) => (
+          <div className={classes.transactions} key={index}>
             <div>
               <h1 className={classes.tranSource}>{transaction.source}</h1>
               <p className={classes.tranType}>{transaction.type}</p>

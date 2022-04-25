@@ -1,6 +1,5 @@
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
-import { useTranslation } from 'react-i18next';
 import { BankCard } from './BankCard';
 import { AccountTransactions } from './AccountTransactions';
 import { useCredentials } from '../../hooks/useCredentials';
@@ -19,13 +18,16 @@ const useStyles = makeStyles((theme) => ({
 export const BankAccount = () => {
   const classes = useStyles();
   const credentials = useCredentials();
-  const [t] = useTranslation();
   return (
     <div className={classes.root}>
       <div>
-        <h1 className={classes.title}>{t('APPS_BANK_ACCOUNT_TITLE')}</h1>
+        <h1 className={classes.title}>Account Summary</h1>
       </div>
-      <BankCard name={credentials.name} account="Checking" balance={credentials.balance} />
+      <BankCard
+        name={credentials.name}
+        account="Checking"
+        balance={credentials.balance.toLocaleString('en-US')}
+      />
       <AccountTransactions />
     </div>
   );

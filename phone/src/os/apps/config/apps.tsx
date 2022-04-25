@@ -35,6 +35,7 @@ import { INotificationIcon } from '@os/notifications/providers/NotificationsProv
 import { BrowserApp } from '../../../apps/browser/components/BrowserApp';
 import { MatchApp } from '../../../apps/match/components/MatchApp';
 import TwitterContainer from '../../../apps/twitter/components/TwitterContainer';
+import { BankApp } from '../../../apps/bank/components/BankApp';
 
 export interface IAppConfig {
   id: string;
@@ -115,14 +116,14 @@ export const APPS: IAppConfig[] = [
     ),
   },
   /* Hiding the bank app while the bank resource gets done */
-  /*{
+  {
     id: 'BANK',
     nameLocale: 'APPS_BANK',
     backgroundColor: blue[900],
     color: common.white,
     path: '/bank',
-    Route: () => <AppRoute id="BANK" path="/bank" component={BankApp} />,
-  },*/
+    Route: () => <AppRoute id="BANK" path="/bank" component={BankApp} emitOnOpen={false} />,
+  },
   // {
   //   id: 'MATCH',
   //   nameLocale: 'APPS_MATCH',

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/resources/html/static/css/main.7912319c.css",
-    "main.js": "/resources/html/static/js/main.e34fc52c.js",
+    "main.css": "/resources/html/static/css/main.aafdfaf5.css",
+    "main.js": "/resources/html/static/js/main.7eaf1d20.js",
     "static/js/534.575896d0.chunk.js": "/resources/html/static/js/534.575896d0.chunk.js",
     "static/js/8160.0eaa0c71.chunk.js": "/resources/html/static/js/8160.0eaa0c71.chunk.js",
     "static/js/687.6987a382.chunk.js": "/resources/html/static/js/687.6987a382.chunk.js",
@@ -63,9 +63,10 @@
     "static/js/8037.52bc07dd.chunk.js": "/resources/html/static/js/8037.52bc07dd.chunk.js",
     "static/js/9854.e09a7916.chunk.js": "/resources/html/static/js/9854.e09a7916.chunk.js",
     "static/js/1104.a3e1cd1f.chunk.js": "/resources/html/static/js/1104.a3e1cd1f.chunk.js",
+    "static/media/BAHNSCHRIFT.woff": "/resources/html/static/media/BAHNSCHRIFT.42ee57d5dfb9e51d7d96.woff",
     "index.html": "/resources/html/index.html",
-    "main.7912319c.css.map": "/resources/html/static/css/main.7912319c.css.map",
-    "main.e34fc52c.js.map": "/resources/html/static/js/main.e34fc52c.js.map",
+    "main.aafdfaf5.css.map": "/resources/html/static/css/main.aafdfaf5.css.map",
+    "main.7eaf1d20.js.map": "/resources/html/static/js/main.7eaf1d20.js.map",
     "534.575896d0.chunk.js.map": "/resources/html/static/js/534.575896d0.chunk.js.map",
     "8160.0eaa0c71.chunk.js.map": "/resources/html/static/js/8160.0eaa0c71.chunk.js.map",
     "687.6987a382.chunk.js.map": "/resources/html/static/js/687.6987a382.chunk.js.map",
@@ -129,7 +130,7 @@
     "1104.a3e1cd1f.chunk.js.map": "/resources/html/static/js/1104.a3e1cd1f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7912319c.css",
-    "static/js/main.e34fc52c.js"
+    "static/css/main.aafdfaf5.css",
+    "static/js/main.7eaf1d20.js"
   ]
 }

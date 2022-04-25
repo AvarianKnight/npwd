@@ -3,19 +3,18 @@ export interface IBankCredentials {
   balance: number;
 }
 
+export interface ITransactions {
+  uniqueId: number;
+  type: string;
+  amount: number;
+}
+
 export interface Transfer {
   id: number;
   targetID: number;
-  source: string;
-  type: string;
+  uniqueId: string;
   transferAmount: number;
   message: string;
-}
-
-export interface ITransactions {
-  source: number;
-  type: string;
-  amount: number;
 }
 
 export enum BankEvents {

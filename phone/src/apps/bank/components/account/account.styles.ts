@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '18px',
     fontWeight: 'bold',
     color: '#BFBFBF',
-    marginTop: '-18px',
     width: '100%',
   },
 

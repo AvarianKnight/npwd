@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import makeStyles from '@mui/styles/makeStyles';
 import { BankTitle } from './BankTitle';
 import { AppWrapper } from '@ui/components';
@@ -15,6 +15,8 @@ import { BankHome } from './home/BankHome';
 import { BankAccount } from './account/BankAccount';
 import { TransactionList } from './transactions/TransactionList';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
+import { useNuiRequest } from 'fivem-nui-react-lib';
+import { BankEvents } from '@typings/bank';
 
 InjectDebugData([
   {
@@ -95,8 +97,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const BankApp = () => {
+  const { send } = useNuiRequest();
   const { showBankModal } = useBankModal();
   const classes = useStyles();
+
+  useEffect(() => {
+    send(BankEvents.GET_CREDENTIALS);
+  }, []);
 
   return (
     <AppWrapper id="bank-app">
