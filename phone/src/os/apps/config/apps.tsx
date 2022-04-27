@@ -118,7 +118,7 @@ export const APPS: IAppConfig[] = [
   /* Hiding the bank app while the bank resource gets done */
   {
     id: 'BANK',
-    nameLocale: 'APPS_BANK',
+    nameLocale: 'Banking',
     backgroundColor: blue[900],
     color: common.white,
     path: '/bank',
