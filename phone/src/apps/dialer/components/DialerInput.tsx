@@ -37,6 +37,17 @@ export const DialerInput: React.FC = () => {
 
   const { inputVal, set } = useContext<IDialInputCtx>(DialInputCtx);
 
+  const dialHandler = (e: any) => {
+    var result = [];
+    let text = e.target.value.replace(/[^\d]/g, '');
+    while (text.length >= 6) {
+      result.push(text.substring(0, 3));
+      text = text.substring(3);
+    }
+    if (text.length > 0) result.push(text);
+    set(result.join('-'));
+  };
+
   const handleCall = (number: string) => {
     initializeCall(number);
   };
@@ -51,7 +62,7 @@ export const DialerInput: React.FC = () => {
         placeholder={t('DIALER.INPUT_PLACEHOLDER')}
         className={classes.input}
         value={inputVal}
-        onChange={(e) => set(e.target.value)}
+        onChange={dialHandler}
       />
       <IconButton
         color="primary"

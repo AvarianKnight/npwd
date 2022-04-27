@@ -52,9 +52,9 @@ const missingKeyHandler = (
   fallbackValue: string,
 ) => {
   if (process.env.NODE_ENV !== 'development') return;
-  console.error(
-    `!! TRANSLATION KEY NOT FOUND FOR LANGAUGE "${lng}", KEY "${key}". RENDERED ${fallbackValue} INSTEAD"" !!`,
-  );
+  // console.error(
+  //   `!! TRANSLATION KEY NOT FOUND FOR LANGAUGE "${lng}", KEY "${key}". RENDERED ${fallbackValue} INSTEAD"" !!`,
+  // );
 };
 
 i18n.use(initReactI18next).init({
