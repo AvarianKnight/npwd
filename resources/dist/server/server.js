@@ -119,7 +119,7 @@ var init_config_default = __esm({
       allowEditableProfileName: true,
       allowDeleteTweets: true,
       allowReportTweets: true,
-      allowRetweet: true,
+      allowRetweet: false,
       characterLimit: 160,
       newLineLimit: 10,
       enableAvatars: true,
@@ -17199,8 +17199,7 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request({
-          ...this.options,
+        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17208,7 +17207,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        });
+        }));
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -40722,16 +40721,13 @@ var init_bank2 = __esm({
     init_bank();
     exp3 = global.exports;
     ox = exp3.oxmysql;
-    PMA = null;
+    PMA = exp3["pma-framework"].getData();
     AC2 = exp3["pma-anticheat"];
-    emit("pma:getData", (obj) => {
-      PMA = obj;
-    });
     onNet("npwd:getBankCredentials" /* GET_CREDENTIALS */, () => __async(void 0, null, function* () {
       const ply = PMA.getPlayerFromId(source);
       const transactions = yield ox.query_async(`SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
       const credentials = {
-        bank: ply.getAccount("bank").money,
+        balance: ply.getAccount("bank").money,
         name: ply.firstname + " " + ply.lastname,
         transactions
       };

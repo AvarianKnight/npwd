@@ -1,12 +1,8 @@
-import { BankEvents, ITransactions, Transfer } from '@typings/bank';
+import { BankEvents, IBankCredentials, ITransactions, Transfer, TransferData } from '@typings/bank';
 export const exp = (global as any).exports;
 export const ox = exp.oxmysql;
-export let PMA: any = null;
+export let PMA: any = exp['pma-framework'].getData();
 const AC = exp['pma-anticheat'];
-
-emit('pma:getData', (obj: any) => {
-  PMA = obj;
-});
 
 onNet(BankEvents.GET_CREDENTIALS, async () => {
   const ply = PMA.getPlayerFromId(source);
@@ -14,20 +10,14 @@ onNet(BankEvents.GET_CREDENTIALS, async () => {
     `SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`,
     [ply.uniqueId],
   );
-  const credentials = {
-    bank: ply.getAccount('bank').money,
+  const credentials: IBankCredentials = {
+    balance: ply.getAccount('bank').money as number,
     name: ply.firstname + ' ' + ply.lastname,
     transactions: transactions,
   };
   ply.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);
 });
 
-// data.transferID, data.transferAmount, data.message
-type TransferData = {
-  targetID: number;
-  transferAmount: number;
-  message: string;
-};
 onNet(BankEvents.ADD_TRANSFER, async (transferData: TransferData) => {
   const ply = PMA.getPlayerFromId(source);
   const tgtPly = PMA.getPlayerFromId(transferData.targetID);

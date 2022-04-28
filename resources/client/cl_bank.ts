@@ -1,4 +1,4 @@
-import { BankEvents, Transfer, ITransactions } from '@typings/bank';
+import { BankEvents, Transfer, ITransactions, IBankCredentials } from '@typings/bank';
 
 RegisterNuiCallbackType(BankEvents.GET_CREDENTIALS);
 RegisterNuiCallbackType(BankEvents.ADD_TRANSFER);
@@ -18,20 +18,12 @@ on(`__cfx_nui:${BankEvents.ADD_TRANSFER}`, (data: any, cb: any) => {
   cb({});
 });
 
-type Credentials = {
-  name: string;
-  bank: number;
-  transactions: ITransactions[];
-};
 
-onNet(BankEvents.SEND_CREDENTIALS, (credentials: Credentials) => {
+onNet(BankEvents.SEND_CREDENTIALS, (credentials: IBankCredentials) => {
   SendNUIMessage({
     app: 'BANK',
     method: BankEvents.SEND_CREDENTIALS,
-    data: {
-      name: credentials.name,
-      balance: credentials.bank,
-    },
+    data: credentials,
   });
 
   SendNUIMessage({

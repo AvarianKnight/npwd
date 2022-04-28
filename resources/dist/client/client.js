@@ -239,7 +239,7 @@
         allowEditableProfileName: true,
         allowDeleteTweets: true,
         allowReportTweets: true,
-        allowRetweet: true,
+        allowRetweet: false,
         characterLimit: 160,
         newLineLimit: 10,
         enableAvatars: true,
@@ -628,9 +628,7 @@
       exps = global.exports;
       onNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, (state) => {
         global.isPlayerLoaded = state;
-        if (!state) {
-          sendMessage("PHONE", "npwd:unloadCharacter" /* UNLOAD_CHARACTER */, {});
-        }
+        sendMessage("PHONE", "npwd:unloadCharacter" /* UNLOAD_CHARACTER */, {});
       });
       RegisterKeyMapping(config.general.toggleCommand, "Toggle Phone", "keyboard", config.general.toggleKey);
       setTimeout(() => {
@@ -1336,10 +1334,7 @@
         SendNUIMessage({
           app: "BANK",
           method: "npwd:sendBankCredentials" /* SEND_CREDENTIALS */,
-          data: {
-            name: credentials.name,
-            balance: credentials.bank
-          }
+          data: credentials
         });
         SendNUIMessage({
           app: "BANK",

@@ -1,7 +1,15 @@
 export interface IBankCredentials {
   name: string;
   balance: number;
+  transactions: ITransactions[]
 }
+
+// data.transferID, data.transferAmount, data.message
+export type TransferData = {
+  targetID: number;
+  transferAmount: number;
+  message: string;
+};
 
 export interface ITransactions {
   uniqueId: number;
