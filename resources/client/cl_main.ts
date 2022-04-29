@@ -94,7 +94,7 @@ RegisterCommand(
   'phone:restart',
   async () => {
     await hidePhone();
-    sendMessage('PHONE', 'phoneRestart', {});
+    sendMessage('PHONE', PhoneEvents.UNLOAD_CHARACTER, {});
   },
   false,
 );

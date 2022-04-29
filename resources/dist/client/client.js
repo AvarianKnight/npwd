@@ -669,7 +669,7 @@
       }), false);
       RegisterCommand("phone:restart", () => __async(void 0, null, function* () {
         yield hidePhone();
-        sendMessage("PHONE", "phoneRestart", {});
+        sendMessage("PHONE", "npwd:unloadCharacter" /* UNLOAD_CHARACTER */, {});
       }), false);
       checkHasPhone = () => __async(void 0, null, function* () {
         if (!config.PhoneAsItem.enabled)
