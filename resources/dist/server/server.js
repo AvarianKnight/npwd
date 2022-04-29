@@ -40748,13 +40748,13 @@ var init_bank2 = __esm({
       if (plyMoney > transferData.transferAmount && transferData.transferAmount > 0) {
         ply.removeAccountMoney("bank", transferData.transferAmount);
         tgtPly.addAccountMoney("bank", transferData.transferAmount);
-        let credentials = {};
+        let credentials;
         yield ox.execute(`INSERT INTO npwd_bank_transfers (targetID, uniqueId, transferAmount, message) VALUES (?, ?, ?, ?)`, [tgtPly.uniqueId, ply.uniqueId, transferData.transferAmount, transferData.message]);
         AC2.log("*Bank Transfer*", `${GetPlayerName(ply.source)} ${AC2.getDiscordId(ply.source)} transfered ${transferData.transferAmount} to ${GetPlayerName(tgtPly.source)} ${AC2.getDiscordId(tgtPly.source)} with the message of ${transferData.message}`, "red", "phoneBankTransfers");
         yield insertBankTransactions(ply.uniqueId, "Withdraw", transferData.transferAmount);
         const transactionsPly = yield ox.query_async(`SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
         credentials = {
-          bank: ply.getAccount("bank").money,
+          balance: ply.getAccount("bank").money,
           name: ply.firstname + " " + ply.lastname,
           transactions: transactionsPly
         };
@@ -40763,7 +40763,7 @@ var init_bank2 = __esm({
         yield insertBankTransactions(tgtPly.uniqueId, "Deposit", transferData.transferAmount);
         const transactionsTgt = yield ox.query_async(`SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [tgtPly.uniqueId]);
         credentials = {
-          bank: tgtPly.getAccount("bank").money,
+          balance: tgtPly.getAccount("bank").money,
           name: tgtPly.firstname + " " + tgtPly.lastname,
           transactions: transactionsTgt
         };

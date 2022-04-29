@@ -36,7 +36,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     ply.removeAccountMoney('bank', transferData.transferAmount);
     tgtPly.addAccountMoney('bank', transferData.transferAmount);
 
-    let credentials = {};
+    let credentials: IBankCredentials;
     await ox.execute(
       `INSERT INTO npwd_bank_transfers (targetID, uniqueId, transferAmount, message) VALUES (?, ?, ?, ?)`,
       [tgtPly.uniqueId, ply.uniqueId, transferData.transferAmount, transferData.message],
@@ -59,7 +59,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     );
 
     credentials = {
-      bank: ply.getAccount('bank').money,
+      balance: ply.getAccount('bank').money,
       name: ply.firstname + ' ' + ply.lastname,
       transactions: transactionsPly,
     };
@@ -77,7 +77,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     );
 
     credentials = {
-      bank: tgtPly.getAccount('bank').money,
+      balance: tgtPly.getAccount('bank').money,
       name: tgtPly.firstname + ' ' + tgtPly.lastname,
       transactions: transactionsTgt,
     };
