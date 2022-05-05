@@ -1,7 +1,7 @@
-import { BankEvents, IBankCredentials, ITransactions, Transfer, TransferData } from '@typings/bank';
+import { BankEvents, IBankCredentials, ITransactions, TransferData } from '@typings/bank';
 export const exp = (global as any).exports;
 export const ox = exp.oxmysql;
-export let PMA: any = exp['pma-framework'].getData();
+export const PMA: any = exp['pma-framework'].getData();
 const AC = exp['pma-anticheat'];
 
 onNet(BankEvents.GET_CREDENTIALS, async () => {

@@ -21,3 +21,4 @@ yarn-error.log*
 # Debug logs
 sv_npwd.log
 
+.vscode/settings.json

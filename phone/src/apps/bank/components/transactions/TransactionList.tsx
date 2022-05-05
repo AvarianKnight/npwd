@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import useStyles from '../bank.styles';
-import { useTranslation } from 'react-i18next';
-import TablePagination from '@mui/material/TablePagination';
 import { useTransactions } from '../../hooks/useTransactions';
 
 export const TransactionList = () => {
@@ -14,10 +12,6 @@ export const TransactionList = () => {
     Deposit: classes.depositType,
     Withdraw: classes.withdrawType,
     Transfer: classes.depositType,
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {

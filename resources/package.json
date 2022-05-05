@@ -31,6 +31,7 @@
     "@babel/preset-typescript": "^7.16.0",
     "@citizenfx/client": "^2.0.4170-1",
     "@citizenfx/server": "^2.0.4167-1",
+    "@nativewrappers/client": "^1.7.16",
     "@sentry/integrations": "^6.15.0",
     "@sentry/node": "^6.15.0",
     "@sentry/tracing": "^6.15.0",

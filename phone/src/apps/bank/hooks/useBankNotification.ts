@@ -1,16 +1,10 @@
-import { useRecoilValue } from 'recoil';
-import { Transfer } from '@typings/bank';
-
 import { useNotifications } from '@os/notifications/hooks/useNotifications';
-import { bankState } from './state';
-import { useHistory } from 'react-router-dom';
 import { useApp } from '../../../os/apps/hooks/useApps';
 
 const NOTIFICATION_ID = 'messages:broadcast';
 
 export const useBankNotification = () => {
-  const history = useHistory();
-  const { removeId, addNotification, addNotificationAlert } = useNotifications();
+  const { addNotificationAlert } = useNotifications();
   const { icon, notificationIcon } = useApp('BANK');
 
   // return useRecoilValue<Transfer | null>(bankState.notification);

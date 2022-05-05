@@ -17199,7 +17199,8 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
+        const req = (this.ssl ? https : http).request({
+          ...this.options,
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17207,7 +17208,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        }));
+        });
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -40780,6 +40781,320 @@ var init_bank2 = __esm({
   }
 });
 
+// ../typings/darkmarket.ts
+var init_darkmarket = __esm({
+  "../typings/darkmarket.ts"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/utils/Vector3.js
+var Vector3;
+var init_Vector3 = __esm({
+  "node_modules/@nativewrappers/client/lib/utils/Vector3.js"() {
+    Vector3 = class {
+      constructor(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+      }
+      static create(v12) {
+        if (typeof v12 === "number")
+          return new Vector3(v12, v12, v12);
+        return new Vector3(v12.x, v12.y, v12.z);
+      }
+      static fromArray(primitive) {
+        return new Vector3(primitive[0], primitive[1], primitive[2]);
+      }
+      static fromArrays(primitives) {
+        return primitives.map((prim) => new Vector3(prim[0], prim[1], prim[2]));
+      }
+      static clone(v12) {
+        return Vector3.create(v12);
+      }
+      static add(v12, v2) {
+        if (typeof v2 === "number")
+          return new Vector3(v12.x + v2, v12.y + v2, v12.z + v2);
+        return new Vector3(v12.x + v2.x, v12.y + v2.y, v12.z + v2.z);
+      }
+      static subtract(v12, v2) {
+        if (typeof v2 === "number")
+          return new Vector3(v12.x - v2, v12.y - v2, v12.z - v2);
+        return new Vector3(v12.x - v2.x, v12.y - v2.y, v12.z - v2.z);
+      }
+      static multiply(v12, v2) {
+        if (typeof v2 === "number")
+          return new Vector3(v12.x * v2, v12.y * v2, v12.z * v2);
+        return new Vector3(v12.x * v2.x, v12.y * v2.y, v12.z * v2.z);
+      }
+      static divide(v12, v2) {
+        if (typeof v2 === "number")
+          return new Vector3(v12.x / v2, v12.y / v2, v12.z / v2);
+        return new Vector3(v12.x / v2.x, v12.y / v2.y, v12.z / v2.z);
+      }
+      static dotProduct(v12, v2) {
+        return v12.x * v2.x + v12.y * v2.y + v12.z * v2.z;
+      }
+      static crossProduct(v12, v2) {
+        const x = v12.y * v2.z - v12.z * v2.y;
+        const y = v12.z * v2.x - v12.z * v2.z;
+        const z = v12.x * v2.y - v12.z * v2.x;
+        return new Vector3(x, y, z);
+      }
+      static normalize(v) {
+        return Vector3.divide(v, v.Length);
+      }
+      clone() {
+        return new Vector3(this.x, this.y, this.z);
+      }
+      distanceSquared(v) {
+        const w = this.subtract(v);
+        return Vector3.dotProduct(w, w);
+      }
+      distance(v) {
+        return Math.sqrt(this.distanceSquared(v));
+      }
+      get normalize() {
+        return Vector3.normalize(this);
+      }
+      crossProduct(v) {
+        return Vector3.crossProduct(this, v);
+      }
+      dotProduct(v) {
+        return Vector3.dotProduct(this, v);
+      }
+      add(v) {
+        return Vector3.add(this, v);
+      }
+      subtract(v) {
+        return Vector3.subtract(this, v);
+      }
+      multiply(v) {
+        return Vector3.multiply(this, v);
+      }
+      divide(v) {
+        return Vector3.divide(this, v);
+      }
+      toArray() {
+        return [this.x, this.y, this.z];
+      }
+      replace(v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+      }
+      get Length() {
+        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+      }
+    };
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/utils/Animations.js
+var init_Animations = __esm({
+  "node_modules/@nativewrappers/client/lib/utils/Animations.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/utils/index.js
+var init_utils = __esm({
+  "node_modules/@nativewrappers/client/lib/utils/index.js"() {
+    init_Vector3();
+    init_Animations();
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/enums/index.js
+var init_enums = __esm({
+  "node_modules/@nativewrappers/client/lib/enums/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/hashes/index.js
+var init_hashes = __esm({
+  "node_modules/@nativewrappers/client/lib/hashes/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/models/index.js
+var init_models = __esm({
+  "node_modules/@nativewrappers/client/lib/models/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/interfaces/index.js
+var init_interfaces = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/interfaces/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js
+var init_panels = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/menu/items/index.js
+var init_items = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/menu/items/index.js"() {
+    init_panels();
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js
+var init_modules = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/menu/index.js
+var init_menu = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/menu/index.js"() {
+    init_items();
+    init_modules();
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/ui/index.js
+var init_ui = __esm({
+  "node_modules/@nativewrappers/client/lib/ui/index.js"() {
+    init_interfaces();
+    init_menu();
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/weapon/index.js
+var init_weapon = __esm({
+  "node_modules/@nativewrappers/client/lib/weapon/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/weaponComponent/index.js
+var init_weaponComponent = __esm({
+  "node_modules/@nativewrappers/client/lib/weaponComponent/index.js"() {
+  }
+});
+
+// node_modules/@nativewrappers/client/lib/index.js
+var init_lib = __esm({
+  "node_modules/@nativewrappers/client/lib/index.js"() {
+    init_utils();
+    init_models();
+    init_enums();
+    init_hashes();
+    init_ui();
+    init_weapon();
+    init_weaponComponent();
+  }
+});
+
+// server/darkmarket/darkmarket.ts
+var exp4, PMA2, ox2, Weapon, WeaponCoords, weaponDrops;
+var init_darkmarket2 = __esm({
+  "server/darkmarket/darkmarket.ts"() {
+    init_darkmarket();
+    init_lib();
+    exp4 = global.exports;
+    PMA2 = exp4["pma-framework"].getData();
+    ox2 = exp4.oxmysql;
+    Weapon = new Vector3(165.9, -1093.29, 48.14);
+    WeaponCoords = [
+      new Vector3(-136.73, 6474.97, 40.47),
+      new Vector3(-408.41, 6375.15, 23),
+      new Vector3(-429.83, 6349.29, 22.3),
+      new Vector3(-248.64, 6069.83, 41.35),
+      new Vector3(-108.44, 6213.27, 41.39),
+      new Vector3(-75.16, 6213.6, 40.46),
+      new Vector3(-158.22, 6104.12, 40.37),
+      new Vector3(179.59, 6395.95, 40.36),
+      new Vector3(404.21, 6497.84, 36.85),
+      new Vector3(752.07, 6458.92, 40.53),
+      new Vector3(1462.45, 6539.73, 23.67),
+      new Vector3(2806.62, 5979.01, 359.89),
+      new Vector3(2347.6, 4868.04, 50.81),
+      new Vector3(2539.57, 4674.38, 42.93),
+      new Vector3(2020.13, 4982.9, 50.21),
+      new Vector3(1702.82, 4847.52, 51.1),
+      new Vector3(1633.92, 4856.64, 50.96),
+      new Vector3(-1.23, 3734.31, 38.78),
+      new Vector3(-1133.25, 4942.11, 229.6),
+      new Vector3(-2452.25, 2941.6, 41.96),
+      new Vector3(-2013.82, 3373.09, 40.34),
+      new Vector3(-2225.34, 3488.48, 39.17),
+      new Vector3(-2523.29, 2301.92, 42.28),
+      new Vector3(-1925.01, 2031.24, 149.74),
+      new Vector3(-3244.76, 995.31, 21.48),
+      new Vector3(-2980.05, 592.37, 28.15),
+      new Vector3(-2947.62, 418.06, 24.28),
+      new Vector3(-2954.77, 390.59, 24.02),
+      new Vector3(-2221.85, -366.98, 22.32),
+      new Vector3(-2033.52, -256.61, 32.39),
+      new Vector3(-1801.09, -397.15, 53.82),
+      new Vector3(-1708.32, -497.75, 47.16),
+      new Vector3(-1544, -567.21, 42.74),
+      new Vector3(-1341.44, -761.32, 29.3),
+      new Vector3(-1466.97, -936.94, 19.24),
+      new Vector3(-1257.45, -1220.35, 14),
+      new Vector3(-1259.65, -1142.73, 16.53),
+      new Vector3(-1094.52, -1254.79, 14.38),
+      new Vector3(-923.88, -1529.52, 14.18),
+      new Vector3(-611.07, -1040.2, 31.28),
+      new Vector3(-539.71, -1234.96, 27.46),
+      new Vector3(-480.39, -1682.11, 28.47),
+      new Vector3(-504.21, -1634.42, 26.8),
+      new Vector3(-820.44, -2093.94, 17.81),
+      new Vector3(-700.87, -2446.08, 23.03),
+      new Vector3(-884.93, -3055.16, 22.94),
+      new Vector3(1381.6, 3616.11, 43.89),
+      new Vector3(983.62, 3581.69, 42.62),
+      new Vector3(376.46, 3572.71, 42.29),
+      new Vector3(254.13, -18.62, 82.65),
+      new Vector3(644.59, 137.96, 100.37),
+      new Vector3(969.65, -144.44, 83.35),
+      new Vector3(823.64, -492.56, 39.43),
+      new Vector3(726.01, -715.27, 35.65),
+      new Vector3(941.74, -1242.03, 34.68),
+      new Vector3(930.6, -1546.11, 39.85),
+      new Vector3(1143.47, -2041.13, 40.01),
+      new Vector3(1082.38, -2389.24, 39.47),
+      new Vector3(960.32, -2530.39, 37.3),
+      new Vector3(157.01, -3313.53, 15.02),
+      new Vector3(-39.56, -2731.77, 15.28),
+      new Vector3(2478.47, -401.22, 103.82),
+      new Vector3(2546.04, -310.15, 101.99),
+      new Vector3(2545.63, 386.18, 117.62),
+      new Vector3(2616.85, 1703.01, 36.6),
+      new Vector3(2529.88, 2641.71, 46.94),
+      new Vector3(2631.89, 2929.74, 49.43)
+    ];
+    onNet("npwd:fetchCrypto" /* FETCH_CRYPTO */, () => {
+      const ply = PMA2.getPlayerFromId(source);
+      ox2.scalar(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId], (amount) => {
+        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, amount);
+      });
+    });
+    onNet("npwd:makePurchase" /* MAKE_PURCHASE */, (checkoutItems) => __async(void 0, null, function* () {
+      const ply = PMA2.getPlayerFromId(source);
+      let totalCoins = 0;
+      console.log(checkoutItems);
+      checkoutItems.forEach((item) => {
+        totalCoins += item.price;
+      });
+      console.log(totalCoins);
+      const currentCurrentAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
+      console.log(currentCurrentAmount);
+      const newCoinTotal = currentCurrentAmount - totalCoins;
+      yield ox2.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [newCoinTotal, ply.uniqueId]);
+      weaponDrops(ply, checkoutItems);
+      emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, newCoinTotal);
+    }));
+    weaponDrops = (ply, items) => {
+      items.map((item) => __async(void 0, null, function* () {
+        yield PMA2.createWeaponPickup(item.label, item.name, 1, Weapon);
+      }));
+    };
+  }
+});
+
 // server/bridge/bridge.utils.ts
 var bridgeLogger;
 var init_bridge_utils = __esm({
@@ -40798,24 +41113,24 @@ var require_sv_exports = __commonJS({
     init_player_utils();
     init_player_service();
     init_phone();
-    var exp4 = global.exports;
+    var exp5 = global.exports;
     var logExport = (exportName, msg) => {
       bridgeLogger.debug(`[${exportName}] ${msg}`);
     };
-    exp4("generatePhoneNumber", () => __async(exports2, null, function* () {
+    exp5("generatePhoneNumber", () => __async(exports2, null, function* () {
       const num = yield generateUniquePhoneNumber();
       logExport("generatePhoneNumber", num);
       return num;
     }));
     if (config.general.useResourceIntegration) {
-      exp4("newPlayer", (playerDTO) => __async(exports2, null, function* () {
+      exp5("newPlayer", (playerDTO) => __async(exports2, null, function* () {
         if (typeof playerDTO.source !== "number") {
           return playerLogger.error("Source must be passed as a number when loading a player");
         }
         yield player_service_default.handleNewPlayerEvent(playerDTO);
         emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, playerDTO.source, true);
       }));
-      exp4("unloadPlayer", (src) => __async(exports2, null, function* () {
+      exp5("unloadPlayer", (src) => __async(exports2, null, function* () {
         if (typeof src !== "number") {
           return playerLogger.error("Source must be passed as a number when unloading a player");
         }
@@ -40830,8 +41145,8 @@ var require_sv_exports = __commonJS({
 var require_emitMessage = __commonJS({
   "server/messages/middleware/emitMessage.ts"(exports2) {
     init_messages_service();
-    var exp4 = global.exports;
-    exp4("emitMessage", (_0) => __async(exports2, [_0], function* ({ senderNumber, targetNumber, message }) {
+    var exp5 = global.exports;
+    exp5("emitMessage", (_0) => __async(exports2, [_0], function* ({ senderNumber, targetNumber, message }) {
       yield messages_service_default.handleEmitMessage({ senderNumber, targetNumber, message });
     }));
   }
@@ -47525,6 +47840,7 @@ var init_server = __esm({
     import_marketplace5 = __toESM(require_marketplace_controller());
     init_twitter_controller();
     init_bank2();
+    init_darkmarket2();
     import_sv_exports = __toESM(require_sv_exports());
     import_emitMessage = __toESM(require_emitMessage());
     init_exports();

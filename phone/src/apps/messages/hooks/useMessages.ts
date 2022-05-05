@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll } from 'recoil';
 import { MessageConversation } from '@typings/messages';
 import { messageState, useSetConversationId } from './state';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 interface IUseMessages {
   conversations?: MessageConversation[];
@@ -34,7 +34,7 @@ const useMessages = (): IUseMessages => {
 
       const conversationGroup = contents.find((c) => c.id === id);
 
-      if (!conversationGroup) return null
+      if (!conversationGroup) return null;
 
       // FIXME: Make sure we have contents as a number as well..
       return conversationGroup;

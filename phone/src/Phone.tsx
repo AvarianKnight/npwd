@@ -32,6 +32,7 @@ import { useNoteListener } from './apps/notes/hooks/useNoteListener';
 import { PhoneSnackbar } from '@os/snackbar/components/PhoneSnackbar';
 import { useInvalidSettingsHandler } from './apps/settings/hooks/useInvalidSettingsHandler';
 import { useKeyboardService } from '@os/keyboard/hooks/useKeyboardService';
+import { useDarkMarketService } from './apps/darkmarket/hooks/useDarkMarketService';
 
 function Phone() {
   const { i18n } = useTranslation();

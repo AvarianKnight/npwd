@@ -1357,6 +1357,37 @@
     }
   });
 
+  // ../typings/darkmarket.ts
+  var init_darkmarket = __esm({
+    "../typings/darkmarket.ts"() {
+    }
+  });
+
+  // client/cl_darkmarket.ts
+  var init_cl_darkmarket = __esm({
+    "client/cl_darkmarket.ts"() {
+      init_darkmarket();
+      RegisterNuiCallbackType("npwd:fetchCrypto" /* FETCH_CRYPTO */);
+      RegisterNuiCallbackType("npwd:makePurchase" /* MAKE_PURCHASE */);
+      on(`__cfx_nui:${"npwd:fetchCrypto" /* FETCH_CRYPTO */}`, (data, cb) => {
+        emitNet("npwd:fetchCrypto" /* FETCH_CRYPTO */);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:makePurchase" /* MAKE_PURCHASE */}`, (data, cb) => {
+        emitNet("npwd:makePurchase" /* MAKE_PURCHASE */, data.cart);
+        cb({});
+      });
+      onNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, (amount) => {
+        console.log(amount);
+        SendNUIMessage({
+          app: "DARKMARKET",
+          method: "npwd:showCryptoUi" /* SHOW_CRYPTO_UI */,
+          data: amount
+        });
+      });
+    }
+  });
+
   // client/client.ts
   var import_cl_photo, import_cl_exports, ClUtils;
   var init_client = __esm({
@@ -1376,6 +1407,7 @@
       import_cl_exports = __toESM(require_cl_exports());
       init_client_settings();
       init_cl_bank();
+      init_cl_darkmarket();
       ClUtils = new ClientUtils();
     }
   });

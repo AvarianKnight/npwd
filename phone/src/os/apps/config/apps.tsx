@@ -36,6 +36,7 @@ import { BrowserApp } from '../../../apps/browser/components/BrowserApp';
 import { MatchApp } from '../../../apps/match/components/MatchApp';
 import TwitterContainer from '../../../apps/twitter/components/TwitterContainer';
 import { BankApp } from '../../../apps/bank/components/BankApp';
+import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
 
 export interface IAppConfig {
   id: string;
@@ -115,7 +116,6 @@ export const APPS: IAppConfig[] = [
       <AppRoute id="SETTINGS" path="/settings" component={SettingsApp} emitOnOpen={false} />
     ),
   },
-  /* Hiding the bank app while the bank resource gets done */
   {
     id: 'BANK',
     nameLocale: 'Banking',
@@ -172,6 +172,16 @@ export const APPS: IAppConfig[] = [
     color: common.white,
     path: '/camera',
     Route: () => <AppRoute id="CAMERA" path="/camera" component={CameraApp} emitOnOpen={true} />,
+  },
+  {
+    id: 'DARKMARKET',
+    nameLocale: 'Life Invader',
+    backgroundColor: blue[900],
+    color: common.white,
+    path: '/darkmarket',
+    Route: () => (
+      <AppRoute id="DARKMARKET" path="/darkmarket" component={DarkMarketApp} emitOnOpen={false} />
+    ),
   },
 ];
 

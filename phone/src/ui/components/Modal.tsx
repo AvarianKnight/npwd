@@ -5,7 +5,6 @@ import { Button, Paper } from '@mui/material';
 
 const useStyles = makeStyles({
   root: {
-    padding: '24px',
     zIndex: 10,
     marginTop: '15px',
     width: '90%',

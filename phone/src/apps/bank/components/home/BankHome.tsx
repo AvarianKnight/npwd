@@ -21,24 +21,27 @@ export const BankHome = () => {
   };
 
   const handleCredRefresh = () => {
-    setRefreshDisabled(true)
+    setRefreshDisabled(true);
     send(BankEvents.GET_CREDENTIALS);
     setTimeout(() => {
-      setRefreshDisabled(false)
-    }, 500)
-  }
+      setRefreshDisabled(false);
+    }, 500);
+  };
 
-  if (!credentials) return (
-  <div className={classes.root}>
-    <p>Could not load credentials</p>
-    <Button
-      id="refresh-creds"
-      className={classes.actionButton}
-      disabled={refreshDisabled}
-      onClick={() => handleCredRefresh()}
-    >Refresh Credentials</Button>
-  </div>
-  );
+  if (!credentials)
+    return (
+      <div className={classes.root}>
+        <p>Could not load credentials</p>
+        <Button
+          id="refresh-creds"
+          className={classes.actionButton}
+          disabled={refreshDisabled}
+          onClick={() => handleCredRefresh()}
+        >
+          Refresh Credentials
+        </Button>
+      </div>
+    );
 
   return (
     <div className={classes.root}>

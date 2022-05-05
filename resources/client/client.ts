@@ -14,5 +14,6 @@ import './functions';
 import './cl_exports';
 import './settings/client-settings';
 import './cl_bank';
+import './cl_darkmarket';
 
 export const ClUtils = new ClientUtils();

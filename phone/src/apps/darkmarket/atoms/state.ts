@@ -1,0 +1,31 @@
+import { atom } from 'recoil';
+import { PistolCategory } from '../components/categories/Pistols';
+import { RifleCategory } from '../components/categories/Rifles';
+import { Category } from '@typings/darkmarket';
+
+export const darkMarketState = {
+  darkMarketModal: atom<boolean>({
+    key: 'darkMarketVisibility',
+    default: false,
+  }),
+  crypto: atom<number>({
+    key: 'crypto',
+    default: 0,
+  }),
+  selectedCategory: atom<Category>({
+    key: 'selectedCategory',
+    default: RifleCategory,
+  }),
+  categories: atom<Category[]>({
+    key: 'categories',
+    default: [].concat(RifleCategory).concat(PistolCategory),
+  }),
+  cart: atom({
+    key: 'cart',
+    default: [],
+  }),
+  checkoutDisplay: atom({
+    key: 'checkoutDisplay',
+    default: false,
+  }),
+};
