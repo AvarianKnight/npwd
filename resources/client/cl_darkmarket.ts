@@ -1,4 +1,5 @@
 import { DarkMarketEvents } from '@typings/darkmarket';
+import { RegisterNuiProxy } from './cl_utils';
 
 RegisterNuiCallbackType(DarkMarketEvents.FETCH_CRYPTO);
 RegisterNuiCallbackType(DarkMarketEvents.MAKE_PURCHASE);
@@ -8,10 +9,7 @@ on(`__cfx_nui:${DarkMarketEvents.FETCH_CRYPTO}`, (data: any, cb: any) => {
   cb({});
 });
 
-on(`__cfx_nui:${DarkMarketEvents.MAKE_PURCHASE}`, (data: any, cb: any) => {
-  emitNet(DarkMarketEvents.MAKE_PURCHASE, data.cart);
-  cb({});
-});
+RegisterNuiProxy(DarkMarketEvents.MAKE_PURCHASE);
 
 onNet(DarkMarketEvents.SHOW_CRYPTO_UI, (amount: number) => {
   console.log(amount);

@@ -6,14 +6,13 @@ import { darkMarketState } from '../../atoms/state';
 import { useCart } from '../../hooks/useCart';
 
 const CheckoutContainer = styled(Box)`
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid gray;aw
-    border-radius: 15px;
-    flex-wrap: wrap;
-
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 15px;
+  flex-wrap: wrap;
 `;
 
 export const Checkout = () => {

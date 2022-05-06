@@ -40987,16 +40987,28 @@ var init_lib = __esm({
   }
 });
 
-// server/darkmarket/darkmarket.ts
-var exp4, PMA2, ox2, Weapon, WeaponCoords, weaponDrops;
-var init_darkmarket2 = __esm({
-  "server/darkmarket/darkmarket.ts"() {
-    init_darkmarket();
+// server/darkmarket/darkmarket.config.ts
+var allowedWeapons, Weapon, WeaponCoords;
+var init_darkmarket_config = __esm({
+  "server/darkmarket/darkmarket.config.ts"() {
     init_lib();
-    exp4 = global.exports;
-    PMA2 = exp4["pma-framework"].getData();
-    ox2 = exp4.oxmysql;
-    Weapon = new Vector3(165.9, -1093.29, 48.14);
+    allowedWeapons = /* @__PURE__ */ new Set([
+      "WEAPON_APPISTOL",
+      "WEAPON_BERETTA",
+      "WEAPON_FNX",
+      "WEAPON_LUGER",
+      "WEAPON_MACHINEPISTOL",
+      "WEAPON_PISTOL50",
+      "WEAPON_SNSPISTOL_MK2",
+      "WEAPON_AK74U",
+      "WEAPON_ADVANCEDRIFLE",
+      "WEAPON_AKMS",
+      "WEAPON_BULLPUPRIFLE",
+      "WEAPON_BULLPUPRIFLE_MK2",
+      "WEAPON_ASSAULTRIFLE",
+      "WEAPON_ASSAULTRIFLE_MK2"
+    ]);
+    Weapon = new Vector3(170.43, -1099.3, 48.14);
     WeaponCoords = [
       new Vector3(-136.73, 6474.97, 40.47),
       new Vector3(-408.41, 6375.15, 23),
@@ -41066,31 +41078,60 @@ var init_darkmarket2 = __esm({
       new Vector3(2529.88, 2641.71, 46.94),
       new Vector3(2631.89, 2929.74, 49.43)
     ];
+  }
+});
+
+// server/darkmarket/darkmarket.ts
+var exp4, PMA2, ox2, weaponDrops;
+var init_darkmarket2 = __esm({
+  "server/darkmarket/darkmarket.ts"() {
+    init_darkmarket();
+    init_darkmarket_config();
+    init_onNetPromise();
+    init_lib();
+    exp4 = global.exports;
+    PMA2 = exp4["pma-framework"].getData();
+    ox2 = exp4.oxmysql;
     onNet("npwd:fetchCrypto" /* FETCH_CRYPTO */, () => {
       const ply = PMA2.getPlayerFromId(source);
       ox2.scalar(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId], (amount) => {
         emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, amount);
       });
     });
-    onNet("npwd:makePurchase" /* MAKE_PURCHASE */, (checkoutItems) => __async(void 0, null, function* () {
-      const ply = PMA2.getPlayerFromId(source);
-      let totalCoins = 0;
-      console.log(checkoutItems);
-      checkoutItems.forEach((item) => {
-        totalCoins += item.price;
-      });
-      console.log(totalCoins);
-      const currentCurrentAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
-      console.log(currentCurrentAmount);
-      const newCoinTotal = currentCurrentAmount - totalCoins;
-      yield ox2.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [newCoinTotal, ply.uniqueId]);
-      weaponDrops(ply, checkoutItems);
-      emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, newCoinTotal);
+    onNetPromise("npwd:makePurchase" /* MAKE_PURCHASE */, (reqObj, resp) => __async(void 0, null, function* () {
+      try {
+        const checkoutItems = reqObj.data;
+        const ply = PMA2.getPlayerFromId(source);
+        let totalCoins = 0;
+        console.log(checkoutItems);
+        checkoutItems.forEach((item) => {
+          totalCoins += item.price;
+        });
+        console.log(totalCoins);
+        const currentCurrentAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
+        console.log(currentCurrentAmount);
+        const newCoinTotal = currentCurrentAmount - totalCoins;
+        if (newCoinTotal < 0)
+          return resp({ status: "error", errorMsg: "You don't have enough money for this transaction" });
+        yield ox2.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+          newCoinTotal,
+          ply.uniqueId
+        ]);
+        weaponDrops(ply, checkoutItems);
+        resp({ status: "ok", data: newCoinTotal });
+      } catch (err) {
+        console.error(err);
+        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+      }
     }));
     weaponDrops = (ply, items) => {
-      items.map((item) => __async(void 0, null, function* () {
-        yield PMA2.createWeaponPickup(item.label, item.name, 1, Weapon);
-      }));
+      for (const item of items) {
+        const [weapon] = PMA2.getWeapon(item.name);
+        if (!weapon || !allowedWeapons.has(item.name)) {
+          return;
+        }
+        PMA2.createWeaponPickup(weapon.label, weapon.name, 1, Weapon.add(new Vector3(0, 0, 0.5)));
+      }
     };
   }
 });

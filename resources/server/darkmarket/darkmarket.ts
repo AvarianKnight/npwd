@@ -1,80 +1,11 @@
-import { Category, DarkMarketEvents, Item } from '@typings/darkmarket';
+import { DarkMarketEvents, Item } from '@typings/darkmarket';
+import { allowedWeapons, Weapon } from './darkmarket.config';
+import { onNetPromise } from '../lib/PromiseNetEvents/onNetPromise';
 import { Vector3 } from '@nativewrappers/client';
 
 export const exp = (global as any).exports;
 export const PMA: any = exp['pma-framework'].getData();
 export const ox = exp.oxmysql;
-
-const Weapon = new Vector3(165.9, -1093.29, 48.14);
-const WeaponCoords = [
-  new Vector3(-136.73, 6474.97, 40.47),
-  new Vector3(-408.41, 6375.15, 23.0),
-  new Vector3(-429.83, 6349.29, 22.3),
-  new Vector3(-248.64, 6069.83, 41.35),
-  new Vector3(-108.44, 6213.27, 41.39),
-  new Vector3(-75.16, 6213.6, 40.46),
-  new Vector3(-158.22, 6104.12, 40.37),
-  new Vector3(179.59, 6395.95, 40.36),
-  new Vector3(404.21, 6497.84, 36.85),
-  new Vector3(752.07, 6458.92, 40.53),
-  new Vector3(1462.45, 6539.73, 23.67),
-  new Vector3(2806.62, 5979.01, 359.89),
-  new Vector3(2347.6, 4868.04, 50.81),
-  new Vector3(2539.57, 4674.38, 42.93),
-  new Vector3(2020.13, 4982.9, 50.21),
-  new Vector3(1702.82, 4847.52, 51.1),
-  new Vector3(1633.92, 4856.64, 50.96),
-  new Vector3(-1.23, 3734.31, 38.78),
-  new Vector3(-1133.25, 4942.11, 229.6),
-  new Vector3(-2452.25, 2941.6, 41.96),
-  new Vector3(-2013.82, 3373.09, 40.34),
-  new Vector3(-2225.34, 3488.48, 39.17),
-  new Vector3(-2523.29, 2301.92, 42.28),
-  new Vector3(-1925.01, 2031.24, 149.74),
-  new Vector3(-3244.76, 995.31, 21.48),
-  new Vector3(-2980.05, 592.37, 28.15),
-  new Vector3(-2947.62, 418.06, 24.28),
-  new Vector3(-2954.77, 390.59, 24.02),
-  new Vector3(-2221.85, -366.98, 22.32),
-  new Vector3(-2033.52, -256.61, 32.39),
-  new Vector3(-1801.09, -397.15, 53.82),
-  new Vector3(-1708.32, -497.75, 47.16),
-  new Vector3(-1544.0, -567.21, 42.74),
-  new Vector3(-1341.44, -761.32, 29.3),
-  new Vector3(-1466.97, -936.94, 19.24),
-  new Vector3(-1257.45, -1220.35, 14.0),
-  new Vector3(-1259.65, -1142.73, 16.53),
-  new Vector3(-1094.52, -1254.79, 14.38),
-  new Vector3(-923.88, -1529.52, 14.18),
-  new Vector3(-611.07, -1040.2, 31.28),
-  new Vector3(-539.71, -1234.96, 27.46),
-  new Vector3(-480.39, -1682.11, 28.47),
-  new Vector3(-504.21, -1634.42, 26.8),
-  new Vector3(-820.44, -2093.94, 17.81),
-  new Vector3(-700.87, -2446.08, 23.03),
-  new Vector3(-884.93, -3055.16, 22.94),
-  new Vector3(1381.6, 3616.11, 43.89),
-  new Vector3(983.62, 3581.69, 42.62),
-  new Vector3(376.46, 3572.71, 42.29),
-  new Vector3(254.13, -18.62, 82.65),
-  new Vector3(644.59, 137.96, 100.37),
-  new Vector3(969.65, -144.44, 83.35),
-  new Vector3(823.64, -492.56, 39.43),
-  new Vector3(726.01, -715.27, 35.65),
-  new Vector3(941.74, -1242.03, 34.68),
-  new Vector3(930.6, -1546.11, 39.85),
-  new Vector3(1143.47, -2041.13, 40.01),
-  new Vector3(1082.38, -2389.24, 39.47),
-  new Vector3(960.32, -2530.39, 37.3),
-  new Vector3(157.01, -3313.53, 15.02),
-  new Vector3(-39.56, -2731.77, 15.28),
-  new Vector3(2478.47, -401.22, 103.82),
-  new Vector3(2546.04, -310.15, 101.99),
-  new Vector3(2545.63, 386.18, 117.62),
-  new Vector3(2616.85, 1703.01, 36.6),
-  new Vector3(2529.88, 2641.71, 46.94),
-  new Vector3(2631.89, 2929.74, 49.43),
-];
 
 onNet(DarkMarketEvents.FETCH_CRYPTO, () => {
   const ply = PMA.getPlayerFromId(source);
@@ -84,32 +15,49 @@ onNet(DarkMarketEvents.FETCH_CRYPTO, () => {
   });
 });
 
-onNet(DarkMarketEvents.MAKE_PURCHASE, async (checkoutItems: Item[]) => {
-  const ply = PMA.getPlayerFromId(source);
-  let totalCoins = 0;
-  console.log(checkoutItems);
-  checkoutItems.forEach((item: Item) => {
-    totalCoins += item.price;
-  });
-  console.log(totalCoins);
-  const currentCurrentAmount = await ox.scalar_async(
-    `SELECT amount FROM cryptocurrency WHERE ssn = ?`,
-    [ply.uniqueId],
-  );
-  console.log(currentCurrentAmount);
-  const newCoinTotal = currentCurrentAmount - totalCoins;
-  await ox.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
-    newCoinTotal,
-    ply.uniqueId,
-  ]);
-  weaponDrops(ply, checkoutItems);
+onNetPromise<Item[]>(DarkMarketEvents.MAKE_PURCHASE, async (reqObj, resp) => {
+  try {
+    const checkoutItems = reqObj.data;
+    const ply = PMA.getPlayerFromId(source);
+    let totalCoins = 0;
+    console.log(checkoutItems);
+    checkoutItems.forEach((item: Item) => {
+      totalCoins += item.price;
+    });
+    console.log(totalCoins);
+    const currentCurrentAmount = await ox.scalar_async(
+      `SELECT amount FROM cryptocurrency WHERE ssn = ?`,
+      [ply.uniqueId],
+    );
+    console.log(currentCurrentAmount);
+    const newCoinTotal = currentCurrentAmount - totalCoins;
 
-  emitNet(DarkMarketEvents.SHOW_CRYPTO_UI, ply.source, newCoinTotal);
+    if (newCoinTotal < 0)
+      return resp({
+        status: 'error',
+        errorMsg: "You don't have enough money for this transaction",
+      });
+
+    await ox.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      newCoinTotal,
+      ply.uniqueId,
+    ]);
+    weaponDrops(ply, checkoutItems);
+
+    resp({ status: 'ok', data: newCoinTotal });
+  } catch (err) {
+    console.error(err);
+    resp({ status: 'error', errorMsg: 'INTERNAL_ERROR' });
+  }
 });
 
-export const Delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const weaponDrops = (ply: any, items: Item[]) => {
-  items.map(async (item: Item) => {
-    await PMA.createWeaponPickup(item.label, item.name, 1, Weapon);
-  });
+  for (const item of items) {
+    const [weapon] = PMA.getWeapon(item.name);
+    if (!weapon || !allowedWeapons.has(item.name)) {
+      return; // TODO: Anticheat trigger
+    }
+
+    PMA.createWeaponPickup(weapon.label, weapon.name, 1, Weapon.add(new Vector3(0, 0, 0.5)));
+  }
 };

@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { PistolCategory } from '../components/categories/Pistols';
 import { RifleCategory } from '../components/categories/Rifles';
-import { Category } from '@typings/darkmarket';
+import { Category, Item } from '@typings/darkmarket';
 
 export const darkMarketState = {
   darkMarketModal: atom<boolean>({
@@ -20,7 +20,7 @@ export const darkMarketState = {
     key: 'categories',
     default: [].concat(RifleCategory).concat(PistolCategory),
   }),
-  cart: atom({
+  cart: atom<Item[]>({
     key: 'cart',
     default: [],
   }),

@@ -1,8 +1,10 @@
+import ArrowBack from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Box,
   Button,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -12,6 +14,7 @@ import {
 } from '@mui/material';
 import { Item } from '@typings/darkmarket';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { darkMarketState } from '../../atoms/state';
@@ -29,11 +32,16 @@ const Wrapper = styled(Box)`
   flex-wrap: wrap;
 `;
 
+const BackArrow = styled(ArrowBack)`
+  cursor: pointer;
+`;
+
 const Cart = () => {
   const [cost, setCost] = useState(0);
   const { removeItem, clearCart, renderCheckoutDisplay } = useCart();
   const cartList = useRecoilValue(darkMarketState.cart);
   const crypto = useRecoilValue(darkMarketState.crypto);
+  const history = useHistory();
 
   useEffect(() => {
     let currentCost = 0;
@@ -44,6 +52,7 @@ const Cart = () => {
   return (
     <Container>
       <Wrapper>
+        <BackArrow onClick={() => history.replace('/darkmarket')} />
         <List dense style={{ width: '350px' }}>
           <ListSubheader style={{ zIndex: 0 }}>Cart</ListSubheader>
           <Wrapper style={{ justifyContent: 'center', overflow: 'auto', maxHeight: 400 }}>
@@ -72,10 +81,7 @@ const Cart = () => {
       <Divider variant="middle" light />
       <Wrapper style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button onClick={() => clearCart()}>Clear Cart</Button>
-        <Button
-          onClick={() => renderCheckoutDisplay(true)}
-          disabled={cost > crypto || cost === 0 ? true : false}
-        >
+        <Button onClick={() => renderCheckoutDisplay(true)} disabled={cost > crypto || cost === 0}>
           Checkout
         </Button>
       </Wrapper>

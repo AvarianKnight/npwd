@@ -1,42 +1,56 @@
 import { DarkMarketEvents, Item } from '@typings/darkmarket';
 import { darkMarketState } from './../atoms/state';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useNuiRequest } from 'fivem-nui-react-lib';
+import fetchNui from '@utils/fetchNui';
+import { ServerPromiseResp } from '@typings/common';
+import { useSnackbar } from '@os/snackbar/hooks/useSnackbar';
+import { useHistory } from 'react-router-dom';
 
 export const useCart = () => {
-  const { send } = useNuiRequest();
+  const { addAlert } = useSnackbar();
   const [cart, setCart] = useRecoilState(darkMarketState.cart);
+  const setCrypto = useSetRecoilState(darkMarketState.crypto);
   const setCheckoutDisplay = useSetRecoilState(darkMarketState.checkoutDisplay);
+  const history = useHistory();
 
   const addItem = (item: Item) => {
-    let copyCart = JSON.parse(JSON.stringify(cart));
-    copyCart.push(item);
-    setCart(copyCart);
+    console.log(cart);
+    setCart((cart) => [...cart, item]);
   };
 
   const removeItem = (item: Item) => {
-    let copyCart = [...cart];
-    const index = copyCart.findIndex((cartItem: Item) => cartItem.name === item.name);
-    if (index >= 0) {
-      copyCart.splice(index, 1);
-    }
-    setCart(copyCart);
+    let isFirst = true;
+    setCart((cart) =>
+      cart.filter((cartItem) => {
+        if (isFirst && cartItem.name === item.name) {
+          isFirst = false;
+          return false;
+        }
+        return true;
+      }),
+    );
   };
 
   const clearCart = () => {
     setCart([]);
   };
 
-  const renderCheckoutDisplay = (trueFalse: boolean) => {
-    setCheckoutDisplay(trueFalse);
+  const renderCheckoutDisplay = (show: boolean) => {
+    setCheckoutDisplay(show);
   };
 
   const initiateCheckout = () => {
-    send(DarkMarketEvents.MAKE_PURCHASE, {
-      cart,
-    }).then(() => {
-      setCart([]);
-      setCheckoutDisplay(false);
+    fetchNui<ServerPromiseResp<number>>(DarkMarketEvents.MAKE_PURCHASE, cart).then((serverResp) => {
+      if (serverResp.status !== 'ok') {
+        addAlert({ message: serverResp.errorMsg, type: 'error' });
+      } else {
+        setCrypto(serverResp.data);
+        addAlert({ message: 'Purchase successful!', type: 'info' });
+      }
+
+      history.replace('/darkmarket');
+      clearCart();
+      renderCheckoutDisplay(false);
     });
   };
 
