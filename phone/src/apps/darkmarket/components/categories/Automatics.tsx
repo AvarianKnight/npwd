@@ -23,13 +23,6 @@ export const AutomaticsCategory = {
       quantity: 1,
     },
     {
-      label: 'Machine',
-      name: 'WEAPON_MACHINEPISTOL',
-      src: MACHINEPISTOL,
-      price: 2,
-      quantity: 1,
-    },
-    {
       label: 'MAC-10',
       name: 'WEAPON_MAC10',
       src: MAC10,

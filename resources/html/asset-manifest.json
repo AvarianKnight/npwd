@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/resources/html/static/css/main.aafdfaf5.css",
-    "main.js": "/resources/html/static/js/main.014aa43a.js",
+    "main.js": "/resources/html/static/js/main.7fcb3cc8.js",
     "static/js/534.575896d0.chunk.js": "/resources/html/static/js/534.575896d0.chunk.js",
     "static/js/8160.0eaa0c71.chunk.js": "/resources/html/static/js/8160.0eaa0c71.chunk.js",
     "static/js/687.6987a382.chunk.js": "/resources/html/static/js/687.6987a382.chunk.js",
@@ -91,7 +91,7 @@
     "static/media/WEAPON_ASSAULTRIFLE.png": "/resources/html/static/media/WEAPON_ASSAULTRIFLE.a5283d7dbfb13533d611.png",
     "index.html": "/resources/html/index.html",
     "main.aafdfaf5.css.map": "/resources/html/static/css/main.aafdfaf5.css.map",
-    "main.014aa43a.js.map": "/resources/html/static/js/main.014aa43a.js.map",
+    "main.7fcb3cc8.js.map": "/resources/html/static/js/main.7fcb3cc8.js.map",
     "534.575896d0.chunk.js.map": "/resources/html/static/js/534.575896d0.chunk.js.map",
     "8160.0eaa0c71.chunk.js.map": "/resources/html/static/js/8160.0eaa0c71.chunk.js.map",
     "687.6987a382.chunk.js.map": "/resources/html/static/js/687.6987a382.chunk.js.map",
@@ -160,6 +160,6 @@
   },
   "entrypoints": [
     "static/css/main.aafdfaf5.css",
-    "static/js/main.014aa43a.js"
+    "static/js/main.7fcb3cc8.js"
   ]
 }
