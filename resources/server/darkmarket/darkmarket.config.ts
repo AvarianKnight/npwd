@@ -21,6 +21,7 @@ export const allowedWeapons: Set<string> = new Set([
   'WEAPON_DBSHOTGUN',
   'WEAPON_SPAS12',
   'WEAPON_SAWNOFFSHOTGUN',
+  'WEAPON_MINISMG',
 ]);
 
 export const Weapon = new Vector3(170.43, -1099.3, 48.14);
