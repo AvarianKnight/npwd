@@ -1,11 +1,11 @@
 import { DarkMarketEvents, Item } from '@typings/darkmarket';
-import { allowedWeapons, Weapon } from './darkmarket.config';
+import { allowedWeapons, WeaponCoords } from './darkmarket.config';
 import { onNetPromise } from '../lib/PromiseNetEvents/onNetPromise';
-import { Vector3 } from '@nativewrappers/client';
 
 export const exp = (global as any).exports;
 export const PMA: any = exp['pma-framework'].getData();
 export const ox = exp.oxmysql;
+export const AC = exp['pma-anticheat'];
 
 onNet(DarkMarketEvents.FETCH_CRYPTO, () => {
   const ply = PMA.getPlayerFromId(source);
@@ -20,29 +20,27 @@ onNetPromise<Item[]>(DarkMarketEvents.MAKE_PURCHASE, async (reqObj, resp) => {
     const checkoutItems = reqObj.data;
     const ply = PMA.getPlayerFromId(source);
     let totalCoins = 0;
-    console.log(checkoutItems);
     checkoutItems.forEach((item: Item) => {
       totalCoins += item.price;
     });
-    console.log(totalCoins);
     const currentCurrentAmount = await ox.scalar_async(
       `SELECT amount FROM cryptocurrency WHERE ssn = ?`,
       [ply.uniqueId],
     );
-    console.log(currentCurrentAmount);
     const newCoinTotal = currentCurrentAmount - totalCoins;
 
-    if (newCoinTotal < 0)
+    if (newCoinTotal < 0) {
       return resp({
         status: 'error',
-        errorMsg: "You don't have enough money for this transaction",
+        errorMsg: 'You do not have enough money for this transaction',
       });
+    }
 
     await ox.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
       newCoinTotal,
       ply.uniqueId,
     ]);
-    weaponDrops(ply, checkoutItems);
+    weaponDrops(ply, checkoutItems, newCoinTotal);
 
     resp({ status: 'ok', data: newCoinTotal });
   } catch (err) {
@@ -51,13 +49,54 @@ onNetPromise<Item[]>(DarkMarketEvents.MAKE_PURCHASE, async (reqObj, resp) => {
   }
 });
 
-const weaponDrops = (ply: any, items: Item[]) => {
+const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
+  const index = Math.floor(Math.random() * (WeaponCoords.length + 1));
+  const coords = WeaponCoords[index];
+  const jsonString = items.map((newItemString: Item) => {
+    return {
+      name: newItemString.name,
+      price: newItemString.price,
+    };
+  });
   for (const item of items) {
     const [weapon] = PMA.getWeapon(item.name);
     if (!weapon || !allowedWeapons.has(item.name)) {
+      AC.log(
+        '*Black Market purchase!*',
+        `Weapons delivered at: ${JSON.stringify(coords).replace(
+          /\[|\]/g,
+          '',
+        )}\nOverhead: ${GetPlayerName(
+          ply.source,
+        )} \n Character Name: ${ply.getPlayerName()} \n Has ${newCoinTotal} coins after just purchasing... \n${JSON.stringify(
+          jsonString,
+        ).replace(/\[|\]/g, '')} which is an illegal purchase! Ban pwease @moderator.`,
+        `blue`,
+        `darkmarketLogs`,
+      );
       return; // TODO: Anticheat trigger
     }
 
-    PMA.createWeaponPickup(weapon.label, weapon.name, 1, Weapon.add(new Vector3(0, 0, 0.5)));
+    if (item.quantity === 1) {
+      PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+    } else {
+      for (let i = 0; i < item.quantity; i++) {
+        PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+      }
+    }
   }
+  emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords);
+  AC.log(
+    '*Black Market purchase!*',
+    `Weapons delivered at: ${JSON.stringify(coords).replace(
+      /\[|\]/g,
+      '',
+    )}\nOverhead: ${GetPlayerName(
+      ply.source,
+    )} \n Character Name: ${ply.getPlayerName()} \n Has ${newCoinTotal} coins after just purchasing... \n${JSON.stringify(
+      jsonString,
+    ).replace(/\[|\]/g, '')}`,
+    `blue`,
+    `darkmarketLogs`,
+  );
 };
