@@ -18,8 +18,12 @@ export const Categories = () => {
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
     const value = event.currentTarget.innerText;
-    console.log(value);
-    if (value === 'Rifles' || value === 'Pistols') {
+    if (
+      value === 'Rifles' ||
+      value === 'Pistols' ||
+      value === 'Shotguns' ||
+      value === 'Automatics'
+    ) {
       history.replace('/darkmarket');
       setSelectedCategory(categoryList[0][index]);
       setOpen(false);

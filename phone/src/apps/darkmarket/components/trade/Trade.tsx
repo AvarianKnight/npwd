@@ -1,5 +1,5 @@
 const Trade = () => {
-  return <>trade!</>;
+  return <div style={{ padding: 20, fontWeight: 'bolder' }}>COMING SOON</div>;
 };
 
 export default Trade;

@@ -1,21 +1,12 @@
-import APPISTOL from '../../../../assets/WEAPON_APPISTOL.png';
 import BERETTA from '../../../../assets/WEAPON_BERETTA.png';
 import FNX from '../../../../assets/WEAPON_FNX.png';
 import LUGER from '../../../../assets/WEAPON_LUGER.png';
-import MACHINEPISTOL from '../../../../assets/WEAPON_MACHINEPISTOL.png';
 import PISTOL50 from '../../../../assets/WEAPON_PISTOL50.png';
 import SNSPISTOL from '../../../../assets/WEAPON_SNSPISTOL_MK2.png';
 
 export const PistolCategory = {
   title: 'Pistols',
   list: [
-    {
-      label: 'AP',
-      name: 'WEAPON_APPISTOL',
-      src: APPISTOL,
-      price: 2,
-      quantity: 1,
-    },
     {
       label: 'Beretta',
       name: 'WEAPON_BERETTA',
@@ -36,13 +27,6 @@ export const PistolCategory = {
       src: LUGER,
       price: 1,
       quantity: 2,
-    },
-    {
-      label: 'Machine',
-      name: 'WEAPON_MACHINEPISTOL',
-      src: MACHINEPISTOL,
-      price: 2,
-      quantity: 1,
     },
     {
       label: 'Desert Eagle',
