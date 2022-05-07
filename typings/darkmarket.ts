@@ -2,6 +2,7 @@ export enum DarkMarketEvents {
   FETCH_CRYPTO = 'npwd:fetchCrypto',
   SHOW_CRYPTO_UI = 'npwd:showCryptoUi',
   MAKE_PURCHASE = 'npwd:makePurchase',
+  PICKUP_WEAPONS = 'npwd:pickupWeapons',
 }
 
 export interface Category {
