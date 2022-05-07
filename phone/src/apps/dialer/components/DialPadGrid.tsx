@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Box, Button, Grid } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
-import { DialInputCtx } from '../context/InputContext';
+import { DialInputCtx, IDialInputCtx } from '../context/InputContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   gridItem: {
@@ -29,23 +29,37 @@ const ButtonItem: React.FC<ButtonItemProps> = ({ label, onClick }) => {
 
 export const DialGrid = () => {
   const { add, removeOne, clear } = useContext(DialInputCtx);
+  const { inputVal, set } = useContext<IDialInputCtx>(DialInputCtx);
+
+  const dialHandler = (e: any) => {
+    let copyInputVal = JSON.parse(JSON.stringify(inputVal));
+    copyInputVal += e.target.textContent;
+    var result = [];
+    let text = copyInputVal.replace(/[^\d]/g, '');
+    while (text.length >= 6) {
+      result.push(text.substring(0, 3));
+      text = text.substring(3);
+    }
+    if (text.length > 0) result.push(text);
+    set(result.join('-'));
+  };
 
   return (
     <Box height="100%">
       <Grid container justifyContent="space-around">
-        <ButtonItem label={1} onClick={() => add(1)} />
-        <ButtonItem label={2} onClick={() => add(2)} />
-        <ButtonItem label={3} onClick={() => add(3)} />
-        <ButtonItem label={4} onClick={() => add(4)} />
-        <ButtonItem label={5} onClick={() => add(5)} />
-        <ButtonItem label={6} onClick={() => add(6)} />
-        <ButtonItem label={7} onClick={() => add(7)} />
-        <ButtonItem label={8} onClick={() => add(8)} />
-        <ButtonItem label={9} onClick={() => add(9)} />
+        <ButtonItem label={1} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={2} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={3} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={4} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={5} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={6} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={7} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={8} onClick={(e) => dialHandler(e)} />
+        <ButtonItem label={9} onClick={(e) => dialHandler(e)} />
         <ButtonItem label="*" onClick={clear} />
-        <ButtonItem label={0} onClick={() => add(0)} />
+        <ButtonItem label={0} onClick={(e) => dialHandler(e)} />
         <ButtonItem label="#" onClick={removeOne} />
-        <ButtonItem label="-" onClick={() => add('-')} />
+        <ButtonItem label="-" onClick={(e) => dialHandler(e)} />
       </Grid>
     </Box>
   );
