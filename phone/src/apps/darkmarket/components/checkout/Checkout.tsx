@@ -25,8 +25,8 @@ export const Checkout = () => {
         <Box sx={{ width: '100%', textAlign: 'center' }}>
           <Typography>Ready for purchase?</Typography>
         </Box>
-        <Button onClick={() => renderCheckoutDisplay(false)}>No</Button>
         <Button onClick={() => initiateCheckout()}>Yes</Button>
+        <Button onClick={() => renderCheckoutDisplay(false)}>No</Button>
       </CheckoutContainer>
     </Modal>
   );
