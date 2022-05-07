@@ -1,5 +1,6 @@
-import { BlipColor, Vector3, World } from '@nativewrappers/client';
+import { BlipColor, Game, Vector3, World } from '@nativewrappers/client';
 import { DarkMarketEvents } from '@typings/darkmarket';
+import { Delay } from '../utils/fivem';
 import { RegisterNuiProxy } from './cl_utils';
 
 RegisterNuiCallbackType(DarkMarketEvents.FETCH_CRYPTO);
@@ -26,4 +27,12 @@ onNet(DarkMarketEvents.PICKUP_WEAPONS, (coords: Vector3) => {
   blip.ShowRoute = true;
   blip.Color = BlipColor.Yellow;
   SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
+
+  const weaponDropTick = setTick(async () => {
+    if (Game.PlayerPed.Position.distance(coords) < 5) {
+      await Delay(250);
+      blip.delete();
+      clearTick(weaponDropTick);
+    }
+  });
 });
