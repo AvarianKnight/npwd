@@ -13,7 +13,6 @@ on(`__cfx_nui:${DarkMarketEvents.FETCH_CRYPTO}`, (data: any, cb: any) => {
 });
 
 onNet(DarkMarketEvents.SHOW_CRYPTO_UI, (amount: number) => {
-  console.log(amount);
   SendNUIMessage({
     app: 'DARKMARKET',
     method: DarkMarketEvents.SHOW_CRYPTO_UI,
@@ -21,7 +20,7 @@ onNet(DarkMarketEvents.SHOW_CRYPTO_UI, (amount: number) => {
   });
 });
 
-onNet(DarkMarketEvents.PICKUP_WEAPONS, (coords: Vector3) => {
+onNet(DarkMarketEvents.PICKUP_WEAPONS, async (coords: Vector3, alertId: number) => {
   const blip = World.createBlip(coords, 5.0);
   blip.Name = 'Drop Off';
   blip.ShowRoute = true;
@@ -34,5 +33,16 @@ onNet(DarkMarketEvents.PICKUP_WEAPONS, (coords: Vector3) => {
       blip.delete();
       clearTick(weaponDropTick);
     }
+  });
+
+  await Delay(10000);
+  SendNUIMessage({
+    app: 'DARKMARKET',
+    method: DarkMarketEvents.SEND_NOTIFICATION,
+    data: {
+      title: 'Darkmarket Alert',
+      bankNotify: alertId,
+      message: 'Get to a car, you have 15 minutes.',
+    },
   });
 });

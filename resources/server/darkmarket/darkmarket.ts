@@ -7,6 +7,7 @@ export const PMA: any = exp['pma-framework'].getData();
 export const ox = exp.oxmysql;
 export const AC = exp['pma-anticheat'];
 
+let alertId = 0;
 onNet(DarkMarketEvents.FETCH_CRYPTO, () => {
   const ply = PMA.getPlayerFromId(source);
 
@@ -85,7 +86,9 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
       }
     }
   }
-  emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords);
+
+  emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords, (alertId += 1));
+
   AC.log(
     '*Black Market purchase!*',
     `Weapons delivered at: ${JSON.stringify(coords).replace(

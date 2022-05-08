@@ -26,7 +26,7 @@ export const allowedWeapons: Set<string> = new Set([
 
 export const Weapon = new Vector3(170.43, -1099.3, 48.14);
 export const WeaponCoords = [
-  new Vector3(179.59, 6395.95, 22.36),
+  new Vector3(179.59, 6395.95, 32.36),
   new Vector3(-136.73, 6474.97, 32.47),
   new Vector3(-408.41, 6375.15, 15.0),
   new Vector3(-429.83, 6349.29, 14.3),

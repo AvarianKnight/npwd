@@ -41017,7 +41017,7 @@ var init_darkmarket_config = __esm({
     ]);
     Weapon = new Vector3(170.43, -1099.3, 48.14);
     WeaponCoords = [
-      new Vector3(179.59, 6395.95, 22.36),
+      new Vector3(179.59, 6395.95, 32.36),
       new Vector3(-136.73, 6474.97, 32.47),
       new Vector3(-408.41, 6375.15, 15),
       new Vector3(-429.83, 6349.29, 14.3),
@@ -41089,7 +41089,7 @@ var init_darkmarket_config = __esm({
 });
 
 // server/darkmarket/darkmarket.ts
-var exp4, PMA2, ox2, AC3, weaponDrops;
+var exp4, PMA2, ox2, AC3, alertId, weaponDrops;
 var init_darkmarket2 = __esm({
   "server/darkmarket/darkmarket.ts"() {
     init_darkmarket();
@@ -41099,6 +41099,7 @@ var init_darkmarket2 = __esm({
     PMA2 = exp4["pma-framework"].getData();
     ox2 = exp4.oxmysql;
     AC3 = exp4["pma-anticheat"];
+    alertId = 0;
     onNet("npwd:fetchCrypto" /* FETCH_CRYPTO */, () => {
       const ply = PMA2.getPlayerFromId(source);
       ox2.scalar(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId], (amount) => {
@@ -41159,7 +41160,7 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase
           }
         }
       }
-      emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords);
+      emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
       AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
 Overhead: ${GetPlayerName(ply.source)} 
  Character Name: ${ply.getPlayerName()} 

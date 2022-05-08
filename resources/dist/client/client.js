@@ -9772,14 +9772,13 @@
         cb({});
       });
       onNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, (amount) => {
-        console.log(amount);
         SendNUIMessage({
           app: "DARKMARKET",
           method: "npwd:showCryptoUi" /* SHOW_CRYPTO_UI */,
           data: amount
         });
       });
-      onNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, (coords) => {
+      onNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, (coords, alertId) => __async(exports, null, function* () {
         const blip = World.createBlip(coords, 5);
         blip.Name = "Drop Off";
         blip.ShowRoute = true;
@@ -9792,7 +9791,17 @@
             clearTick(weaponDropTick);
           }
         }));
-      });
+        yield Delay(1e4);
+        SendNUIMessage({
+          app: "DARKMARKET",
+          method: "npwd:sendDarkMarketNotification" /* SEND_NOTIFICATION */,
+          data: {
+            title: "Darkmarket Alert",
+            bankNotify: alertId,
+            message: "Get to a car, you have 15 minutes."
+          }
+        });
+      }));
     }
   });
 
