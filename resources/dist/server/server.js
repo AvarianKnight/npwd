@@ -17199,7 +17199,8 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
+        const req = (this.ssl ? https : http).request({
+          ...this.options,
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17207,7 +17208,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        }));
+        });
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -41190,9 +41191,7 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
         AC3.log(`*Coin trade!*`, `Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)}
  
       Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmt} coins left.
-
       Overhead: ${GetPlayerName(otherPly.source)} ${AC3.getDiscordId(otherPly.source)}
-
       Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
         emitNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, ply.source);
       } else {

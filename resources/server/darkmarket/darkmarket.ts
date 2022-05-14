@@ -145,8 +145,8 @@ onNet(DarkMarketEvents.INIATE_TRADE, async (data: Trade) => {
       `Overhead: ${GetPlayerName(ply.source)} ${AC.getDiscordId(ply.source)}\n 
       Character Name: ${ply.getPlayerName()} has given ${Number(
         data.amount,
-      )} coins to and has ${plyAmt} coins left.\n
-      Overhead: ${GetPlayerName(otherPly.source)} ${AC.getDiscordId(otherPly.source)}\n
+      )} coins to and has ${plyAmt} coins left.
+      Overhead: ${GetPlayerName(otherPly.source)} ${AC.getDiscordId(otherPly.source)}
       Character Name: ${otherPly.getPlayerName()} has received ${Number(
         data.amount,
       )} coins and now has ${otherAmt} coins.`,
