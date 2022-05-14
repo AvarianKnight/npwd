@@ -41189,7 +41189,6 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
         ]);
         emitNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, otherPly.source, alertId += 1);
         AC3.log(`*Coin trade!*`, `Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)}
- 
       Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmt} coins left.
       Overhead: ${GetPlayerName(otherPly.source)} ${AC3.getDiscordId(otherPly.source)}
       Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
