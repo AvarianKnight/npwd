@@ -95,7 +95,7 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
     `Weapons delivered at: ${JSON.stringify(coords).replace(
       /\[|\]/g,
       '',
-    )}\nOverhead: ${GetPlayerName(
+    )}\nOverhead: ${GetPlayerName(ply.source)} ${AC.getDiscordId(
       ply.source,
     )} \n Character Name: ${ply.getPlayerName()} \n Has ${newCoinTotal} coins after just purchasing... \n${JSON.stringify(
       jsonString,
@@ -142,12 +142,11 @@ onNet(DarkMarketEvents.INIATE_TRADE, async (data: Trade) => {
 
     AC.log(
       `*Coin trade!*`,
-      `\nOverhead: ${GetPlayerName(
-        ply.source,
-      )}\n Character Name: ${ply.getPlayerName()} has given ${Number(
+      `Overhead: ${GetPlayerName(ply.source)} ${AC.getDiscordId(ply.source)}\n 
+      Character Name: ${ply.getPlayerName()} has given ${Number(
         data.amount,
-      )} coins to and has ${plyAmount} coins left.\n
-      Overhead: ${GetPlayerName(otherPly.source)}
+      )} coins to and has ${plyAmt} coins left.\n
+      Overhead: ${GetPlayerName(otherPly.source)} ${AC.getDiscordId(otherPly.source)}\n
       Character Name: ${otherPly.getPlayerName()} has received ${Number(
         data.amount,
       )} coins and now has ${otherAmt} coins.`,

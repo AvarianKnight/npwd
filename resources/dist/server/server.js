@@ -41162,7 +41162,7 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase
       }
       emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
       AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
-Overhead: ${GetPlayerName(ply.source)} 
+Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)} 
  Character Name: ${ply.getPlayerName()} 
  Has ${newCoinTotal} coins after just purchasing... 
 ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
@@ -41171,20 +41171,29 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
       const ply = PMA2.getPlayerFromId(source);
       const otherPly = PMA2.getPlayerFromId(Number(data.playerId));
       if (otherPly) {
-        const plyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
+        const plyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [
+          ply.uniqueId
+        ]);
         const plyAmt = plyAmount - Number(data.amount);
         emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, plyAmt);
-        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [plyAmt, ply.uniqueId]);
+        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+          plyAmt,
+          ply.uniqueId
+        ]);
         const otherPlyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [otherPly.uniqueId]);
         const otherAmt = otherPlyAmount + Number(data.amount);
         emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, otherPly.source, otherAmt);
-        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [otherAmt, otherPly.uniqueId]);
+        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+          otherAmt,
+          otherPly.uniqueId
+        ]);
         emitNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, otherPly.source, alertId += 1);
-        AC3.log(`*Coin trade!*`, `
-Overhead: ${GetPlayerName(ply.source)}
- Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmount} coins left.
+        AC3.log(`*Coin trade!*`, `Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)}
+ 
+      Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmt} coins left.
 
-      Overhead: ${GetPlayerName(otherPly.source)}
+      Overhead: ${GetPlayerName(otherPly.source)} ${AC3.getDiscordId(otherPly.source)}
+
       Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
         emitNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, ply.source);
       } else {
