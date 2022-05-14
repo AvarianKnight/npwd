@@ -9767,6 +9767,7 @@
       RegisterNuiCallbackType("npwd:fetchCrypto" /* FETCH_CRYPTO */);
       RegisterNuiCallbackType("npwd:makePurchase" /* MAKE_PURCHASE */);
       RegisterNuiProxy("npwd:makePurchase" /* MAKE_PURCHASE */);
+      RegisterNuiCallbackType("npwd:tradeCrypto" /* INIATE_TRADE */);
       on(`__cfx_nui:${"npwd:fetchCrypto" /* FETCH_CRYPTO */}`, (data, cb) => {
         emitNet("npwd:fetchCrypto" /* FETCH_CRYPTO */);
         cb({});
@@ -9802,6 +9803,33 @@
           }
         });
       }));
+      on(`__cfx_nui:${"npwd:tradeCrypto" /* INIATE_TRADE */}`, (data, cb) => {
+        emitNet("npwd:tradeCrypto" /* INIATE_TRADE */, data);
+        cb({});
+      });
+      onNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, () => {
+        SendNUIMessage({
+          app: "DARKMARKET",
+          method: "npwd:dmAlertSuccess" /* ALERT_SUCCESS */
+        });
+      });
+      onNet("npwd:dmAlertFailure" /* ALERT_FAILURE */, () => {
+        SendNUIMessage({
+          app: "DARKMARKET",
+          method: "npwd:dmAlertFailure" /* ALERT_FAILURE */
+        });
+      });
+      onNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, (alertId) => {
+        SendNUIMessage({
+          app: "DARKMARKET",
+          method: "npwd:sendDarkMarketNotification" /* SEND_NOTIFICATION */,
+          data: {
+            title: "Darkmarket Alert",
+            bankNotify: alertId,
+            message: "Coins received!"
+          }
+        });
+      });
     }
   });
 

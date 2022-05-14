@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -15,10 +14,11 @@ import {
 import { Item } from '@typings/darkmarket';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { darkMarketState } from '../../atoms/state';
 import { useCart } from '../../hooks/useCart';
+import { Notify } from '../notify/Notify';
 
 const Container = styled(Box)`
   padding: 10px;
@@ -38,10 +38,12 @@ const BackArrow = styled(ArrowBack)`
 
 const Cart = () => {
   const [cost, setCost] = useState(0);
-  const { removeItem, clearCart, renderCheckoutDisplay } = useCart();
+
+  const { removeItem, clearCart, initiateCheckout } = useCart();
   const cartList = useRecoilValue(darkMarketState.cart);
   const crypto = useRecoilValue(darkMarketState.crypto);
   const history = useHistory();
+  const [notifyDisplay, setNotifyDisplay] = useRecoilState(darkMarketState.notifyDisplay);
 
   useEffect(() => {
     let currentCost = 0;
@@ -51,6 +53,12 @@ const Cart = () => {
 
   return (
     <Container>
+      <Notify
+        notifyDisplay={notifyDisplay}
+        setNotifyDisplay={setNotifyDisplay}
+        acceptHandler={initiateCheckout}
+        text={'Ready for purchase?'}
+      />
       <Wrapper>
         <BackArrow onClick={() => history.replace('/darkmarket')} />
         <List dense style={{ width: '350px' }}>
@@ -81,7 +89,7 @@ const Cart = () => {
       <Divider variant="middle" light />
       <Wrapper style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button onClick={() => clearCart()}>Clear Cart</Button>
-        <Button onClick={() => renderCheckoutDisplay(true)} disabled={cost > crypto || cost === 0}>
+        <Button onClick={() => setNotifyDisplay(true)} disabled={cost > crypto || cost === 0}>
           Checkout
         </Button>
       </Wrapper>

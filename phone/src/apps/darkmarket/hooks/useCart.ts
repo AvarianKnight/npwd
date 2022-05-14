@@ -10,7 +10,7 @@ export const useCart = () => {
   const { addAlert } = useSnackbar();
   const [cart, setCart] = useRecoilState(darkMarketState.cart);
   const setCrypto = useSetRecoilState(darkMarketState.crypto);
-  const setCheckoutDisplay = useSetRecoilState(darkMarketState.checkoutDisplay);
+  const setNotifyDisplay = useSetRecoilState(darkMarketState.notifyDisplay);
   const history = useHistory();
 
   const addItem = (item: Item) => {
@@ -35,8 +35,8 @@ export const useCart = () => {
     setCart([]);
   };
 
-  const renderCheckoutDisplay = (show: boolean) => {
-    setCheckoutDisplay(show);
+  const renderNotifyDisplay = (show: boolean) => {
+    setNotifyDisplay(show);
   };
 
   const initiateCheckout = () => {
@@ -50,9 +50,9 @@ export const useCart = () => {
 
       history.replace('/darkmarket');
       clearCart();
-      renderCheckoutDisplay(false);
+      renderNotifyDisplay(false);
     });
   };
 
-  return { addItem, removeItem, clearCart, renderCheckoutDisplay, initiateCheckout };
+  return { addItem, removeItem, clearCart, renderNotifyDisplay, initiateCheckout };
 };

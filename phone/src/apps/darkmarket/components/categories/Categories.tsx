@@ -98,6 +98,7 @@ export const Categories = () => {
                   {categoryList[0].map((category: any, i: number) => {
                     return (
                       <MenuItem
+                        key={i}
                         onClick={(event) => handleMenuClick(event, i)}
                         value={`${category.title}`}
                       >

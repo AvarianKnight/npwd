@@ -19,7 +19,6 @@ export const TransactionList = () => {
     setPage(0);
   };
 
-  console.log(transactionList);
   return (
     <div id="transaction-section">
       <div className={classes.header}>

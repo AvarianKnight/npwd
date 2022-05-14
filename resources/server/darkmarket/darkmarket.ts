@@ -1,6 +1,7 @@
 import { DarkMarketEvents, Item } from '@typings/darkmarket';
 import { allowedWeapons, WeaponCoords } from './darkmarket.config';
 import { onNetPromise } from '../lib/PromiseNetEvents/onNetPromise';
+import { Console } from 'console';
 
 export const exp = (global as any).exports;
 export const PMA: any = exp['pma-framework'].getData();
@@ -103,3 +104,59 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
     `darkmarketLogs`,
   );
 };
+
+/**
+ * id and
+ */
+
+type Trade = {
+  playerId: number;
+  amount: number;
+};
+onNet(DarkMarketEvents.INIATE_TRADE, async (data: Trade) => {
+  const ply = PMA.getPlayerFromId(source);
+  const otherPly = PMA.getPlayerFromId(Number(data.playerId));
+
+  if (otherPly) {
+    const plyAmount = await ox.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [
+      ply.uniqueId,
+    ]);
+    const plyAmt = plyAmount - Number(data.amount);
+    emitNet(DarkMarketEvents.SHOW_CRYPTO_UI, ply.source, plyAmt);
+    await ox.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      plyAmt,
+      ply.uniqueId,
+    ]);
+
+    const otherPlyAmount = await ox.scalar_async(
+      `SELECT amount FROM cryptocurrency WHERE ssn = ?`,
+      [otherPly.uniqueId],
+    );
+    const otherAmt = otherPlyAmount + Number(data.amount);
+    emitNet(DarkMarketEvents.SHOW_CRYPTO_UI, otherPly.source, otherAmt);
+    await ox.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      otherAmt,
+      otherPly.uniqueId,
+    ]);
+    emitNet(DarkMarketEvents.NOTIFY_OF_TRADE, otherPly.source, (alertId += 1));
+
+    AC.log(
+      `*Coin trade!*`,
+      `\nOverhead: ${GetPlayerName(
+        ply.source,
+      )}\n Character Name: ${ply.getPlayerName()} has given ${Number(
+        data.amount,
+      )} coins to and has ${plyAmount} coins left.\n
+      Overhead: ${GetPlayerName(otherPly.source)}
+      Character Name: ${otherPly.getPlayerName()} has received ${Number(
+        data.amount,
+      )} coins and now has ${otherAmt} coins.`,
+      `blue`,
+      `coinTradesLog`,
+    );
+
+    emitNet(DarkMarketEvents.ALERT_SUCCESS, ply.source);
+  } else {
+    emitNet(DarkMarketEvents.ALERT_FAILURE, ply.source);
+  }
+});

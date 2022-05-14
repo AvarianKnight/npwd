@@ -30,8 +30,15 @@ export const darkMarketState = {
     key: 'cart',
     default: [],
   }),
-  checkoutDisplay: atom({
-    key: 'checkoutDisplay',
+  notifyDisplay: atom({
+    key: 'notifyDisplay',
     default: false,
+  }),
+  tradeDM: atom({
+    key: 'tradeDM',
+    default: {
+      playerId: '',
+      amount: '',
+    },
   }),
 };

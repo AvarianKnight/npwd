@@ -6,6 +6,7 @@ import { RegisterNuiProxy } from './cl_utils';
 RegisterNuiCallbackType(DarkMarketEvents.FETCH_CRYPTO);
 RegisterNuiCallbackType(DarkMarketEvents.MAKE_PURCHASE);
 RegisterNuiProxy(DarkMarketEvents.MAKE_PURCHASE);
+RegisterNuiCallbackType(DarkMarketEvents.INIATE_TRADE);
 
 on(`__cfx_nui:${DarkMarketEvents.FETCH_CRYPTO}`, (data: any, cb: any) => {
   emitNet(DarkMarketEvents.FETCH_CRYPTO);
@@ -43,6 +44,37 @@ onNet(DarkMarketEvents.PICKUP_WEAPONS, async (coords: Vector3, alertId: number) 
       title: 'Darkmarket Alert',
       bankNotify: alertId,
       message: 'Get to a car, you have 15 minutes.',
+    },
+  });
+});
+
+on(`__cfx_nui:${DarkMarketEvents.INIATE_TRADE}`, (data: any, cb: any) => {
+  emitNet(DarkMarketEvents.INIATE_TRADE, data);
+  cb({});
+});
+
+onNet(DarkMarketEvents.ALERT_SUCCESS, () => {
+  SendNUIMessage({
+    app: 'DARKMARKET',
+    method: DarkMarketEvents.ALERT_SUCCESS,
+  });
+});
+
+onNet(DarkMarketEvents.ALERT_FAILURE, () => {
+  SendNUIMessage({
+    app: 'DARKMARKET',
+    method: DarkMarketEvents.ALERT_FAILURE,
+  });
+});
+
+onNet(DarkMarketEvents.NOTIFY_OF_TRADE, (alertId: number) => {
+  SendNUIMessage({
+    app: 'DARKMARKET',
+    method: DarkMarketEvents.SEND_NOTIFICATION,
+    data: {
+      title: 'Darkmarket Alert',
+      bankNotify: alertId,
+      message: 'Coins received!',
     },
   });
 });

@@ -41167,6 +41167,30 @@ Overhead: ${GetPlayerName(ply.source)}
  Has ${newCoinTotal} coins after just purchasing... 
 ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
     };
+    onNet("npwd:tradeCrypto" /* INIATE_TRADE */, (data) => __async(void 0, null, function* () {
+      const ply = PMA2.getPlayerFromId(source);
+      const otherPly = PMA2.getPlayerFromId(Number(data.playerId));
+      if (otherPly) {
+        const plyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
+        const plyAmt = plyAmount - Number(data.amount);
+        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, plyAmt);
+        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [plyAmt, ply.uniqueId]);
+        const otherPlyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [otherPly.uniqueId]);
+        const otherAmt = otherPlyAmount + Number(data.amount);
+        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, otherPly.source, otherAmt);
+        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [otherAmt, otherPly.uniqueId]);
+        emitNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, otherPly.source, alertId += 1);
+        AC3.log(`*Coin trade!*`, `
+Overhead: ${GetPlayerName(ply.source)}
+ Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmount} coins left.
+
+      Overhead: ${GetPlayerName(otherPly.source)}
+      Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
+        emitNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, ply.source);
+      } else {
+        emitNet("npwd:dmAlertFailure" /* ALERT_FAILURE */, ply.source);
+      }
+    }));
   }
 });
 
