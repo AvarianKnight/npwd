@@ -83,6 +83,10 @@ const MessagesList = (): any => {
           <List>
             {[...filteredConversations]
               .sort((a, b) => {
+                const n = b.unreadCount - a.unreadCount;
+                if (n !== 0) {
+                  return n;
+                }
                 return b.updatedAt - a.updatedAt;
               })
               .map((conversation) => (
