@@ -41,38 +41,40 @@ export const ContactList: React.FC = () => {
     <>
       <SearchContacts />
       <List>
-        {filteredContacts.map((contact) => (
-          <ListItem key={contact.id} divider>
-            <ListItemAvatar>
-              {contact.avatar ? (
-                <MuiAvatar src={contact.avatar} />
-              ) : (
-                <MuiAvatar>{contact.display.slice(0, 1).toUpperCase()}</MuiAvatar>
-              )}
-            </ListItemAvatar>
-            <ListItemText
-              primary={contact.display}
-              secondary={contact.number}
-              primaryTypographyProps={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-              secondaryTypographyProps={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            />
-            <Button onClick={() => startCall(contact.number)}>
-              <PhoneIcon />
-            </Button>
-            <Button onClick={() => handleMessage(contact.number)}>
-              <ChatIcon />
-            </Button>
-            <Button style={{ margin: -15 }} onClick={() => openContactInfo(contact.id)}>
-              <MoreVertIcon />
-            </Button>
-          </ListItem>
-        ))}
+        {[...filteredContacts]
+          .sort((a, b) => a.display.localeCompare(b.display))
+          .map((contact) => (
+            <ListItem key={contact.id} divider>
+              <ListItemAvatar>
+                {contact.avatar ? (
+                  <MuiAvatar src={contact.avatar} />
+                ) : (
+                  <MuiAvatar>{contact.display.slice(0, 1).toUpperCase()}</MuiAvatar>
+                )}
+              </ListItemAvatar>
+              <ListItemText
+                primary={contact.display}
+                secondary={contact.number}
+                primaryTypographyProps={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+                secondaryTypographyProps={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              />
+              <Button onClick={() => startCall(contact.number)}>
+                <PhoneIcon />
+              </Button>
+              <Button onClick={() => handleMessage(contact.number)}>
+                <ChatIcon />
+              </Button>
+              <Button style={{ margin: -15 }} onClick={() => openContactInfo(contact.id)}>
+                <MoreVertIcon />
+              </Button>
+            </ListItem>
+          ))}
       </List>
     </>
   );
