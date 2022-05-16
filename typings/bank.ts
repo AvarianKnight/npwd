@@ -1,7 +1,8 @@
 export interface IBankCredentials {
   name: string;
   balance: number;
-  transactions: ITransactions[]
+  transactions: ITransactions[];
+  playerId: number;
 }
 
 // data.transferID, data.transferAmount, data.message

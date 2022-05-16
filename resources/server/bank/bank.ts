@@ -14,6 +14,7 @@ onNet(BankEvents.GET_CREDENTIALS, async () => {
     balance: ply.getAccount('bank').money as number,
     name: ply.firstname + ' ' + ply.lastname,
     transactions: transactions,
+    playerId: ply.source,
   };
   ply.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);
 });
@@ -62,6 +63,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
       balance: ply.getAccount('bank').money,
       name: ply.firstname + ' ' + ply.lastname,
       transactions: transactionsPly,
+      playerId: ply.source,
     };
 
     ply.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);
@@ -80,6 +82,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
       balance: tgtPly.getAccount('bank').money,
       name: tgtPly.firstname + ' ' + tgtPly.lastname,
       transactions: transactionsTgt,
+      playerId: tgtPly.source,
     };
 
     tgtPly.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);

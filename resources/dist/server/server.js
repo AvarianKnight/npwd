@@ -40730,7 +40730,8 @@ var init_bank2 = __esm({
       const credentials = {
         balance: ply.getAccount("bank").money,
         name: ply.firstname + " " + ply.lastname,
-        transactions
+        transactions,
+        playerId: ply.source
       };
       ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
     }));
@@ -40757,7 +40758,8 @@ var init_bank2 = __esm({
         credentials = {
           balance: ply.getAccount("bank").money,
           name: ply.firstname + " " + ply.lastname,
-          transactions: transactionsPly
+          transactions: transactionsPly,
+          playerId: ply.source
         };
         ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
         ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Sent money to ${tgtPly.firstname} ${tgtPly.lastname}`);
@@ -40766,7 +40768,8 @@ var init_bank2 = __esm({
         credentials = {
           balance: tgtPly.getAccount("bank").money,
           name: tgtPly.firstname + " " + tgtPly.lastname,
-          transactions: transactionsTgt
+          transactions: transactionsTgt,
+          playerId: tgtPly.source
         };
         tgtPly.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
         tgtPly.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Received money from ${ply.firstname} ${ply.lastname}`);
