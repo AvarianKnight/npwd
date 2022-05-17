@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: 2,
     backgroundColor: theme.palette.background.default,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
 }));
 
