@@ -51,6 +51,7 @@ function Phone() {
   useSimcardService();
   useTwitterService();
   // useMatchService();
+  useDarkMarketService();
   useMarketplaceService();
   useBankService();
   useMessagesService();

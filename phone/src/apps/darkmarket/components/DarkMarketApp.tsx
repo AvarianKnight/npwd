@@ -8,7 +8,7 @@ import Home from './home/Home';
 import Trade from './trade/Trade';
 
 const DarkMarketApp = () => {
-  useDarkMarketService();
+  // useDarkMarketService();
 
   return (
     <AppWrapper id="darkmarket-app">
