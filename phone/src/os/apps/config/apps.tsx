@@ -176,7 +176,7 @@ export const APPS: IAppConfig[] = [
   {
     id: 'DARKMARKET',
     nameLocale: 'Life Invader',
-    backgroundColor: blue[900],
+    backgroundColor: '#DD2626',
     color: common.white,
     path: '/darkmarket',
     Route: () => (
