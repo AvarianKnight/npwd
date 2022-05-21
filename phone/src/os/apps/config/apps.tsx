@@ -37,6 +37,7 @@ import { MatchApp } from '../../../apps/match/components/MatchApp';
 import TwitterContainer from '../../../apps/twitter/components/TwitterContainer';
 import { BankApp } from '../../../apps/bank/components/BankApp';
 import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
+import BennysApp from '../../../apps/bennys/components/BennysApp';
 
 export interface IAppConfig {
   id: string;
@@ -182,6 +183,14 @@ export const APPS: IAppConfig[] = [
     Route: () => (
       <AppRoute id="DARKMARKET" path="/darkmarket" component={DarkMarketApp} emitOnOpen={false} />
     ),
+  },
+  {
+    id: 'BENNYS',
+    nameLocale: 'Bennys Auto',
+    backgroundColor: '#9534eb',
+    color: common.white,
+    path: '/bennys',
+    Route: () => <AppRoute id="BENNYS" path="/bennys" component={BennysApp} emitOnOpen={false} />,
   },
 ];
 

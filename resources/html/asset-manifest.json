@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/resources/html/static/css/main.aafdfaf5.css",
-    "main.js": "/resources/html/static/js/main.6c4f6efb.js",
+    "main.js": "/resources/html/static/js/main.aea02537.js",
     "static/js/534.575896d0.chunk.js": "/resources/html/static/js/534.575896d0.chunk.js",
+    "static/js/9585.fc90fac9.chunk.js": "/resources/html/static/js/9585.fc90fac9.chunk.js",
     "static/js/8160.0eaa0c71.chunk.js": "/resources/html/static/js/8160.0eaa0c71.chunk.js",
     "static/js/687.6987a382.chunk.js": "/resources/html/static/js/687.6987a382.chunk.js",
     "static/js/1444.4142f507.chunk.js": "/resources/html/static/js/1444.4142f507.chunk.js",
     "static/js/479.3b186760.chunk.js": "/resources/html/static/js/479.3b186760.chunk.js",
-    "static/js/7164.e008b7e2.chunk.js": "/resources/html/static/js/7164.e008b7e2.chunk.js",
+    "static/js/7164.1f28fbeb.chunk.js": "/resources/html/static/js/7164.1f28fbeb.chunk.js",
     "static/js/6755.2b83229f.chunk.js": "/resources/html/static/js/6755.2b83229f.chunk.js",
     "static/js/7865.7b5372ea.chunk.js": "/resources/html/static/js/7865.7b5372ea.chunk.js",
     "static/js/4091.ebf48a61.chunk.js": "/resources/html/static/js/4091.ebf48a61.chunk.js",
@@ -73,6 +74,7 @@
     "static/media/WEAPON_APPISTOL.png": "/resources/html/static/media/WEAPON_APPISTOL.cbf1dd616129f210a42a.png",
     "static/media/WEAPON_PISTOL50.png": "/resources/html/static/media/WEAPON_PISTOL50.d4c6d159b9a7e409a942.png",
     "static/media/WEAPON_AKMS.png": "/resources/html/static/media/WEAPON_AKMS.90cf1ec1da67d434e083.png",
+    "static/media/bennys_bg.png": "/resources/html/static/media/bennys_bg.4f0d2385f2ff13398e20.png",
     "static/media/WEAPON_SNSPISTOL_MK2.png": "/resources/html/static/media/WEAPON_SNSPISTOL_MK2.4001b9ada25be4d03063.png",
     "static/media/WEAPON_MACHINEPISTOL.png": "/resources/html/static/media/WEAPON_MACHINEPISTOL.82bce47a1736c6c5b7a1.png",
     "static/media/WEAPON_MAC10.png": "/resources/html/static/media/WEAPON_MAC10.9aa8abafeb1cff1bc3d1.png",
@@ -89,15 +91,17 @@
     "static/media/WEAPON_BULLPUPRIFLE_MK2.png": "/resources/html/static/media/WEAPON_BULLPUPRIFLE_MK2.1c6f6cc93ad4913e345f.png",
     "static/media/WEAPON_BULLPUPRIFLE.png": "/resources/html/static/media/WEAPON_BULLPUPRIFLE.329329e1b1cbed38c7f4.png",
     "static/media/WEAPON_ASSAULTRIFLE.png": "/resources/html/static/media/WEAPON_ASSAULTRIFLE.a5283d7dbfb13533d611.png",
+    "static/media/bennys_banner.png": "/resources/html/static/media/bennys_banner.7b8ec9daef0fd0fd16dd.png",
     "index.html": "/resources/html/index.html",
     "main.aafdfaf5.css.map": "/resources/html/static/css/main.aafdfaf5.css.map",
-    "main.6c4f6efb.js.map": "/resources/html/static/js/main.6c4f6efb.js.map",
+    "main.aea02537.js.map": "/resources/html/static/js/main.aea02537.js.map",
     "534.575896d0.chunk.js.map": "/resources/html/static/js/534.575896d0.chunk.js.map",
+    "9585.fc90fac9.chunk.js.map": "/resources/html/static/js/9585.fc90fac9.chunk.js.map",
     "8160.0eaa0c71.chunk.js.map": "/resources/html/static/js/8160.0eaa0c71.chunk.js.map",
     "687.6987a382.chunk.js.map": "/resources/html/static/js/687.6987a382.chunk.js.map",
     "1444.4142f507.chunk.js.map": "/resources/html/static/js/1444.4142f507.chunk.js.map",
     "479.3b186760.chunk.js.map": "/resources/html/static/js/479.3b186760.chunk.js.map",
-    "7164.e008b7e2.chunk.js.map": "/resources/html/static/js/7164.e008b7e2.chunk.js.map",
+    "7164.1f28fbeb.chunk.js.map": "/resources/html/static/js/7164.1f28fbeb.chunk.js.map",
     "6755.2b83229f.chunk.js.map": "/resources/html/static/js/6755.2b83229f.chunk.js.map",
     "7865.7b5372ea.chunk.js.map": "/resources/html/static/js/7865.7b5372ea.chunk.js.map",
     "4091.ebf48a61.chunk.js.map": "/resources/html/static/js/4091.ebf48a61.chunk.js.map",
@@ -160,6 +164,6 @@
   },
   "entrypoints": [
     "static/css/main.aafdfaf5.css",
-    "static/js/main.6c4f6efb.js"
+    "static/js/main.aea02537.js"
   ]
 }

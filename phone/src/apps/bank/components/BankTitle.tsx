@@ -34,7 +34,6 @@ const HeaderContainer = styled(Paper)`
 `;
 
 export const BankTitle = () => {
-  // const classes = useStyles();
   const credentials = useCredentials();
 
   return (
@@ -44,7 +43,7 @@ export const BankTitle = () => {
           Banking
         </Typography>
       </Box>
-      <Box style={{ width: '100%', textAlign: 'center' }}>Bank ID:{credentials?.playerId}</Box>
+      <Box style={{ width: '100%', textAlign: 'center' }}>Bank ID: {credentials?.playerId}</Box>
     </HeaderContainer>
   );
 };
