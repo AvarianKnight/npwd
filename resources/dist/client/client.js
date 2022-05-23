@@ -9833,6 +9833,56 @@
     }
   });
 
+  // ../typings/bennys.ts
+  var init_bennys = __esm({
+    "../typings/bennys.ts"() {
+    }
+  });
+
+  // client/cl_bennys.ts
+  var init_cl_bennys = __esm({
+    "client/cl_bennys.ts"() {
+      init_bennys();
+      RegisterNuiCallbackType("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
+      RegisterNuiCallbackType("npwd:freeVehicle" /* FREE_VEHICLE */);
+      on(`__cfx_nui:${"npwd:getVehicleList" /* GET_VEHICLE_LIST */}`, (data, cb) => {
+        emitNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:freeVehicle" /* FREE_VEHICLE */}`, (data, cb) => {
+        emitNet("npwd:freeVehicle" /* FREE_VEHICLE */, data);
+        cb({});
+      });
+      onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, (vehicleList) => {
+        vehicleList.map((veh) => veh.model = GetDisplayNameFromVehicleModel(veh.model));
+        SendNUIMessage({
+          app: "BENNYS",
+          method: "npwd:getVehicleList" /* GET_VEHICLE_LIST */,
+          data: {
+            vehicleList,
+            impound: {
+              regularFee: 5e3,
+              policeFee: 12e3
+            }
+          }
+        });
+      });
+      onNet("npwd:freeVehicle" /* FREE_VEHICLE */, () => {
+        SendNUIMessage({
+          app: "BENNYS",
+          method: "npwd:freeVehicle" /* FREE_VEHICLE */
+        });
+        emitNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
+      });
+      onNet("npwd:failImpound" /* FAIL_IMPOUND */, () => {
+        SendNUIMessage({
+          app: "BENNYS",
+          method: "npwd:failImpound" /* FAIL_IMPOUND */
+        });
+      });
+    }
+  });
+
   // client/client.ts
   var import_cl_photo, import_cl_exports, import_cl_darkmarket, ClUtils;
   var init_client = __esm({
@@ -9853,6 +9903,7 @@
       init_client_settings();
       init_cl_bank();
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
+      init_cl_bennys();
       ClUtils = new ClientUtils();
     }
   });

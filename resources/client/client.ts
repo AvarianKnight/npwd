@@ -15,5 +15,6 @@ import './cl_exports';
 import './settings/client-settings';
 import './cl_bank';
 import './cl_darkmarket';
+import './cl_bennys';
 
 export const ClUtils = new ClientUtils();

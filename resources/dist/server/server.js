@@ -40716,14 +40716,12 @@ var init_bank = __esm({
 });
 
 // server/bank/bank.ts
-var exp3, ox, PMA, AC2, processTransaction, insertBankTransactions;
+var exp3, processTransaction, insertBankTransactions;
 var init_bank2 = __esm({
   "server/bank/bank.ts"() {
     init_bank();
+    init_server();
     exp3 = global.exports;
-    ox = exp3.oxmysql;
-    PMA = exp3["pma-framework"].getData();
-    AC2 = exp3["pma-anticheat"];
     onNet("npwd:getBankCredentials" /* GET_CREDENTIALS */, () => __async(void 0, null, function* () {
       const ply = PMA.getPlayerFromId(source);
       const transactions = yield ox.query_async(`SELECT type, amount FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
@@ -41065,7 +41063,7 @@ var init_darkmarket_config = __esm({
       new Vector3(-504.21, -1634.42, 17.8),
       new Vector3(-820.44, -2093.94, 8.81),
       new Vector3(-700.87, -2446.08, 14.03),
-      new Vector3(-884.93, -3055.16, 23.94),
+      new Vector3(-884.01, -3054.58, 12.94),
       new Vector3(1381.6, 3616.11, 34.89),
       new Vector3(983.62, 3581.69, 33.62),
       new Vector3(376.46, 3572.71, 33.29),
@@ -41203,6 +41201,48 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
   }
 });
 
+// ../typings/bennys.ts
+var init_bennys = __esm({
+  "../typings/bennys.ts"() {
+  }
+});
+
+// server/bennys/bennys.ts
+var init_bennys2 = __esm({
+  "server/bennys/bennys.ts"() {
+    init_server();
+    init_bennys();
+    onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
+      const player = PMA.getPlayerFromId(source);
+      let vehicleList = [];
+      ox.query(`SELECT plate, state, vehicle, police_lock FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
+        results.forEach((veh) => {
+          const model = JSON.parse(veh.vehicle).model;
+          const obj = {
+            plate: veh.plate,
+            state: veh.state,
+            model,
+            police_lock: veh.police_lock
+          };
+          vehicleList.push(obj);
+        });
+        player.triggerEvent("npwd:getVehicleList" /* GET_VEHICLE_LIST */, vehicleList);
+      });
+    });
+    onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
+      const player = PMA.getPlayerFromId(source);
+      if (vehicle.impoundFee <= player.getAccount("bank").money) {
+        ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE plate = ?`, [vehicle.plate], () => {
+          player.removeAccountMoney("bank", vehicle.impoundFee);
+          player.triggerEvent("npwd:freeVehicle" /* FREE_VEHICLE */);
+        });
+      } else {
+        player.triggerEvent("npwd:failImpound" /* FAIL_IMPOUND */);
+      }
+    });
+  }
+});
+
 // server/bridge/bridge.utils.ts
 var bridgeLogger;
 var init_bridge_utils = __esm({
@@ -41221,24 +41261,24 @@ var require_sv_exports = __commonJS({
     init_player_utils();
     init_player_service();
     init_phone();
-    var exp5 = global.exports;
+    var exp6 = global.exports;
     var logExport = (exportName, msg) => {
       bridgeLogger.debug(`[${exportName}] ${msg}`);
     };
-    exp5("generatePhoneNumber", () => __async(exports2, null, function* () {
+    exp6("generatePhoneNumber", () => __async(exports2, null, function* () {
       const num = yield generateUniquePhoneNumber();
       logExport("generatePhoneNumber", num);
       return num;
     }));
     if (config.general.useResourceIntegration) {
-      exp5("newPlayer", (playerDTO) => __async(exports2, null, function* () {
+      exp6("newPlayer", (playerDTO) => __async(exports2, null, function* () {
         if (typeof playerDTO.source !== "number") {
           return playerLogger.error("Source must be passed as a number when loading a player");
         }
         yield player_service_default.handleNewPlayerEvent(playerDTO);
         emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, playerDTO.source, true);
       }));
-      exp5("unloadPlayer", (src) => __async(exports2, null, function* () {
+      exp6("unloadPlayer", (src) => __async(exports2, null, function* () {
         if (typeof src !== "number") {
           return playerLogger.error("Source must be passed as a number when unloading a player");
         }
@@ -41253,8 +41293,8 @@ var require_sv_exports = __commonJS({
 var require_emitMessage = __commonJS({
   "server/messages/middleware/emitMessage.ts"(exports2) {
     init_messages_service();
-    var exp5 = global.exports;
-    exp5("emitMessage", (_0) => __async(exports2, [_0], function* ({ senderNumber, targetNumber, message }) {
+    var exp6 = global.exports;
+    exp6("emitMessage", (_0) => __async(exports2, [_0], function* ({ senderNumber, targetNumber, message }) {
       yield messages_service_default.handleEmitMessage({ senderNumber, targetNumber, message });
     }));
   }
@@ -47927,10 +47967,14 @@ var require_dist10 = __commonJS({
 // server/server.ts
 var server_exports = {};
 __export(server_exports, {
-  config: () => config2
+  AC: () => AC2,
+  PMA: () => PMA,
+  config: () => config2,
+  exp: () => exp5,
+  ox: () => ox
 });
 module.exports = __toCommonJS(server_exports);
-var import_integrations, import_boot4, import_player15, import_notes3, import_messages6, import_marketplace5, import_sv_exports, import_emitMessage, Sentry, config2;
+var import_integrations, import_boot4, import_player15, import_notes3, import_messages6, import_marketplace5, import_sv_exports, import_emitMessage, Sentry, config2, exp5, ox, AC2, PMA;
 var init_server = __esm({
   "server/server.ts"() {
     init_config2();
@@ -47949,12 +47993,17 @@ var init_server = __esm({
     init_twitter_controller();
     init_bank2();
     init_darkmarket2();
+    init_bennys2();
     import_sv_exports = __toESM(require_sv_exports());
     import_emitMessage = __toESM(require_emitMessage());
     init_exports();
     init_sv_logger();
     Sentry = __toESM(require_dist10());
     config2 = config;
+    exp5 = global.exports;
+    ox = exp5.oxmysql;
+    AC2 = exp5["pma-anticheat"];
+    PMA = exp5["pma-framework"].getData();
     registerCommands();
     if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
       Sentry.init({
@@ -47974,7 +48023,11 @@ var init_server = __esm({
 init_server();
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  config
+  AC,
+  PMA,
+  config,
+  exp,
+  ox
 });
 /*!
     localForage -- Offline Storage, Improved

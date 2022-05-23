@@ -1,9 +1,6 @@
 import { Box, styled, Typography } from '@mui/material';
-import { useRecoilValue } from 'recoil';
 import { Button } from '../../../../ui/components/Button';
 import Modal from '../../../../ui/components/Modal';
-import { darkMarketState } from '../../atoms/state';
-import { useCart } from '../../hooks/useCart';
 
 const CheckoutContainer = styled(Box)`
   height: 100px;

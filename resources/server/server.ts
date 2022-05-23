@@ -5,6 +5,11 @@ import { config as resourceConfig } from './config';
 export const config = resourceConfig;
 import { registerCommands } from './commands/registerCommands';
 
+export const exp = (global as any).exports;
+export const ox = exp.oxmysql;
+export const AC = exp['pma-anticheat'];
+export const PMA: any = exp['pma-framework'].getData();
+
 // Setup controllers
 import './db/pool';
 import './boot/boot.controller';
@@ -18,6 +23,7 @@ import './marketplace/marketplace.controller';
 import './twitter/twitter.controller';
 import './bank/bank';
 import './darkmarket/darkmarket';
+import './bennys/bennys';
 // import './match/match.controller';
 
 // setup exports

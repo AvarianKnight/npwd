@@ -5,6 +5,7 @@ import BennysTitle from './BennysTitle';
 import Home from './home/Home';
 import BG from '../../../assets/bennys/bennys_bg.png';
 import styled from 'styled-components';
+import { useBennys } from '../hooks/useBennys';
 
 const Content = styled.div`
   top: 80px;
@@ -17,6 +18,8 @@ const Content = styled.div`
 `;
 
 const BennysApp = () => {
+  useBennys();
+
   return (
     <AppWrapper
       id="bennys-app"
