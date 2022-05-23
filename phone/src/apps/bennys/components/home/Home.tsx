@@ -15,7 +15,10 @@ const Home = () => {
   const { filterVehicleList, vehicleList, payImpound } = useBennys();
 
   const carLocation = (state: number, police_lock: string) => {
-    if (state === 0) {
+    if (parseInt(police_lock) > 0) {
+      const lock: string = police_lock + '000';
+      return `Locked until: ${new Date(parseInt(lock)).toDateString()}`;
+    } else if (state === 0) {
       return 'Location: Garage';
     } else if (state === 1) {
       return 'Location: City';
@@ -25,9 +28,6 @@ const Home = () => {
       return 'Location: Home';
     } else if (state === 4 && parseInt(police_lock) === 0) {
       return 'Location: PD Impound';
-    } else if (state === 4 && police_lock) {
-      const lock: string = police_lock + '000';
-      return `Locked until: ${new Date(parseInt(lock)).toDateString()}`;
     }
   };
 
