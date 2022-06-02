@@ -21,6 +21,8 @@ CreateThread(function()
             DisableControlAction(0, 37, true)   -- Weapon Wheel
             DisableControlAction(0, 44, true)   -- Cover
             DisableControlAction(0, 47, true)   -- Detonate
+            DisableControlAction(0, 68, true)   -- Vehicle Aim
+            DisableControlAction(0, 69, true)   -- Vehicle Attack
             DisableControlAction(0, 55, true)   -- Dive
             DisableControlAction(0, 75, true)   -- Exit Vehicle
             DisableControlAction(0, 76, true)   -- Vehicle Handbrake
