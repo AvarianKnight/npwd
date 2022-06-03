@@ -43,7 +43,7 @@ export const WeaponCoords = [
   new Vector3(2020.13, 4982.9, 41.21),
   new Vector3(1702.82, 4847.52, 42.1),
   new Vector3(1633.92, 4856.64, 41.96),
-  new Vector3(-1.23, 3734.31, 29.78),
+  new Vector3(-1.23, 3734.31, 39.78),
   new Vector3(-1133.25, 4942.11, 220.6),
   new Vector3(-2452.25, 2941.6, 32.96),
   new Vector3(-2013.82, 3373.09, 31.34),
