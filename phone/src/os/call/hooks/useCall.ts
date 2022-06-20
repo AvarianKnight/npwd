@@ -2,11 +2,13 @@ import { ActiveCall } from '@typings/call';
 import { useCurrentCall } from './state';
 import { CallEvents } from '@typings/call';
 import fetchNui from '@utils/fetchNui';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useMyPhoneNumber } from '@os/simcard/hooks/useMyPhoneNumber';
 import { useSnackbar } from '@os/snackbar/hooks/useSnackbar';
 import { useTranslation } from 'react-i18next';
 import { ServerPromiseResp } from '@typings/common';
+import { phoneState } from '@os/phone/hooks/state';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 interface CallHook {
   call: ActiveCall;
@@ -21,9 +23,18 @@ interface CallHook {
 
 export const useCall = (): CallHook => {
   const [call, setCall] = useCurrentCall();
+  const isPhoneDisabled = useRecoilValue(phoneState.isPhoneDisabled);
+
   const myPhoneNumber = useMyPhoneNumber();
   const [t] = useTranslation();
   const { addAlert } = useSnackbar();
+
+  useEffect(() => {
+    if (call && isPhoneDisabled) {
+      console.log(isPhoneDisabled);
+      endCall();
+    }
+  }, [isPhoneDisabled]);
 
   const initializeCall = useCallback(
     (number) => {

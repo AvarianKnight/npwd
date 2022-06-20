@@ -34,10 +34,11 @@ exps('setPhoneVisible', async (bool: boolean | number) => {
 exps('isPhoneVisible', () => global.isPhoneOpen);
 
 // Will prevent the phone from being opened
-exps('setPhoneDisabled', (bool: boolean | number) => {
-  verifyExportArgType('setPhoneVisible', bool, ['boolean', 'number']);
+exps('setPhoneDisabled', async (bool: boolean | number) => {
+  verifyExportArgType('setPhoneDisabled', bool, ['boolean', 'number']);
   const coercedType = !!bool;
   global.isPhoneDisabled = coercedType;
+  await hidePhone();
   sendPhoneEvent(PhoneEvents.IS_PHONE_DISABLED, bool);
 });
 
