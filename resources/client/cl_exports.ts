@@ -38,7 +38,9 @@ exps('setPhoneDisabled', async (bool: boolean | number) => {
   verifyExportArgType('setPhoneDisabled', bool, ['boolean', 'number']);
   const coercedType = !!bool;
   global.isPhoneDisabled = coercedType;
-  await hidePhone();
+  if (global.isPhoneOpen) {
+    await hidePhone();
+  }
   sendPhoneEvent(PhoneEvents.IS_PHONE_DISABLED, bool);
 });
 

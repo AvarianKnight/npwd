@@ -85,6 +85,7 @@ RegisterCommand(
   async () => {
     //-- Toggles Phone
     // Check to see if the phone is marked as disabled
+    if (IsPauseMenuActive()) return;
     if (!global.isPhoneDisabled) await togglePhone();
   },
   false,

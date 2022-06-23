@@ -664,6 +664,8 @@
         emit("npwd:disableControlActions", false);
       });
       RegisterCommand(config.general.toggleCommand, () => __async(void 0, null, function* () {
+        if (IsPauseMenuActive())
+          return;
         if (!global.isPhoneDisabled)
           yield togglePhone();
       }), false);
@@ -1241,7 +1243,9 @@
         verifyExportArgType("setPhoneDisabled", bool, ["boolean", "number"]);
         const coercedType = !!bool;
         global.isPhoneDisabled = coercedType;
-        yield hidePhone();
+        if (global.isPhoneOpen) {
+          yield hidePhone();
+        }
         sendPhoneEvent("npwd:isPhoneDisabled" /* IS_PHONE_DISABLED */, bool);
       }));
       exps2("isPhoneDisabled", () => global.isPhoneDisabled);
