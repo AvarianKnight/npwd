@@ -17199,8 +17199,7 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request({
-          ...this.options,
+        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17208,7 +17207,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        });
+        }));
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -41035,7 +41034,7 @@ var init_darkmarket_config = __esm({
       new Vector3(2020.13, 4982.9, 41.21),
       new Vector3(1702.82, 4847.52, 42.1),
       new Vector3(1633.92, 4856.64, 41.96),
-      new Vector3(-1.23, 3734.31, 29.78),
+      new Vector3(-1.23, 3734.31, 39.78),
       new Vector3(-1133.25, 4942.11, 220.6),
       new Vector3(-2452.25, 2941.6, 32.96),
       new Vector3(-2013.82, 3373.09, 31.34),

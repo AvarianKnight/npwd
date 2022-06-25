@@ -14,7 +14,6 @@ export const useCart = () => {
   const history = useHistory();
 
   const addItem = (item: Item) => {
-    console.log(cart);
     setCart((cart) => [...cart, item]);
   };
 
