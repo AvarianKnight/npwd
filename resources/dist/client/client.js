@@ -664,6 +664,8 @@
         emit("npwd:disableControlActions", false);
       });
       RegisterCommand(config.general.toggleCommand, () => __async(void 0, null, function* () {
+        if (IsPauseMenuActive())
+          return;
         if (!global.isPhoneDisabled)
           yield togglePhone();
       }), false);
@@ -1237,12 +1239,15 @@
           yield hidePhone();
       }));
       exps2("isPhoneVisible", () => global.isPhoneOpen);
-      exps2("setPhoneDisabled", (bool) => {
-        verifyExportArgType("setPhoneVisible", bool, ["boolean", "number"]);
+      exps2("setPhoneDisabled", (bool) => __async(exports, null, function* () {
+        verifyExportArgType("setPhoneDisabled", bool, ["boolean", "number"]);
         const coercedType = !!bool;
         global.isPhoneDisabled = coercedType;
+        if (global.isPhoneOpen) {
+          yield hidePhone();
+        }
         sendPhoneEvent("npwd:isPhoneDisabled" /* IS_PHONE_DISABLED */, bool);
-      });
+      }));
       exps2("isPhoneDisabled", () => global.isPhoneDisabled);
       exps2("startPhoneCall", (number) => {
         verifyExportArgType("startPhoneCall", number, ["string"]);
