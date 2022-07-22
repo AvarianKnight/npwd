@@ -17199,7 +17199,8 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
+        const req = (this.ssl ? https : http).request({
+          ...this.options,
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17207,7 +17208,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        }));
+        });
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -41153,10 +41154,10 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase
           return;
         }
         if (item.quantity === 1) {
-          PMA2.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+          TriggerEvent("pma-inv:world:openInventory", [coords.x, coords.y, coords.z], [weapon.name]);
         } else {
           for (let i = 0; i < item.quantity; i++) {
-            PMA2.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+            TriggerEvent("pma-inv:world:openInventory", [coords.x, coords.y, coords.z], [weapon.name]);
           }
         }
       }

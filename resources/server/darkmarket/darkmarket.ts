@@ -80,10 +80,11 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
     }
 
     if (item.quantity === 1) {
-      PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+      // PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+      TriggerEvent('pma-inv:world:openInventory', [coords.x, coords.y, coords.z], [weapon.name]);
     } else {
       for (let i = 0; i < item.quantity; i++) {
-        PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
+        TriggerEvent('pma-inv:world:openInventory', [coords.x, coords.y, coords.z], [weapon.name]);
       }
     }
   }
