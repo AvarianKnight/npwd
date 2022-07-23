@@ -28,7 +28,7 @@ onNet(BennysEvents.GET_VEHICLE_LIST, () => {
 onNet(BennysEvents.FREE_VEHICLE, (vehicle: Vehicle) => {
   const player = PMA.getPlayerFromId(source);
 
-  if (vehicle.impoundFee <= player.getAccount('bank').money) {
+  if (vehicle.impoundFee <= player.getAccount('bank').quantity) {
     ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE plate = ?`, [vehicle.plate], () => {
       player.removeAccountMoney('bank', vehicle.impoundFee);
       player.triggerEvent(BennysEvents.FREE_VEHICLE);

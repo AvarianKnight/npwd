@@ -10,7 +10,7 @@ onNet(BankEvents.GET_CREDENTIALS, async () => {
     [ply.uniqueId],
   );
   const credentials: IBankCredentials = {
-    balance: ply.getAccount('bank').money as number,
+    balance: ply.getAccount('bank').quantity as number,
     name: ply.firstname + ' ' + ply.lastname,
     transactions: transactions,
     playerId: ply.source,
@@ -30,8 +30,8 @@ onNet(BankEvents.ADD_TRANSFER, async (transferData: TransferData) => {
 });
 
 const processTransaction = async (ply: any, tgtPly: any, transferData: TransferData) => {
-  const plyMoney = ply.getAccount('bank').money;
-  const tgtPlyMoney = tgtPly.getAccount('bank').money;
+  const plyMoney = ply.getAccount('bank').quantity;
+  const tgtPlyMoney = tgtPly.getAccount('bank').quantity;
   if (plyMoney > transferData.transferAmount && transferData.transferAmount > 0) {
     ply.removeAccountMoney('bank', transferData.transferAmount);
     tgtPly.addAccountMoney('bank', transferData.transferAmount);
@@ -59,7 +59,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     );
 
     credentials = {
-      balance: ply.getAccount('bank').money,
+      balance: ply.getAccount('bank').quantity,
       name: ply.firstname + ' ' + ply.lastname,
       transactions: transactionsPly,
       playerId: ply.source,
@@ -78,7 +78,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     );
 
     credentials = {
-      balance: tgtPly.getAccount('bank').money,
+      balance: tgtPly.getAccount('bank').quantity,
       name: tgtPly.firstname + ' ' + tgtPly.lastname,
       transactions: transactionsTgt,
       playerId: tgtPly.source,
