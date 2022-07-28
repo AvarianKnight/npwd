@@ -183,80 +183,89 @@
   });
 
   // ../config.default.json
-  var config_default_default;
+  var PhoneAsItem, general, database, images, imageSafety, profanityFilter, twitter, match, debug, config_default_default;
   var init_config_default = __esm({
     "../config.default.json"() {
+      PhoneAsItem = {
+        enabled: false,
+        exportResource: "my-core-resource",
+        exportFunction: "myCheckerFunction"
+      };
+      general = {
+        useResourceIntegration: false,
+        toggleKey: "f1",
+        toggleCommand: "phone",
+        defaultLanguage: "en"
+      };
+      database = {
+        useIdentifierPrefix: false,
+        playerTable: "users",
+        identifierColumn: "identifier",
+        identifierType: "license",
+        profileQueries: true,
+        phoneNumberColumn: "phone_number"
+      };
+      images = {
+        url: "https://i.pma.network/v1/image",
+        type: "imgur",
+        imageEncoding: "jpg",
+        contentType: "multipart/form-data",
+        authorizationPrefix: "Client-ID",
+        useAuthorization: false,
+        returnedDataIndexes: ["data", "link"]
+      };
+      imageSafety = {
+        filterUnsafeImageUrls: true,
+        embedUnsafeImages: true,
+        embedUrl: "https://i.pma.network/v1/embed",
+        safeImageUrls: [
+          "imgur.com",
+          "file.glass",
+          "dropbox.com",
+          "tenor.com",
+          "discord.com",
+          "discordapp.com",
+          "wikipedia.org",
+          "i.pma.network"
+        ]
+      };
+      profanityFilter = {
+        enabled: false,
+        badWords: ["esx"]
+      };
+      twitter = {
+        showNotifications: true,
+        generateProfileNameFromUsers: true,
+        allowEditableProfileName: true,
+        allowDeleteTweets: true,
+        allowReportTweets: true,
+        allowRetweet: false,
+        characterLimit: 160,
+        newLineLimit: 10,
+        enableAvatars: true,
+        enableEmojis: true,
+        enableImages: true,
+        maxImages: 3
+      };
+      match = {
+        generateProfileNameFromUsers: true,
+        allowEditableProfileName: true
+      };
+      debug = {
+        level: "error",
+        enabled: true,
+        sentryEnabled: true
+      };
       config_default_default = {
-        PhoneAsItem: {
-          enabled: false,
-          exportResource: "my-core-resource",
-          exportFunction: "myCheckerFunction"
-        },
-        general: {
-          useResourceIntegration: false,
-          toggleKey: "f1",
-          toggleCommand: "phone",
-          defaultLanguage: "en"
-        },
-        database: {
-          useIdentifierPrefix: false,
-          playerTable: "users",
-          identifierColumn: "identifier",
-          identifierType: "license",
-          profileQueries: true,
-          phoneNumberColumn: "phone_number"
-        },
-        images: {
-          url: "https://i.pma.network/v1/image",
-          type: "imgur",
-          imageEncoding: "jpg",
-          contentType: "multipart/form-data",
-          authorizationPrefix: "Client-ID",
-          useAuthorization: false,
-          returnedDataIndexes: ["data", "link"]
-        },
-        imageSafety: {
-          filterUnsafeImageUrls: true,
-          embedUnsafeImages: true,
-          embedUrl: "https://i.pma.network/v1/embed",
-          safeImageUrls: [
-            "imgur.com",
-            "file.glass",
-            "dropbox.com",
-            "tenor.com",
-            "discord.com",
-            "discordapp.com",
-            "wikipedia.org",
-            "i.pma.network"
-          ]
-        },
-        profanityFilter: {
-          enabled: false,
-          badWords: ["esx"]
-        },
-        twitter: {
-          showNotifications: true,
-          generateProfileNameFromUsers: true,
-          allowEditableProfileName: true,
-          allowDeleteTweets: true,
-          allowReportTweets: true,
-          allowRetweet: false,
-          characterLimit: 160,
-          newLineLimit: 10,
-          enableAvatars: true,
-          enableEmojis: true,
-          enableImages: true,
-          maxImages: 3
-        },
-        match: {
-          generateProfileNameFromUsers: true,
-          allowEditableProfileName: true
-        },
-        debug: {
-          level: "error",
-          enabled: true,
-          sentryEnabled: true
-        }
+        PhoneAsItem,
+        general,
+        database,
+        images,
+        imageSafety,
+        profanityFilter,
+        twitter,
+        match,
+        debug
       };
     }
   });
@@ -1353,10 +1362,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Vector3.js
+  // node_modules/@nativewrappers/client/lib/utils/Vector3.js
   var Vector3;
   var init_Vector3 = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Vector3.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/Vector3.js"() {
       Vector3 = class {
         constructor(x, y, z) {
           this.x = x;
@@ -1402,8 +1411,8 @@
         }
         static crossProduct(v1, v2) {
           const x = v1.y * v2.z - v1.z * v2.y;
-          const y = v1.z * v2.x - v1.x * v2.z;
-          const z = v1.x * v2.y - v1.y * v2.x;
+          const y = v1.z * v2.x - v1.z * v2.z;
+          const z = v1.x * v2.y - v1.z * v2.x;
           return new Vector3(x, y, z);
         }
         static normalize(v) {
@@ -1455,10 +1464,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Maths.js
+  // node_modules/@nativewrappers/client/lib/utils/Maths.js
   var Maths;
   var init_Maths = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Maths.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/Maths.js"() {
       Maths = class {
         static clamp(num, min, max) {
           return num <= min ? min : num >= max ? max : num;
@@ -1472,10 +1481,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Color.js
+  // node_modules/@nativewrappers/client/lib/utils/Color.js
   var Color;
   var init_Color = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Color.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/Color.js"() {
       Color = class {
         constructor(a = 255, r, g, b) {
           this.a = a;
@@ -1501,10 +1510,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Quaternion.js
+  // node_modules/@nativewrappers/client/lib/utils/Quaternion.js
   var Quaternion;
   var init_Quaternion = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Quaternion.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/Quaternion.js"() {
       init_Vector3();
       Quaternion = class {
         constructor(valueXOrVector, yOrW, z, w) {
@@ -1529,7 +1538,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/enumValues.js
+  // node_modules/@nativewrappers/client/lib/utils/enumValues.js
   function* enumValues(enumObj) {
     let isStringEnum = true;
     for (const property in enumObj) {
@@ -1545,30 +1554,30 @@
     }
   }
   var init_enumValues = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/enumValues.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/enumValues.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/getStringFromUInt8Array.js
+  // node_modules/@nativewrappers/client/lib/utils/getStringFromUInt8Array.js
   var getStringFromUInt8Array;
   var init_getStringFromUInt8Array = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/getStringFromUInt8Array.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/getStringFromUInt8Array.js"() {
       getStringFromUInt8Array = (buffer, start, end) => String.fromCharCode(...buffer.slice(start, end)).replace(/\u0000/g, "");
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/getUInt32FromUint8Array.js
+  // node_modules/@nativewrappers/client/lib/utils/getUInt32FromUint8Array.js
   var getUInt32FromUint8Array;
   var init_getUInt32FromUint8Array = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/getUInt32FromUint8Array.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/getUInt32FromUint8Array.js"() {
       getUInt32FromUint8Array = (buffer, start, end) => new Uint32Array(buffer.slice(start, end).buffer)[0];
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Animations.js
+  // node_modules/@nativewrappers/client/lib/utils/Animations.js
   var LoadAnimDict;
   var init_Animations = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/Animations.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/Animations.js"() {
       init_lib();
       LoadAnimDict = (animDict, waitTime = 1e3) => __async(void 0, null, function* () {
         const start = GetGameTimer();
@@ -1585,10 +1594,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/index.js
+  // node_modules/@nativewrappers/client/lib/utils/index.js
   var Wait;
   var init_utils = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/utils/index.js"() {
+    "node_modules/@nativewrappers/client/lib/utils/index.js"() {
       init_Vector3();
       init_Color();
       init_Maths();
@@ -1601,10 +1610,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Audio.js
+  // node_modules/@nativewrappers/client/lib/Audio.js
   var Audio;
   var init_Audio = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Audio.js"() {
+    "node_modules/@nativewrappers/client/lib/Audio.js"() {
       Audio = class {
         static playSoundAt(position, sound, set, generateSoundId = true) {
           const SOUND_ID = generateSoundId ? GetSoundId() : -1;
@@ -1698,10 +1707,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Blip.js
+  // node_modules/@nativewrappers/client/lib/enums/Blip.js
   var BlipColor, BlipSprite;
   var init_Blip = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Blip.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/Blip.js"() {
       (function(BlipColor2) {
         BlipColor2[BlipColor2["White"] = 0] = "White";
         BlipColor2[BlipColor2["Red"] = 1] = "Red";
@@ -1928,10 +1937,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/CloudHat.js
+  // node_modules/@nativewrappers/client/lib/enums/CloudHat.js
   var CloudHat;
   var init_CloudHat = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/CloudHat.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/CloudHat.js"() {
       (function(CloudHat2) {
         CloudHat2[CloudHat2["Unknown"] = 1] = "Unknown";
         CloudHat2[CloudHat2["Altostratus"] = 2] = "Altostratus";
@@ -1958,10 +1967,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Driving.js
+  // node_modules/@nativewrappers/client/lib/enums/Driving.js
   var DrivingStyle, VehicleDrivingFlags;
   var init_Driving = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Driving.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/Driving.js"() {
       (function(DrivingStyle2) {
         DrivingStyle2[DrivingStyle2["None"] = 0] = "None";
         DrivingStyle2[DrivingStyle2["Normal"] = 786603] = "Normal";
@@ -1997,10 +2006,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/FiringPattern.js
+  // node_modules/@nativewrappers/client/lib/enums/FiringPattern.js
   var FiringPattern;
   var init_FiringPattern = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/FiringPattern.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/FiringPattern.js"() {
       (function(FiringPattern2) {
         FiringPattern2[FiringPattern2["Default"] = 0] = "Default";
         FiringPattern2[FiringPattern2["FullAuto"] = 3337513804] = "FullAuto";
@@ -2023,10 +2032,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/ForceType.js
+  // node_modules/@nativewrappers/client/lib/enums/ForceType.js
   var ForceType;
   var init_ForceType = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/ForceType.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/ForceType.js"() {
       (function(ForceType2) {
         ForceType2[ForceType2["MinForce"] = 0] = "MinForce";
         ForceType2[ForceType2["MaxForceRot"] = 1] = "MaxForceRot";
@@ -2038,10 +2047,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Gender.js
+  // node_modules/@nativewrappers/client/lib/enums/Gender.js
   var Gender;
   var init_Gender = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Gender.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/Gender.js"() {
       (function(Gender2) {
         Gender2[Gender2["Male"] = 0] = "Male";
         Gender2[Gender2["Female"] = 1] = "Female";
@@ -2049,10 +2058,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/InputMode.js
+  // node_modules/@nativewrappers/client/lib/enums/InputMode.js
   var InputMode;
   var init_InputMode = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/InputMode.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/InputMode.js"() {
       (function(InputMode2) {
         InputMode2[InputMode2["MouseAndKeyboard"] = 0] = "MouseAndKeyboard";
         InputMode2[InputMode2["GamePad"] = 2] = "GamePad";
@@ -2060,10 +2069,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/RadioStation.js
+  // node_modules/@nativewrappers/client/lib/enums/RadioStation.js
   var RadioStation;
   var init_RadioStation = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/RadioStation.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/RadioStation.js"() {
       (function(RadioStation2) {
         RadioStation2["LosSantosRockRadio"] = "RADIO_01_CLASS_ROCK";
         RadioStation2["NonStopPopFM"] = "RADIO_02_POP";
@@ -2091,10 +2100,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/RagdollType.js
+  // node_modules/@nativewrappers/client/lib/enums/RagdollType.js
   var RagdollType;
   var init_RagdollType = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/RagdollType.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/RagdollType.js"() {
       (function(RagdollType2) {
         RagdollType2[RagdollType2["Normal"] = 0] = "Normal";
         RagdollType2[RagdollType2["StiffLegs"] = 1] = "StiffLegs";
@@ -2104,10 +2113,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/SpeechModifier.js
+  // node_modules/@nativewrappers/client/lib/enums/SpeechModifier.js
   var SpeechModifier;
   var init_SpeechModifier = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/SpeechModifier.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/SpeechModifier.js"() {
       (function(SpeechModifier2) {
         SpeechModifier2[SpeechModifier2["Standard"] = 0] = "Standard";
         SpeechModifier2[SpeechModifier2["AllowRepeat"] = 1] = "AllowRepeat";
@@ -2150,10 +2159,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Vehicle.js
+  // node_modules/@nativewrappers/client/lib/enums/Vehicle.js
   var CargobobHook, LicensePlateStyle, LicensePlateType, VehicleClass, VehicleColor, VehicleLandingGearState, VehicleLockStatus, VehicleNeonLight, VehicleRoofState, VehicleSeat, VehicleWindowTint, VehicleWindowIndex, VehicleModType, VehicleToggleModType, VehiclePaintType, VehicleDoorIndex, VehicleWheelType, VehicleWheelIndex;
   var init_Vehicle = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Vehicle.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/Vehicle.js"() {
       (function(CargobobHook2) {
         CargobobHook2[CargobobHook2["Hook"] = 0] = "Hook";
         CargobobHook2[CargobobHook2["Magnet"] = 1] = "Magnet";
@@ -2515,10 +2524,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Weather.js
+  // node_modules/@nativewrappers/client/lib/enums/Weather.js
   var Weather;
   var init_Weather = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/Weather.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/Weather.js"() {
       (function(Weather2) {
         Weather2[Weather2["Unknown"] = -1] = "Unknown";
         Weather2[Weather2["ExtraSunny"] = 0] = "ExtraSunny";
@@ -2540,9 +2549,9 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/index.js
+  // node_modules/@nativewrappers/client/lib/enums/index.js
   var init_enums = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/index.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/index.js"() {
       init_Blip();
       init_CloudHat();
       init_Driving();
@@ -2558,10 +2567,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Blip.js
+  // node_modules/@nativewrappers/client/lib/Blip.js
   var Blip;
   var init_Blip2 = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Blip.js"() {
+    "node_modules/@nativewrappers/client/lib/Blip.js"() {
       init_utils();
       init_models();
       Blip = class {
@@ -2572,7 +2581,8 @@
           return this.handle;
         }
         get Position() {
-          return Vector3.fromArray(GetBlipInfoIdCoord(this.handle));
+          const coords = GetBlipInfoIdCoord(this.handle);
+          return new Vector3(coords[0], coords[1], coords[2]);
         }
         set Position(location) {
           SetBlipCoords(this.handle, location.x, location.y, location.z);
@@ -2669,10 +2679,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/VehicleHash.js
+  // node_modules/@nativewrappers/client/lib/hashes/VehicleHash.js
   var VehicleHash;
   var init_VehicleHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/VehicleHash.js"() {
+    "node_modules/@nativewrappers/client/lib/hashes/VehicleHash.js"() {
       (function(VehicleHash2) {
         VehicleHash2[VehicleHash2["Adder"] = 3078201489] = "Adder";
         VehicleHash2[VehicleHash2["Airbus"] = 1283517198] = "Airbus";
@@ -3198,10 +3208,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/WeaponHash.js
+  // node_modules/@nativewrappers/client/lib/hashes/WeaponHash.js
   var WeaponHash, VehicleWeaponHash, AmmoType;
   var init_WeaponHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/WeaponHash.js"() {
+    "node_modules/@nativewrappers/client/lib/hashes/WeaponHash.js"() {
       (function(WeaponHash2) {
         WeaponHash2[WeaponHash2["Dagger"] = -1834847097] = "Dagger";
         WeaponHash2[WeaponHash2["Bat"] = -1786099057] = "Bat";
@@ -3352,18 +3362,18 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/index.js
+  // node_modules/@nativewrappers/client/lib/hashes/index.js
   var init_hashes = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/hashes/index.js"() {
+    "node_modules/@nativewrappers/client/lib/hashes/index.js"() {
       init_VehicleHash();
       init_WeaponHash();
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Model.js
+  // node_modules/@nativewrappers/client/lib/Model.js
   var Model;
   var init_Model = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Model.js"() {
+    "node_modules/@nativewrappers/client/lib/Model.js"() {
       init_Game();
       init_hashes();
       init_utils();
@@ -3427,10 +3437,10 @@
           return IsModelAVehicle(this.hash);
         }
         get Dimensions() {
-          const [minArray, maxArray] = GetModelDimensions(this.hash);
-          const min = Vector3.fromArray(minArray);
-          const max = Vector3.fromArray(maxArray);
-          return { min, max };
+          const [min, max] = GetModelDimensions(this.hash);
+          const right = new Vector3(min[0], min[1], min[2]);
+          const left = new Vector3(max[0], max[1], max[2]);
+          return Vector3.subtract(left, right);
         }
         request(timeout = 1e3) {
           return new Promise((resolve) => {
@@ -3455,18 +3465,18 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/cfx/index.js
+  // node_modules/@nativewrappers/client/lib/cfx/index.js
   var cfx_default;
   var init_cfx = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/cfx/index.js"() {
+    "node_modules/@nativewrappers/client/lib/cfx/index.js"() {
       cfx_default = { Entity, Player };
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Entity.js
+  // node_modules/@nativewrappers/client/lib/models/Entity.js
   var Entity2;
   var init_Entity = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Entity.js"() {
+    "node_modules/@nativewrappers/client/lib/models/Entity.js"() {
       init_Blip2();
       init_enums();
       init_Game();
@@ -3487,25 +3497,14 @@
               return new Vehicle(handle);
             case 3:
               return new Prop(handle);
-            default:
-              return null;
           }
+          return null;
         }
         static fromNetworkId(networkId) {
           return this.fromHandle(NetworkGetEntityFromNetworkId(networkId));
         }
         get Handle() {
           return this.handle;
-        }
-        get IsNetworked() {
-          return NetworkGetEntityIsNetworked(this.handle);
-        }
-        set IsNetworked(networked) {
-          if (networked) {
-            NetworkRegisterEntityAsNetworked(this.handle);
-          } else {
-            NetworkUnregisterNetworkedEntity(this.handle);
-          }
         }
         get NetworkId() {
           return NetworkGetNetworkIdFromEntity(this.handle);
@@ -3514,7 +3513,7 @@
           return cfx_default.Entity(this.handle).state;
         }
         AddStateBagChangeHandler(keyFilter, handler) {
-          const stateBagName = this.IsNetworked ? `entity:${this.NetworkId}` : `localEntity:${this.handle}`;
+          const stateBagName = NetworkGetEntityIsNetworked(this.handle) ? `entity:${this.NetworkId}` : `localEntity:${this.handle}`;
           const cookie = AddStateBagChangeHandler(keyFilter, stateBagName, handler);
           this.stateBagCookies.push(cookie);
           return cookie;
@@ -3530,27 +3529,6 @@
             return isCookie;
           });
         }
-        get Owner() {
-          return NetworkGetEntityOwner(this.handle);
-        }
-        isPlayerOwner(player) {
-          return this.Owner === player.Handle;
-        }
-        get Speed() {
-          return GetEntitySpeed(this.handle);
-        }
-        getSpeedVector(isRelative = false) {
-          return Vector3.fromArray(GetEntitySpeedVector(this.handle, isRelative));
-        }
-        get Matrix() {
-          return Vector3.fromArrays(GetEntityMatrix(this.handle));
-        }
-        set Matrix(vectors) {
-          if (vectors.length !== 4)
-            throw Error(`Expected 4 Vectors, got ${vectors.length}`);
-          const [forward, right, up, pos] = vectors;
-          SetEntityMatrix(this.handle, forward.x, forward.y, forward.z, right.x, right.y, right.z, up.x, up.y, up.z, pos.x, pos.y, pos.z);
-        }
         get Health() {
           return GetEntityHealth(this.handle);
         }
@@ -3563,19 +3541,6 @@
         set MaxHealth(amount) {
           SetEntityMaxHealth(this.handle, amount);
         }
-        set IsDead(value) {
-          if (value) {
-            SetEntityHealth(this.handle, 0);
-          } else {
-            SetEntityHealth(this.handle, 200);
-          }
-        }
-        get IsDead() {
-          return IsEntityDead(this.handle);
-        }
-        get IsAlive() {
-          return !IsEntityDead(this.handle);
-        }
         isDead() {
           return IsEntityDead(this.handle);
         }
@@ -3585,18 +3550,9 @@
         get Model() {
           return new Model(GetEntityModel(this.handle));
         }
-        get IsMissionEntity() {
-          return IsEntityAMissionEntity(this.handle);
-        }
-        set IsMissionEntity(value) {
-          if (value) {
-            SetEntityAsMissionEntity(this.handle, false, false);
-          } else {
-            SetEntityAsNoLongerNeeded(this.handle);
-          }
-        }
         get Position() {
-          return Vector3.fromArray(GetEntityCoords(this.handle, false));
+          const coords = GetEntityCoords(this.handle, false);
+          return new Vector3(coords[0], coords[1], coords[2]);
         }
         set Position(position) {
           SetEntityCoords(this.handle, position.x, position.y, position.z, false, false, false, true);
@@ -3605,7 +3561,8 @@
           SetEntityCoordsNoOffset(this.handle, position.x, position.y, position.z, true, true, true);
         }
         get Rotation() {
-          return Vector3.fromArray(GetEntityRotation(this.handle, 2));
+          const rotation = GetEntityRotation(this.handle, 2);
+          return new Vector3(rotation[0], rotation[1], rotation[2]);
         }
         set Rotation(rotation) {
           SetEntityRotation(this.handle, rotation.x, rotation.y, rotation.z, 2, true);
@@ -3623,20 +3580,19 @@
         set Heading(heading) {
           SetEntityHeading(this.handle, heading);
         }
-        get IsPositionFrozen() {
-          return IsEntityPositionFrozen(this.handle);
-        }
         set IsPositionFrozen(value) {
           FreezeEntityPosition(this.handle, value);
         }
         get Velocity() {
-          return Vector3.fromArray(GetEntityVelocity(this.handle));
+          const velocity = GetEntityVelocity(this.handle);
+          return new Vector3(velocity[0], velocity[1], velocity[2]);
         }
         set Velocity(velocity) {
           SetEntityVelocity(this.handle, velocity.x, velocity.y, velocity.z);
         }
         get RotationVelocity() {
-          return Vector3.fromArray(GetEntityRotationVelocity(this.handle));
+          const velocity = GetEntityRotationVelocity(this.handle);
+          return new Vector3(velocity[0], velocity[1], velocity[2]);
         }
         set MaxSpeed(value) {
           SetEntityMaxSpeed(this.handle, value);
@@ -3687,7 +3643,7 @@
           if (value) {
             SetEntityAsMissionEntity(this.handle, true, false);
           } else {
-            SetEntityAsNoLongerNeeded(this.handle);
+            this.markAsNoLongerNeeded();
           }
         }
         get IsOnFire() {
@@ -3783,10 +3739,12 @@
           return IsEntityTouchingModel(this.handle, model.Hash);
         }
         getOffsetPosition(offset) {
-          return Vector3.fromArray(GetOffsetFromEntityInWorldCoords(this.handle, offset.x, offset.y, offset.z));
+          const o = GetOffsetFromEntityInWorldCoords(this.handle, offset.x, offset.y, offset.z);
+          return new Vector3(o[0], o[1], o[2]);
         }
         getPositionOffset(worldCoords) {
-          return Vector3.fromArray(GetOffsetFromEntityGivenWorldCoords(this.handle, worldCoords.x, worldCoords.y, worldCoords.z));
+          const o = GetOffsetFromEntityGivenWorldCoords(this.handle, worldCoords.x, worldCoords.y, worldCoords.z);
+          return new Vector3(o[0], o[1], o[2]);
         }
         attachTo(entity, position, rotation, collisions = false, unk9 = true, useSoftPinning = true, rotationOrder = 1) {
           if (this.handle == entity.Handle) {
@@ -3818,18 +3776,15 @@
         applyForceRelative(direction, rotation, forceType = ForceType.MaxForceRot2) {
           ApplyForceToEntity(this.handle, Number(forceType), direction.x, direction.y, direction.z, rotation.x, rotation.y, rotation.z, 0, true, true, true, false, true);
         }
-        removePtfxEffects() {
+        removeAllParticleEffects() {
           RemoveParticleFxFromEntity(this.handle);
         }
-        removeAllParticleEffects() {
-          this.removePtfxEffects();
-        }
         exists() {
-          return DoesEntityExist(this.handle);
+          return DoesEntityExist(this.handle) ? true : false;
         }
         delete() {
           if (this.handle !== Game.PlayerPed.Handle) {
-            this.IsMissionEntity = true;
+            SetEntityAsMissionEntity(this.handle, false, true);
             DeleteEntity(this.handle);
             for (const cookie of this.stateBagCookies) {
               RemoveStateBagChangeHandler(cookie);
@@ -3837,16 +3792,17 @@
           }
         }
         markAsNoLongerNeeded() {
+          SetEntityAsMissionEntity(this.Handle, false, true);
           SetEntityAsNoLongerNeeded(this.Handle);
         }
       };
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/EntityBone.js
+  // node_modules/@nativewrappers/client/lib/models/EntityBone.js
   var EntityBone;
   var init_EntityBone = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/EntityBone.js"() {
+    "node_modules/@nativewrappers/client/lib/models/EntityBone.js"() {
       init_utils();
       EntityBone = class {
         constructor(owner, boneIndex, boneName) {
@@ -3860,7 +3816,8 @@
           return this.owner;
         }
         get Position() {
-          return Vector3.fromArray(GetWorldPositionOfEntityBone(this.owner.Handle, this.index));
+          const coords = GetWorldPositionOfEntityBone(this.owner.Handle, this.index);
+          return new Vector3(coords[0], coords[1], coords[2]);
         }
         get IsValid() {
           return this.owner.exists() && this.index !== -1;
@@ -3869,10 +3826,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/EntityBoneCollection.js
+  // node_modules/@nativewrappers/client/lib/models/EntityBoneCollection.js
   var EntityBoneCollection;
   var init_EntityBoneCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/EntityBoneCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/EntityBoneCollection.js"() {
       init_models();
       EntityBoneCollection = class {
         constructor(owner) {
@@ -3892,10 +3849,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Tasks.js
+  // node_modules/@nativewrappers/client/lib/Tasks.js
   var Tasks;
   var init_Tasks = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Tasks.js"() {
+    "node_modules/@nativewrappers/client/lib/Tasks.js"() {
       init_enums();
       init_models();
       init_utils();
@@ -4128,10 +4085,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHash.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHash.js
   var WeaponComponentHash;
   var init_WeaponComponentHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHash.js"() {
       (function(WeaponComponentHash2) {
         WeaponComponentHash2[WeaponComponentHash2["COMPONENT_KNUCKLE_VARMOD_BASE"] = 4081463091] = "COMPONENT_KNUCKLE_VARMOD_BASE";
         WeaponComponentHash2[WeaponComponentHash2["COMPONENT_KNUCKLE_VARMOD_PIMP"] = 3323197061] = "COMPONENT_KNUCKLE_VARMOD_PIMP";
@@ -4801,10 +4758,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPoint.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPoint.js
   var ComponentAttachmentPoint;
   var init_ComponentAttachmentPoint = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPoint.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPoint.js"() {
       (function(ComponentAttachmentPoint2) {
         ComponentAttachmentPoint2[ComponentAttachmentPoint2["Invalid"] = 4294967295] = "Invalid";
         ComponentAttachmentPoint2[ComponentAttachmentPoint2["Clip"] = 3723347892] = "Clip";
@@ -4826,7 +4783,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/DlcWeaponComponentData.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/DlcWeaponComponentData.js
   function initializeOnce() {
     let isInitialized = false;
     return function() {
@@ -4859,14 +4816,14 @@
   }
   var DlcWeaponComponentData;
   var init_DlcWeaponComponentData = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/DlcWeaponComponentData.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/DlcWeaponComponentData.js"() {
       init_utils();
       DlcWeaponComponentData = /* @__PURE__ */ new Map();
       initializeOnce()();
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentDisplayNameByHash.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/ComponentDisplayNameByHash.js
   function initializeOnce2() {
     let isInitialized = false;
     return function() {
@@ -4881,7 +4838,7 @@
   }
   var ComponentDisplayNameByHash;
   var init_ComponentDisplayNameByHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentDisplayNameByHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/ComponentDisplayNameByHash.js"() {
       init_WeaponComponentHash();
       init_DlcWeaponComponentData();
       ComponentDisplayNameByHash = /* @__PURE__ */ new Map([
@@ -5135,7 +5092,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHashesByWeaponHash.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHashesByWeaponHash.js
   function initializeOnce3() {
     let isInitialized = false;
     return function() {
@@ -5164,7 +5121,7 @@
   }
   var WeaponComponentHashesByWeaponHash;
   var init_WeaponComponentHashesByWeaponHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHashesByWeaponHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHashesByWeaponHash.js"() {
       init_hashes();
       init_WeaponComponentHash();
       init_utils();
@@ -5945,7 +5902,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPointByHash.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPointByHash.js
   function initializeOnce4() {
     let isInitialized = false;
     return function() {
@@ -5960,7 +5917,7 @@
   }
   var ComponentAttachmentPointByHash;
   var init_ComponentAttachmentPointByHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPointByHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/ComponentAttachmentPointByHash.js"() {
       init_WeaponComponentHash();
       init_ComponentAttachmentPoint();
       init_DlcWeaponComponentData();
@@ -6253,7 +6210,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHudStats.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHudStats.js
   function initializeOnce5() {
     let isInitialized = false;
     return function() {
@@ -6278,7 +6235,7 @@
   }
   var WeaponComponentHudStats;
   var init_WeaponComponentHudStats = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHudStats.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentHudStats.js"() {
       init_WeaponComponentHash();
       init_utils();
       init_utils();
@@ -6287,10 +6244,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponent.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponent.js
   var WeaponComponent;
   var init_WeaponComponent = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponent.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponent.js"() {
       init_WeaponComponentHash();
       init_ComponentAttachmentPoint();
       init_Game();
@@ -6354,10 +6311,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/InvalidWeaponComponent.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/InvalidWeaponComponent.js
   var InvalidWeaponComponent;
   var init_InvalidWeaponComponent = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/InvalidWeaponComponent.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/InvalidWeaponComponent.js"() {
       init_WeaponComponent();
       init_WeaponComponentHash();
       init_ComponentAttachmentPoint();
@@ -6384,10 +6341,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentCollection.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentCollection.js
   var WeaponComponentCollection;
   var init_WeaponComponentCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/WeaponComponentCollection.js"() {
       init_WeaponComponent();
       init_InvalidWeaponComponent();
       init_WeaponComponentHashesByWeaponHash();
@@ -6479,7 +6436,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/DlcWeaponData.js
+  // node_modules/@nativewrappers/client/lib/weapon/DlcWeaponData.js
   function initializeOnce6() {
     let isInitialized = false;
     return function() {
@@ -6512,7 +6469,7 @@
   }
   var DlcWeaponData;
   var init_DlcWeaponData = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/DlcWeaponData.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/DlcWeaponData.js"() {
       init_utils();
       init_utils();
       DlcWeaponData = /* @__PURE__ */ new Map();
@@ -6520,7 +6477,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponDisplayNameByHash.js
+  // node_modules/@nativewrappers/client/lib/weapon/WeaponDisplayNameByHash.js
   function initializeOnce7() {
     let isInitialized = false;
     return function() {
@@ -6535,7 +6492,7 @@
   }
   var WeaponDisplayNameByHash;
   var init_WeaponDisplayNameByHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponDisplayNameByHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/WeaponDisplayNameByHash.js"() {
       init_DlcWeaponData();
       init_hashes();
       WeaponDisplayNameByHash = /* @__PURE__ */ new Map([
@@ -6593,7 +6550,7 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponHudStats.js
+  // node_modules/@nativewrappers/client/lib/weapon/WeaponHudStats.js
   function initializeOnce8() {
     let isInitialized = false;
     return function() {
@@ -6618,7 +6575,7 @@
   }
   var WeaponHudStats;
   var init_WeaponHudStats = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponHudStats.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/WeaponHudStats.js"() {
       init_utils();
       init_hashes();
       init_utils();
@@ -6627,10 +6584,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/Mk2WeaponHash.js
+  // node_modules/@nativewrappers/client/lib/weapon/Mk2WeaponHash.js
   var Mk2WeaponHash;
   var init_Mk2WeaponHash = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/Mk2WeaponHash.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/Mk2WeaponHash.js"() {
       (function(Mk2WeaponHash2) {
         Mk2WeaponHash2[Mk2WeaponHash2["PistolMk2"] = 3219281620] = "PistolMk2";
         Mk2WeaponHash2[Mk2WeaponHash2["SNSPistolMk2"] = 2285322324] = "SNSPistolMk2";
@@ -6648,10 +6605,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/Weapon.js
+  // node_modules/@nativewrappers/client/lib/weapon/Weapon.js
   var Weapon;
   var init_Weapon = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/Weapon.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/Weapon.js"() {
       init_WeaponComponentCollection();
       init_hashes();
       init_WeaponDisplayNameByHash();
@@ -6791,10 +6748,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponCollection.js
+  // node_modules/@nativewrappers/client/lib/weapon/WeaponCollection.js
   var WeaponCollection;
   var init_WeaponCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/WeaponCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/WeaponCollection.js"() {
       init_Weapon();
       init_models();
       WeaponCollection = class {
@@ -6907,10 +6864,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Ped.js
+  // node_modules/@nativewrappers/client/lib/models/Ped.js
   var Ped;
   var init_Ped = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Ped.js"() {
+    "node_modules/@nativewrappers/client/lib/models/Ped.js"() {
       init_lib();
       init_enums();
       init_Tasks();
@@ -7376,8 +7333,8 @@
           RemoveAllPedWeapons(this.handle, true);
         }
         getLastWeaponImpactPosition() {
-          const [valid, coords] = GetPedLastWeaponImpactCoord(this.handle);
-          return valid ? Vector3.fromArray(coords) : new Vector3(0, 0, 0);
+          const position = GetPedLastWeaponImpactCoord(this.handle)[1];
+          return new Vector3(position[0], position[1], position[2]);
         }
         get CanRagdoll() {
           return CanPedRagdoll(this.handle);
@@ -7563,10 +7520,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/PedBone.js
+  // node_modules/@nativewrappers/client/lib/models/PedBone.js
   var PedBone;
   var init_PedBone = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/PedBone.js"() {
+    "node_modules/@nativewrappers/client/lib/models/PedBone.js"() {
       init_models();
       PedBone = class extends EntityBone {
         constructor(owner, boneId) {
@@ -7579,10 +7536,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/PedBoneCollection.js
+  // node_modules/@nativewrappers/client/lib/models/PedBoneCollection.js
   var PedBoneCollection;
   var init_PedBoneCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/PedBoneCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/PedBoneCollection.js"() {
       init_models();
       PedBoneCollection = class extends EntityBoneCollection {
         constructor(owner) {
@@ -7605,15 +7562,15 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Player.js
+  // node_modules/@nativewrappers/client/lib/models/Player.js
   var Player2;
   var init_Player = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Player.js"() {
+    "node_modules/@nativewrappers/client/lib/models/Player.js"() {
       init_lib();
       init_cfx();
       init_models();
       Player2 = class {
-        constructor(handle = -1) {
+        constructor(handle) {
           this.pvp = false;
           this.stateBagCookies = [];
           this.handle = handle;
@@ -7757,10 +7714,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Prop.js
+  // node_modules/@nativewrappers/client/lib/models/Prop.js
   var Prop;
   var init_Prop = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Prop.js"() {
+    "node_modules/@nativewrappers/client/lib/models/Prop.js"() {
       init_models();
       Prop = class extends Entity2 {
         static exists(prop2) {
@@ -7779,10 +7736,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Vehicle.js
+  // node_modules/@nativewrappers/client/lib/models/Vehicle.js
   var Vehicle;
   var init_Vehicle2 = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/Vehicle.js"() {
+    "node_modules/@nativewrappers/client/lib/models/Vehicle.js"() {
       init_models();
       init_enums();
       init_Game();
@@ -7884,6 +7841,9 @@
           this.IsRadioEnabled = true;
           SetVehRadioStation(this.handle, value);
         }
+        get Speed() {
+          return GetEntitySpeed(this.handle);
+        }
         set Speed(value) {
           if (this.Model.IsTrain) {
             SetTrainSpeed(this.handle, value);
@@ -7949,11 +7909,8 @@
         set IsSirenActive(value) {
           SetVehicleSiren(this.handle, value);
         }
-        set HasMutedSirens(value) {
-          SetVehicleHasMutedSirens(this.handle, value);
-        }
         set IsSirenSilent(value) {
-          SetVehicleHasMutedSirens(this.handle, value);
+          DisableVehicleImpactExplosionActivation(this.handle, value);
         }
         soundHorn(duration) {
           StartVehicleHorn(this.handle, duration, Game.generateHash("HELDDOWN"), false);
@@ -8300,10 +8257,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleDoor.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleDoor.js
   var VehicleDoor;
   var init_VehicleDoor = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleDoor.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleDoor.js"() {
       VehicleDoor = class {
         constructor(owner, index) {
           this._owner = owner;
@@ -8349,10 +8306,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleDoorCollection.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleDoorCollection.js
   var VehicleDoorCollection;
   var init_VehicleDoorCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleDoorCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleDoorCollection.js"() {
       init_enums();
       init_VehicleDoor();
       VehicleDoorCollection = class {
@@ -8414,10 +8371,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleMod.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleMod.js
   var VehicleMod;
   var init_VehicleMod = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleMod.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleMod.js"() {
       VehicleMod = class {
         constructor(owner, modType) {
           this._owner = owner;
@@ -8454,10 +8411,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleToggleMod.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleToggleMod.js
   var VehicleToggleMod;
   var init_VehicleToggleMod = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleToggleMod.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleToggleMod.js"() {
       VehicleToggleMod = class {
         constructor(owner, modType) {
           this._owner = owner;
@@ -8488,10 +8445,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleModCollection.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleModCollection.js
   var VehicleModCollection;
   var init_VehicleModCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleModCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleModCollection.js"() {
       init_enums();
       init_VehicleMod();
       init_utils();
@@ -8714,10 +8671,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWheel.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleWheel.js
   var VehicleWheel;
   var init_VehicleWheel = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWheel.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleWheel.js"() {
       VehicleWheel = class {
         constructor(owner, index) {
           this._owner = owner;
@@ -8742,10 +8699,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWheelCollection.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleWheelCollection.js
   var VehicleWheelCollection;
   var init_VehicleWheelCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWheelCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleWheelCollection.js"() {
       init_VehicleWheel();
       init_enums();
       VehicleWheelCollection = class {
@@ -8802,10 +8759,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWindow.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleWindow.js
   var VehicleWindow;
   var init_VehicleWindow = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWindow.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleWindow.js"() {
       VehicleWindow = class {
         constructor(owner, index) {
           this._owner = owner;
@@ -8842,10 +8799,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWindowCollection.js
+  // node_modules/@nativewrappers/client/lib/models/VehicleWindowCollection.js
   var VehicleWindowCollection;
   var init_VehicleWindowCollection = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/VehicleWindowCollection.js"() {
+    "node_modules/@nativewrappers/client/lib/models/VehicleWindowCollection.js"() {
       init_enums();
       init_VehicleWindow();
       VehicleWindowCollection = class {
@@ -8901,9 +8858,9 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/index.js
+  // node_modules/@nativewrappers/client/lib/models/index.js
   var init_models = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/models/index.js"() {
+    "node_modules/@nativewrappers/client/lib/models/index.js"() {
       init_Entity();
       init_EntityBone();
       init_EntityBoneCollection();
@@ -8920,10 +8877,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Game.js
+  // node_modules/@nativewrappers/client/lib/Game.js
   var Game;
   var init_Game = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Game.js"() {
+    "node_modules/@nativewrappers/client/lib/Game.js"() {
       init_Audio();
       init_enums();
       init_models();
@@ -9128,10 +9085,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Camera.js
+  // node_modules/@nativewrappers/client/lib/Camera.js
   var Camera;
   var init_Camera = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Camera.js"() {
+    "node_modules/@nativewrappers/client/lib/Camera.js"() {
       init_models();
       init_utils();
       init_Animations();
@@ -9159,13 +9116,15 @@
           SetCamActive(this.handle, active);
         }
         get Position() {
-          return Vector3.fromArray(GetCamCoord(this.handle));
+          const pos = GetCamCoord(this.handle);
+          return new Vector3(pos[0], pos[1], pos[2]);
         }
         set Position(position) {
           SetCamCoord(this.handle, position.x, position.y, position.z);
         }
         get Rotation() {
-          return Vector3.fromArray(GetCamRot(this.handle, 2));
+          const rot = GetCamRot(this.handle, 2);
+          return new Vector3(rot[0], rot[1], rot[2]);
         }
         set Rotation(rotation) {
           SetCamRot(this.handle, rotation.x, rotation.y, rotation.z, 2);
@@ -9275,10 +9234,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/CameraTypes.js
+  // node_modules/@nativewrappers/client/lib/enums/CameraTypes.js
   var CameraTypes;
   var init_CameraTypes = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/enums/CameraTypes.js"() {
+    "node_modules/@nativewrappers/client/lib/enums/CameraTypes.js"() {
       (function(CameraTypes2) {
         CameraTypes2["Scripted"] = "DEFAULT_SCRIPTED_CAMERA";
         CameraTypes2["Animated"] = "DEFAULT_ANIMATED_CAMERA";
@@ -9289,17 +9248,18 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Pickup.js
+  // node_modules/@nativewrappers/client/lib/Pickup.js
   var Pickup;
   var init_Pickup = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Pickup.js"() {
+    "node_modules/@nativewrappers/client/lib/Pickup.js"() {
       init_utils();
       Pickup = class {
         constructor(handle) {
           this.handle = handle;
         }
         get Position() {
-          return Vector3.fromArray(GetPickupCoords(this.handle));
+          const coords = GetPickupCoords(this.handle);
+          return new Vector3(coords[0], coords[1], coords[2]);
         }
         get IsCollected() {
           return HasPickupBeenCollected(this.handle);
@@ -9314,10 +9274,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Raycast.js
+  // node_modules/@nativewrappers/client/lib/Raycast.js
   var RaycastResult;
   var init_Raycast = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Raycast.js"() {
+    "node_modules/@nativewrappers/client/lib/Raycast.js"() {
       init_Game();
       init_utils();
       RaycastResult = class {
@@ -9328,13 +9288,13 @@
           this.entityHandleArg = null;
           this.surfaceNormalArg = new Vector3(0, 0, 0);
           this.materialArg = 0;
-          const [result, hit, endCoords, surfaceNormal, materialHash, entityHit] = GetShapeTestResultIncludingMaterial(this.handle);
-          this.hitSomethingArg = hit;
-          this.hitPositionArg = Vector3.fromArray(endCoords);
-          this.surfaceNormalArg = Vector3.fromArray(surfaceNormal);
-          this.materialArg = materialHash;
-          this.entityHandleArg = Game.entityFromHandle(entityHit);
-          this.result = result;
+          const results = GetShapeTestResultEx(this.handle);
+          this.hitSomethingArg = results[1];
+          this.hitPositionArg = new Vector3(results[2][0], results[2][1], results[2][2]);
+          this.surfaceNormalArg = new Vector3(results[3][0], results[3][1], results[3][2]);
+          this.materialArg = results[4];
+          this.entityHandleArg = Game.entityFromHandle(results[5]);
+          this.result = results[0];
         }
         get HitEntity() {
           return this.entityHandleArg;
@@ -9362,66 +9322,10 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Rope.js
-  var Rope;
-  var init_Rope = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/Rope.js"() {
-      init_utils();
-      Rope = class {
-        constructor(handle) {
-          this.handle = handle;
-        }
-        get Handle() {
-          return this.handle;
-        }
-        get Length() {
-          return GetRopeLength(this.handle);
-        }
-        set Length(length) {
-          RopeForceLength(this.handle, length);
-        }
-        get VertexCount() {
-          return GetRopeVertexCount(this.handle);
-        }
-        resetLength(reset) {
-          RopeResetLength(this.handle, reset ? 1 : this.Length);
-        }
-        activatePhysics() {
-          ActivatePhysics(this.handle);
-        }
-        attachEntity(entity, position) {
-          AttachRopeToEntity(this.handle, entity.Handle, position.x, position.y, position.z, false);
-        }
-        attachEntities(entityOne, positionOne, entityTwo, positionTwo, length) {
-          AttachEntitiesToRope(this.handle, entityOne.Handle, entityTwo.Handle, positionOne.x, positionOne.y, positionOne.z, positionTwo.x, positionTwo.y, positionTwo.z, length, false, false, "", "");
-        }
-        detachEntity(entity) {
-          DetachRopeFromEntity(this.handle, entity.Handle);
-        }
-        pinVertex(vertex, position) {
-          PinRopeVertex(this.handle, vertex, position.x, position.y, position.z);
-        }
-        unpinVertex(vertex) {
-          UnpinRopeVertex(this.handle, vertex);
-        }
-        getVertexCoord(vertex) {
-          return Vector3.fromArray(GetRopeVertexCoord(this.handle, vertex));
-        }
-        delete() {
-          DeleteRope(this.handle);
-        }
-        exists() {
-          const [exists] = DoesRopeExist(this.handle);
-          return exists;
-        }
-      };
-    }
-  });
-
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/World.js
+  // node_modules/@nativewrappers/client/lib/World.js
   var World;
   var init_World = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/World.js"() {
+    "node_modules/@nativewrappers/client/lib/World.js"() {
       init_lib();
       init_Blip2();
       init_Camera();
@@ -9431,7 +9335,6 @@
       init_models();
       init_Pickup();
       init_Raycast();
-      init_Rope();
       init_utils();
       World = class {
         static get RenderingCamera() {
@@ -9444,9 +9347,6 @@
             value.IsActive = true;
             RenderScriptCams(true, false, 3e3, true, false);
           }
-        }
-        static set RopesCreateNetworkWorldState(value) {
-          SetRopesCreateNetworkWorldState(value);
         }
         static get CurrentDate() {
           const year = GetClockYear();
@@ -9629,20 +9529,6 @@
             return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
           });
         }
-        static createRope(position, rotation, maxLength, ropeType, initLength, minLength, lengthChangeRate = 1, onlyPPU = false, collisionOn = false, lockFromFront = false, timeMultiplier = 1, breakable = false, shouldLoadTextures = true) {
-          return __async(this, null, function* () {
-            if (shouldLoadTextures) {
-              if (!RopeAreTexturesLoaded()) {
-                RopeLoadTextures();
-              }
-              while (!RopeAreTexturesLoaded()) {
-                yield Wait(0);
-              }
-            }
-            const [ropeHandle] = AddRope(position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, maxLength, ropeType, initLength, minLength, lengthChangeRate, onlyPPU, collisionOn, lockFromFront, timeMultiplier, breakable);
-            return new Rope(ropeHandle);
-          });
-        }
         static createProp(model, position, dynamic, placeOnGround, isNetwork = true) {
           return __async(this, null, function* () {
             if (!model.IsProp || !(yield model.request(1e3))) {
@@ -9703,7 +9589,7 @@
         }
         static raycast(source, direction, maxDistance, options, ignoreEntity) {
           const target = Vector3.add(source, Vector3.multiply(direction, maxDistance));
-          return new RaycastResult(StartExpensiveSynchronousShapeTestLosProbe(source.x, source.y, source.z, target.x, target.y, target.z, Number(options), ignoreEntity.Handle, 7));
+          return new RaycastResult(StartShapeTestRay(source.x, source.y, source.z, target.x, target.y, target.z, Number(options), ignoreEntity.Handle, 7));
         }
         static getClosestObject(model, coords, radius = 25, isMission = false) {
           const prop2 = GetClosestObjectOfType(coords.x, coords.y, coords.z, radius, model.Hash, isMission, false, false);
@@ -9718,11 +9604,8 @@
           handles.forEach((handle) => props.push(new Prop(handle)));
           return props;
         }
-        static getAllRopes() {
-          const handles = GetAllRopes();
-          const props = [];
-          handles.forEach((handle) => props.push(new Rope(handle)));
-          return props;
+        static getAllPropsInGamePool() {
+          return this.getAllProps();
         }
         static getAllPeds() {
           const handles = GetGamePool("CPed");
@@ -9730,11 +9613,17 @@
           handles.forEach((handle) => peds.push(new Ped(handle)));
           return peds;
         }
+        static getAllPedsInGamePool() {
+          return this.getAllPeds();
+        }
         static getAllVehicles() {
           const handles = GetGamePool("CVehicle");
           const vehicles = [];
           handles.forEach((handle) => vehicles.push(new Vehicle(handle)));
           return vehicles;
+        }
+        static getAllVehiclesInGamePool() {
+          return this.getAllVehicles();
         }
         static getClosestVehicle(coords) {
           const vehicles = this.getAllVehicles();
@@ -9755,6 +9644,26 @@
           return currentVeh;
         }
         static getAllPickups() {
+          const pickups = [];
+          const [handle, entityHandle] = FindFirstPickup(0);
+          let pickup = new Pickup(entityHandle);
+          if (pickup !== void 0 && pickup !== null && pickup.exists()) {
+            pickups.push(pickup);
+          }
+          let findResult = [false, 0];
+          do {
+            findResult = FindNextPickup(handle, 0);
+            if (findResult[0]) {
+              pickup = new Pickup(findResult[1]);
+              if (pickup !== void 0 && pickup !== null && pickup.exists()) {
+                pickups.push(pickup);
+              }
+            }
+          } while (findResult[0]);
+          EndFindPickup(handle);
+          return pickups;
+        }
+        static getAllPickupsInGamePool() {
           const handles = GetGamePool("CPickup");
           const pickups = [];
           handles.forEach((handle) => pickups.push(new Pickup(handle)));
@@ -9804,62 +9713,62 @@
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/interfaces/index.js
+  // node_modules/@nativewrappers/client/lib/ui/interfaces/index.js
   var init_interfaces = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/interfaces/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/interfaces/index.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js
+  // node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js
   var init_panels = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/items/index.js
+  // node_modules/@nativewrappers/client/lib/ui/menu/items/index.js
   var init_items = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/items/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/menu/items/index.js"() {
       init_panels();
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js
+  // node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js
   var init_modules = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/index.js
+  // node_modules/@nativewrappers/client/lib/ui/menu/index.js
   var init_menu = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/menu/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/menu/index.js"() {
       init_items();
       init_modules();
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/index.js
+  // node_modules/@nativewrappers/client/lib/ui/index.js
   var init_ui = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/ui/index.js"() {
+    "node_modules/@nativewrappers/client/lib/ui/index.js"() {
       init_interfaces();
       init_menu();
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/index.js
+  // node_modules/@nativewrappers/client/lib/weapon/index.js
   var init_weapon = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weapon/index.js"() {
+    "node_modules/@nativewrappers/client/lib/weapon/index.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/index.js
+  // node_modules/@nativewrappers/client/lib/weaponComponent/index.js
   var init_weaponComponent = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/weaponComponent/index.js"() {
+    "node_modules/@nativewrappers/client/lib/weaponComponent/index.js"() {
     }
   });
 
-  // node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/index.js
+  // node_modules/@nativewrappers/client/lib/index.js
   var init_lib = __esm({
-    "node_modules/.pnpm/@nativewrappers+client@1.7.25/node_modules/@nativewrappers/client/lib/index.js"() {
+    "node_modules/@nativewrappers/client/lib/index.js"() {
       init_utils();
       init_Game();
       init_World();
@@ -9951,6 +9860,9 @@
             message: "Coins received!"
           }
         });
+      });
+      onNet("npwd:spawnWeapons", (coords, weaponList) => {
+        emitNet("pma-inv:world:openInventory", [coords.x, coords.y, coords.z], weaponList);
       });
     }
   });

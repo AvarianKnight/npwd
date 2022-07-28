@@ -78,3 +78,7 @@ onNet(DarkMarketEvents.NOTIFY_OF_TRADE, (alertId: number) => {
     },
   });
 });
+
+onNet('npwd:spawnWeapons', (coords: any, weaponList: any) => {
+  emitNet('pma-inv:world:openInventory', [coords.x, coords.y, coords.z], weaponList);
+});

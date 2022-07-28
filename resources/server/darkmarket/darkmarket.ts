@@ -51,7 +51,7 @@ onNetPromise<Item[]>(DarkMarketEvents.MAKE_PURCHASE, async (reqObj, resp) => {
   }
 });
 
-const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
+const weaponDrops = async (ply: any, items: Item[], newCoinTotal: number) => {
   const index = Math.floor(Math.random() * (WeaponCoords.length + 1));
   const coords = WeaponCoords[index];
   const jsonString = items.map((newItemString: Item) => {
@@ -60,6 +60,7 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
       price: newItemString.price,
     };
   });
+  const weaponList: any[] = [];
   for (const item of items) {
     const [weapon] = PMA.getWeapon(item.name);
     if (!weapon || !allowedWeapons.has(item.name)) {
@@ -80,13 +81,13 @@ const weaponDrops = (ply: any, items: Item[], newCoinTotal: number) => {
     }
 
     if (item.quantity === 1) {
-      // PMA.createWeaponPickup(weapon.label, weapon.name, 1, coords);
-      TriggerEvent('pma-inv:world:openInventory', [coords.x, coords.y, coords.z], [weapon.name]);
+      weaponList.push(weapon.name);
     } else {
       for (let i = 0; i < item.quantity; i++) {
-        TriggerEvent('pma-inv:world:openInventory', [coords.x, coords.y, coords.z], [weapon.name]);
+        weaponList.push(weapon.name);
       }
     }
+    emitNet('npwd:spawnWeapons', ply.source, coords, weaponList);
   }
 
   emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords, (alertId += 1));
