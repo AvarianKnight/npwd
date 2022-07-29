@@ -41160,8 +41160,8 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase
             weaponList.push(weapon.name);
           }
         }
-        emitNet("npwd:spawnWeapons", ply.source, coords, weaponList);
       }
+      emitNet("npwd:spawnWeapons", ply.source, coords, weaponList);
       emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
       AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
 Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)} 

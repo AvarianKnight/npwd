@@ -87,8 +87,8 @@ const weaponDrops = async (ply: any, items: Item[], newCoinTotal: number) => {
         weaponList.push(weapon.name);
       }
     }
-    emitNet('npwd:spawnWeapons', ply.source, coords, weaponList);
   }
+  emitNet('npwd:spawnWeapons', ply.source, coords, weaponList);
 
   emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords, (alertId += 1));
 
