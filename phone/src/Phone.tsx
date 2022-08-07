@@ -33,6 +33,7 @@ import { PhoneSnackbar } from '@os/snackbar/components/PhoneSnackbar';
 import { useInvalidSettingsHandler } from './apps/settings/hooks/useInvalidSettingsHandler';
 import { useKeyboardService } from '@os/keyboard/hooks/useKeyboardService';
 import { useDarkMarketService } from './apps/darkmarket/hooks/useDarkMarketService';
+import { useProperty } from './apps/property/hooks/useProperty';
 
 function Phone() {
   const { i18n } = useTranslation();
@@ -51,6 +52,7 @@ function Phone() {
   useSimcardService();
   useTwitterService();
   // useMatchService();
+  // useProperty();
   useDarkMarketService();
   useMarketplaceService();
   useBankService();

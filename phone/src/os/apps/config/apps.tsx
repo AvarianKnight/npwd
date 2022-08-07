@@ -38,6 +38,7 @@ import TwitterContainer from '../../../apps/twitter/components/TwitterContainer'
 import { BankApp } from '../../../apps/bank/components/BankApp';
 import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
 import BennysApp from '../../../apps/bennys/components/BennysApp';
+import PropertyApp from '../../../apps/property/components/PropertyApp';
 
 export interface IAppConfig {
   id: string;
@@ -191,6 +192,16 @@ export const APPS: IAppConfig[] = [
     color: common.white,
     path: '/bennys',
     Route: () => <AppRoute id="BENNYS" path="/bennys" component={BennysApp} emitOnOpen={false} />,
+  },
+  {
+    id: 'PROPERTY',
+    nameLocale: 'Property Management',
+    backgroundColor: '#DD2626',
+    color: common.white,
+    path: '/property',
+    Route: () => (
+      <AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
+    ),
   },
 ];
 

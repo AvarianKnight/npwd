@@ -1,7 +1,6 @@
 import { DarkMarketEvents, Item } from '@typings/darkmarket';
 import { allowedWeapons, WeaponCoords } from './darkmarket.config';
 import { onNetPromise } from '../lib/PromiseNetEvents/onNetPromise';
-import { Console } from 'console';
 
 export const exp = (global as any).exports;
 export const PMA: any = exp['pma-framework'].getData();
