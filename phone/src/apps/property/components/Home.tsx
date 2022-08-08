@@ -16,6 +16,17 @@ const Container = styled(Box)`
   display: flex;
 `;
 
+const StyledListItem = styled(ListItem)`
+  color: #debe4d;
+  background-color: rgb(248, 248, 248);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 330px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
+
 const Home = (props: Props) => {
   const ownedPropertyList = useRecoilValue(PropertyState.property);
 
@@ -27,26 +38,18 @@ const Home = (props: Props) => {
     console.log('🚀 ~ file: Home.tsx ~ line 20 ~ selectHome ~ home', home);
   };
 
+  const listStyle = {};
+
   return (
     <Container>
       <List sx={{ width: '100%', maxWidth: 350, overflow: 'auto', height: '365px' }}>
         {ownedPropertyList.map((listItem: OwnedProperty, index: number) => {
           return (
-            <ListItem
-              key={index}
-              style={{
-                color: '#DEBE4D',
-                backgroundColor: 'rgb(248, 248, 248)',
-                borderRadius: '10px',
-                marginBottom: '10px',
-                width: '330px',
-              }}
-              disablePadding
-            >
+            <StyledListItem key={index} disablePadding>
               <ListItemButton dense onClick={() => selectHome(listItem)}>
                 {listItem.label}
               </ListItemButton>
-            </ListItem>
+            </StyledListItem>
           );
         })}
       </List>

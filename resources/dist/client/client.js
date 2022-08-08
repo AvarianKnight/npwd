@@ -9907,7 +9907,6 @@
         console.log("\u{1F680} ~ file: cl_property.ts ~ line 26 ~ onNet ~ ClientCachedPlayers", ClientCachedPlayers);
       });
       onNet("npwd:getOwnedProperties", (properties) => {
-        console.log("\u{1F680} ~ file: cl_property.ts ~ line 18 ~ onNet ~ properties", properties);
         SendNUIMessage({
           app: "PROPERTY",
           method: "npwd:getOwnedProperties",

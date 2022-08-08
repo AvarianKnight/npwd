@@ -14,10 +14,7 @@ const PropertyApp = () => {
 
   return (
     <AppWrapper id="property-app">
-      {/* <PropertyTitle /> */}
-      {/* <AppTitle app={propertyApp} /> */}
       <PropertyTitle />
-
       <AppContent>
         <Container>
           <HomeImg />

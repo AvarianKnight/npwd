@@ -21,13 +21,6 @@ const PropertyTitle = () => {
       <div>
         <img style={{ height: '68px', width: '131px' }} src={Dynasty8} alt={'dynasty8'} />
       </div>
-      {/* <Categories />
-      <div
-        id="darkmarket-title"
-        style={{ color: '#32CD32', fontSize: 15, fontWeight: 600, margin: 2, marginRight: 10 }}
-      >
-        Balance: {cryptoAmount}
-      </div> */}
     </HeaderWrapper>
   );
 };

@@ -1,7 +1,6 @@
 import { PropertyState } from './../atoms/state';
 import { OwnedProperty } from './../../../../../typings/property';
 import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
-import { send } from 'process';
 import { useEffect } from 'react';
 import { useSnackbar } from '../../../os/snackbar/hooks/useSnackbar';
 import { useSetRecoilState } from 'recoil';

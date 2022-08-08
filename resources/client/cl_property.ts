@@ -33,7 +33,6 @@ onNet('npwd:handleCachedPlayerRemoval', (playerToRemove: number) => {
 });
 
 onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
-  console.log('🚀 ~ file: cl_property.ts ~ line 18 ~ onNet ~ properties', properties);
   SendNUIMessage({
     app: 'PROPERTY',
     method: 'npwd:getOwnedProperties',
