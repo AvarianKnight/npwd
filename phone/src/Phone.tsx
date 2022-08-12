@@ -34,6 +34,7 @@ import { useInvalidSettingsHandler } from './apps/settings/hooks/useInvalidSetti
 import { useKeyboardService } from '@os/keyboard/hooks/useKeyboardService';
 import { useDarkMarketService } from './apps/darkmarket/hooks/useDarkMarketService';
 import { useProperty } from './apps/property/hooks/useProperty';
+import ImagePopOut from './ui/components/ImagePopOut';
 
 function Phone() {
   const { i18n } = useTranslation();
@@ -69,6 +70,7 @@ function Phone() {
     <div>
       <TopLevelErrorComponent>
         <WindowSnackbar />
+        <ImagePopOut />
         <PhoneWrapper>
           <NotificationBar />
           <div className="PhoneAppContainer">
