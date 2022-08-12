@@ -237,13 +237,6 @@
   },
   "iconSet": [
     {
-      "label": "NPWD Icons",
-      "value": {
-        "custom": true,
-        "name": "npwd_icons"
-      }
-    },
-    {
       "label": "Material",
       "value": {
         "custom": false,
