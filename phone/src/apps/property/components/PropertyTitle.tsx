@@ -14,8 +14,6 @@ const HeaderWrapper = styled(Paper)`
 `;
 
 const PropertyTitle = () => {
-  //   const cryptoAmount = useRecoilValue(darkMarketState.crypto);
-
   return (
     <HeaderWrapper square variant="outlined">
       <div>

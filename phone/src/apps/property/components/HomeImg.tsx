@@ -15,6 +15,8 @@ const Row = styled(Box)`
   justify-content: center;
   width: 100%;
   height: 150px;
+  top: 10px;
+  position: relative;
 `;
 
 const HomeImg = (props: Props) => {

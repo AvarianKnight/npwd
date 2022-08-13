@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { OwnedProperty } from '../../../../../typings/property';
 import { PropertyState } from '../atoms/state';
+import { useProperty } from '../hooks/useProperty';
 
 type Props = {};
 
@@ -28,17 +29,16 @@ const StyledListItem = styled(ListItem)`
 `;
 
 const Home = (props: Props) => {
-  const ownedPropertyList = useRecoilValue(PropertyState.property);
+  const ownedPropertyList = useRecoilValue(PropertyState.ownedPropertyList);
+  const { propertySelector } = useProperty();
 
   useEffect(() => {
     return () => {};
   }, []);
 
-  const selectHome = (home: OwnedProperty) => {
-    console.log('🚀 ~ file: Home.tsx ~ line 20 ~ selectHome ~ home', home);
-  };
-
-  const listStyle = {};
+  // const selectHome = (home: OwnedProperty) => {
+  //   console.log('🚀 ~ file: Home.tsx ~ line 20 ~ selectHome ~ home', home);
+  // };
 
   return (
     <Container>
@@ -46,7 +46,7 @@ const Home = (props: Props) => {
         {ownedPropertyList.map((listItem: OwnedProperty, index: number) => {
           return (
             <StyledListItem key={index} disablePadding>
-              <ListItemButton dense onClick={() => selectHome(listItem)}>
+              <ListItemButton dense onClick={() => propertySelector(listItem)}>
                 {listItem.label}
               </ListItemButton>
             </StyledListItem>

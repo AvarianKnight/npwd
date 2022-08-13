@@ -1,4 +1,5 @@
-import { PropertyState } from './../atoms/state';
+import { useHistory } from 'react-router-dom';
+import { PropertyState, SelectedPropertyState } from './../atoms/state';
 import { OwnedProperty } from './../../../../../typings/property';
 import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
 import { useEffect } from 'react';
@@ -6,7 +7,10 @@ import { useSnackbar } from '../../../os/snackbar/hooks/useSnackbar';
 import { useSetRecoilState } from 'recoil';
 
 export const useProperty = () => {
-  const setProperty = useSetRecoilState(PropertyState.property);
+  const history = useHistory();
+  const setOwnedPropertyList = useSetRecoilState(PropertyState.ownedPropertyList);
+  const setOwnedProperty = useSetRecoilState(SelectedPropertyState.selectedProperty);
+
   const { addAlert } = useSnackbar();
   const { send } = useNuiRequest();
 
@@ -15,19 +19,20 @@ export const useProperty = () => {
   }, []);
 
   const propertyHandler = (ownedProperties: OwnedProperty[]) => {
-    setProperty(ownedProperties);
+    setOwnedPropertyList(ownedProperties);
+  };
 
-    // send('pma-property-manager:sendToPhone');
-    // send(DarkMarketEvents.INIATE_TRADE, trade).then(() => {
-    //     setNotifyDisplay(false);
-    //     setTrade((state) => ({ ...state, playerId: '', amount: '' }));
-    //   });
+  const propertySelector = (ownedProperty: OwnedProperty) => {
+    history.push('/property/info');
+    setOwnedProperty(ownedProperty);
+  };
+
+  const homeButtonHandler = () => {
+    history.push('/property');
+    setOwnedProperty(undefined);
   };
 
   useNuiEvent('PROPERTY', 'npwd:getOwnedProperties', propertyHandler);
-  //   useNuiEvent('DARKMARKET', DarkMarketEvents.SHOW_CRYPTO_UI, crypto.setCrypto);
-  //   useNuiEvent('DARKMARKET', DarkMarketEvents.SEND_NOTIFICATION, setNotification);
 
-  //   useNuiEvent('DARKMARKET', DarkMarketEvents.ALERT_SUCCESS, alertSuccessHandler);
-  //   useNuiEvent('DARKMARKET', DarkMarketEvents.ALERT_FAILURE, alertFailHandler);
+  return { propertySelector, homeButtonHandler };
 };
