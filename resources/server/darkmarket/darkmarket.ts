@@ -87,8 +87,12 @@ const weaponDrops = async (ply: any, items: Item[], newCoinTotal: number) => {
       }
     }
   }
-  emitNet('npwd:spawnWeapons', ply.source, coords, weaponList);
-
+  exp['pma-inv'].createWorldInventory(
+    ply.source,
+    coords.toArray(),
+    weaponList,
+    `npwd-${(alertId += 1)}`,
+  );
   emitNet(DarkMarketEvents.PICKUP_WEAPONS, ply.source, coords, (alertId += 1));
 
   AC.log(

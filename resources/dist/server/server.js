@@ -17199,8 +17199,7 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request({
-          ...this.options,
+        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17208,7 +17207,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        });
+        }));
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -41162,7 +41161,7 @@ ${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase
           }
         }
       }
-      emitNet("npwd:spawnWeapons", ply.source, coords, weaponList);
+      exp4["pma-inv"].createWorldInventory(ply.source, coords.toArray(), weaponList, `npwd-${alertId += 1}`);
       emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
       AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
 Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)} 
