@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { SelectedPropertyState } from '../atoms/state';
+import PlayerAutoComplete from './PlayerAutoComplete';
 
 const HouseTitle = styled(Typography)`
   font-family: 'Roboto';
@@ -30,7 +31,9 @@ const PropertyInfo = () => {
       <HouseRow>
         <HouseTitle>{property.label}</HouseTitle>
       </HouseRow>
-      <Box>Property</Box>
+      <Box>
+        <PlayerAutoComplete />
+      </Box>
     </Box>
   );
 };

@@ -9891,32 +9891,43 @@
     }
   });
 
+  // ../typings/property.ts
+  var init_property = __esm({
+    "../typings/property.ts"() {
+    }
+  });
+
   // client/cl_property.ts
-  var ClientCachedPlayers;
   var init_cl_property = __esm({
     "client/cl_property.ts"() {
-      ClientCachedPlayers = /* @__PURE__ */ new Map();
-      onNet("npwd:handleCachedPlayerAdd", (playerCache) => {
-        const ssn = Object.keys(playerCache)[0];
-        const values = Object.values(playerCache)[0];
-        ClientCachedPlayers.set(ssn, values);
-        console.log("\u{1F680} ~ file: cl_property.ts ~ line 22 ~ onNet ~ ClientCachedPlayers", ClientCachedPlayers);
-      });
-      onNet("npwd:handleCachedPlayerRemoval", (playerToRemove) => {
-        ClientCachedPlayers.delete(playerToRemove.toString());
-        console.log("\u{1F680} ~ file: cl_property.ts ~ line 26 ~ onNet ~ ClientCachedPlayers", ClientCachedPlayers);
-      });
+      init_property();
       onNet("npwd:getOwnedProperties", (properties) => {
+        emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
         SendNUIMessage({
           app: "PROPERTY",
           method: "npwd:getOwnedProperties",
           data: properties
         });
       });
+      on("onPlayerDropped", () => {
+        emitNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */);
+      });
       RegisterNuiCallbackType("npwd:sendOwnedPropertiesToPhone");
       on("__cfx_nui:npwd:sendOwnedPropertiesToPhone", (data, cb) => {
         emitNet("pma-property-manager:getOwnedProperties");
         cb({});
+      });
+      RegisterNuiCallbackType("npwd:property:getOnlinePlayers");
+      on("__cfx_nui:npwd:property:getOnlinePlayers", (data, cb) => {
+        emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */);
+        cb({});
+      });
+      onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players) => {
+        SendNUIMessage({
+          app: "PROPERTY",
+          method: "npwd:property:getOnlinePlayers",
+          data: players
+        });
       });
     }
   });

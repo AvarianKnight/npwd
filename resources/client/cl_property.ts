@@ -1,3 +1,4 @@
+import { PropertyEvents } from './../../typings/property';
 interface Character {
   uniqueId: number;
   characterName: string;
@@ -13,26 +14,8 @@ interface OwnedProperty {
   last_logged: number;
 }
 
-const ClientCachedPlayers = new Map<string, Character>();
-onNet('npwd:handleCachedPlayerAdd', (playerCache: Map<string, Character>) => {
-  const ssn = Object.keys(playerCache)[0];
-  const values: Character = Object.values(playerCache)[0];
-  ClientCachedPlayers.set(ssn, values);
-  console.log(
-    '🚀 ~ file: cl_property.ts ~ line 22 ~ onNet ~ ClientCachedPlayers',
-    ClientCachedPlayers,
-  );
-});
-
-onNet('npwd:handleCachedPlayerRemoval', (playerToRemove: number) => {
-  ClientCachedPlayers.delete(playerToRemove.toString());
-  console.log(
-    '🚀 ~ file: cl_property.ts ~ line 26 ~ onNet ~ ClientCachedPlayers',
-    ClientCachedPlayers,
-  );
-});
-
 onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
+  emitNet(PropertyEvents.ADD_PLAYER);
   SendNUIMessage({
     app: 'PROPERTY',
     method: 'npwd:getOwnedProperties',
@@ -40,8 +23,26 @@ onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
   });
 });
 
+on('onPlayerDropped', () => {
+  emitNet(PropertyEvents.REMOVE_PLAYER);
+});
+
 RegisterNuiCallbackType('npwd:sendOwnedPropertiesToPhone');
 on('__cfx_nui:npwd:sendOwnedPropertiesToPhone', (data: any, cb: any) => {
   emitNet('pma-property-manager:getOwnedProperties');
   cb({});
+});
+
+RegisterNuiCallbackType('npwd:property:getOnlinePlayers');
+on('__cfx_nui:npwd:property:getOnlinePlayers', (data: any, cb: any) => {
+  emitNet(PropertyEvents.GET_PLAYERS);
+  cb({});
+});
+
+onNet(PropertyEvents.GET_PLAYERS, (players: Map<number, any>) => {
+  SendNUIMessage({
+    app: 'PROPERTY',
+    method: 'npwd:property:getOnlinePlayers',
+    data: players,
+  });
 });

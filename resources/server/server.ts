@@ -24,6 +24,7 @@ import './twitter/twitter.controller';
 import './bank/bank';
 import './darkmarket/darkmarket';
 import './bennys/bennys';
+import './property/property';
 // import './match/match.controller';
 
 // setup exports
