@@ -9902,15 +9902,11 @@
     "client/cl_property.ts"() {
       init_property();
       onNet("npwd:getOwnedProperties", (properties) => {
-        emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
         SendNUIMessage({
           app: "PROPERTY",
           method: "npwd:getOwnedProperties",
           data: properties
         });
-      });
-      on("onPlayerDropped", () => {
-        emitNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */);
       });
       RegisterNuiCallbackType("npwd:sendOwnedPropertiesToPhone");
       on("__cfx_nui:npwd:sendOwnedPropertiesToPhone", (data, cb) => {

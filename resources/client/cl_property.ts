@@ -15,7 +15,7 @@ interface OwnedProperty {
 }
 
 onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
-  emitNet(PropertyEvents.ADD_PLAYER);
+  // emitNet(PropertyEvents.ADD_PLAYER);
   SendNUIMessage({
     app: 'PROPERTY',
     method: 'npwd:getOwnedProperties',
@@ -23,9 +23,9 @@ onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
   });
 });
 
-on('onPlayerDropped', () => {
-  emitNet(PropertyEvents.REMOVE_PLAYER);
-});
+// on('onPlayerDropped', () => {
+//   emitNet(PropertyEvents.REMOVE_PLAYER);
+// });
 
 RegisterNuiCallbackType('npwd:sendOwnedPropertiesToPhone');
 on('__cfx_nui:npwd:sendOwnedPropertiesToPhone', (data: any, cb: any) => {
