@@ -1,3 +1,4 @@
+import { Delay } from '../utils/fivem';
 import { PropertyEvents } from './../../typings/property';
 interface Character {
   uniqueId: number;
@@ -14,18 +15,24 @@ interface OwnedProperty {
   last_logged: number;
 }
 
+setImmediate(async () => {
+  await Delay(3000);
+  emitNet('pma-property-manager:fetchAll');
+  emitNet(PropertyEvents.ADD_PLAYER);
+});
+
+onNet('pma:playerLoaded', () => {
+  emitNet('pma-property-manager:fetchAll');
+  emitNet(PropertyEvents.ADD_PLAYER);
+});
+
 onNet('npwd:getOwnedProperties', (properties: OwnedProperty[]) => {
-  // emitNet(PropertyEvents.ADD_PLAYER);
   SendNUIMessage({
     app: 'PROPERTY',
     method: 'npwd:getOwnedProperties',
     data: properties,
   });
 });
-
-// on('onPlayerDropped', () => {
-//   emitNet(PropertyEvents.REMOVE_PLAYER);
-// });
 
 RegisterNuiCallbackType('npwd:sendOwnedPropertiesToPhone');
 on('__cfx_nui:npwd:sendOwnedPropertiesToPhone', (data: any, cb: any) => {

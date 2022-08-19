@@ -1,7 +1,10 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useProperty } from '../hooks/useProperty';
+import HOME_BUTTON from '../../../assets/property/home_button.png';
+import KEY from '../../../assets/property/key_button.png';
+import { StyledButton, StyledText } from './styles';
 
 const StyledBottom = styled(Box)`
   background: #dde3d9;
@@ -15,10 +18,6 @@ const StyledBottom = styled(Box)`
   align-items: center;
 `;
 
-const StyledButton = styled(Button)`
-  height: 80%;
-`;
-
 const BottomBar = () => {
   const { pathname } = useLocation();
   const { homeButtonHandler } = useProperty();
@@ -27,9 +26,13 @@ const BottomBar = () => {
       {pathname !== '/property' ? (
         <>
           <StyledButton variant="contained" onClick={homeButtonHandler}>
-            Home
+            <img style={{ height: '30px' }} src={HOME_BUTTON} alt="home" />
+            <StyledText style={{ marginLeft: '10px' }}>Home</StyledText>
           </StyledButton>
-          <StyledButton variant="contained">Keys</StyledButton>
+          <StyledButton variant="contained">
+            <img style={{ height: '35px' }} src={KEY} alt="key" />
+            <StyledText style={{ marginLeft: '6px' }}>Keys</StyledText>
+          </StyledButton>
         </>
       ) : (
         <></>

@@ -16,7 +16,6 @@ export const useProperty = () => {
 
   useEffect(() => {
     send('npwd:sendOwnedPropertiesToPhone');
-    console.log(19);
   }, [send]);
 
   const propertyHandler = (ownedProperties: OwnedProperty[]) => {

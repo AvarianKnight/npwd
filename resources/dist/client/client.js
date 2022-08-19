@@ -9898,9 +9898,19 @@
   });
 
   // client/cl_property.ts
-  var init_cl_property = __esm({
-    "client/cl_property.ts"() {
+  var require_cl_property = __commonJS({
+    "client/cl_property.ts"(exports) {
+      init_fivem();
       init_property();
+      setImmediate(() => __async(exports, null, function* () {
+        yield Delay(3e3);
+        emitNet("pma-property-manager:fetchAll");
+        emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
+      }));
+      onNet("pma:playerLoaded", () => {
+        emitNet("pma-property-manager:fetchAll");
+        emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
+      });
       onNet("npwd:getOwnedProperties", (properties) => {
         SendNUIMessage({
           app: "PROPERTY",
@@ -9929,7 +9939,7 @@
   });
 
   // client/client.ts
-  var import_cl_photo, import_cl_exports, import_cl_darkmarket, ClUtils;
+  var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils;
   var init_client = __esm({
     "client/client.ts"() {
       init_cl_utils();
@@ -9949,7 +9959,7 @@
       init_cl_bank();
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
-      init_cl_property();
+      import_cl_property = __toESM(require_cl_property());
       ClUtils = new ClientUtils();
     }
   });

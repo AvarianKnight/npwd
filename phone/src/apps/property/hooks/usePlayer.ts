@@ -10,7 +10,6 @@ export const usePlayer = () => {
 
   useEffect(() => {
     send('npwd:property:getOnlinePlayers');
-    console.log(14);
   }, [send]);
 
   const playerHandler = (players: Player[]) => {

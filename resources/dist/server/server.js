@@ -47023,19 +47023,20 @@ onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
 // server/property/property.ts
 var OnlinePlayersCache = /* @__PURE__ */ new Map();
 onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
-  console.log("boobs");
   const player = player_service_default.getPlayer(source);
-  console.log("\u{1F680} ~ file: property.ts ~ line 9 ~ onNet ~ player", player);
   player.fullname = player.getName();
   player.ssn = player.getIdentifier();
   OnlinePlayersCache.set(source, player);
 });
-onNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, () => {
-  const player = player_service_default.getPlayer(source);
+on("onPlayerDropped", () => {
+  emit("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, source);
+});
+onNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, (source2) => {
+  const player = player_service_default.getPlayer(source2);
   console.log("\u{1F680} ~ file: property.ts ~ line 16 ~ onNet ~ player", player);
   player.fullname = player.getName();
   player.ssn = player.getIdentifier();
-  OnlinePlayersCache.set(source, player);
+  OnlinePlayersCache.set(source2, player);
 });
 onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
   console.log("\u{1F680} ~ file: property.ts ~ line 26 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)", Object.fromEntries(OnlinePlayersCache));

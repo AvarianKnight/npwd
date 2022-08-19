@@ -16,7 +16,7 @@ const HouseTitle = styled(Typography)`
 
 const HouseRow = styled(Box)`
   position: absolute;
-  top: 0px;
+  top: 5px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -29,7 +29,7 @@ const PropertyInfo = () => {
   return (
     <Box>
       <HouseRow>
-        <HouseTitle>{property.label}</HouseTitle>
+        <HouseTitle>{property?.label}</HouseTitle>
       </HouseRow>
       <Box>
         <PlayerAutoComplete />

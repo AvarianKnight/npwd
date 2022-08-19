@@ -5,15 +5,17 @@ import { Player } from '../players/player.class';
 const OnlinePlayersCache = new Map<number, Player>();
 
 onNet(PropertyEvents.ADD_PLAYER, () => {
-  console.log('boobs');
   const player: Player = PlayerService.getPlayer(source);
-  console.log('🚀 ~ file: property.ts ~ line 9 ~ onNet ~ player', player);
   player.fullname = player.getName();
   player.ssn = player.getIdentifier();
   OnlinePlayersCache.set(source, player);
 });
 
-onNet(PropertyEvents.REMOVE_PLAYER, () => {
+on('onPlayerDropped', () => {
+  emit(PropertyEvents.REMOVE_PLAYER, source);
+});
+
+onNet(PropertyEvents.REMOVE_PLAYER, (source: number) => {
   const player: Player = PlayerService.getPlayer(source);
   console.log('🚀 ~ file: property.ts ~ line 16 ~ onNet ~ player', player);
   player.fullname = player.getName();
