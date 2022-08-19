@@ -3,6 +3,8 @@ import { CreatePlayerInstance } from './player.interfaces';
 export class Player {
   public readonly source: number;
   public readonly username: string;
+  public fullname: string;
+  public ssn: string;
   private _phoneNumber: string;
   private _identifier: string;
   private _firstname: string | null;

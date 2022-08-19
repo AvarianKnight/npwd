@@ -16,7 +16,8 @@ export const useProperty = () => {
 
   useEffect(() => {
     send('npwd:sendOwnedPropertiesToPhone');
-  }, []);
+    console.log(19);
+  }, [send]);
 
   const propertyHandler = (ownedProperties: OwnedProperty[]) => {
     setOwnedPropertyList(ownedProperties);
@@ -29,7 +30,7 @@ export const useProperty = () => {
 
   const homeButtonHandler = () => {
     history.push('/property');
-    setOwnedProperty(undefined);
+    // setOwnedProperty(undefined);
   };
 
   useNuiEvent('PROPERTY', 'npwd:getOwnedProperties', propertyHandler);
