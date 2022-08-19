@@ -25,6 +25,7 @@ onNet(DarkMarketEvents.PICKUP_WEAPONS, async (coords: Vector3, alertId: number) 
   const blip = World.createBlip(coords, 5.0);
   blip.Name = 'Drop Off';
   blip.ShowRoute = true;
+  blip.Sprite = 175;
   blip.Color = BlipColor.Yellow;
   SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
 
