@@ -1,3 +1,4 @@
+import { Player } from './../server/players/player.class';
 import { Delay } from '../utils/fivem';
 import { PropertyEvents } from './../../typings/property';
 interface Character {
@@ -15,8 +16,7 @@ interface OwnedProperty {
   last_logged: number;
 }
 
-setImmediate(async () => {
-  await Delay(3000);
+onNet('npwd:property:reload', () => {
   emitNet('pma-property-manager:fetchAll');
   emitNet(PropertyEvents.ADD_PLAYER);
 });
@@ -46,10 +46,15 @@ on('__cfx_nui:npwd:property:getOnlinePlayers', (data: any, cb: any) => {
   cb({});
 });
 
-onNet(PropertyEvents.GET_PLAYERS, (players: Map<number, any>) => {
+onNet(PropertyEvents.GET_PLAYERS, (players: any, source: number) => {
+  const playersCopy = { ...players };
+  if (playersCopy[source]) {
+    delete playersCopy[source];
+  }
+
   SendNUIMessage({
     app: 'PROPERTY',
     method: 'npwd:property:getOnlinePlayers',
-    data: players,
+    data: playersCopy,
   });
 });

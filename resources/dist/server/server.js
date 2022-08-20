@@ -47024,23 +47024,20 @@ onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
 var OnlinePlayersCache = /* @__PURE__ */ new Map();
 onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
   const player = player_service_default.getPlayer(source);
-  player.fullname = player.getName();
-  player.ssn = player.getIdentifier();
-  OnlinePlayersCache.set(source, player);
+  if (player.getName()) {
+    player.fullname = player.getName();
+    player.ssn = player.getIdentifier();
+    OnlinePlayersCache.set(source, player);
+  }
 });
 on("onPlayerDropped", () => {
   emit("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, source);
 });
 onNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, (source2) => {
-  const player = player_service_default.getPlayer(source2);
-  console.log("\u{1F680} ~ file: property.ts ~ line 16 ~ onNet ~ player", player);
-  player.fullname = player.getName();
-  player.ssn = player.getIdentifier();
-  OnlinePlayersCache.set(source2, player);
+  OnlinePlayersCache.delete(source2);
 });
 onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
-  console.log("\u{1F680} ~ file: property.ts ~ line 26 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)", Object.fromEntries(OnlinePlayersCache));
-  emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache));
+  emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
 });
 
 // server/bridge/bridge.utils.ts
@@ -47100,10 +47097,15 @@ if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
     tracesSampleRate: 1
   });
 }
-on("onServerResourceStart", (resource) => {
-  if (resource === GetCurrentResourceName()) {
-    mainLogger.info("Successfully started");
+on("onResourceStart", async (resource) => {
+  if (GetCurrentResourceName() != resource)
+    return;
+  await Delay(5e3);
+  const onlinePlayers = getPlayers();
+  for (const player of onlinePlayers) {
+    emitNet("npwd:property:reload", player);
   }
+  mainLogger.info("Successfully started");
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

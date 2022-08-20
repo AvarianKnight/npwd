@@ -5,6 +5,7 @@ import { useProperty } from '../hooks/useProperty';
 import HOME_BUTTON from '../../../assets/property/home_button.png';
 import KEY from '../../../assets/property/key_button.png';
 import { StyledButton, StyledText } from './styles';
+import { useKey } from '../hooks/useKey';
 
 const StyledBottom = styled(Box)`
   background: #dde3d9;
@@ -21,6 +22,7 @@ const StyledBottom = styled(Box)`
 const BottomBar = () => {
   const { pathname } = useLocation();
   const { homeButtonHandler } = useProperty();
+  const { keyRoutingHandler } = useKey();
   return (
     <StyledBottom>
       {pathname !== '/property' ? (
@@ -29,7 +31,7 @@ const BottomBar = () => {
             <img style={{ height: '30px' }} src={HOME_BUTTON} alt="home" />
             <StyledText style={{ marginLeft: '10px' }}>Home</StyledText>
           </StyledButton>
-          <StyledButton variant="contained">
+          <StyledButton variant="contained" onClick={keyRoutingHandler}>
             <img style={{ height: '35px' }} src={KEY} alt="key" />
             <StyledText style={{ marginLeft: '6px' }}>Keys</StyledText>
           </StyledButton>

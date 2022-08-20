@@ -9899,15 +9899,13 @@
   });
 
   // client/cl_property.ts
-  var require_cl_property = __commonJS({
-    "client/cl_property.ts"(exports) {
-      init_fivem();
+  var init_cl_property = __esm({
+    "client/cl_property.ts"() {
       init_property();
-      setImmediate(() => __async(exports, null, function* () {
-        yield Delay(3e3);
+      onNet("npwd:property:reload", () => {
         emitNet("pma-property-manager:fetchAll");
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
-      }));
+      });
       onNet("pma:playerLoaded", () => {
         emitNet("pma-property-manager:fetchAll");
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
@@ -9929,18 +9927,22 @@
         emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */);
         cb({});
       });
-      onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players) => {
+      onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players, source) => {
+        const playersCopy = __spreadValues({}, players);
+        if (playersCopy[source]) {
+          delete playersCopy[source];
+        }
         SendNUIMessage({
           app: "PROPERTY",
           method: "npwd:property:getOnlinePlayers",
-          data: players
+          data: playersCopy
         });
       });
     }
   });
 
   // client/client.ts
-  var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils;
+  var import_cl_photo, import_cl_exports, import_cl_darkmarket, ClUtils;
   var init_client = __esm({
     "client/client.ts"() {
       init_cl_utils();
@@ -9960,7 +9962,7 @@
       init_cl_bank();
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
-      import_cl_property = __toESM(require_cl_property());
+      init_cl_property();
       ClUtils = new ClientUtils();
     }
   });

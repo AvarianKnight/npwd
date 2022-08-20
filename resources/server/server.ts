@@ -34,6 +34,7 @@ import './rcon/exports';
 
 import { mainLogger } from './sv_logger';
 import * as Sentry from '@sentry/node';
+import { Delay } from '../utils/fivem';
 
 // register commands
 registerCommands();
@@ -51,8 +52,13 @@ if (config.debug.sentryEnabled && process.env.NODE_ENV === 'production') {
   });
 }
 
-on('onServerResourceStart', (resource: string) => {
-  if (resource === GetCurrentResourceName()) {
-    mainLogger.info('Successfully started');
+on('onResourceStart', async (resource: string) => {
+  if (GetCurrentResourceName() != resource) return;
+
+  await Delay(5000);
+  const onlinePlayers = getPlayers();
+  for (const player of onlinePlayers) {
+    emitNet('npwd:property:reload', player);
   }
+  mainLogger.info('Successfully started');
 });

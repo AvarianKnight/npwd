@@ -5,6 +5,7 @@ import { useProperty } from '../hooks/useProperty';
 import Container from './Container';
 import Home from './Home';
 import HomeImg from './HomeImg';
+import KeyList from './KeyList';
 import PropertyInfo from './PropertyInfo';
 import PropertyTitle from './PropertyTitle';
 
@@ -20,6 +21,7 @@ const PropertyApp = () => {
           <Switch>
             <Route path="/property" exact component={Home} />
             <Route path="/property/info" exact component={PropertyInfo} />
+            <Route path="/property/keylist" exact component={KeyList} />
           </Switch>
         </Container>
       </AppContent>
