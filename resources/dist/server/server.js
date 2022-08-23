@@ -47030,11 +47030,8 @@ onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
     OnlinePlayersCache.set(source, player);
   }
 });
-on("onPlayerDropped", () => {
-  emit("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, source);
-});
-onNet("npwd:property:removePlayerCache" /* REMOVE_PLAYER */, (source2) => {
-  OnlinePlayersCache.delete(source2);
+on("playerDropped", () => {
+  OnlinePlayersCache.delete(source);
 });
 onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
   emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);

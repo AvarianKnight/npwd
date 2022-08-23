@@ -5,7 +5,9 @@ import BennysTitle from './BennysTitle';
 import Home from './home/Home';
 import BG from '../../../assets/bennys/bennys_bg.png';
 import styled from 'styled-components';
-import { useBennys } from '../hooks/useBennys';
+import { useEffect } from 'react';
+import { BennysEvents } from '../../../../../typings/bennys';
+import { useNuiRequest } from 'fivem-nui-react-lib';
 
 const Content = styled.div`
   top: 80px;
@@ -18,7 +20,11 @@ const Content = styled.div`
 `;
 
 const BennysApp = () => {
-  useBennys();
+  const { send } = useNuiRequest();
+
+  useEffect(() => {
+    send(BennysEvents.GET_VEHICLE_LIST);
+  }, [send]);
 
   return (
     <AppWrapper

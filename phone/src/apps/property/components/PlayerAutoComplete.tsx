@@ -5,6 +5,7 @@ import { TextField } from '../../../ui/components/Input';
 import { PlayerListState } from '../atoms/state';
 import { usePlayer } from '../hooks/usePlayer';
 import { StyledButton, StyledText } from './styles';
+import { useKey } from '../hooks/useKey';
 
 const Wrapper = styled(Box)`
   width: 100%;
@@ -46,7 +47,8 @@ const MuiTextField = styled(TextField)({
 });
 
 const PlayerAutoComplete = () => {
-  usePlayer();
+  const { giveKeyHandler } = useKey();
+  const { selectedPlayerHandler } = usePlayer();
   const playerList = useRecoilValue(PlayerListState.playerList);
 
   return (
@@ -57,6 +59,8 @@ const PlayerAutoComplete = () => {
         multiple
         disableClearable={true}
         options={playerList}
+        //@ts-ignore
+        onChange={selectedPlayerHandler}
         style={{ width: 280 }}
         getOptionLabel={(option: any) => option.fullname}
         filterSelectedOptions
@@ -76,7 +80,7 @@ const PlayerAutoComplete = () => {
           ))
         }
       />
-      <StyledButton style={{ marginTop: 10 }}>
+      <StyledButton style={{ marginTop: 10 }} onClick={giveKeyHandler}>
         <StyledText>Give Key</StyledText>
       </StyledButton>
     </Wrapper>

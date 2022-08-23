@@ -6,6 +6,7 @@ import BottomBar from './BottomBar';
 
 type Props = {
   children: React.ReactNode;
+  rootRef: any;
 };
 
 const Wrapper = styled(Box)`
@@ -26,9 +27,9 @@ const Background = styled(Box)`
   background-repeat: no-repeat;
 `;
 
-const Container = ({ children }: Props) => {
+const Container = ({ children, rootRef }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper ref={rootRef}>
       <Background>{children}</Background>
       <BottomBar />
     </Wrapper>

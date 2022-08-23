@@ -2,6 +2,7 @@ import { Box, styled, Typography } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { SelectedPropertyState } from '../atoms/state';
 import PlayerAutoComplete from './PlayerAutoComplete';
+import Prompt from './Prompt';
 
 const HouseTitle = styled(Typography)`
   font-family: 'Roboto';

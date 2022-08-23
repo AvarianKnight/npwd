@@ -14,10 +14,6 @@ export const useProperty = () => {
   const { addAlert } = useSnackbar();
   const { send } = useNuiRequest();
 
-  useEffect(() => {
-    send('npwd:sendOwnedPropertiesToPhone');
-  }, [send]);
-
   const propertyHandler = (ownedProperties: OwnedProperty[]) => {
     setOwnedPropertyList(ownedProperties);
   };
@@ -32,7 +28,7 @@ export const useProperty = () => {
     // setOwnedProperty(undefined);
   };
 
-  useNuiEvent('PROPERTY', 'npwd:getOwnedProperties', propertyHandler);
+  useNuiEvent('PROPERTY', 'npwd:property:getOwnedProperties', propertyHandler);
 
   return { propertySelector, homeButtonHandler };
 };

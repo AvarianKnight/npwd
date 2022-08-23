@@ -9902,7 +9902,11 @@
   var init_cl_property = __esm({
     "client/cl_property.ts"() {
       init_property();
-      onNet("npwd:property:reload", () => {
+      RegisterNuiCallbackType("npwd:property:fetchOwnedProperties" /* FETCH_OWNED_PROPERTIES */);
+      RegisterNuiCallbackType("npwd:property:getOnlinePlayers" /* GET_PLAYERS */);
+      RegisterNuiCallbackType("npwd:property:givePlayerKey" /* GIVE_PLAYER_KEY */);
+      RegisterNuiCallbackType("npwd:property:removePlayerKey" /* REMOVE_PLAYER_KEY */);
+      onNet(`${"npwd:property:reload" /* RELOAD_APP */}`, () => {
         emitNet("pma-property-manager:fetchAll");
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
       });
@@ -9910,31 +9914,26 @@
         emitNet("pma-property-manager:fetchAll");
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
       });
-      onNet("npwd:getOwnedProperties", (properties) => {
+      onNet("npwd:property:getOwnedProperties", (properties) => {
         SendNUIMessage({
           app: "PROPERTY",
-          method: "npwd:getOwnedProperties",
+          method: "npwd:property:getOwnedProperties",
           data: properties
         });
       });
-      RegisterNuiCallbackType("npwd:sendOwnedPropertiesToPhone");
-      on("__cfx_nui:npwd:sendOwnedPropertiesToPhone", (data, cb) => {
+      on(`__cfx_nui:${"npwd:property:fetchOwnedProperties" /* FETCH_OWNED_PROPERTIES */}`, (data, cb) => {
         emitNet("pma-property-manager:getOwnedProperties");
         cb({});
       });
-      RegisterNuiCallbackType("npwd:property:getOnlinePlayers");
-      on("__cfx_nui:npwd:property:getOnlinePlayers", (data, cb) => {
+      on(`__cfx_nui:${"npwd:property:getOnlinePlayers" /* GET_PLAYERS */}`, (data, cb) => {
         emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */);
         cb({});
       });
       onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players, source) => {
         const playersCopy = __spreadValues({}, players);
-        if (playersCopy[source]) {
-          delete playersCopy[source];
-        }
         SendNUIMessage({
           app: "PROPERTY",
-          method: "npwd:property:getOnlinePlayers",
+          method: `${"npwd:property:getOnlinePlayers" /* GET_PLAYERS */}`,
           data: playersCopy
         });
       });

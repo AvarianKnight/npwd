@@ -1,8 +1,7 @@
 import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { BennysEvents, Impound, Vehicle } from '../../../../../typings/bennys';
-import Bennys from '../../../os/apps/icons/material/app/BENNYS';
 import { useSnackbar } from '../../../os/snackbar/hooks/useSnackbar';
 import { bennysState } from '../atoms/state';
 
@@ -14,10 +13,6 @@ export const useBennys = () => {
   const { addAlert } = useSnackbar();
   const [impoundFee, setImpoundFees] = useRecoilState(bennysState.impound);
   const [vehicleSelected, setVehicleSelected] = useRecoilState(bennysState.vehicleSelected);
-
-  useEffect(() => {
-    send(BennysEvents.GET_VEHICLE_LIST);
-  }, [send]);
 
   const filterVehicleList = (input: string) => {
     let copyVehList = [...filteredVehicleList];

@@ -1,5 +1,4 @@
-import { Player } from './../../../../../resources/server/players/player.class';
-import { OwnedProperty } from './../../../../../typings/property';
+import { OwnedProperty, Player } from './../../../../../typings/property';
 import { atom } from 'recoil';
 
 export const PropertyState = {
@@ -20,5 +19,19 @@ export const PlayerListState = {
   playerList: atom<Player[]>({
     key: 'playerList',
     default: [],
+  }),
+  selectedPlayerList: atom<(string | Player)[]>({
+    key: 'selectedPlayerList',
+    default: [],
+  }),
+};
+
+export const PromptState = {
+  prompt: atom({
+    key: 'prompt',
+    default: {
+      message: '',
+      open: false,
+    },
   }),
 };
