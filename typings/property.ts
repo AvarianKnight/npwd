@@ -25,3 +25,7 @@ export interface Player {
   fullname: string;
   ssn: string;
 }
+export interface GiveKey {
+  players: Player[];
+  property: OwnedProperty;
+}

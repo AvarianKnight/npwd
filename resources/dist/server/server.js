@@ -44615,8 +44615,8 @@ var _MarketplaceDB = class {
     await db_wrapper_default._rawExec(query, [listing.id]);
   }
   async doesListingExist(listing, identifier) {
-    const query = `SELECT * FROM npwd_marketplace_listings WHERE title = ? AND identifier = ?`;
-    const [results] = await db_wrapper_default._rawExec(query, [listing.title, identifier]);
+    const query = `SELECT * FROM npwd_marketplace_listings WHERE identifier = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
     const listings = results;
     return listings.length > 0;
   }

@@ -1,4 +1,4 @@
-import { PropertyEvents } from './../../typings/property';
+import { GiveKey, Player, PropertyEvents } from './../../typings/property';
 interface Character {
   uniqueId: number;
   characterName: string;
@@ -14,11 +14,6 @@ interface OwnedProperty {
   last_logged: number;
 }
 
-RegisterNuiCallbackType(PropertyEvents.FETCH_OWNED_PROPERTIES);
-RegisterNuiCallbackType(PropertyEvents.GET_PLAYERS);
-RegisterNuiCallbackType(PropertyEvents.GIVE_PLAYER_KEY);
-RegisterNuiCallbackType(PropertyEvents.REMOVE_PLAYER_KEY);
-
 onNet(`${PropertyEvents.RELOAD_APP}`, () => {
   emitNet('pma-property-manager:fetchAll');
   emitNet(PropertyEvents.ADD_PLAYER);
@@ -28,6 +23,11 @@ onNet('pma:playerLoaded', () => {
   emitNet('pma-property-manager:fetchAll');
   emitNet(PropertyEvents.ADD_PLAYER);
 });
+
+RegisterNuiCallbackType(PropertyEvents.FETCH_OWNED_PROPERTIES);
+RegisterNuiCallbackType(PropertyEvents.GET_PLAYERS);
+RegisterNuiCallbackType(PropertyEvents.GIVE_PLAYER_KEY);
+RegisterNuiCallbackType(PropertyEvents.REMOVE_PLAYER_KEY);
 
 onNet('npwd:property:getOwnedProperties', (properties: OwnedProperty[]) => {
   SendNUIMessage({
@@ -47,15 +47,37 @@ on(`__cfx_nui:${PropertyEvents.GET_PLAYERS}`, (data: any, cb: any) => {
   cb({});
 });
 
-onNet(PropertyEvents.GET_PLAYERS, (players: any, source: number) => {
+on(`__cfx_nui:${PropertyEvents.GIVE_PLAYER_KEY}`, (KeyData: GiveKey, cb: any) => {
+  emitNet('pma-property-manager:givePlayerKey', KeyData);
+  cb({});
+});
+
+onNet(PropertyEvents.GET_PLAYERS, (players: any) => {
   const playersCopy = { ...players };
-  // if (playersCopy[source]) {
-  //   delete playersCopy[source];
-  // }
 
   SendNUIMessage({
     app: 'PROPERTY',
     method: `${PropertyEvents.GET_PLAYERS}`,
     data: playersCopy,
+  });
+});
+
+let iterator = 0;
+onNet('npwd:property:alert', (alertMsg: string) => {
+  SendNUIMessage({
+    app: 'PROPERTY',
+    method: 'npwd:property:alert',
+    data: {
+      title: 'Property Alert',
+      propertyNotify: (iterator += 1),
+      message: alertMsg,
+    },
+  });
+});
+
+onNet('npwd:property:clearGiveKey', () => {
+  SendNUIMessage({
+    app: 'PROPERTY',
+    method: 'npwd:property:clearGiveKey',
   });
 });
