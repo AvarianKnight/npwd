@@ -52,6 +52,11 @@ if (config.debug.sentryEnabled && process.env.NODE_ENV === 'production') {
   });
 }
 
+const truncateMarketplaceListings = async () => {
+  const query = `TRUNCATE npwd_marketplace_listings`;
+  await ox.execute_async(query);
+};
+
 on('onResourceStart', async (resource: string) => {
   if (GetCurrentResourceName() != resource) return;
 
@@ -60,5 +65,6 @@ on('onResourceStart', async (resource: string) => {
   for (const player of onlinePlayers) {
     emitNet('npwd:property:reload', player);
   }
+  truncateMarketplaceListings();
   mainLogger.info('Successfully started');
 });
