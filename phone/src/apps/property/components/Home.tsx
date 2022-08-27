@@ -32,18 +32,10 @@ const Home = (props: Props) => {
   const ownedPropertyList = useRecoilValue(PropertyState.ownedPropertyList);
   const { propertySelector } = useProperty();
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
-  // const selectHome = (home: OwnedProperty) => {
-  //   console.log('🚀 ~ file: Home.tsx ~ line 20 ~ selectHome ~ home', home);
-  // };
-
   return (
     <Container>
       <List sx={{ width: '100%', maxWidth: 350, overflow: 'auto', height: '365px' }}>
-        {ownedPropertyList.map((listItem: OwnedProperty, index: number) => {
+        {ownedPropertyList?.map((listItem: OwnedProperty, index: number) => {
           return (
             <StyledListItem key={index} disablePadding>
               <ListItemButton dense onClick={() => propertySelector(listItem)}>

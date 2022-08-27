@@ -53,7 +53,7 @@ function Phone() {
   useSimcardService();
   useTwitterService();
   // useMatchService();
-  // useProperty();
+  useProperty();
   useDarkMarketService();
   useMarketplaceService();
   useBankService();

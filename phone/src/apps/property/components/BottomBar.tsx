@@ -1,11 +1,11 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useProperty } from '../hooks/useProperty';
 import HOME_BUTTON from '../../../assets/property/home_button.png';
 import KEY from '../../../assets/property/key_button.png';
-import { StyledButton, StyledText } from './styles';
 import { useKey } from '../hooks/useKey';
+import { useProperty } from '../hooks/useProperty';
+import { StyledButton, StyledText } from './styles';
 
 const StyledBottom = styled(Box)`
   background: #dde3d9;

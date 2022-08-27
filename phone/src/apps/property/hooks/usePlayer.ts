@@ -24,7 +24,12 @@ export const usePlayer = () => {
     setSelectedPlayerList(value);
   };
 
+  const clearSelectHandler = () => {
+    setSelectedPlayerList([]);
+  };
+
   useNuiEvent('PROPERTY', 'npwd:property:getOnlinePlayers', playerHandler);
+  useNuiEvent('PROPERTY', 'npwd:property:clearGiveKey', clearSelectHandler);
 
   return { selectedPlayerHandler };
 };

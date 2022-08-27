@@ -1,11 +1,12 @@
-import { Autocomplete, Box, Button, Chip, Typography } from '@mui/material';
-import styled from 'styled-components';
+import { Autocomplete, Box, Chip } from '@mui/material';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+import { Player } from '../../../../../typings/property';
 import { TextField } from '../../../ui/components/Input';
 import { PlayerListState } from '../atoms/state';
+import { useKey } from '../hooks/useKey';
 import { usePlayer } from '../hooks/usePlayer';
 import { StyledButton, StyledText } from './styles';
-import { useKey } from '../hooks/useKey';
 
 const Wrapper = styled(Box)`
   width: 100%;
@@ -50,7 +51,7 @@ const PlayerAutoComplete = () => {
   const { giveKeyHandler } = useKey();
   const { selectedPlayerHandler } = usePlayer();
   const playerList = useRecoilValue(PlayerListState.playerList);
-
+  const selectedPlayerList = useRecoilValue(PlayerListState.selectedPlayerList);
   return (
     <Wrapper>
       <Autocomplete
@@ -59,6 +60,9 @@ const PlayerAutoComplete = () => {
         multiple
         disableClearable={true}
         options={playerList}
+        value={selectedPlayerList}
+        //@ts-ignore
+        isOptionEqualToValue={(option: Player, value: Player) => option.source === value.source}
         //@ts-ignore
         onChange={selectedPlayerHandler}
         style={{ width: 280 }}
@@ -73,6 +77,7 @@ const PlayerAutoComplete = () => {
                 padding: 5,
               }}
               variant="outlined"
+              //@ts-ignore
               label={option.fullname}
               size="small"
               {...getTagProps({ index })}

@@ -27,6 +27,7 @@ onNet('pma:playerLoaded', () => {
 RegisterNuiCallbackType(PropertyEvents.FETCH_OWNED_PROPERTIES);
 RegisterNuiCallbackType(PropertyEvents.GET_PLAYERS);
 RegisterNuiCallbackType(PropertyEvents.GIVE_PLAYER_KEY);
+RegisterNuiCallbackType(PropertyEvents.FETCH_KEY_HOLDERS);
 RegisterNuiCallbackType(PropertyEvents.REMOVE_PLAYER_KEY);
 
 onNet('npwd:property:getOwnedProperties', (properties: OwnedProperty[]) => {
@@ -80,4 +81,30 @@ onNet('npwd:property:clearGiveKey', () => {
     app: 'PROPERTY',
     method: 'npwd:property:clearGiveKey',
   });
+});
+
+on(`__cfx_nui:${PropertyEvents.FETCH_KEY_HOLDERS}`, (property: OwnedProperty, cb: any) => {
+  emitNet('pma-property-manager:fetchKeyHolders', property);
+  cb({});
+});
+
+onNet('npwd:property:returnKeyHolders', (sharedKeys: OwnedProperty) => {
+  SendNUIMessage({
+    app: 'PROPERTY',
+    method: 'npwd:property:returnKeyHolders',
+    data: sharedKeys,
+  });
+});
+
+onNet('npwd:property:returnKeyHolders', (sharedKeys: OwnedProperty) => {
+  SendNUIMessage({
+    app: 'PROPERTY',
+    method: 'npwd:property:returnKeyHolders',
+    data: sharedKeys,
+  });
+});
+
+on(`__cfx_nui:${PropertyEvents.REMOVE_PLAYER_KEY}`, (data: any, cb: any) => {
+  console.log(data);
+  cb();
 });

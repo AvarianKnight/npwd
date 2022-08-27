@@ -1,27 +1,51 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useNuiRequest } from 'fivem-nui-react-lib';
+import { PropertyState } from './../atoms/state';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
 import { useHistory } from 'react-router-dom';
 import { PlayerListState, PromptState } from '../atoms/state';
+import { OwnedProperty, PropertyEvents } from '../../../../../typings/property';
 
 export const useKey = () => {
   const { send } = useNuiRequest();
   const history = useHistory();
   const setPrompt = useSetRecoilState(PromptState.prompt);
   const selectedPlayers = useRecoilValue(PlayerListState.selectedPlayerList);
+  const selectedProperty = useRecoilValue(PropertyState.selectedProperty);
+  const [sharedKeyList, setSharedKeyList] = useRecoilState(PropertyState.sharedKeyList);
+
   /**
    * Sends data to client to be processed.
    */
   const giveKeyHandler = () => {
-    console.log('🚀 ~ file: useKey.ts ~ line 11 ~ useKey ~ selectedPlayers', selectedPlayers);
     if (selectedPlayers.length > 1) {
-      setPrompt({ open: true, message: 'Do you want to give access to these people?' });
-    } else {
-      //@ts-ignore
       setPrompt({
+        type: 'add',
         open: true,
+        message: 'Do you want to give access to these people?',
+      });
+    } else {
+      setPrompt({
+        type: 'add',
+        open: true,
+        //@ts-ignore
         message: `Do you want to give access to ${selectedPlayers[0].fullname}?`,
       });
     }
+  };
+
+  const deleteKeyHandler = (index: number, playerToDelete: any) => {
+    console.log(
+      '🚀 ~ file: useKey.ts ~ line 33 ~ deleteKeyHandler ~ playerToDelete',
+      playerToDelete,
+    );
+    setPrompt({
+      open: true,
+      type: 'remove',
+      data: playerToDelete,
+      //@ts-ignore
+      message: `Do you want to remove access to ${sharedKeyList[index].fullname}?`,
+    });
+    // send(PropertyEvents.REQUEST_REMOVE_PLAYER_KEY, selectedProperty);
   };
 
   /**
@@ -31,5 +55,11 @@ export const useKey = () => {
     history.push('/property/keylist');
   };
 
-  return { giveKeyHandler, keyRoutingHandler };
+  const returnKeyHandler = (keyList: OwnedProperty[]) => {
+    setSharedKeyList(keyList);
+  };
+
+  useNuiEvent('PROPERTY', 'npwd:property:returnKeyHolders', returnKeyHandler);
+
+  return { giveKeyHandler, keyRoutingHandler, deleteKeyHandler };
 };

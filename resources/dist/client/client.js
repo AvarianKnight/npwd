@@ -9914,6 +9914,7 @@
       RegisterNuiCallbackType("npwd:property:fetchOwnedProperties" /* FETCH_OWNED_PROPERTIES */);
       RegisterNuiCallbackType("npwd:property:getOnlinePlayers" /* GET_PLAYERS */);
       RegisterNuiCallbackType("npwd:property:givePlayerKey" /* GIVE_PLAYER_KEY */);
+      RegisterNuiCallbackType("npwd:property:fetchKeyHolders" /* FETCH_KEY_HOLDERS */);
       RegisterNuiCallbackType("npwd:property:removePlayerKey" /* REMOVE_PLAYER_KEY */);
       onNet("npwd:property:getOwnedProperties", (properties) => {
         SendNUIMessage({
@@ -9959,6 +9960,28 @@
           app: "PROPERTY",
           method: "npwd:property:clearGiveKey"
         });
+      });
+      on(`__cfx_nui:${"npwd:property:fetchKeyHolders" /* FETCH_KEY_HOLDERS */}`, (property, cb) => {
+        emitNet("pma-property-manager:fetchKeyHolders", property);
+        cb({});
+      });
+      onNet("npwd:property:returnKeyHolders", (sharedKeys) => {
+        SendNUIMessage({
+          app: "PROPERTY",
+          method: "npwd:property:returnKeyHolders",
+          data: sharedKeys
+        });
+      });
+      onNet("npwd:property:returnKeyHolders", (sharedKeys) => {
+        SendNUIMessage({
+          app: "PROPERTY",
+          method: "npwd:property:returnKeyHolders",
+          data: sharedKeys
+        });
+      });
+      on(`__cfx_nui:${"npwd:property:removePlayerKey" /* REMOVE_PLAYER_KEY */}`, (data, cb) => {
+        console.log(data);
+        cb();
       });
     }
   });

@@ -1,4 +1,4 @@
-import { OwnedProperty, Player } from './../../../../../typings/property';
+import { OwnedProperty, Player, PromptType } from './../../../../../typings/property';
 import { atom } from 'recoil';
 
 export const PropertyState = {
@@ -6,14 +6,22 @@ export const PropertyState = {
     key: 'ownedPropertyList',
     default: [],
   }),
-};
-
-export const SelectedPropertyState = {
   selectedProperty: atom<OwnedProperty>({
-    key: 'selected-property',
+    key: 'selectedProperty',
     default: undefined,
   }),
+  sharedKeyList: atom<OwnedProperty[]>({
+    key: 'sharedKeyList',
+    default: [],
+  }),
 };
+
+// export const SelectedPropertyState = {
+//   selectedProperty: atom<OwnedProperty>({
+//     key: 'selected-property',
+//     default: undefined,
+//   }),
+// };
 
 export const PlayerListState = {
   playerList: atom<Player[]>({
@@ -27,11 +35,13 @@ export const PlayerListState = {
 };
 
 export const PromptState = {
-  prompt: atom({
+  prompt: atom<PromptType>({
     key: 'prompt',
     default: {
+      type: '',
       message: '',
       open: false,
+      data: undefined,
     },
   }),
 };
