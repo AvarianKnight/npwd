@@ -47097,10 +47097,12 @@ if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
 on("onResourceStart", async (resource) => {
   if (GetCurrentResourceName() != resource)
     return;
+  await ox.execute_async(`TRUNCATE npwd_marketplace_listings`);
   await Delay(5e3);
   const onlinePlayers = getPlayers();
   for (const player of onlinePlayers) {
-    emitNet("npwd:property:reload", player);
+    console.log("\u{1F680} ~ file: server.ts ~ line 64 ~ on ~ player", typeof player);
+    emitNet("npwd:property:reload" /* RELOAD_APP */, Number(player));
   }
   mainLogger.info("Successfully started");
 });

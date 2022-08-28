@@ -9899,16 +9899,14 @@
   });
 
   // client/cl_property.ts
-  var iterator2;
-  var init_cl_property = __esm({
-    "client/cl_property.ts"() {
+  var require_cl_property = __commonJS({
+    "client/cl_property.ts"(exports) {
       init_property();
-      onNet(`${"npwd:property:reload" /* RELOAD_APP */}`, () => {
-        emitNet("pma-property-manager:fetchAll");
+      onNet("npwd:property:reload" /* RELOAD_APP */, () => __async(exports, null, function* () {
+        console.log(19);
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
-      });
+      }));
       onNet("pma:playerLoaded", () => {
-        emitNet("pma-property-manager:fetchAll");
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
       });
       RegisterNuiCallbackType("npwd:property:fetchOwnedProperties" /* FETCH_OWNED_PROPERTIES */);
@@ -9943,7 +9941,7 @@
           data: playersCopy
         });
       });
-      iterator2 = 0;
+      var iterator2 = 0;
       onNet("npwd:property:alert", (alertMsg) => {
         SendNUIMessage({
           app: "PROPERTY",
@@ -9972,22 +9970,15 @@
           data: sharedKeys
         });
       });
-      onNet("npwd:property:returnKeyHolders", (sharedKeys) => {
-        SendNUIMessage({
-          app: "PROPERTY",
-          method: "npwd:property:returnKeyHolders",
-          data: sharedKeys
-        });
-      });
       on(`__cfx_nui:${"npwd:property:removePlayerKey" /* REMOVE_PLAYER_KEY */}`, (data, cb) => {
-        console.log(data);
-        cb();
+        emitNet("pma-property-manager:removePlayerKey", data);
+        cb({});
       });
     }
   });
 
   // client/client.ts
-  var import_cl_photo, import_cl_exports, import_cl_darkmarket, ClUtils;
+  var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils;
   var init_client = __esm({
     "client/client.ts"() {
       init_cl_utils();
@@ -10007,7 +9998,7 @@
       init_cl_bank();
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
-      init_cl_property();
+      import_cl_property = __toESM(require_cl_property());
       ClUtils = new ClientUtils();
     }
   });

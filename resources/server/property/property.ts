@@ -10,13 +10,11 @@ onNet(PropertyEvents.ADD_PLAYER, () => {
     player.fullname = player.getName();
     player.ssn = player.getIdentifier();
     OnlinePlayersCache.set(source, player);
-    // console.log("🚀 ~ file: property.ts ~ line 13 ~ onNet ~ OnlinePlayersCache", OnlinePlayersCache);
   }
 });
 
 on('playerDropped', () => {
   OnlinePlayersCache.delete(source);
-  // console.log("🚀 ~ file: property.ts ~ line 19 ~ on ~ OnlinePlayersCache", OnlinePlayersCache)
 });
 
 onNet(PropertyEvents.GET_PLAYERS, () => {

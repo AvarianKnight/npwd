@@ -34,10 +34,6 @@ export const useKey = () => {
   };
 
   const deleteKeyHandler = (index: number, playerToDelete: any) => {
-    console.log(
-      '🚀 ~ file: useKey.ts ~ line 33 ~ deleteKeyHandler ~ playerToDelete',
-      playerToDelete,
-    );
     setPrompt({
       open: true,
       type: 'remove',

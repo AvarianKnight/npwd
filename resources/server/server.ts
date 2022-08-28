@@ -35,6 +35,7 @@ import './rcon/exports';
 import { mainLogger } from './sv_logger';
 import * as Sentry from '@sentry/node';
 import { Delay } from '../utils/fivem';
+import { PropertyEvents } from '../../typings/property';
 
 // register commands
 registerCommands();
@@ -55,10 +56,12 @@ if (config.debug.sentryEnabled && process.env.NODE_ENV === 'production') {
 on('onResourceStart', async (resource: string) => {
   if (GetCurrentResourceName() != resource) return;
 
+  await ox.execute_async(`TRUNCATE npwd_marketplace_listings`);
   await Delay(5000);
   const onlinePlayers = getPlayers();
   for (const player of onlinePlayers) {
-    emitNet('npwd:property:reload', player);
+    console.log('🚀 ~ file: server.ts ~ line 64 ~ on ~ player', typeof player);
+    emitNet(PropertyEvents.RELOAD_APP, Number(player));
   }
   mainLogger.info('Successfully started');
 });

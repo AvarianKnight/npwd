@@ -2,6 +2,7 @@ import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
 import { SyntheticEvent, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { Player } from '../../../../../resources/server/players/player.class';
+import { PropertyEvents } from '../../../../../typings/property';
 import { PlayerListState } from '../atoms/state';
 
 export const usePlayer = () => {
@@ -10,8 +11,8 @@ export const usePlayer = () => {
   const setSelectedPlayerList = useSetRecoilState(PlayerListState.selectedPlayerList);
 
   useEffect(() => {
-    send('npwd:property:getOnlinePlayers');
-  }, [send]);
+    send(PropertyEvents.GET_PLAYERS);
+  }, []);
 
   const playerHandler = (players: Player[]) => {
     setPlayerList(Object.values(players));

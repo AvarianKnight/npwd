@@ -1,4 +1,5 @@
-import { GiveKey, Player, PropertyEvents } from './../../typings/property';
+import { Delay } from '../utils/fivem';
+import { GiveKey, PropertyEvents } from './../../typings/property';
 interface Character {
   uniqueId: number;
   characterName: string;
@@ -14,15 +15,18 @@ interface OwnedProperty {
   last_logged: number;
 }
 
-onNet(`${PropertyEvents.RELOAD_APP}`, () => {
-  emitNet('pma-property-manager:fetchAll');
+onNet(PropertyEvents.RELOAD_APP, async () => {
+  console.log(19);
   emitNet(PropertyEvents.ADD_PLAYER);
 });
 
 onNet('pma:playerLoaded', () => {
-  emitNet('pma-property-manager:fetchAll');
   emitNet(PropertyEvents.ADD_PLAYER);
 });
+
+// setImmediate(async () => {
+//   emitNet(PropertyEvents.ADD_PLAYER);
+// });
 
 RegisterNuiCallbackType(PropertyEvents.FETCH_OWNED_PROPERTIES);
 RegisterNuiCallbackType(PropertyEvents.GET_PLAYERS);
@@ -96,15 +100,7 @@ onNet('npwd:property:returnKeyHolders', (sharedKeys: OwnedProperty) => {
   });
 });
 
-onNet('npwd:property:returnKeyHolders', (sharedKeys: OwnedProperty) => {
-  SendNUIMessage({
-    app: 'PROPERTY',
-    method: 'npwd:property:returnKeyHolders',
-    data: sharedKeys,
-  });
-});
-
 on(`__cfx_nui:${PropertyEvents.REMOVE_PLAYER_KEY}`, (data: any, cb: any) => {
-  console.log(data);
-  cb();
+  emitNet('pma-property-manager:removePlayerKey', data);
+  cb({});
 });

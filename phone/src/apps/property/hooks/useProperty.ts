@@ -16,6 +16,7 @@ export const useProperty = () => {
   };
 
   const propertySelector = (ownedProperty: OwnedProperty) => {
+    if (!ownedProperty.owned) return;
     history.push('/property/info');
     setOwnedProperty(ownedProperty);
   };
