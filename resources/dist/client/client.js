@@ -9903,7 +9903,6 @@
     "client/cl_property.ts"(exports) {
       init_property();
       onNet("npwd:property:reload" /* RELOAD_APP */, () => __async(exports, null, function* () {
-        console.log(19);
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
       }));
       onNet("pma:playerLoaded", () => {
@@ -9948,7 +9947,7 @@
           method: "npwd:property:alert",
           data: {
             title: "Property Alert",
-            propertyNotify: iterator2 += 1,
+            propertyNotify: iterator2 = iterator2 + 1,
             message: alertMsg
           }
         });

@@ -16,7 +16,6 @@ interface OwnedProperty {
 }
 
 onNet(PropertyEvents.RELOAD_APP, async () => {
-  console.log(19);
   emitNet(PropertyEvents.ADD_PLAYER);
 });
 
@@ -74,7 +73,7 @@ onNet('npwd:property:alert', (alertMsg: string) => {
     method: 'npwd:property:alert',
     data: {
       title: 'Property Alert',
-      propertyNotify: (iterator += 1),
+      propertyNotify: (iterator = iterator + 1),
       message: alertMsg,
     },
   });
