@@ -28,7 +28,7 @@ export interface Player {
   ssn: string;
 }
 export interface GiveKey {
-  players: Player[];
+  players: Player;
   property: OwnedProperty;
 }
 

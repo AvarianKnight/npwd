@@ -9932,8 +9932,9 @@
         emitNet("pma-property-manager:givePlayerKey", KeyData);
         cb({});
       });
-      onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players) => {
+      onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (players, source) => {
         const playersCopy = __spreadValues({}, players);
+        delete playersCopy[source];
         SendNUIMessage({
           app: "PROPERTY",
           method: `${"npwd:property:getOnlinePlayers" /* GET_PLAYERS */}`,

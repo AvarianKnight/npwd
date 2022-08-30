@@ -26,6 +26,7 @@ const MuiTextField = styled(TextField)({
   '& .MuiInput-root': {
     borderBottomColor: '#536B5B',
     paddingBottom: '5px',
+    color: '#536B5B',
   },
   '& .MuiInput-underline:before': {
     borderBottomColor: '#536B5B',
@@ -51,16 +52,14 @@ const PlayerAutoComplete = () => {
   const { giveKeyHandler } = useKey();
   const { selectedPlayerHandler } = usePlayer();
   const playerList = useRecoilValue(PlayerListState.playerList);
-  const selectedPlayerList = useRecoilValue(PlayerListState.selectedPlayerList);
+  const selectedPlayer = useRecoilValue(PlayerListState.selectedPlayer);
   return (
     <Wrapper>
       <Autocomplete
         id="size-small-standard"
         size="small"
-        multiple
-        disableClearable={true}
         options={playerList}
-        value={selectedPlayerList}
+        value={selectedPlayer}
         //@ts-ignore
         isOptionEqualToValue={(option: Player, value: Player) => option.source === value.source}
         //@ts-ignore
@@ -68,22 +67,32 @@ const PlayerAutoComplete = () => {
         style={{ width: 280 }}
         getOptionLabel={(option: any) => option.fullname}
         filterSelectedOptions
-        renderInput={(params) => <MuiTextField {...params} variant="standard" label="Add People" />}
-        renderTags={(value, getTagProps) =>
-          value.map((option, index) => (
-            <Chip
-              style={{
-                backgroundColor: '#576F62',
-                padding: 5,
-              }}
-              variant="outlined"
-              //@ts-ignore
-              label={option.fullname}
-              size="small"
-              {...getTagProps({ index })}
-            />
-          ))
-        }
+        renderInput={(params) => (
+          <MuiTextField
+            style={{
+              color: '#576F62',
+              padding: 5,
+            }}
+            {...params}
+            variant="standard"
+            label="Add People"
+          />
+        )}
+        // renderTags={(value, getTagProps) =>
+        //   value.map((option, index) => (
+        //     <Chip
+        //       style={{
+        //         backgroundColor: '#576F62',
+        //         padding: 5,
+        //       }}
+        //       variant="outlined"
+        //       //@ts-ignore
+        //       label={option.fullname}
+        //       size="small"
+        //       {...getTagProps({ index })}
+        //     />
+        //   ))
+        // }
       />
       <StyledButton style={{ marginTop: 10 }} onClick={giveKeyHandler}>
         <StyledText>Give Key</StyledText>

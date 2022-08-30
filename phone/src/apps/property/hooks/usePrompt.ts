@@ -9,7 +9,7 @@ export const usePrompt = () => {
   const { send } = useNuiRequest();
   const { addAlert } = useSnackbar();
   const [prompt, setPrompt] = useRecoilState(PromptState.prompt);
-  const selectedPlayerList = useRecoilValue(PlayerListState.selectedPlayerList);
+  const selectedPlayer = useRecoilValue(PlayerListState.selectedPlayer);
   const selectedProperty = useRecoilValue(PropertyState.selectedProperty);
   const setSharedKeyList = useSetRecoilState(PropertyState.sharedKeyList);
 
@@ -20,7 +20,7 @@ export const usePrompt = () => {
   const acceptHandler = () => {
     if (prompt.type === 'add') {
       send(PropertyEvents.GIVE_PLAYER_KEY, {
-        players: selectedPlayerList,
+        player: selectedPlayer,
         property: selectedProperty,
       }).then(() => {
         setPrompt({ message: '', type: '', open: false });

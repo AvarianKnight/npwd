@@ -28,9 +28,9 @@ export const PlayerListState = {
     key: 'playerList',
     default: [],
   }),
-  selectedPlayerList: atom<(string | Player)[]>({
-    key: 'selectedPlayerList',
-    default: [],
+  selectedPlayer: atom<string | Player>({
+    key: 'selectedPlayer',
+    default: undefined,
   }),
 };
 

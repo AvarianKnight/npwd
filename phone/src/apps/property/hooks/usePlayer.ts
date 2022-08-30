@@ -8,7 +8,7 @@ import { PlayerListState } from '../atoms/state';
 export const usePlayer = () => {
   const { send } = useNuiRequest();
   const setPlayerList = useSetRecoilState(PlayerListState.playerList);
-  const setSelectedPlayerList = useSetRecoilState(PlayerListState.selectedPlayerList);
+  const setSelectedPlayer = useSetRecoilState(PlayerListState.selectedPlayer);
 
   useEffect(() => {
     send(PropertyEvents.GET_PLAYERS);
@@ -18,15 +18,12 @@ export const usePlayer = () => {
     setPlayerList(Object.values(players));
   };
 
-  const selectedPlayerHandler = (
-    event: SyntheticEvent<Element, Event>,
-    value: (string | Player)[],
-  ) => {
-    setSelectedPlayerList(value);
+  const selectedPlayerHandler = (event: SyntheticEvent<Element, Event>, value: string | Player) => {
+    setSelectedPlayer(value);
   };
 
   const clearSelectHandler = () => {
-    setSelectedPlayerList([]);
+    setSelectedPlayer(undefined);
   };
 
   useNuiEvent('PROPERTY', 'npwd:property:getOnlinePlayers', playerHandler);

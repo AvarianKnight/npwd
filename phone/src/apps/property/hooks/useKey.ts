@@ -9,7 +9,7 @@ export const useKey = () => {
   const { send } = useNuiRequest();
   const history = useHistory();
   const setPrompt = useSetRecoilState(PromptState.prompt);
-  const selectedPlayers = useRecoilValue(PlayerListState.selectedPlayerList);
+  const selectedPlayer = useRecoilValue(PlayerListState.selectedPlayer);
   const selectedProperty = useRecoilValue(PropertyState.selectedProperty);
   const [sharedKeyList, setSharedKeyList] = useRecoilState(PropertyState.sharedKeyList);
 
@@ -17,20 +17,12 @@ export const useKey = () => {
    * Sends data to client to be processed.
    */
   const giveKeyHandler = () => {
-    if (selectedPlayers.length > 1) {
-      setPrompt({
-        type: 'add',
-        open: true,
-        message: 'Do you want to give access to these people?',
-      });
-    } else {
-      setPrompt({
-        type: 'add',
-        open: true,
-        //@ts-ignore
-        message: `Do you want to give access to ${selectedPlayers[0].fullname}?`,
-      });
-    }
+    setPrompt({
+      type: 'add',
+      open: true,
+      //@ts-ignore
+      message: `Do you want to give access to ${selectedPlayer.fullname}?`,
+    });
   };
 
   const deleteKeyHandler = (index: number, playerToDelete: any) => {

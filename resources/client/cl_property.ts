@@ -56,8 +56,9 @@ on(`__cfx_nui:${PropertyEvents.GIVE_PLAYER_KEY}`, (KeyData: GiveKey, cb: any) =>
   cb({});
 });
 
-onNet(PropertyEvents.GET_PLAYERS, (players: any) => {
+onNet(PropertyEvents.GET_PLAYERS, (players: any, source: number) => {
   const playersCopy = { ...players };
+  delete playersCopy[source];
 
   SendNUIMessage({
     app: 'PROPERTY',
