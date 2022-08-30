@@ -92,6 +92,18 @@ export const ListingActions: React.FC<MarketplaceListing> = ({ children, ...list
           </>
         )}
       </div>
+
+      <div style={{ float: 'right' }}>
+        {listing.number === myNumber ? (
+          <Tooltip title={t('GENERIC.DELETE')}>
+            <Button onClick={handleDeleteListing}>
+              <DeleteIcon />
+            </Button>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
+      </div>
     </Box>
   );
 };
