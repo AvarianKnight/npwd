@@ -1,10 +1,13 @@
-import { Box, Divider, List, ListItem, Stack } from '@mui/material';
+import { Box, Divider, List, ListItem, Popper, Stack } from '@mui/material';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Vehicle } from '../../../../../../typings/bennys';
 import { Button } from '../../../../ui/components/Button';
 import { TextField } from '../../../../ui/components/Input';
+import { hoverState } from '../../atoms/state';
 import { useBennys } from '../../hooks/useBennys';
 import { Notify } from '../notify/Notify';
+import FlyOver from './FlyOver';
 
 const Wrapper = styled.div`
   padding: 10px;
@@ -12,6 +15,8 @@ const Wrapper = styled.div`
 `;
 
 const Home = () => {
+  const setHoveredItem = useSetRecoilState<Vehicle | null>(hoverState.hoverItem);
+  const setAnchorItem = useSetRecoilState<any>(hoverState.anchorItem);
   const { filterVehicleList, vehicleList, payImpound } = useBennys();
 
   const carLocation = (state: number, police_lock: string) => {
@@ -31,6 +36,16 @@ const Home = () => {
     }
   };
 
+  const popoverOpenHandler = (event: React.MouseEvent<HTMLElement>, index: number) => {
+    setAnchorItem(event.currentTarget);
+    setHoveredItem(vehicleList[index]);
+  };
+
+  const popoverCloseHandler = () => {
+    setAnchorItem(undefined);
+    setHoveredItem(undefined);
+  };
+
   return (
     <Wrapper>
       <Notify />
@@ -45,12 +60,15 @@ const Home = () => {
         />
       </Box>
       <Box style={{ overflow: 'auto', height: '425px' }}>
+        <FlyOver />
         <List>
           {vehicleList?.map((veh: Vehicle, index: number) => {
             return (
               <Box key={index}>
                 <ListItem
                   style={{ fontSize: 12, display: 'flex', justifyContent: 'space-between' }}
+                  onMouseEnter={(e) => popoverOpenHandler(e, index)}
+                  onMouseLeave={popoverCloseHandler}
                 >
                   <Stack>
                     <Box>Plate: {veh.plate}</Box>

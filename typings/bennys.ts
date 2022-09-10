@@ -10,6 +10,10 @@ export interface Vehicle {
   model: string;
   impoundFee?: number;
   police_lock?: string;
+  body_health?: number;
+  engine_health?: number;
+  fuel?: number;
+  vehicle?: number;
 }
 
 export interface Impound {

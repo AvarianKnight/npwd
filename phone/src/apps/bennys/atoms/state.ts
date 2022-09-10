@@ -22,3 +22,14 @@ export const bennysState = {
     },
   }),
 };
+
+export const hoverState = {
+  hoverItem: atom<Vehicle>({
+    key: 'hover',
+    default: undefined,
+  }),
+  anchorItem: atom({
+    key: 'anchor',
+    default: undefined,
+  }),
+};

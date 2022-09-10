@@ -20,7 +20,7 @@ const Wrapper = styled(Box)`
 const Background = styled(Box)`
   position: relative;
   width: 100%;
-  height: 85%;
+  height: 88%;
   background-image: url(${DynastyBG});
   background-size: cover;
   border-radius: 11px;

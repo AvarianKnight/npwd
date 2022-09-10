@@ -7,7 +7,7 @@ onNet(BennysEvents.GET_VEHICLE_LIST, () => {
   // eslint-disable-next-line prefer-const
   let vehicleList: Vehicle[] = [];
   ox.query(
-    `SELECT plate, state, vehicle, police_lock FROM owned_vehicles WHERE uniqueId = ?`,
+    `SELECT plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`,
     [player.uniqueId],
     (results: any) => {
       results.forEach((veh: any) => {
@@ -17,6 +17,9 @@ onNet(BennysEvents.GET_VEHICLE_LIST, () => {
           state: veh.state,
           model: model,
           police_lock: veh.police_lock,
+          fuel: veh.fuel,
+          body_health: veh.body_health,
+          engine_health: veh.engine_health,
         };
         vehicleList.push(obj);
       });

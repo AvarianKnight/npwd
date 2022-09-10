@@ -46994,14 +46994,17 @@ onNet("npwd:tradeCrypto" /* INIATE_TRADE */, async (data) => {
 onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
   const player = PMA.getPlayerFromId(source);
   let vehicleList = [];
-  ox.query(`SELECT plate, state, vehicle, police_lock FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
+  ox.query(`SELECT plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
     results.forEach((veh) => {
       const model = JSON.parse(veh.vehicle).model;
       const obj = {
         plate: veh.plate,
         state: veh.state,
         model,
-        police_lock: veh.police_lock
+        police_lock: veh.police_lock,
+        fuel: veh.fuel,
+        body_health: veh.body_health,
+        engine_health: veh.engine_health
       };
       vehicleList.push(obj);
     });
