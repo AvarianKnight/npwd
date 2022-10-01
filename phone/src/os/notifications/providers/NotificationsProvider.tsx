@@ -15,6 +15,7 @@ export interface INotification {
   notificationIcon?: JSX.Element;
   sound?: boolean;
   cantClose?: boolean;
+  color?: string;
   keepWhenPhoneClosed?: boolean;
   onClose?: (notification: INotification) => void;
   onClick?: (notification: INotification) => void;

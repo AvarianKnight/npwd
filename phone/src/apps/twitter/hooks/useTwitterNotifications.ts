@@ -59,6 +59,7 @@ export const useTwitterNotifications = () => {
       content: message,
       icon,
       notificationIcon,
+      color: '#1DA1F2',
     };
     const newCount = unreadCount + 1;
     setUnreadCount(newCount);
