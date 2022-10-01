@@ -85,10 +85,13 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: TransferD
     };
 
     tgtPly.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);
-    tgtPly.triggerEvent(
-      BankEvents.SEND_NOTIFICATION,
-      `Received money from ${ply.firstname} ${ply.lastname}. ${transferData.message}`,
-    );
+    let message;
+    if (transferData.message) {
+      message = transferData.message;
+    } else {
+      message = `Received money from ${ply.firstname} ${ply.lastname}.`;
+    }
+    tgtPly.triggerEvent(BankEvents.SEND_NOTIFICATION, message);
   } else {
     ply.triggerEvent(BankEvents.SEND_NOTIFICATION, 'Insufficient funds');
   }

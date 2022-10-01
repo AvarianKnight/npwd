@@ -40794,7 +40794,13 @@ var init_bank2 = __esm({
           playerId: tgtPly.source
         };
         tgtPly.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
-        tgtPly.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Received money from ${ply.firstname} ${ply.lastname}. ${transferData.message}`);
+        let message;
+        if (transferData.message) {
+          message = transferData.message;
+        } else {
+          message = `Received money from ${ply.firstname} ${ply.lastname}.`;
+        }
+        tgtPly.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, message);
       } else {
         ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, "Insufficient funds");
       }
