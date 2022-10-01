@@ -5,9 +5,10 @@ import BennysTitle from './BennysTitle';
 import Home from './home/Home';
 import BG from '../../../assets/bennys/bennys_bg.png';
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { BennysEvents } from '../../../../../typings/bennys';
 import { useNuiRequest } from 'fivem-nui-react-lib';
+import InjectDebugData from '../../../os/debug/InjectDebugData';
 
 const Content = styled.div`
   top: 80px;
@@ -51,5 +52,83 @@ const BennysApp = () => {
     </AppWrapper>
   );
 };
+
+InjectDebugData(
+  [
+    {
+      app: 'BENNYS',
+      method: BennysEvents.GET_VEHICLE_LIST,
+      data: {
+        vehicleList: [
+          {
+            id: 1,
+            plate: 'TEST',
+            state: 0,
+            model: 'TEST1',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+          {
+            id: 2,
+            plate: 'TEST2',
+            state: 0,
+            model: 'TEST3',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+          {
+            id: 3,
+            plate: 'TEST',
+            state: 0,
+            model: 'TEST1',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+          {
+            id: 4,
+            plate: 'TEST2',
+            state: 0,
+            model: 'TEST3',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+          {
+            id: 5,
+            plate: 'TEST',
+            state: 0,
+            model: 'TEST1',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+          {
+            id: 6,
+            plate: 'TEST2',
+            state: 0,
+            model: 'TEST3',
+            police_lock: 0,
+            fuel: 100,
+            body_health: 1000,
+            engine_health: 1000,
+          },
+        ],
+        impound: {
+          regularFee: 5000,
+          policeFee: 12000,
+        },
+      },
+    },
+  ],
+  500,
+);
 
 export default BennysApp;

@@ -2,6 +2,7 @@ import { BennysEvents, Vehicle } from './../../typings/bennys';
 
 RegisterNuiCallbackType(BennysEvents.GET_VEHICLE_LIST);
 RegisterNuiCallbackType(BennysEvents.FREE_VEHICLE);
+RegisterNuiCallbackType(BennysEvents.ABANDON_VEHICLE);
 
 on(`__cfx_nui:${BennysEvents.GET_VEHICLE_LIST}`, (data: any, cb: any) => {
   emitNet(BennysEvents.GET_VEHICLE_LIST);
@@ -10,6 +11,11 @@ on(`__cfx_nui:${BennysEvents.GET_VEHICLE_LIST}`, (data: any, cb: any) => {
 
 on(`__cfx_nui:${BennysEvents.FREE_VEHICLE}`, (data: Vehicle, cb: any) => {
   emitNet(BennysEvents.FREE_VEHICLE, data);
+  cb({});
+});
+
+on(`__cfx_nui:${BennysEvents.ABANDON_VEHICLE}`, (data: Vehicle, cb: any) => {
+  emitNet(BennysEvents.ABANDON_VEHICLE, data);
   cb({});
 });
 
@@ -41,4 +47,20 @@ onNet(BennysEvents.FAIL_IMPOUND, () => {
     app: 'BENNYS',
     method: BennysEvents.FAIL_IMPOUND,
   });
+});
+
+onNet(BennysEvents.ABANDON_SUCCESS, () => {
+  SendNUIMessage({
+    app: 'BENNYS',
+    method: BennysEvents.ABANDON_SUCCESS,
+  });
+  emitNet(BennysEvents.GET_VEHICLE_LIST);
+});
+
+onNet(BennysEvents.ABANDON_FAIL, () => {
+  SendNUIMessage({
+    app: 'BENNYS',
+    method: BennysEvents.ABANDON_FAIL,
+  });
+  emitNet(BennysEvents.GET_VEHICLE_LIST);
 });

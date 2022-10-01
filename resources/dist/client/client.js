@@ -9854,12 +9854,17 @@
       init_bennys();
       RegisterNuiCallbackType("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
       RegisterNuiCallbackType("npwd:freeVehicle" /* FREE_VEHICLE */);
+      RegisterNuiCallbackType("npwd:abandonVehicle" /* ABANDON_VEHICLE */);
       on(`__cfx_nui:${"npwd:getVehicleList" /* GET_VEHICLE_LIST */}`, (data, cb) => {
         emitNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
         cb({});
       });
       on(`__cfx_nui:${"npwd:freeVehicle" /* FREE_VEHICLE */}`, (data, cb) => {
         emitNet("npwd:freeVehicle" /* FREE_VEHICLE */, data);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:abandonVehicle" /* ABANDON_VEHICLE */}`, (data, cb) => {
+        emitNet("npwd:abandonVehicle" /* ABANDON_VEHICLE */, data);
         cb({});
       });
       onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, (vehicleList) => {
@@ -9888,6 +9893,20 @@
           app: "BENNYS",
           method: "npwd:failImpound" /* FAIL_IMPOUND */
         });
+      });
+      onNet("npwd:abandonSuccess" /* ABANDON_SUCCESS */, () => {
+        SendNUIMessage({
+          app: "BENNYS",
+          method: "npwd:abandonSuccess" /* ABANDON_SUCCESS */
+        });
+        emitNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
+      });
+      onNet("npwd:abandonFail" /* ABANDON_FAIL */, () => {
+        SendNUIMessage({
+          app: "BENNYS",
+          method: "npwd:abandonFail" /* ABANDON_FAIL */
+        });
+        emitNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */);
       });
     }
   });

@@ -40,6 +40,7 @@ const InjectDebugData = <P>(events: DebugEvent<P>[], timer = 1000) => {
             },
           }),
         );
+        console.log('🚀 ~ file: InjectDebugData.ts ~ line 44 ~ InjectDebugData ~ timer', timer);
       }, timer);
     }
   }

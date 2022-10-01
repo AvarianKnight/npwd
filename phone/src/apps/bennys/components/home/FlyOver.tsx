@@ -1,12 +1,13 @@
 import { Box, Divider, List, ListItem, ListSubheader, Popover } from '@mui/material';
 import { useRecoilValue } from 'recoil';
-import { hoverState } from '../../atoms/state';
+import { DropdownState, hoverState, PromptState } from '../../atoms/state';
 
 const FlyOver = () => {
   const hoverItem = useRecoilValue(hoverState.hoverItem);
   const anchorItem = useRecoilValue(hoverState.anchorItem);
-
-  if (hoverItem) {
+  const dropdown = useRecoilValue(DropdownState.dropdown);
+  const prompt = useRecoilValue(PromptState.prompt);
+  if (hoverItem && !dropdown && !prompt.open) {
     return (
       <Popover
         sx={{

@@ -33,3 +33,34 @@ export const hoverState = {
     default: undefined,
   }),
 };
+
+export const PromptState = {
+  prompt: atom({
+    key: 'promptBennys',
+    default: {
+      message: '',
+      open: false,
+    },
+  }),
+};
+
+export const VehicleState = {
+  vehicle: atom({
+    key: 'vehicleBennys',
+    default: undefined,
+  }),
+};
+
+export const DropdownState = {
+  dropdown: atom({
+    key: 'dropdownBennys',
+    default: false,
+  }),
+};
+
+export const AnchorState = {
+  anchor: atom({
+    key: 'anchorBennys',
+    default: undefined,
+  }),
+};

@@ -1,13 +1,18 @@
 import { Box, Divider, List, ListItem, Popper, Stack } from '@mui/material';
-import { useSetRecoilState } from 'recoil';
+import { MouseEventHandler, useRef } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { Vehicle } from '../../../../../../typings/bennys';
+import { phoneState } from '../../../../os/phone/hooks/state';
 import { Button } from '../../../../ui/components/Button';
 import { TextField } from '../../../../ui/components/Input';
 import { hoverState } from '../../atoms/state';
 import { useBennys } from '../../hooks/useBennys';
+import { useDropDown } from '../../hooks/useDropdown';
 import { Notify } from '../notify/Notify';
+import Dropdown from './Dropdown';
 import FlyOver from './FlyOver';
+import Prompt from './Prompt';
 
 const Wrapper = styled.div`
   padding: 10px;
@@ -15,9 +20,12 @@ const Wrapper = styled.div`
 `;
 
 const Home = () => {
-  const setHoveredItem = useSetRecoilState<Vehicle | null>(hoverState.hoverItem);
-  const setAnchorItem = useSetRecoilState<any>(hoverState.anchorItem);
+  const visibility = useRecoilValue(phoneState.visibility);
+  const [hoveredItem, setHoveredItem] = useRecoilState<Vehicle | null>(hoverState.hoverItem);
+  const [anchor, setAnchorItem] = useRecoilState<any>(hoverState.anchorItem);
   const { filterVehicleList, vehicleList, payImpound } = useBennys();
+  const { rightClick, dropdown } = useDropDown();
+  const rootRef = useRef<HTMLDivElement>(null);
 
   const carLocation = (state: number, police_lock: string) => {
     if (parseInt(police_lock) > 0) {
@@ -42,12 +50,21 @@ const Home = () => {
   };
 
   const popoverCloseHandler = () => {
-    setAnchorItem(undefined);
-    setHoveredItem(undefined);
+    if (hoveredItem && !dropdown) {
+      setAnchorItem(undefined);
+      setHoveredItem(undefined);
+    }
+  };
+
+  const rightClickHandler = (event: React.MouseEvent, veh: Vehicle) => {
+    event.preventDefault();
+    // setAnchorItem(event.currentTarget);
+    rightClick(event, veh);
   };
 
   return (
-    <Wrapper>
+    <Wrapper ref={rootRef}>
+      <Prompt rootRef={rootRef} />
       <Notify />
       <Box style={{ paddingBottom: 15, paddingLeft: 15 }}>
         <TextField
@@ -60,7 +77,8 @@ const Home = () => {
         />
       </Box>
       <Box style={{ overflow: 'auto', height: '425px' }}>
-        <FlyOver />
+        {visibility ? <FlyOver /> : <></>}
+        {dropdown ? <Dropdown anchor={anchor} /> : <></>}
         <List>
           {vehicleList?.map((veh: Vehicle, index: number) => {
             return (
@@ -68,7 +86,8 @@ const Home = () => {
                 <ListItem
                   style={{ fontSize: 12, display: 'flex', justifyContent: 'space-between' }}
                   onMouseEnter={(e) => popoverOpenHandler(e, index)}
-                  onMouseLeave={popoverCloseHandler}
+                  onMouseLeave={() => popoverCloseHandler()}
+                  onContextMenu={(event: React.MouseEvent) => rightClickHandler(event, veh)}
                 >
                   <Stack>
                     <Box>Plate: {veh.plate}</Box>

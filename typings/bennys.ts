@@ -2,9 +2,13 @@ export enum BennysEvents {
   GET_VEHICLE_LIST = 'npwd:getVehicleList',
   FREE_VEHICLE = 'npwd:freeVehicle',
   FAIL_IMPOUND = 'npwd:failImpound',
+  ABANDON_VEHICLE = 'npwd:abandonVehicle',
+  ABANDON_SUCCESS = 'npwd:abandonSuccess',
+  ABANDON_FAIL = 'npwd:abandonFail',
 }
 
 export interface Vehicle {
+  id: number;
   plate: string;
   state: number;
   model: string;

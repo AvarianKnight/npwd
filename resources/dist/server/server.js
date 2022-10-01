@@ -46994,10 +46994,11 @@ onNet("npwd:tradeCrypto" /* INIATE_TRADE */, async (data) => {
 onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
   const player = PMA.getPlayerFromId(source);
   let vehicleList = [];
-  ox.query(`SELECT plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
+  ox.query(`SELECT id, plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
     results.forEach((veh) => {
       const model = JSON.parse(veh.vehicle).model;
       const obj = {
+        id: veh.id,
         plate: veh.plate,
         state: veh.state,
         model,
@@ -47014,12 +47015,29 @@ onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
 onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
   const player = PMA.getPlayerFromId(source);
   if (vehicle.impoundFee <= player.getAccount("bank").quantity) {
-    ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE plate = ?`, [vehicle.plate], () => {
+    ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE id = ?`, [vehicle.id], () => {
       player.removeAccountMoney("bank", vehicle.impoundFee);
       player.triggerEvent("npwd:freeVehicle" /* FREE_VEHICLE */);
     });
   } else {
     player.triggerEvent("npwd:failImpound" /* FAIL_IMPOUND */);
+  }
+});
+onNet("npwd:abandonVehicle" /* ABANDON_VEHICLE */, (vehicle) => {
+  const player = PMA.getPlayerFromId(source);
+  if (vehicle) {
+    ox.execute("DELETE FROM owned_vehicles WHERE id = ?", [vehicle.id], () => {
+      player.triggerEvent("npwd:abandonSuccess" /* ABANDON_SUCCESS */);
+      AC2.log("*Vehicle Abandoned*", `Overhead: ${GetPlayerName(player.source)}
+Character: ${player.getPlayerName()}
+
+ **Abandoned a vehicle with this information.** 
+        Plate: ${vehicle.plate}
+        Model: ${vehicle.model}
+        ID: ${vehicle.id}`, `blue`, `abandonVehicleLogs`);
+    });
+  } else {
+    player.triggerEvent("npwd:abandonFail" /* ABANDON_FAIL */);
   }
 });
 
