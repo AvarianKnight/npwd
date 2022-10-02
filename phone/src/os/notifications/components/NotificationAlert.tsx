@@ -1,11 +1,11 @@
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, IconButton, Slide } from '@mui/material';
+import { Box, IconButton, Slide, Theme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { useNotifications } from '../hooks/useNotifications';
 import { Alert, AlertTitle } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { currentAlert: any }>((theme) => ({
   snackbar: {
     marginTop: '-710px',
     display: 'flex',
@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     width: '370px',
     height: '80px',
     zIndex: 50,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: ({ currentAlert }) =>
+      currentAlert?.color ? currentAlert.color : theme.palette.background.paper,
     color: theme.palette.text.primary,
     '& .MuiAlert-icon': {
       color: theme.palette.text.primary,
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const NotificationAlert = () => {
-  const classes = useStyles();
   const { currentAlert } = useNotifications();
+  const classes = useStyles({ currentAlert });
 
   return (
     <div className={classes.snackbar}>
