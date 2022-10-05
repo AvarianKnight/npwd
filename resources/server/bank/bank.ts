@@ -32,6 +32,10 @@ onNet(BankEvents.ADD_TRANSFER, async (transferData: TransferData) => {
 const processTransaction = async (ply: any, tgtPly: any, transferData: TransferData) => {
   const plyMoney = ply.getAccount('bank').quantity;
   const tgtPlyMoney = tgtPly.getAccount('bank').quantity;
+  if (ply.lockedStatus) {
+    ply.showNotification('Your assets are currently frozen.');
+    return;
+  }
   if (plyMoney > transferData.transferAmount && transferData.transferAmount > 0) {
     ply.removeAccountMoney('bank', transferData.transferAmount);
     tgtPly.addAccountMoney('bank', transferData.transferAmount);
