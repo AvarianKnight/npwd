@@ -39,6 +39,7 @@ import { BankApp } from '../../../apps/bank/components/BankApp';
 import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
 import BennysApp from '../../../apps/bennys/components/BennysApp';
 import PropertyApp from '../../../apps/property/components/PropertyApp';
+import BoostingApp from '../../../apps/boosting/BoostingApp';
 
 export interface IAppConfig {
   id: string;
@@ -196,11 +197,21 @@ export const APPS: IAppConfig[] = [
   {
     id: 'PROPERTY',
     nameLocale: 'Property Management',
-    backgroundColor: '#DD2626',
+    backgroundColor: '#228b22',
     color: common.white,
     path: '/property',
     Route: () => (
       <AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
+    ),
+  },
+  {
+    id: 'BOOSTING',
+    nameLocale: 'Boosting',
+    backgroundColor: '#BA55D3',
+    color: common.white,
+    path: '/boosting',
+    Route: () => (
+      <AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
     ),
   },
 ];
