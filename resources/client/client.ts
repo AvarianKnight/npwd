@@ -17,5 +17,6 @@ import './cl_bank';
 import './cl_darkmarket';
 import './cl_bennys';
 import './cl_property';
+import './cl_boosting';
 
 export const ClUtils = new ClientUtils();

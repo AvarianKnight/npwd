@@ -35,6 +35,7 @@ import { useKeyboardService } from '@os/keyboard/hooks/useKeyboardService';
 import { useDarkMarketService } from './apps/darkmarket/hooks/useDarkMarketService';
 import { useProperty } from './apps/property/hooks/useProperty';
 import ImagePopOut from './ui/components/ImagePopOut';
+import { Debugger } from './Debugger';
 
 function Phone() {
   const { i18n } = useTranslation();
@@ -69,6 +70,7 @@ function Phone() {
   return (
     <div>
       <TopLevelErrorComponent>
+        <Debugger />
         <WindowSnackbar />
         <ImagePopOut />
         <PhoneWrapper>

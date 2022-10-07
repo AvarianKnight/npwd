@@ -47068,6 +47068,26 @@ onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
   emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
 });
 
+// server/boosting/boosting.db.ts
+var BoostingDB = class {
+  fetchProfile = async (uid) => {
+    const profile = await ox.query_async(`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`, [uid]);
+    if (profile.length > 0) {
+      return profile[0];
+    } else {
+      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
+      return { uid, level: 1, experience: "0" };
+    }
+  };
+};
+
+// server/boosting/boosting.controller.ts
+var boostingDB = new BoostingDB();
+onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, () => {
+  const ply = PMA.getPlayerFromId(source);
+  boostingDB.fetchProfile(ply.uniqueId);
+});
+
 // server/bridge/bridge.utils.ts
 var bridgeLogger = mainLogger.child({ module: "bridge" });
 

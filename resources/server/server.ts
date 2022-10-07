@@ -25,6 +25,7 @@ import './bank/bank';
 import './darkmarket/darkmarket';
 import './bennys/bennys';
 import './property/property';
+import './boosting/service';
 // import './match/match.controller';
 
 // setup exports

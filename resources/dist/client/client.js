@@ -9996,6 +9996,24 @@
     }
   });
 
+  // ../typings/boosting.ts
+  var init_boosting = __esm({
+    "../typings/boosting.ts"() {
+    }
+  });
+
+  // client/cl_boosting.ts
+  var init_cl_boosting = __esm({
+    "client/cl_boosting.ts"() {
+      init_boosting();
+      RegisterNuiCallbackType("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
+      on(`__cfx_nui:${"npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */}`, (data, cb) => {
+        emitNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
+        cb({});
+      });
+    }
+  });
+
   // client/client.ts
   var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils;
   var init_client = __esm({
@@ -10018,6 +10036,7 @@
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
       import_cl_property = __toESM(require_cl_property());
+      init_cl_boosting();
       ClUtils = new ClientUtils();
     }
   });
