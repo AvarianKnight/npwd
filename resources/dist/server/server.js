@@ -47075,7 +47075,11 @@ var BoostingDB = class {
     if (profile.length > 0) {
       return profile[0];
     } else {
-      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
+      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [
+        uid,
+        1,
+        0
+      ]);
       return { uid, level: 1, experience: "0" };
     }
   };

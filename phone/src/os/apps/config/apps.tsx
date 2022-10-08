@@ -12,22 +12,22 @@ import CameraApp from '../../../apps/camera/components/CameraApp';
 import { AppRoute } from '../components/AppRoute';
 
 import {
-  MESSAGES_APP_PRIMARY_COLOR,
-  MESSAGES_APP_TEXT_COLOR,
+	MESSAGES_APP_PRIMARY_COLOR,
+	MESSAGES_APP_TEXT_COLOR,
 } from '../../../apps/messages/messages.theme';
 import {
-  CONTACTS_APP_PRIMARY_COLOR,
-  CONTACTS_APP_TEXT_COLOR,
+	CONTACTS_APP_PRIMARY_COLOR,
+	CONTACTS_APP_TEXT_COLOR,
 } from '../../../apps/contacts/contacts.theme';
 import {
-  MARKETPLACE_APP_PRIMARY_COLOR,
-  MARKETPLACE_APP_ICON_COLOR,
+	MARKETPLACE_APP_PRIMARY_COLOR,
+	MARKETPLACE_APP_ICON_COLOR,
 } from '../../../apps/marketplace/marketplace.theme';
 import { NOTES_APP_ICON_COLOR, NOTES_APP_PRIMARY_COLOR } from '../../../apps/notes/notes.theme';
 import { DIALER_APP_PRIMARY_COLOR, DIALER_APP_TEXT_COLOR } from '../../../apps/dialer/dialer.theme';
 import {
-  TWITTER_APP_PRIMARY_COLOR,
-  TWITTER_APP_TEXT_COLOR,
+	TWITTER_APP_PRIMARY_COLOR,
+	TWITTER_APP_TEXT_COLOR,
 } from '../../../apps/twitter/twitter.theme';
 import { MATCH_APP_PRIMARY_COLOR, MATCH_APP_TEXT_COLOR } from '../../../apps/match/match.theme';
 import { SvgIconProps } from '@mui/material';
@@ -42,190 +42,216 @@ import PropertyApp from '../../../apps/property/components/PropertyApp';
 import BoostingApp from '../../../apps/boosting/BoostingApp';
 
 export interface IAppConfig {
-  id: string;
-  nameLocale: string;
-  backgroundColor: string;
-  color: string;
-  path: string;
-  disable?: boolean;
-  Route: React.FC;
+	id: string;
+	nameLocale: string;
+	backgroundColor: string;
+	color: string;
+	path: string;
+	disable?: boolean;
+	Route: React.FC;
 }
 
 export type IApp = IAppConfig & {
-  notification: INotificationIcon;
-  icon: JSX.Element;
-  isDisabled: boolean;
-  notificationIcon: JSX.Element;
-  NotificationIcon: React.FC<SvgIconProps>;
-  Icon?: React.FC<SvgIconProps>;
+	notification: INotificationIcon;
+	icon: JSX.Element;
+	isDisabled: boolean;
+	notificationIcon: JSX.Element;
+	NotificationIcon: React.FC<SvgIconProps>;
+	Icon?: React.FC<SvgIconProps>;
 };
 
 export const APPS: IAppConfig[] = [
-  {
-    id: 'DIALER',
-    nameLocale: 'APPS_DIALER',
-    backgroundColor: DIALER_APP_PRIMARY_COLOR,
-    color: DIALER_APP_TEXT_COLOR,
-    path: '/phone',
-    Route: () => <AppRoute id="DIALER" path="/phone" component={DialerApp} emitOnOpen={false} />,
-  },
-  {
-    id: 'BROWSER',
-    nameLocale: 'BROWSER.NAME',
-    backgroundColor: blue['300'],
-    path: '/browser',
-    color: common.white,
-    Route: () => (
-      <AppRoute id="BROWSER" path="/browser" component={BrowserApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'MESSAGES',
-    nameLocale: 'APPS_MESSAGES',
-    backgroundColor: MESSAGES_APP_PRIMARY_COLOR,
-    color: MESSAGES_APP_TEXT_COLOR,
-    path: '/messages',
-    Route: () => (
-      <AppRoute id="MESSAGES" path="/messages" component={MessagesApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'CONTACTS',
-    nameLocale: 'APPS_CONTACTS',
-    backgroundColor: CONTACTS_APP_PRIMARY_COLOR,
-    color: CONTACTS_APP_TEXT_COLOR,
-    path: '/contacts',
-    Route: () => (
-      <AppRoute id="CONTACTS" path="/contacts" component={ContactsApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'CALCULATOR',
-    nameLocale: 'APPS_CALCULATOR',
-    backgroundColor: purple[500],
-    color: grey[50],
-    path: '/calculator',
-    Route: () => (
-      <AppRoute id="CALCULATOR" path="/calculator" component={CalculatorApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'SETTINGS',
-    nameLocale: 'APPS_SETTINGS',
-    backgroundColor: '#383838',
-    color: grey[50],
-    path: '/settings',
-    Route: () => (
-      <AppRoute id="SETTINGS" path="/settings" component={SettingsApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'BANK',
-    nameLocale: 'Banking',
-    backgroundColor: blue[900],
-    color: common.white,
-    path: '/bank',
-    Route: () => <AppRoute id="BANK" path="/bank" component={BankApp} emitOnOpen={false} />,
-  },
-  // {
-  //   id: 'MATCH',
-  //   nameLocale: 'APPS_MATCH',
-  //   backgroundColor: MATCH_APP_PRIMARY_COLOR,
-  //   color: MATCH_APP_TEXT_COLOR,
-  //   path: '/match',
-  //   Route: () => <AppRoute id="MATCH" path="/match" component={MatchApp} emitOnOpen={true} />,
-  // },
-  {
-    id: 'TWITTER',
-    nameLocale: 'APPS_TWITTER',
-    backgroundColor: TWITTER_APP_PRIMARY_COLOR,
-    color: TWITTER_APP_TEXT_COLOR,
-    path: '/twitter',
-    Route: () => (
-      <AppRoute id="TWITTER" path="/twitter" component={TwitterContainer} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'MARKETPLACE',
-    nameLocale: 'APPS_MARKETPLACE',
-    backgroundColor: MARKETPLACE_APP_PRIMARY_COLOR,
-    color: MARKETPLACE_APP_ICON_COLOR,
-    path: '/marketplace',
-    Route: () => (
-      <AppRoute
-        id="MARKETPLACE"
-        path="/marketplace"
-        component={MarketplaceApp}
-        emitOnOpen={false}
-      />
-    ),
-  },
-  {
-    id: 'NOTES',
-    nameLocale: 'APPS_NOTES',
-    backgroundColor: NOTES_APP_PRIMARY_COLOR,
-    color: NOTES_APP_ICON_COLOR,
-    path: '/notes',
-    Route: () => <AppRoute id="NOTES" path="/notes" component={NotesApp} emitOnOpen={true} />,
-  },
-  {
-    id: 'CAMERA',
-    nameLocale: 'APPS_CAMERA',
-    backgroundColor: grey['A400'],
-    color: common.white,
-    path: '/camera',
-    Route: () => <AppRoute id="CAMERA" path="/camera" component={CameraApp} emitOnOpen={true} />,
-  },
-  {
-    id: 'DARKMARKET',
-    nameLocale: 'Life Invader',
-    backgroundColor: '#DD2626',
-    color: common.white,
-    path: '/darkmarket',
-    Route: () => (
-      <AppRoute id="DARKMARKET" path="/darkmarket" component={DarkMarketApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'BENNYS',
-    nameLocale: 'Bennys Auto',
-    backgroundColor: '#9534eb',
-    color: common.white,
-    path: '/bennys',
-    Route: () => <AppRoute id="BENNYS" path="/bennys" component={BennysApp} emitOnOpen={false} />,
-  },
-  {
-    id: 'PROPERTY',
-    nameLocale: 'Property Management',
-    backgroundColor: '#228b22',
-    color: common.white,
-    path: '/property',
-    Route: () => (
-      <AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
-    ),
-  },
-  {
-    id: 'BOOSTING',
-    nameLocale: 'Boosting',
-    backgroundColor: '#BA55D3',
-    color: common.white,
-    path: '/boosting',
-    Route: () => (
-      <AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
-    ),
-  },
+	{
+		id: 'DIALER',
+		nameLocale: 'APPS_DIALER',
+		backgroundColor: DIALER_APP_PRIMARY_COLOR,
+		color: DIALER_APP_TEXT_COLOR,
+		path: '/phone',
+		Route: () => (
+			<AppRoute id="DIALER" path="/phone" component={DialerApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'BROWSER',
+		nameLocale: 'BROWSER.NAME',
+		backgroundColor: blue['300'],
+		path: '/browser',
+		color: common.white,
+		Route: () => (
+			<AppRoute id="BROWSER" path="/browser" component={BrowserApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'MESSAGES',
+		nameLocale: 'APPS_MESSAGES',
+		backgroundColor: MESSAGES_APP_PRIMARY_COLOR,
+		color: MESSAGES_APP_TEXT_COLOR,
+		path: '/messages',
+		Route: () => (
+			<AppRoute id="MESSAGES" path="/messages" component={MessagesApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'CONTACTS',
+		nameLocale: 'APPS_CONTACTS',
+		backgroundColor: CONTACTS_APP_PRIMARY_COLOR,
+		color: CONTACTS_APP_TEXT_COLOR,
+		path: '/contacts',
+		Route: () => (
+			<AppRoute id="CONTACTS" path="/contacts" component={ContactsApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'CALCULATOR',
+		nameLocale: 'APPS_CALCULATOR',
+		backgroundColor: purple[500],
+		color: grey[50],
+		path: '/calculator',
+		Route: () => (
+			<AppRoute
+				id="CALCULATOR"
+				path="/calculator"
+				component={CalculatorApp}
+				emitOnOpen={false}
+			/>
+		),
+	},
+	{
+		id: 'SETTINGS',
+		nameLocale: 'APPS_SETTINGS',
+		backgroundColor: '#383838',
+		color: grey[50],
+		path: '/settings',
+		Route: () => (
+			<AppRoute id="SETTINGS" path="/settings" component={SettingsApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'BANK',
+		nameLocale: 'Banking',
+		backgroundColor: blue[900],
+		color: common.white,
+		path: '/bank',
+		Route: () => <AppRoute id="BANK" path="/bank" component={BankApp} emitOnOpen={false} />,
+	},
+	// {
+	//   id: 'MATCH',
+	//   nameLocale: 'APPS_MATCH',
+	//   backgroundColor: MATCH_APP_PRIMARY_COLOR,
+	//   color: MATCH_APP_TEXT_COLOR,
+	//   path: '/match',
+	//   Route: () => <AppRoute id="MATCH" path="/match" component={MatchApp} emitOnOpen={true} />,
+	// },
+	{
+		id: 'TWITTER',
+		nameLocale: 'APPS_TWITTER',
+		backgroundColor: TWITTER_APP_PRIMARY_COLOR,
+		color: TWITTER_APP_TEXT_COLOR,
+		path: '/twitter',
+		Route: () => (
+			<AppRoute
+				id="TWITTER"
+				path="/twitter"
+				component={TwitterContainer}
+				emitOnOpen={false}
+			/>
+		),
+	},
+	{
+		id: 'MARKETPLACE',
+		nameLocale: 'APPS_MARKETPLACE',
+		backgroundColor: MARKETPLACE_APP_PRIMARY_COLOR,
+		color: MARKETPLACE_APP_ICON_COLOR,
+		path: '/marketplace',
+		Route: () => (
+			<AppRoute
+				id="MARKETPLACE"
+				path="/marketplace"
+				component={MarketplaceApp}
+				emitOnOpen={false}
+			/>
+		),
+	},
+	{
+		id: 'NOTES',
+		nameLocale: 'APPS_NOTES',
+		backgroundColor: NOTES_APP_PRIMARY_COLOR,
+		color: NOTES_APP_ICON_COLOR,
+		path: '/notes',
+		Route: () => <AppRoute id="NOTES" path="/notes" component={NotesApp} emitOnOpen={true} />,
+	},
+	{
+		id: 'CAMERA',
+		nameLocale: 'APPS_CAMERA',
+		backgroundColor: grey['A400'],
+		color: common.white,
+		path: '/camera',
+		Route: () => (
+			<AppRoute id="CAMERA" path="/camera" component={CameraApp} emitOnOpen={true} />
+		),
+	},
+	{
+		id: 'DARKMARKET',
+		nameLocale: 'Life Invader',
+		backgroundColor: '#DD2626',
+		color: common.white,
+		path: '/darkmarket',
+		Route: () => (
+			<AppRoute
+				id="DARKMARKET"
+				path="/darkmarket"
+				component={DarkMarketApp}
+				emitOnOpen={false}
+			/>
+		),
+	},
+	{
+		id: 'BENNYS',
+		nameLocale: 'Bennys Auto',
+		backgroundColor: '#9534eb',
+		color: common.white,
+		path: '/bennys',
+		Route: () => (
+			<AppRoute id="BENNYS" path="/bennys" component={BennysApp} emitOnOpen={false} />
+		),
+	},
+	{
+		id: 'PROPERTY',
+		nameLocale: 'Property Management',
+		backgroundColor: '#228b22',
+		color: common.white,
+		path: '/property',
+		Route: () => (
+			<AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
+		),
+	},
+	// {
+	// 	id: 'BOOSTING',
+	// 	nameLocale: 'Boosting',
+	// 	backgroundColor: '#BA55D3',
+	// 	color: common.white,
+	// 	path: '/boosting',
+	// 	Route: () => (
+	// 		<AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
+	// 	),
+	// },
 ];
 
 // Example app only in dev
 if (process.env.NODE_ENV === 'development') {
-  APPS.push({
-    id: 'EXAMPLE',
-    nameLocale: 'APPS_EXAMPLE',
-    backgroundColor: blue[500],
-    color: blue[50],
-    path: '/example',
-    Route: () => (
-      <AppRoute id="EXAMPLE" path="/example" component={ExampleAppWrapper} emitOnOpen={false} />
-    ),
-  });
+	APPS.push({
+		id: 'EXAMPLE',
+		nameLocale: 'APPS_EXAMPLE',
+		backgroundColor: blue[500],
+		color: blue[50],
+		path: '/example',
+		Route: () => (
+			<AppRoute
+				id="EXAMPLE"
+				path="/example"
+				component={ExampleAppWrapper}
+				emitOnOpen={false}
+			/>
+		),
+	});
 }

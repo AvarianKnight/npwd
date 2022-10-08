@@ -1,7 +1,7 @@
 export interface DebugEvent<P = any> {
-  app: string;
-  method: string;
-  data: P;
+	app: string;
+	method: string;
+	data: P;
 }
 
 // TODO: This should be unit tested
@@ -28,22 +28,25 @@ export interface DebugEvent<P = any> {
  * ])
  **/
 const InjectDebugData = <P>(events: DebugEvent<P>[], timer = 1000) => {
-  if (process.env.NODE_ENV === 'development' && !process.env.REACT_APP_IN_GAME) {
-    for (const event of events) {
-      setTimeout(() => {
-        window.dispatchEvent(
-          new MessageEvent('message', {
-            data: {
-              app: event.app,
-              method: event.method,
-              data: event.data,
-            },
-          }),
-        );
-        console.log('🚀 ~ file: InjectDebugData.ts ~ line 44 ~ InjectDebugData ~ timer', timer);
-      }, timer);
-    }
-  }
+	if (process.env.NODE_ENV === 'development' && !process.env.REACT_APP_IN_GAME) {
+		for (const event of events) {
+			setTimeout(() => {
+				window.dispatchEvent(
+					new MessageEvent('message', {
+						data: {
+							app: event.app,
+							method: event.method,
+							data: event.data,
+						},
+					}),
+				);
+				console.log(
+					'🚀 ~ file: InjectDebugData.ts ~ line 44 ~ InjectDebugData ~ timer',
+					timer,
+				);
+			}, timer);
+		}
+	}
 };
 
 export default InjectDebugData;

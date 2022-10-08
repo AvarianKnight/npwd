@@ -36,87 +36,91 @@ import { useDarkMarketService } from './apps/darkmarket/hooks/useDarkMarketServi
 import { useProperty } from './apps/property/hooks/useProperty';
 import ImagePopOut from './ui/components/ImagePopOut';
 import { Debugger } from './Debugger';
+import { useBoosting } from './apps/boosting/hooks/useBoosting';
 
 function Phone() {
-  const { i18n } = useTranslation();
-  const { apps } = useApps();
-  const [settings] = useSettings();
+	const { i18n } = useTranslation();
+	const { apps } = useApps();
+	const [settings] = useSettings();
 
-  // Set language from local storage
-  // This will only trigger on first mount & settings changes
-  useEffect(() => {
-    i18n.changeLanguage(settings.language.value).catch((e) => console.error(e));
-  }, [i18n, settings.language]);
+	// Set language from local storage
+	// This will only trigger on first mount & settings changes
+	useEffect(() => {
+		i18n.changeLanguage(settings.language.value).catch((e) => console.error(e));
+	}, [i18n, settings.language]);
 
-  useConfig();
-  useKeyboardService();
-  usePhoneService();
-  useSimcardService();
-  useTwitterService();
-  // useMatchService();
-  useProperty();
-  useDarkMarketService();
-  useMarketplaceService();
-  useBankService();
-  useMessagesService();
-  useContactsListener();
-  useNoteListener();
-  useCallService();
-  useDialService();
-  useInvalidSettingsHandler();
+	useConfig();
+	useKeyboardService();
+	usePhoneService();
+	useSimcardService();
+	useTwitterService();
+	useProperty();
+	useDarkMarketService();
+	useMarketplaceService();
+	useBankService();
+	useMessagesService();
+	useContactsListener();
+	useNoteListener();
+	useCallService();
+	useDialService();
+	useInvalidSettingsHandler();
+	useBoosting();
+	// useMatchService();
 
-  const { modal: callModal } = useCallModal();
+	const { modal: callModal } = useCallModal();
 
-  return (
-    <div>
-      <TopLevelErrorComponent>
-        <Debugger />
-        <WindowSnackbar />
-        <ImagePopOut />
-        <PhoneWrapper>
-          <NotificationBar />
-          <div className="PhoneAppContainer">
-            <>
-              <Route exact path="/" component={HomeApp} />
-              {callModal && <Route exact path="/call" component={CallModal} />}
-              {apps.map((App) => (
-                <Fragment key={App.id}>{!App.isDisabled && <App.Route key={App.id} />}</Fragment>
-              ))}
-            </>
-            <NotificationAlert />
-            <PhoneSnackbar />
-          </div>
-          <Navigation />
-        </PhoneWrapper>
-      </TopLevelErrorComponent>
-    </div>
-  );
+	return (
+		<div>
+			<TopLevelErrorComponent>
+				<Debugger />
+				<WindowSnackbar />
+				<ImagePopOut />
+				<PhoneWrapper>
+					<NotificationBar />
+					<div className="PhoneAppContainer">
+						<>
+							<Route exact path="/" component={HomeApp} />
+							{callModal && <Route exact path="/call" component={CallModal} />}
+							{apps.map((App) => (
+								<Fragment key={App.id}>
+									{!App.isDisabled && <App.Route key={App.id} />}
+								</Fragment>
+							))}
+						</>
+						<NotificationAlert />
+						<PhoneSnackbar />
+					</div>
+					<Navigation />
+				</PhoneWrapper>
+			</TopLevelErrorComponent>
+		</div>
+	);
 }
 
 export default Phone;
 
 InjectDebugData<any>(
-  [
-    {
-      app: 'PHONE',
-      method: PhoneEvents.SET_VISIBILITY,
-      data: true,
-    },
-    {
-      app: 'PHONE',
-      method: PhoneEvents.SET_PHONE_READY,
-      data: true,
-    },
-    {
-      app: 'PHONE',
-      method: PhoneEvents.SET_TIME,
-      data: dayjs().format('hh:mm'),
-    },
-    {
-      app: 'PHONE',
-      method: PhoneEvents.SET_CONFIG,
-      data: DefaultConfig,
-    },
-  ],
-  1000,
+	[
+		{
+			app: 'PHONE',
+			method: PhoneEvents.SET_VISIBILITY,
+			data: true,
+		},
+		{
+			app: 'PHONE',
+			method: PhoneEvents.SET_PHONE_READY,
+			data: true,
+		},
+		{
+			app: 'PHONE',
+			method: PhoneEvents.SET_TIME,
+			data: dayjs().format('hh:mm'),
+		},
+		{
+			app: 'PHONE',
+			method: PhoneEvents.SET_CONFIG,
+			data: DefaultConfig,
+		},
+	],
+	1000,
 );
