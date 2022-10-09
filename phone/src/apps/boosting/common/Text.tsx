@@ -1,6 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
 import { Typography } from '@mui/material';
+import styled from 'styled-components';
 
 const CSSText = styled(Typography)`
 	font-weight: bolder;
@@ -15,11 +14,14 @@ interface Props {
 	width?: string;
 	height?: string;
 	textAlign?: string;
+	fontSize?: string;
 }
 
-const Text = ({ children, lineHeight, width, height, textAlign }: Props) => {
+const Text = ({ children, lineHeight, width, height, textAlign, fontSize }: Props) => {
 	return (
-		<CSSText style={{ lineHeight: lineHeight, width: width, height: height }}>
+		<CSSText
+			style={{ lineHeight: lineHeight, width: width, height: height, fontSize: fontSize }}
+		>
 			{children}
 		</CSSText>
 	);

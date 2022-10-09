@@ -225,16 +225,16 @@ export const APPS: IAppConfig[] = [
 			<AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
 		),
 	},
-	// {
-	// 	id: 'BOOSTING',
-	// 	nameLocale: 'Boosting',
-	// 	backgroundColor: '#BA55D3',
-	// 	color: common.white,
-	// 	path: '/boosting',
-	// 	Route: () => (
-	// 		<AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
-	// 	),
-	// },
+	{
+		id: 'BOOSTING',
+		nameLocale: 'Boosting',
+		backgroundColor: '#BA55D3',
+		color: common.white,
+		path: '/boosting',
+		Route: () => (
+			<AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
+		),
+	},
 ];
 
 // Example app only in dev

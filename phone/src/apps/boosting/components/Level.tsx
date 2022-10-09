@@ -1,7 +1,8 @@
-import { Box, LinearProgress, linearProgressClasses, Typography } from '@mui/material';
+import { Box, LinearProgress, linearProgressClasses } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { BoostProfileState } from '../state/atoms';
+import Text from '../common/Text';
 
 const Wrapper = styled(Box)`
 	display: flex;
@@ -15,14 +16,7 @@ const LevelContainer = styled(Box)`
 	width: 273px;
 	height: 31px;
 	left: 45px;
-	top: 97px;
-`;
-
-const Text = styled(Typography)`
-	font-size: 16px;
-	font-weight: bolder;
-	color: #09b565;
-	line-height: 19px;
+	top: 105px;
 `;
 
 const BorderLinearProgress = styled(LinearProgress)`

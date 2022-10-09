@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import styled from 'styled-components';
-import { BoostingEvents, BOOSTING_APP } from '@typings/boosting';
-import InjectDebugData from '../../os/debug/InjectDebugData';
-import { useBoosting } from './hooks/useBoosting';
 import backgroundImg from '../../assets/boosting/background.png';
+import Title from './common/Text';
+import Contracts from './components/Contracts';
 import Level from './components/Level';
-import Status from './components/Status';
 import Queue from './components/Queue';
+import Status from './components/Status';
+import { useBoosting } from './hooks/useBoosting';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -14,12 +14,6 @@ const Wrapper = styled(Box)`
 	background-size: contain;
 	height: 100%;
 	width: 100%;
-`;
-
-const Title = styled(Typography)`
-	color: #02b864;
-	font-weight: bolder;
-	font-size: 24px;
 `;
 
 const TextWrapper = styled(Box)`
@@ -36,11 +30,12 @@ const BoostingApp = () => {
 	return (
 		<Wrapper>
 			<TextWrapper>
-				<Title>WELCOME</Title>
+				<Title fontSize={'24px'}>WELCOME</Title>
 			</TextWrapper>
 			<Level />
 			<Status />
 			<Queue />
+			<Contracts />
 		</Wrapper>
 	);
 };

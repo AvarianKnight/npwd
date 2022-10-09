@@ -11,7 +11,7 @@ const Container = styled(Box)`
 	width: 252px;
 	height: 45px;
 	left: 60px;
-	top: 154px;
+	top: 165px;
 `;
 const Ninja = styled(Box)`
 	background: url(${NinjaImg}) no-repeat;
