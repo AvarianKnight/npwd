@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
-import Text from '../common/Text';
+import { Box, IconButton } from '@mui/material';
 import styled from 'styled-components';
 import JoinQueueImg from '../../../assets/boosting/join-queue.png';
 import LeaveQueueImg from '../../../assets/boosting/leave-queue.png';
+import Text from '../common/Text';
 
 const Container = styled(Box)`
 	position: absolute;
@@ -43,17 +43,26 @@ const LeaveImg = styled(Box)`
 	height: 36px;
 `;
 
-const Queue = () => {
+interface QueueProps {
+	joinQueueHandler: () => any;
+	leaveQueueHandler: () => any;
+}
+
+const Queue = ({ joinQueueHandler, leaveQueueHandler }: QueueProps) => {
 	return (
 		<Container>
 			<JoinContainer>
-				<JoinImg />
+				<IconButton onClick={joinQueueHandler}>
+					<JoinImg />
+				</IconButton>
 				<Text textAlign={'center'} width={'104px'}>
 					JOIN QUEUE
 				</Text>
 			</JoinContainer>
 			<LeaveContainer>
-				<LeaveImg />
+				<IconButton onClick={leaveQueueHandler}>
+					<LeaveImg />
+				</IconButton>
 				<Text textAlign={'center'} width={'115px'}>
 					LEAVE QUEUE
 				</Text>

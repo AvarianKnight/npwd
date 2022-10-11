@@ -1,12 +1,15 @@
 import { Box } from '@mui/material';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import backgroundImg from '../../assets/boosting/background.png';
-import Title from './common/Text';
+import Prompt from '../../ui/components/Prompt';
+import Text from './common/Text';
 import Contracts from './components/Contracts';
 import Level from './components/Level';
 import Queue from './components/Queue';
 import Status from './components/Status';
 import { useBoosting } from './hooks/useBoosting';
+import { useContracts } from './hooks/useContracts';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -25,17 +28,36 @@ const TextWrapper = styled(Box)`
 `;
 
 const BoostingApp = () => {
+	const rootRef = useRef<HTMLDivElement>(null);
+	const { joinQueueHandler, leaveQueueHandler } = useBoosting();
+	const { startHandler, tradeHandler, declineHandler } = useContracts();
+
 	useBoosting();
+	useContracts();
 
 	return (
-		<Wrapper>
+		<Wrapper ref={rootRef}>
+			<Prompt
+				rootRef={rootRef}
+				background={'#000000'}
+				color={'#01B963'}
+				border={'1px solid #01B963'}
+				height={'278px'}
+				width={'335px'}
+				borderRadius={'34px'}
+				fontWeight={'bolder'}
+			/>
 			<TextWrapper>
-				<Title fontSize={'24px'}>WELCOME</Title>
+				<Text fontSize={'24px'}>WELCOME</Text>
 			</TextWrapper>
 			<Level />
 			<Status />
-			<Queue />
-			<Contracts />
+			<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />
+			<Contracts
+				startHandler={startHandler}
+				tradeHandler={tradeHandler}
+				declineHandler={declineHandler}
+			/>
 		</Wrapper>
 	);
 };

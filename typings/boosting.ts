@@ -22,3 +22,9 @@ export interface Contract {
 	cost: number;
 	vehicle: string;
 }
+
+export interface ButtonOption {
+	component: React.ReactNode;
+	text: string;
+	action: () => any;
+}

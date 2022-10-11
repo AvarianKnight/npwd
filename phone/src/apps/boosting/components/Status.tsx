@@ -30,6 +30,10 @@ const StatusBar = styled(Box)`
 	height: 25px;
 	background: rgba(0, 187, 97, 0.17);
 	border-radius: 71px;
+	margin-top: 7px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const Status = () => {
@@ -44,9 +48,13 @@ const Status = () => {
 				</Text>
 				<StatusBar>
 					{inQueue ? (
-						<Text lineHeight={'14.75px'}>IN QUEUE</Text>
+						<Text lineHeight={'14.75px'} textAlign={'center'}>
+							IN QUEUE
+						</Text>
 					) : (
-						<Text lineHeight={'25.75px'}>NOT IN QUEUE</Text>
+						<Text lineHeight={'25.75px'} textAlign={'center'}>
+							NOT IN QUEUE
+						</Text>
 					)}
 				</StatusBar>
 			</StatusContainer>
