@@ -1,4 +1,4 @@
-import { Button as MuiButton } from '@mui/material';
+import {Button as MuiButton} from '@mui/material';
 import styled from 'styled-components';
 import Text from './Text';
 
@@ -19,7 +19,7 @@ interface Props {
 	text: string;
 }
 
-const Button = ({ clickHandler, text }: Props) => {
+const Button = ({clickHandler, text}: Props) => {
 	return (
 		<CSSButton onClick={clickHandler}>
 			<Text fontSize={'24px'} color={'#000000'}>

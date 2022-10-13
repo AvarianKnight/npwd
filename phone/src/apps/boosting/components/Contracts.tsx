@@ -1,14 +1,14 @@
-import { Box, IconButton as MuiButton } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import {Box, IconButton as MuiButton} from '@mui/material';
+import {useRecoilValue} from 'recoil';
 import styled from 'styled-components';
-import { ButtonOption, Contract } from '../../../../../typings/boosting';
+import {ButtonOption, Contract} from '../../../../../typings/boosting';
 import ButtonImg from '../../../assets/boosting/button.png';
 import CarImg from '../../../assets/boosting/car.png';
 import DeclineImg from '../../../assets/boosting/decline.png';
 import StartImg from '../../../assets/boosting/start.png';
 import TradeImg from '../../../assets/boosting/trade.png';
 import Text from '../common/Text';
-import { ContractsState } from '../state/atoms';
+import {ContractsState} from '../state/atoms';
 
 const Container = styled(Box)`
 	width: 355px;
@@ -102,7 +102,7 @@ interface Props {
 	declineHandler: () => any;
 }
 
-const Contracts = ({ startHandler, tradeHandler, declineHandler }: Props) => {
+const Contracts = ({startHandler, tradeHandler, declineHandler}: Props) => {
 	const contracts = useRecoilValue(ContractsState.contracts);
 
 	const buttonOptions: ButtonOption[] = [
@@ -125,16 +125,16 @@ const Contracts = ({ startHandler, tradeHandler, declineHandler }: Props) => {
 
 	return (
 		<Container>
-			<TextWrapper style={{ paddingBottom: '5px' }}>
+			<TextWrapper style={{paddingBottom: '5px'}}>
 				<Text fontSize={'24px'}>AVAILABLE CONTRACTS</Text>
 			</TextWrapper>
 			<ContractsWrapper>
 				{contracts?.map((contract: Contract, index: number) => {
 					return (
 						<ContractContainer key={index}>
-							<Wrapper style={{ width: '125px' }}>
+							<Wrapper style={{width: '125px'}}>
 								<Car />
-								<Wrapper style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+								<Wrapper style={{flexWrap: 'wrap', justifyContent: 'center'}}>
 									<Text position={'relative'} top={'5px'}>
 										{contract.vehicle}
 									</Text>
@@ -143,7 +143,7 @@ const Contracts = ({ startHandler, tradeHandler, declineHandler }: Props) => {
 									</Text>
 								</Wrapper>
 							</Wrapper>
-							<Wrapper style={{ alignItems: 'center' }}>
+							<Wrapper style={{alignItems: 'center'}}>
 								{buttonOptions.map((buttonOption: ButtonOption, index: number) => {
 									return (
 										<ButtonWrapper key={index}>
@@ -174,34 +174,34 @@ const Contracts = ({ startHandler, tradeHandler, declineHandler }: Props) => {
 
 {
 	/* <ButtonWrapper>
-	<Button>
-		<Trade />
-	</Button>
-	<TextWrapper style={{ position: 'relative', bottom: '7px' }}>
-		<Text
-			color={'#42FFA7'}
-			fontSize={'11px'}
-			lineHeight={'13px'}
-			textAlign={'center'}
-		>
-			TRADE
-		</Text>
-	</TextWrapper>
+    <Button>
+        <Trade />
+    </Button>
+    <TextWrapper style={{ position: 'relative', bottom: '7px' }}>
+        <Text
+            color={'#42FFA7'}
+            fontSize={'11px'}
+            lineHeight={'13px'}
+            textAlign={'center'}
+        >
+            TRADE
+        </Text>
+    </TextWrapper>
 </ButtonWrapper>
 <ButtonWrapper>
-	<Button>
-		<Decline />
-	</Button>
-	<TextWrapper style={{ position: 'relative', bottom: '7px' }}>
-		<Text
-			color={'#42FFA7'}
-			fontSize={'11px'}
-			lineHeight={'13px'}
-			textAlign={'center'}
-		>
-			DECLINE
-		</Text>
-	</TextWrapper>
+    <Button>
+        <Decline />
+    </Button>
+    <TextWrapper style={{ position: 'relative', bottom: '7px' }}>
+        <Text
+            color={'#42FFA7'}
+            fontSize={'11px'}
+            lineHeight={'13px'}
+            textAlign={'center'}
+        >
+            DECLINE
+        </Text>
+    </TextWrapper>
 </ButtonWrapper> */
 }
 export default Contracts;

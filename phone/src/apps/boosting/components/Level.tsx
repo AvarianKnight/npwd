@@ -1,7 +1,7 @@
-import { Box, LinearProgress, linearProgressClasses } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import {Box, LinearProgress, linearProgressClasses} from '@mui/material';
+import {useRecoilValue} from 'recoil';
 import styled from 'styled-components';
-import { BoostProfileState } from '../state/atoms';
+import {BoostProfileState} from '../state/atoms';
 import Text from '../common/Text';
 
 const Wrapper = styled(Box)`
@@ -39,7 +39,7 @@ const Level = () => {
 	return (
 		<Wrapper>
 			<LevelContainer>
-				<Box style={{ width: '75px', textAlign: 'center' }}>
+				<Box style={{width: '75px', textAlign: 'center'}}>
 					<Text>Level {profile?.level}</Text>
 				</Box>
 				<BorderLinearProgress variant="determinate" value={Number(profile?.experience)} />

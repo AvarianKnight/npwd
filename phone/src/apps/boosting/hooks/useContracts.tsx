@@ -1,10 +1,12 @@
-import { useSetRecoilState } from 'recoil';
-import { BoostingEvents, BOOSTING_APP, Contract } from '@typings/boosting';
-import { useNuiEvent } from 'fivem-nui-react-lib';
-import { ContractsState } from '../state/atoms';
+import {useSetRecoilState} from 'recoil';
+import {BOOSTING_APP, BoostingEvents} from '@typings/boosting';
+import {useNuiEvent} from 'fivem-nui-react-lib';
+import {ContractsState} from '../state/atoms';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
-import { PromptState } from '../../../ui/state/PromptState';
+import {PromptState} from '@ui/state/PromptState';
 import StartPrompt from '../components/StartPrompt';
+import TradePrompt from '../components/TradePrompt';
+import DeclinePrompt from '../components/DeclinePrompt';
 
 export const useContracts = () => {
 	const setContracts = useSetRecoilState(ContractsState.contracts);
@@ -21,14 +23,22 @@ export const useContracts = () => {
 	};
 
 	const tradeHandler = () => {
-		console.log('trade');
+		setPrompt({
+			component: <TradePrompt />,
+			message: 'ARE YOU READY TO START YOUR MISSION?',
+			open: true,
+		});
 	};
 
 	const declineHandler = () => {
-		console.log('decline');
+		setPrompt({
+			component: <DeclinePrompt />,
+			message: 'ARE YOU READY TO START YOUR MISSION?',
+			open: true,
+		});
 	};
 
-	return { startHandler, tradeHandler, declineHandler };
+	return {startHandler, tradeHandler, declineHandler};
 };
 
 InjectDebugData(

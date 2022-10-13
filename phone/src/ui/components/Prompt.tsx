@@ -1,7 +1,6 @@
-import { Box, Modal } from '@mui/material';
-import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
-import { PromptState } from '../state/PromptState';
+import {Modal} from '@mui/material';
+import {useRecoilValue} from 'recoil';
+import {PromptState} from '../state/PromptState';
 
 type Props = {
 	rootRef: any;
@@ -15,24 +14,6 @@ type Props = {
 	// img?: any;
 	// button?: React.ReactNode;
 };
-
-// interface ImgProps {
-// 	imgUrl: string;
-// }
-
-// const BoxImg = styled(Box)`
-// 	background: no-repeat ${(props: ImgProps) => `url(${props.imgUrl})`};
-// 	width: 87px;
-// 	height: 68px;
-// 	background-size: contain;
-// 	margin: 15px;
-// `;
-
-// const Row = styled(Box)`
-// 	display: flex;
-// 	justify-content: center;
-// 	width: 100%;
-// `;
 
 const Prompt = ({
 	rootRef,

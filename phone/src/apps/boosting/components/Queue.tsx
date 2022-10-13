@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material';
+import {Box, IconButton} from '@mui/material';
 import styled from 'styled-components';
 import JoinQueueImg from '../../../assets/boosting/join-queue.png';
 import LeaveQueueImg from '../../../assets/boosting/leave-queue.png';
@@ -48,7 +48,7 @@ interface QueueProps {
 	leaveQueueHandler: () => any;
 }
 
-const Queue = ({ joinQueueHandler, leaveQueueHandler }: QueueProps) => {
+const Queue = ({joinQueueHandler, leaveQueueHandler}: QueueProps) => {
 	return (
 		<Container>
 			<JoinContainer>

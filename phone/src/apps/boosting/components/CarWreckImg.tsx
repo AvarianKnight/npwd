@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import {Box} from '@mui/material';
 import styled from 'styled-components';
 import WreckImg from '../../../assets/boosting/crash.png';
 

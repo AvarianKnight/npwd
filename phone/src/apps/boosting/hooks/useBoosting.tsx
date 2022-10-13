@@ -1,14 +1,14 @@
-import { BoostingEvents, BOOSTING_APP } from '@typings/boosting';
-import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
-import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import {BoostingEvents, BOOSTING_APP} from '@typings/boosting';
+import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
+import {useEffect} from 'react';
+import {useSetRecoilState} from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
-import { PromptState } from '../../../ui/state/PromptState';
+import {PromptState} from '@ui/state/PromptState';
 import QueuePrompt from '../components/QueuePrompt';
-import { BoostProfileState, QueState } from '../state/atoms';
+import {BoostProfileState, QueState} from '../state/atoms';
 
 export const useBoosting = () => {
-	const { send } = useNuiRequest();
+	const {send} = useNuiRequest();
 	const setBoostProfile = useSetRecoilState(BoostProfileState.profile);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const setQueue = useSetRecoilState(QueState.inQue);
@@ -39,7 +39,7 @@ export const useBoosting = () => {
 
 	useNuiEvent(BOOSTING_APP, BoostingEvents.LOAD_BOOSTING_PROFILE, setBoostProfile);
 
-	return { joinQueueHandler, leaveQueueHandler };
+	return {joinQueueHandler, leaveQueueHandler};
 };
 
 InjectDebugData(

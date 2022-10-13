@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
-import { useRef } from 'react';
+import {Box} from '@mui/material';
+import {useRef} from 'react';
 import styled from 'styled-components';
 import backgroundImg from '../../assets/boosting/background.png';
 import Prompt from '../../ui/components/Prompt';
@@ -8,8 +8,8 @@ import Contracts from './components/Contracts';
 import Level from './components/Level';
 import Queue from './components/Queue';
 import Status from './components/Status';
-import { useBoosting } from './hooks/useBoosting';
-import { useContracts } from './hooks/useContracts';
+import {useBoosting} from './hooks/useBoosting';
+import {useContracts} from './hooks/useContracts';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -29,8 +29,8 @@ const TextWrapper = styled(Box)`
 
 const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
-	const { joinQueueHandler, leaveQueueHandler } = useBoosting();
-	const { startHandler, tradeHandler, declineHandler } = useContracts();
+	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
+	const {startHandler, tradeHandler, declineHandler} = useContracts();
 
 	useBoosting();
 	useContracts();

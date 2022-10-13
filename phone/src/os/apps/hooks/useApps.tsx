@@ -1,14 +1,14 @@
-import React, { useCallback, useMemo } from 'react';
-import { useNotifications } from '@os/notifications/hooks/useNotifications';
-import { createLazyAppIcon } from '../utils/createLazyAppIcon';
-import { APPS, IApp } from '../config/apps';
-import { SvgIconComponent } from '@mui/icons-material';
-import { useTheme } from '@mui/material';
-import { useSettingsValue } from '../../../apps/settings/hooks/useSettings';
-import { IconSetObject } from '@typings/settings';
+import React, {useCallback, useMemo} from 'react';
+import {useNotifications} from '@os/notifications/hooks/useNotifications';
+import {createLazyAppIcon} from '../utils/createLazyAppIcon';
+import {APPS, IApp} from '../config/apps';
+import {SvgIconComponent} from '@mui/icons-material';
+import {useTheme} from '@mui/material';
+import {useSettingsValue} from '../../../apps/settings/hooks/useSettings';
+import {IconSetObject} from '@typings/settings';
 
 export const useApps = () => {
-	const { icons } = useNotifications();
+	const {icons} = useNotifications();
 	const theme = useTheme();
 	const curIconSet = useSettingsValue().iconSet.value as IconSetObject;
 
@@ -54,10 +54,10 @@ export const useApps = () => {
 	}, [icons, curIconSet, theme]);
 
 	const getApp = useCallback((id: string): IApp => apps.find((a) => a.id === id) || null, [apps]);
-	return { apps, getApp };
+	return {apps, getApp};
 };
 
 export const useApp = (id: string): IApp => {
-	const { getApp } = useApps();
+	const {getApp} = useApps();
 	return getApp(id);
 };

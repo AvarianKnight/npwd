@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
-import { forwardRef } from 'react';
-import { useRecoilState } from 'recoil';
+import {Box} from '@mui/material';
+import {forwardRef} from 'react';
+import {useRecoilState} from 'recoil';
 import styled from 'styled-components';
-import { PromptState } from '../../../ui/state/PromptState';
+import {PromptState} from '@ui/state/PromptState';
 import Button from '../common/Button';
 import CarWreckImg from './CarWreckImg';
 
@@ -25,13 +25,13 @@ const QueuePrompt = forwardRef((props, ref) => {
 
 	return (
 		<Box>
-			<Box style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+			<Box style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 				<Row>{prompt.message}</Row>
 				<Row>
 					<CarWreckImg />
 				</Row>
 			</Box>
-			<Box style={{ display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px' }}>
+			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
 				<Button clickHandler={closePopupHandler} text={'OK'} />
 			</Box>
 		</Box>

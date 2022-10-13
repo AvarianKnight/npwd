@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import {Typography} from '@mui/material';
 import styled from 'styled-components';
 
 const CSSText = styled(Typography)`
@@ -9,6 +9,7 @@ const CSSText = styled(Typography)`
 
 type Position = 'static' | 'relative' | 'absolute' | 'sticky' | 'fixed';
 type TextAlign = 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'match-parent';
+
 interface Props {
 	children: any;
 	lineHeight?: string;

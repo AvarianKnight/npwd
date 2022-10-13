@@ -1,9 +1,9 @@
-import { Box } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import {Box} from '@mui/material';
+import {useRecoilValue} from 'recoil';
 import styled from 'styled-components';
 import NinjaImg from '../../../assets/boosting/ninja.png';
 import Text from '../common/Text';
-import { QueState } from '../state/atoms';
+import {QueState} from '../state/atoms';
 
 const Container = styled(Box)`
 	display: flex;
