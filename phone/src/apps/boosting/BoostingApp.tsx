@@ -1,6 +1,8 @@
 import {Box} from '@mui/material';
-import {useRef} from 'react';
+import {useNuiRequest} from 'fivem-nui-react-lib';
+import {useEffect, useRef} from 'react';
 import styled from 'styled-components';
+import {BoostingEvents} from '../../../../typings/boosting';
 import backgroundImg from '../../assets/boosting/background.png';
 import Prompt from '../../ui/components/Prompt';
 import Text from './common/Text';
@@ -31,9 +33,16 @@ const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
 	const {startHandler, tradeHandler, declineHandler} = useContracts();
+	const {send} = useNuiRequest();
 
 	useBoosting();
 	useContracts();
+
+	useEffect(() => {
+		// if (process.env.NODE_ENV !== 'development') {
+		send(BoostingEvents.LOAD_BOOSTING_PROFILE);
+		// }
+	}, []);
 
 	return (
 		<Wrapper ref={rootRef}>

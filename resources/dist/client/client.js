@@ -10011,6 +10011,13 @@
         emitNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
         cb({});
       });
+      onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
+        SendNUIMessage({
+          app: "BOOSTING",
+          method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
+          data: boostingProfile
+        });
+      });
     }
   });
 

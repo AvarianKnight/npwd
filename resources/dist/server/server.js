@@ -47075,21 +47075,26 @@ var BoostingDB = class {
     if (profile.length > 0) {
       return profile[0];
     } else {
-      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [
-        uid,
-        1,
-        0
-      ]);
+      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
       return { uid, level: 1, experience: "0" };
     }
+  };
+  fetchContracts = async (uid) => {
+    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle FROM boosting_contracts WHERE uid = ?`, [uid]);
+    return contracts;
   };
 };
 
 // server/boosting/boosting.controller.ts
 var boostingDB = new BoostingDB();
-onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, () => {
+onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
   const ply = PMA.getPlayerFromId(source);
-  boostingDB.fetchProfile(ply.uniqueId);
+  const profile = await boostingDB.fetchProfile(ply.uniqueId);
+  const contracts = await boostingDB.fetchContracts(ply.uniqueId);
+  ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
+    profile,
+    contracts
+  });
 });
 
 // server/bridge/bridge.utils.ts

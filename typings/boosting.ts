@@ -23,6 +23,11 @@ export interface Contract {
 	vehicle: string;
 }
 
+export interface BoostingProfile {
+	profile: BoostProfile;
+	contract: Contract[];
+}
+
 export interface ButtonOption {
 	component: React.ReactNode;
 	text: string;
