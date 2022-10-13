@@ -3,10 +3,22 @@ import React from 'react';
 
 type Props = {
 	children: React.ReactNode;
+	alignItems?: string;
 };
 
-const Row = ({children}: Props) => {
-	return <Box style={{display: 'flex', justifyContent: 'center', width: '100%'}}>{children}</Box>;
+const Row = ({children, alignItems}: Props) => {
+	return (
+		<Box
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				width: '100%',
+				alignItems: alignItems,
+			}}
+		>
+			{children}
+		</Box>
+	);
 };
 
 export default Row;

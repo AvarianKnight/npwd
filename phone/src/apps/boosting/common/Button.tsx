@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Text from './Text';
 
 const CSSButton = styled(MuiButton)`
-	width: 129px;
-	height: 56px;
+	width: 105px;
+	height: 45px;
 	position: relative;
 	background: #00bb60;
 	border-radius: 71px;

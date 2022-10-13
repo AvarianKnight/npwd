@@ -1,5 +1,6 @@
 import {atom} from 'recoil';
 import {BoostProfile, Contract} from '@typings/boosting';
+import {Player} from '../../../../../typings/property';
 
 export const BoostProfileState = {
 	profile: atom<BoostProfile>({
@@ -18,6 +19,13 @@ export const QueState = {
 export const ContractsState = {
 	contracts: atom<Contract[]>({
 		key: 'contracts',
+		default: undefined,
+	}),
+};
+
+export const TradeState = {
+	selectedPlayer: atom<string | Player>({
+		key: 'selectedPlayer',
 		default: undefined,
 	}),
 };

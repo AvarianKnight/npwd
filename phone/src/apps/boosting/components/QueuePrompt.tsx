@@ -4,7 +4,7 @@ import {useRecoilState} from 'recoil';
 import styled from 'styled-components';
 import {PromptState} from '@ui/state/PromptState';
 import Button from '../common/Button';
-import CarWreckImg from './CarWreckImg';
+import CarWreckImage from '../common/CarWreckImage';
 
 const Row = styled(Box)`
 	display: flex;
@@ -28,7 +28,7 @@ const QueuePrompt = forwardRef((props, ref) => {
 			<Box style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 				<Row>{prompt.message}</Row>
 				<Row>
-					<CarWreckImg />
+					<CarWreckImage />
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>

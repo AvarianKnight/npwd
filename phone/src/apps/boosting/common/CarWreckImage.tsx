@@ -2,8 +2,6 @@ import {Box} from '@mui/material';
 import styled from 'styled-components';
 import WreckImg from '../../../assets/boosting/crash.png';
 
-type Props = {};
-
 const Img = styled(Box)`
 	background: url(${WreckImg}) no-repeat;
 	width: 87px;
@@ -12,8 +10,8 @@ const Img = styled(Box)`
 	margin: 15px;
 `;
 
-const CarWreckImg = (props: Props) => {
+const CarWreckImage = () => {
 	return <Img />;
 };
 
-export default CarWreckImg;
+export default CarWreckImage;

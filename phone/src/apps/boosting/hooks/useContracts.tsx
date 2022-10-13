@@ -25,7 +25,7 @@ export const useContracts = () => {
 	const tradeHandler = () => {
 		setPrompt({
 			component: <TradePrompt />,
-			message: 'ARE YOU READY TO START YOUR MISSION?',
+			message: 'TRADE CONTRACT',
 			open: true,
 		});
 	};
@@ -33,7 +33,7 @@ export const useContracts = () => {
 	const declineHandler = () => {
 		setPrompt({
 			component: <DeclinePrompt />,
-			message: 'ARE YOU READY TO START YOUR MISSION?',
+			message: 'ARE YOU SURE YOU WANT TO TRASH THIS CONTRACT?',
 			open: true,
 		});
 	};
