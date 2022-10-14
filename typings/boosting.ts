@@ -7,6 +7,13 @@ export enum BoostingEvents {
 	FETCH_CONTRACTS = 'npwd:boosting:fetchContracts',
 	START_CONTRACT = 'npwd:boosting:startContract',
 	TRANSFER_CONTRACT = 'npwd:boosting:transferContract',
+	REWARD_CONTRACT = 'npwd:boosting:rewardContract',
+}
+
+export interface BoostList {
+	car_model: string;
+	type: string;
+	id: number;
 }
 
 export interface BoostProfile {
@@ -25,11 +32,18 @@ export interface Contract {
 
 export interface BoostingProfile {
 	profile: BoostProfile;
-	contract: Contract[];
+	contracts: Contract[];
 }
 
 export interface ButtonOption {
 	component: React.ReactNode;
 	text: string;
 	action: () => any;
+}
+
+export interface QueuedPlayer {
+	ssn: number;
+	fullName: string;
+	level: number;
+	experience: string;
 }

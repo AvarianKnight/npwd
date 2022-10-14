@@ -39,9 +39,7 @@ const BoostingApp = () => {
 	useContracts();
 
 	useEffect(() => {
-		// if (process.env.NODE_ENV !== 'development') {
 		send(BoostingEvents.LOAD_BOOSTING_PROFILE);
-		// }
 	}, []);
 
 	return (

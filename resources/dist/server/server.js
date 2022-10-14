@@ -47068,12 +47068,12 @@ onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
   emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
 });
 
-// server/boosting/boosting.db.ts
-var BoostingDB = class {
+// server/boosting/modules/profile/db.ts
+var ProfileDB = class {
   fetchProfile = async (uid) => {
-    const profile = await ox.query_async(`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`, [uid]);
-    if (profile.length > 0) {
-      return profile[0];
+    const profile = await ox.single_async(`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`, [uid]);
+    if (profile) {
+      return profile;
     } else {
       await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
       return { uid, level: 1, experience: "0" };
@@ -47085,12 +47085,112 @@ var BoostingDB = class {
   };
 };
 
-// server/boosting/boosting.controller.ts
-var boostingDB = new BoostingDB();
+// server/boosting/modules/boosts/db.ts
+var BoostsDB = class {
+  fetchCarList = async () => {
+    const boostList = await ox.query_async(`SELECT car_model, type FROM boosting_list`);
+    return boostList;
+  };
+};
+
+// server/boosting/modules/boosts/service.ts
+var boostsDB = new BoostsDB();
+var CarList = [];
+setImmediate(async () => {
+  CarList = await boostsDB.fetchCarList();
+});
+
+// server/boosting/controllers/queue.ts
+var QueueList = /* @__PURE__ */ new Map();
+onNet("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */, (boostProfile) => {
+  const ply = PMA.getPlayerFromId(source);
+  QueueList.set(ply.source, {
+    ssn: boostProfile.uid,
+    fullName: ply.getPlayerName(),
+    level: boostProfile.level,
+    experience: boostProfile.experience
+  });
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just joined the queue, currently ${QueueList.size} in queue now.`);
+});
+onNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */, () => {
+  const ply = PMA.getPlayerFromId(source);
+  QueueList.delete(ply.source);
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just left the queue, currently ${QueueList.size} in queue still.`);
+});
+
+// server/boosting/modules/queue/service.ts
+setTick(async () => {
+  await Delay(15e3);
+  manageQueuedPlayers();
+});
+var manageQueuedPlayers = () => {
+  console.log("\nBeginning queue selector...\n");
+  const tempCachedPlayers = [];
+  console.log("\u{1F680} ~ file: service.ts ~ line 15 ~ manageQueuedPlayers ~ QueueList", QueueList);
+  const playerSources = [...QueueList.keys()];
+  if (playerSources.length === 0) {
+    console.log("\nNo one in queue...\n");
+    return;
+  }
+  for (let i = 0; i < 5; i++) {
+    const randomNum = Math.floor(Math.random() * Object.keys(playerSources).length);
+    const plySrc = playerSources[randomNum].toString();
+    const isPingedBefore = tempCachedPlayers.findIndex((source2) => source2 === plySrc);
+    if (isPingedBefore === -1 && PMA.getPlayerFromId(plySrc).job.name !== "police") {
+      tempCachedPlayers.push(plySrc);
+    }
+  }
+  tempCachedPlayers.forEach((plyId) => {
+    const player = QueueList.get(Number(plyId));
+    contractHandler(player);
+    emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId));
+  });
+};
+var contractHandler = async (player) => {
+  const boostRank = getBoostRank(player.level);
+  const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
+  const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
+  const currentDate = new Date();
+  const expires_in = new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)).toString();
+  await ox.execute_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle) VALUES (?, ?, ?, ?, ?)`, [
+    player.ssn,
+    rankedVehicleList[randomNum].type,
+    expires_in,
+    20,
+    rankedVehicleList[randomNum].car_model
+  ]);
+  console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
+};
+var getBoostRank = (level) => {
+  let boostRank;
+  switch (level) {
+    case 1:
+      boostRank = "B";
+      break;
+    case 2:
+      boostRank = "B";
+      break;
+    case 3:
+      boostRank = "A";
+      break;
+    case 4:
+      boostRank = "S";
+      break;
+    case 5:
+      boostRank = "S+";
+      break;
+    default:
+      break;
+  }
+  return boostRank;
+};
+
+// server/boosting/controllers/profile.ts
+var profileDB = new ProfileDB();
 onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
   const ply = PMA.getPlayerFromId(source);
-  const profile = await boostingDB.fetchProfile(ply.uniqueId);
-  const contracts = await boostingDB.fetchContracts(ply.uniqueId);
+  const profile = await profileDB.fetchProfile(ply.uniqueId);
+  const contracts = await profileDB.fetchContracts(ply.uniqueId);
   ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
     profile,
     contracts

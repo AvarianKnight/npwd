@@ -10007,8 +10007,18 @@
     "client/cl_boosting.ts"() {
       init_boosting();
       RegisterNuiCallbackType("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
+      RegisterNuiCallbackType("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */);
+      RegisterNuiCallbackType("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
       on(`__cfx_nui:${"npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */}`, (data, cb) => {
         emitNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:joinWaitList" /* JOIN_WAITLIST */}`, (data, cb) => {
+        emitNet("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */, data.boostProfile);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */}`, (data, cb) => {
+        emitNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
         cb({});
       });
       onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
@@ -10017,6 +10027,9 @@
           method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
           data: boostingProfile
         });
+      });
+      onNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, () => {
+        console.log("Contract rewarded!");
       });
     }
   });

@@ -1,7 +1,7 @@
 import {BoostingEvents, BoostingProfile, BOOSTING_APP} from '@typings/boosting';
 import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
 import {useEffect} from 'react';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
 import {PromptState} from '@ui/state/PromptState';
 import QueuePrompt from '../components/QueuePrompt';
@@ -9,18 +9,13 @@ import {BoostProfileState, ContractsState, QueState} from '../state/atoms';
 
 export const useBoosting = () => {
 	const {send} = useNuiRequest();
-	const setBoostProfile = useSetRecoilState(BoostProfileState.profile);
+	const [boostProfile, setBoostProfile] = useRecoilState(BoostProfileState.profile);
 	const setContracts = useSetRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const setQueue = useSetRecoilState(QueState.inQue);
 
-	// useEffect(() => {
-	// 	if (process.env.NODE_ENV !== 'development') {
-	// 		send(BoostingEvents.LOAD_BOOSTING_PROFILE);
-	// 	}
-	// }, [send]);
-
-	const joinQueueHandler = () => {
+	const joinQueueHandler = async () => {
+		await send(BoostingEvents.JOIN_WAITLIST, {boostProfile: boostProfile});
 		setPrompt({
 			component: <QueuePrompt />,
 			message: 'You have joined the queue.',
@@ -29,7 +24,8 @@ export const useBoosting = () => {
 		setQueue(true);
 	};
 
-	const leaveQueueHandler = () => {
+	const leaveQueueHandler = async () => {
+		await send(BoostingEvents.LEAVE_WAITLIST);
 		setPrompt({
 			component: <QueuePrompt />,
 			message: 'You have left the queue.',
@@ -40,7 +36,7 @@ export const useBoosting = () => {
 
 	const setProfileHandler = (data: BoostingProfile) => {
 		setBoostProfile(data.profile);
-		setContracts(data.contract);
+		setContracts(data.contracts);
 	};
 
 	useNuiEvent(BOOSTING_APP, BoostingEvents.LOAD_BOOSTING_PROFILE, setProfileHandler);
