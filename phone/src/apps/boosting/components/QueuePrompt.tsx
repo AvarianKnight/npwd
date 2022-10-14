@@ -1,10 +1,11 @@
 import {Box} from '@mui/material';
-import {forwardRef} from 'react';
-import {useRecoilState} from 'recoil';
-import styled from 'styled-components';
 import {PromptState} from '@ui/state/PromptState';
+import {forwardRef} from 'react';
+import {useRecoilValue} from 'recoil';
+import styled from 'styled-components';
 import Button from '../common/Button';
 import CarWreckImage from '../common/CarWreckImage';
+import {useContracts} from '../hooks/useContracts';
 
 const Row = styled(Box)`
 	display: flex;
@@ -13,15 +14,8 @@ const Row = styled(Box)`
 `;
 
 const QueuePrompt = forwardRef((props, ref) => {
-	const [prompt, setPrompt] = useRecoilState(PromptState.prompt);
-
-	const closePopupHandler = () => {
-		setPrompt({
-			message: '',
-			open: false,
-			component: undefined,
-		});
-	};
+	const prompt = useRecoilValue(PromptState.prompt);
+	const {closePrompt} = useContracts();
 
 	return (
 		<Box>
@@ -32,7 +26,7 @@ const QueuePrompt = forwardRef((props, ref) => {
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-				<Button clickHandler={closePopupHandler} text={'OK'} />
+				<Button clickHandler={closePrompt} text={'OK'} />
 			</Box>
 		</Box>
 	);

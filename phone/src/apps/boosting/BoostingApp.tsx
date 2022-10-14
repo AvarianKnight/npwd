@@ -32,7 +32,7 @@ const TextWrapper = styled(Box)`
 const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
-	const {startHandler, tradeHandler, declineHandler} = useContracts();
+	const {startPrompt, tradePrompt, declinePrompt} = useContracts();
 	const {send} = useNuiRequest();
 
 	useBoosting();
@@ -61,9 +61,9 @@ const BoostingApp = () => {
 			<Status />
 			<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />
 			<Contracts
-				startHandler={startHandler}
-				tradeHandler={tradeHandler}
-				declineHandler={declineHandler}
+				startPrompt={startPrompt}
+				tradePrompt={tradePrompt}
+				declinePrompt={declinePrompt}
 			/>
 		</Wrapper>
 	);

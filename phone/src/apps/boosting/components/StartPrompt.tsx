@@ -5,9 +5,15 @@ import {useRecoilState} from 'recoil';
 import Button from '../common/Button';
 import CarWreckImage from '../common/CarWreckImage';
 import Row from '../common/Row';
+import {useContracts} from '../hooks/useContracts';
 
-const StartPrompt = forwardRef((props, ref) => {
+interface Props {
+	index: number;
+}
+
+const StartPrompt = forwardRef((props: Props, ref) => {
 	const [prompt, setPrompt] = useRecoilState(PromptState.prompt);
+	const {startHandler} = useContracts();
 
 	const closePopupHandler = () => {
 		setPrompt({
@@ -26,7 +32,7 @@ const StartPrompt = forwardRef((props, ref) => {
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-				<Button clickHandler={closePopupHandler} text={'YES'} />
+				<Button clickHandler={startHandler} index={props.index} text={'YES'} />
 				<Button clickHandler={closePopupHandler} text={'NO'} />
 			</Box>
 		</Box>

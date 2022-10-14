@@ -1,21 +1,19 @@
 import {Box} from '@mui/material';
 import {PromptState} from '@ui/state/PromptState';
 import {forwardRef} from 'react';
-import {useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
 import Button from '../common/Button';
 import DeclineImage from '../common/DeclineImage';
 import Row from '../common/Row';
+import {useContracts} from '../hooks/useContracts';
 
-const StartPrompt = forwardRef((props, ref) => {
-	const [prompt, setPrompt] = useRecoilState(PromptState.prompt);
+interface Props {
+	index: number;
+}
 
-	const closePopupHandler = () => {
-		setPrompt({
-			message: '',
-			open: false,
-			component: undefined,
-		});
-	};
+const DeclinePrompt = forwardRef((props: Props, ref) => {
+	const prompt = useRecoilValue(PromptState.prompt);
+	const {declineHandler, closePrompt} = useContracts();
 
 	return (
 		<Box>
@@ -26,11 +24,11 @@ const StartPrompt = forwardRef((props, ref) => {
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-				<Button clickHandler={closePopupHandler} text={'YES'} />
-				<Button clickHandler={closePopupHandler} text={'NO'} />
+				<Button clickHandler={declineHandler} index={props.index} text={'YES'} />
+				<Button clickHandler={closePrompt} text={'NO'} />
 			</Box>
 		</Box>
 	);
 });
 
-export default StartPrompt;
+export default DeclinePrompt;

@@ -15,13 +15,14 @@ const CSSButton = styled(MuiButton)`
 `;
 
 interface Props {
-	clickHandler: () => any;
+	clickHandler: (index: number) => any;
 	text: string;
+	index?: number;
 }
 
-const Button = ({clickHandler, text}: Props) => {
+const Button = ({clickHandler, text, index}: Props) => {
 	return (
-		<CSSButton onClick={clickHandler}>
+		<CSSButton onClick={() => clickHandler(index)}>
 			<Text fontSize={'24px'} color={'#000000'}>
 				{text}
 			</Text>

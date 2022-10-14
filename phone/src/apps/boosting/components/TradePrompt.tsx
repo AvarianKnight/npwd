@@ -10,6 +10,7 @@ import {PlayerListState} from '../../property/atoms/state';
 import {TradeState} from '../state/atoms';
 import {SyntheticEvent} from 'react';
 import {Player} from '../../../../../typings/property';
+import {useContracts} from '../hooks/useContracts';
 
 const ArrowsImage = styled(Box)`
 	background: url(${ArrowsImg}) no-repeat;
@@ -59,18 +60,15 @@ const MuiTextField = styled(TextField)({
 	},
 });
 
-const TradePrompt = () => {
-	const playerList = useRecoilValue(PlayerListState.playerList);
-	const [prompt, setPrompt] = useRecoilState(PromptState.prompt);
-	const [selectedTradePlayer, setSelectedTradePlayer] = useRecoilState(TradeState.selectedPlayer);
+interface Props {
+	index: number;
+}
 
-	const closePopupHandler = () => {
-		setPrompt({
-			message: '',
-			open: false,
-			component: undefined,
-		});
-	};
+const TradePrompt = (props: Props) => {
+	const playerList = useRecoilValue(PlayerListState.playerList);
+	const prompt = useRecoilValue(PromptState.prompt);
+	const [selectedTradePlayer, setSelectedTradePlayer] = useRecoilState(TradeState.selectedPlayer);
+	const {tradeHandler, closePrompt} = useContracts();
 
 	const selectedPlayerHandler = (
 		event: SyntheticEvent<Element, Event>,
@@ -117,8 +115,8 @@ const TradePrompt = () => {
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-				<Button clickHandler={closePopupHandler} text={'TRADE'} />
-				<Button clickHandler={closePopupHandler} text={'CANCEL'} />
+				<Button clickHandler={tradeHandler} index={props.index} text={'TRADE'} />
+				<Button clickHandler={closePrompt} text={'CANCEL'} />
 			</Box>
 		</Box>
 	);

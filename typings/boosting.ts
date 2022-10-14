@@ -38,7 +38,7 @@ export interface BoostingProfile {
 export interface ButtonOption {
 	component: React.ReactNode;
 	text: string;
-	action: () => any;
+	action: (index: number) => any;
 }
 
 export interface QueuedPlayer {

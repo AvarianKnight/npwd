@@ -97,29 +97,29 @@ const ContractsWrapper = styled(Box)`
 `;
 
 interface Props {
-	startHandler: () => any;
-	tradeHandler: () => any;
-	declineHandler: () => any;
+	startPrompt: (index: number) => any;
+	tradePrompt: (index: number) => any;
+	declinePrompt: (index: number) => any;
 }
 
-const Contracts = ({startHandler, tradeHandler, declineHandler}: Props) => {
+const Contracts = ({startPrompt, tradePrompt, declinePrompt}: Props) => {
 	const contracts = useRecoilValue(ContractsState.contracts);
 
 	const buttonOptions: ButtonOption[] = [
 		{
 			component: <Start />,
 			text: 'START',
-			action: startHandler,
+			action: (index: number) => startPrompt(index),
 		},
 		{
 			component: <Trade />,
 			text: 'TRADE',
-			action: tradeHandler,
+			action: (index: number) => tradePrompt(index),
 		},
 		{
 			component: <Decline />,
 			text: 'DECLINE',
-			action: declineHandler,
+			action: (index: number) => declinePrompt(index),
 		},
 	];
 
@@ -129,9 +129,9 @@ const Contracts = ({startHandler, tradeHandler, declineHandler}: Props) => {
 				<Text fontSize={'24px'}>AVAILABLE CONTRACTS</Text>
 			</TextWrapper>
 			<ContractsWrapper>
-				{contracts?.map((contract: Contract, index: number) => {
+				{contracts?.map((contract: Contract, contactIndex: number) => {
 					return (
-						<ContractContainer key={index}>
+						<ContractContainer key={contactIndex}>
 							<Wrapper style={{width: '125px'}}>
 								<Car />
 								<Wrapper style={{flexWrap: 'wrap', justifyContent: 'center'}}>
@@ -147,7 +147,9 @@ const Contracts = ({startHandler, tradeHandler, declineHandler}: Props) => {
 								{buttonOptions.map((buttonOption: ButtonOption, index: number) => {
 									return (
 										<ButtonWrapper key={index}>
-											<Button onClick={buttonOption.action}>
+											<Button
+												onClick={() => buttonOption.action(contactIndex)}
+											>
 												{buttonOption.component}
 											</Button>
 											<TextWrapper>
@@ -172,36 +174,4 @@ const Contracts = ({startHandler, tradeHandler, declineHandler}: Props) => {
 	);
 };
 
-{
-	/* <ButtonWrapper>
-    <Button>
-        <Trade />
-    </Button>
-    <TextWrapper style={{ position: 'relative', bottom: '7px' }}>
-        <Text
-            color={'#42FFA7'}
-            fontSize={'11px'}
-            lineHeight={'13px'}
-            textAlign={'center'}
-        >
-            TRADE
-        </Text>
-    </TextWrapper>
-</ButtonWrapper>
-<ButtonWrapper>
-    <Button>
-        <Decline />
-    </Button>
-    <TextWrapper style={{ position: 'relative', bottom: '7px' }}>
-        <Text
-            color={'#42FFA7'}
-            fontSize={'11px'}
-            lineHeight={'13px'}
-            textAlign={'center'}
-        >
-            DECLINE
-        </Text>
-    </TextWrapper>
-</ButtonWrapper> */
-}
 export default Contracts;

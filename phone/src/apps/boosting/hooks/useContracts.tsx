@@ -1,4 +1,4 @@
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 import {BOOSTING_APP, BoostingEvents} from '@typings/boosting';
 import {useNuiEvent} from 'fivem-nui-react-lib';
 import {ContractsState} from '../state/atoms';
@@ -9,36 +9,66 @@ import TradePrompt from '../components/TradePrompt';
 import DeclinePrompt from '../components/DeclinePrompt';
 
 export const useContracts = () => {
-	const setContracts = useSetRecoilState(ContractsState.contracts);
+	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 
 	useNuiEvent(BOOSTING_APP, BoostingEvents.FETCH_CONTRACTS, setContracts);
 
-	const startHandler = () => {
+	const startPrompt = (index: number) => {
 		setPrompt({
-			component: <StartPrompt />,
+			component: <StartPrompt index={index} />,
 			message: 'ARE YOU READY TO START YOUR MISSION?',
 			open: true,
 		});
 	};
 
-	const tradeHandler = () => {
+	const tradePrompt = (index: number) => {
 		setPrompt({
-			component: <TradePrompt />,
+			component: <TradePrompt index={index} />,
 			message: 'TRADE CONTRACT',
 			open: true,
 		});
 	};
 
-	const declineHandler = () => {
+	const declinePrompt = (index: number) => {
 		setPrompt({
-			component: <DeclinePrompt />,
+			component: <DeclinePrompt index={index} />,
 			message: 'ARE YOU SURE YOU WANT TO TRASH THIS CONTRACT?',
 			open: true,
 		});
 	};
 
-	return {startHandler, tradeHandler, declineHandler};
+	const closePrompt = () => {
+		setPrompt({
+			message: '',
+			open: false,
+			component: undefined,
+		});
+	};
+
+	//TODO: write UI -> Client -> Service code ::: declineHandler first
+
+	const startHandler = (index: number) => {
+		console.log(contracts[index]);
+	};
+
+	const tradeHandler = (index: number) => {
+		console.log(contracts[index]);
+	};
+
+	const declineHandler = (index: number) => {
+		console.log(contracts[index]);
+	};
+
+	return {
+		startPrompt,
+		startHandler,
+		tradePrompt,
+		closePrompt,
+		tradeHandler,
+		declinePrompt,
+		declineHandler,
+	};
 };
 
 InjectDebugData(
