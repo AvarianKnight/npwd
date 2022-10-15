@@ -47064,8 +47064,13 @@ onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
 on("playerDropped", () => {
   OnlinePlayersCache.delete(source);
 });
-onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
-  emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
+  console.log("\u{1F680} ~ file: property.ts ~ line 24 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)", Object.fromEntries(OnlinePlayersCache));
+  if (app === "boosting") {
+    emitNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  } else {
+    emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  }
 });
 
 // server/boosting/modules/profile/db.ts
@@ -47080,8 +47085,11 @@ var ProfileDB = class {
     }
   };
   fetchContracts = async (uid) => {
-    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle FROM boosting_contracts WHERE uid = ?`, [uid]);
+    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
     return contracts;
+  };
+  deleteContract = async (id) => {
+    await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
   };
 };
 
@@ -47195,6 +47203,11 @@ onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () 
     profile,
     contracts
   });
+});
+onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) => {
+  const ply = PMA.getPlayerFromId(source);
+  profileDB.deleteContract(contractId);
+  ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
 });
 
 // server/bridge/bridge.utils.ts

@@ -5,9 +5,12 @@ export enum BoostingEvents {
 	JOIN_WAITLIST = 'npwd:boosting:joinWaitList',
 	LEAVE_WAITLIST = 'npwd:boosting:leaveWaitList',
 	FETCH_CONTRACTS = 'npwd:boosting:fetchContracts',
-	START_CONTRACT = 'npwd:boosting:startContract',
 	TRANSFER_CONTRACT = 'npwd:boosting:transferContract',
 	REWARD_CONTRACT = 'npwd:boosting:rewardContract',
+	START_CONTRACT = 'npwd:boosting:startContract',
+	DELETE_CONTRACT = 'npwd:boosting:deleteContract,',
+	TRADE_CONTRACT = 'npwd:boosting:tradeContract',
+	GET_PLAYERS = 'npwd:boosting:getPlayers',
 }
 
 export interface BoostList {
@@ -23,6 +26,7 @@ export interface BoostProfile {
 }
 
 export interface Contract {
+	id: number;
 	uid: number;
 	contract_type: string;
 	expires_in: Date;

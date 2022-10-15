@@ -1,18 +1,19 @@
 import {useRecoilState, useSetRecoilState} from 'recoil';
-import {BOOSTING_APP, BoostingEvents} from '@typings/boosting';
-import {useNuiEvent} from 'fivem-nui-react-lib';
+import {BOOSTING_APP, BoostingEvents, Contract} from '@typings/boosting';
+import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
 import {ContractsState} from '../state/atoms';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
 import {PromptState} from '@ui/state/PromptState';
 import StartPrompt from '../components/StartPrompt';
 import TradePrompt from '../components/TradePrompt';
 import DeclinePrompt from '../components/DeclinePrompt';
+import {useSnackbar} from '../../../os/snackbar/hooks/useSnackbar';
 
 export const useContracts = () => {
 	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
-
-	useNuiEvent(BOOSTING_APP, BoostingEvents.FETCH_CONTRACTS, setContracts);
+	const {send} = useNuiRequest();
+	const {addAlert} = useSnackbar();
 
 	const startPrompt = (index: number) => {
 		setPrompt({
@@ -23,10 +24,12 @@ export const useContracts = () => {
 	};
 
 	const tradePrompt = (index: number) => {
-		setPrompt({
-			component: <TradePrompt index={index} />,
-			message: 'TRADE CONTRACT',
-			open: true,
+		send(BoostingEvents.GET_PLAYERS).then(() => {
+			setPrompt({
+				component: <TradePrompt index={index} />,
+				message: 'TRADE CONTRACT',
+				open: true,
+			});
 		});
 	};
 
@@ -47,18 +50,42 @@ export const useContracts = () => {
 	};
 
 	//TODO: write UI -> Client -> Service code ::: declineHandler first
-
 	const startHandler = (index: number) => {
 		console.log(contracts[index]);
 	};
 
+	//TODO error check for what happens when a player logs out?
 	const tradeHandler = (index: number) => {
-		console.log(contracts[index]);
+		send(BoostingEvents.TRADE_CONTRACT, contracts[index])
+			.then(() => {
+				setContracts((prevState) =>
+					prevState.filter((contract: Contract) => contract.id !== contracts[index].id),
+				);
+				addAlert({
+					message: 'Contract traded!',
+					type: 'success',
+				});
+			})
+			.catch((err: any) => addAlert({message: err, type: 'error'}));
 	};
 
 	const declineHandler = (index: number) => {
-		console.log(contracts[index]);
+		send(BoostingEvents.DELETE_CONTRACT, contracts[index])
+			.then(() => {
+				setContracts((prevState) =>
+					prevState.filter((contract: Contract) => contract.id !== contracts[index].id),
+				);
+				addAlert({
+					message: 'Contract deleted.',
+					type: 'success',
+				});
+			})
+			.catch((err: any) => addAlert({message: err, type: 'error'}));
 	};
+
+	useNuiEvent(BOOSTING_APP, BoostingEvents.FETCH_CONTRACTS, setContracts);
+	useNuiEvent(BOOSTING_APP, BoostingEvents.DELETE_CONTRACT, closePrompt);
+	useNuiEvent(BOOSTING_APP, BoostingEvents.TRADE_CONTRACT, closePrompt);
 
 	return {
 		startPrompt,

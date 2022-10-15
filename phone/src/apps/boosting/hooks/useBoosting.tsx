@@ -1,9 +1,8 @@
 import {BoostingEvents, BoostingProfile, BOOSTING_APP} from '@typings/boosting';
+import {PromptState} from '@ui/state/PromptState';
 import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
-import {useEffect} from 'react';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
-import {PromptState} from '@ui/state/PromptState';
 import QueuePrompt from '../components/QueuePrompt';
 import {BoostProfileState, ContractsState, QueState} from '../state/atoms';
 

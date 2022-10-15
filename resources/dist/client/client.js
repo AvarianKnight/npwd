@@ -9997,18 +9997,25 @@
   });
 
   // ../typings/boosting.ts
+  var BOOSTING_APP;
   var init_boosting = __esm({
     "../typings/boosting.ts"() {
+      BOOSTING_APP = "BOOSTING";
     }
   });
 
-  // client/cl_boosting.ts
-  var init_cl_boosting = __esm({
-    "client/cl_boosting.ts"() {
+  // client/boosting/nui.ts
+  var init_nui = __esm({
+    "client/boosting/nui.ts"() {
       init_boosting();
+      init_property();
       RegisterNuiCallbackType("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
       RegisterNuiCallbackType("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */);
       RegisterNuiCallbackType("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
+      RegisterNuiCallbackType("npwd:boosting:startContract" /* START_CONTRACT */);
+      RegisterNuiCallbackType("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
+      RegisterNuiCallbackType("npwd:boosting:tradeContract" /* TRADE_CONTRACT */);
+      RegisterNuiCallbackType("npwd:boosting:getPlayers" /* GET_PLAYERS */);
       on(`__cfx_nui:${"npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */}`, (data, cb) => {
         emitNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
         cb({});
@@ -10021,11 +10028,49 @@
         emitNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
         cb({});
       });
+      on(`__cfx_nui:${"npwd:boosting:startContract" /* START_CONTRACT */}`, (data, cb) => {
+        emitNet("npwd:boosting:startContract" /* START_CONTRACT */);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:deleteContract," /* DELETE_CONTRACT */}`, (contract, cb) => {
+        emitNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, contract.id);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:getPlayers" /* GET_PLAYERS */}`, (data, cb) => {
+        emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, "boosting");
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:tradeContract" /* TRADE_CONTRACT */}`, (data, cb) => {
+        emitNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */);
+        cb({});
+      });
+    }
+  });
+
+  // client/boosting/main.ts
+  var init_main = __esm({
+    "client/boosting/main.ts"() {
+      init_boosting();
+      init_nui();
       onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
         SendNUIMessage({
-          app: "BOOSTING",
+          app: BOOSTING_APP,
           method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
           data: boostingProfile
+        });
+      });
+      onNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, (players, source) => {
+        const playersCopy = __spreadValues({}, players);
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:getPlayers" /* GET_PLAYERS */,
+          data: playersCopy
+        });
+      });
+      onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, () => {
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:deleteContract," /* DELETE_CONTRACT */
         });
       });
       onNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, () => {
@@ -10056,7 +10101,7 @@
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
       import_cl_property = __toESM(require_cl_property());
-      init_cl_boosting();
+      init_main();
       ClUtils = new ClientUtils();
     }
   });

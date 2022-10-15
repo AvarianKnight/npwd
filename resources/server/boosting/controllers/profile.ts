@@ -14,3 +14,10 @@ onNet(BoostingEvents.LOAD_BOOSTING_PROFILE, async () => {
 		contracts: contracts,
 	});
 });
+
+onNet(BoostingEvents.DELETE_CONTRACT, async (contractId: number) => {
+	const ply = PMA.getPlayerFromId(source);
+
+	profileDB.deleteContract(contractId);
+	ply.triggerEvent(BoostingEvents.DELETE_CONTRACT);
+});

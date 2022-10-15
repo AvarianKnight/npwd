@@ -7,10 +7,11 @@ import CarImage from '../common/CarImage';
 import ArrowsImg from '../../../assets/boosting/arrows.png';
 import styled from 'styled-components';
 import {PlayerListState} from '../../property/atoms/state';
-import {TradeState} from '../state/atoms';
+import {PlayerState, TradeState} from '../state/atoms';
 import {SyntheticEvent} from 'react';
 import {Player} from '../../../../../typings/property';
 import {useContracts} from '../hooks/useContracts';
+import {usePlayer} from '../../boosting/hooks/usePlayer';
 
 const ArrowsImage = styled(Box)`
 	background: url(${ArrowsImg}) no-repeat;
@@ -18,13 +19,6 @@ const ArrowsImage = styled(Box)`
 	height: 50px;
 	background-size: contain;
 	margin: 15px;
-`;
-
-const Wrapper = styled(Box)`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
 `;
 
 const MuiTextField = styled(TextField)({
@@ -65,10 +59,13 @@ interface Props {
 }
 
 const TradePrompt = (props: Props) => {
-	const playerList = useRecoilValue(PlayerListState.playerList);
+	const playerList = useRecoilValue(PlayerState.playersBoosting);
 	const prompt = useRecoilValue(PromptState.prompt);
-	const [selectedTradePlayer, setSelectedTradePlayer] = useRecoilState(TradeState.selectedPlayer);
+	const [selectedTradePlayer, setSelectedTradePlayer] = useRecoilState(
+		TradeState.selectedPlayerBoosting,
+	);
 	const {tradeHandler, closePrompt} = useContracts();
+	usePlayer();
 
 	const selectedPlayerHandler = (
 		event: SyntheticEvent<Element, Event>,

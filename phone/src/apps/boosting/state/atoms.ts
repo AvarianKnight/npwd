@@ -24,8 +24,15 @@ export const ContractsState = {
 };
 
 export const TradeState = {
-	selectedPlayer: atom<string | Player>({
-		key: 'selectedPlayer',
+	selectedPlayerBoosting: atom<string | Player>({
+		key: 'selectedPlayerBoosting',
+		default: undefined,
+	}),
+};
+
+export const PlayerState = {
+	playersBoosting: atom<Player[]>({
+		key: 'playersBoosting',
 		default: undefined,
 	}),
 };
