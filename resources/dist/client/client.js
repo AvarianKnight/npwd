@@ -9960,14 +9960,14 @@
           data: playersCopy
         });
       });
-      var iterator2 = 0;
+      var iterator3 = 0;
       onNet("npwd:property:alert", (alertMsg) => {
         SendNUIMessage({
           app: "PROPERTY",
           method: "npwd:property:alert",
           data: {
             title: "Property Alert",
-            propertyNotify: iterator2 = iterator2 + 1,
+            propertyNotify: iterator3 = iterator3 + 1,
             message: alertMsg
           }
         });
@@ -10048,6 +10048,7 @@
   });
 
   // client/boosting/main.ts
+  var iterator2;
   var init_main = __esm({
     "client/boosting/main.ts"() {
       init_boosting();
@@ -10073,8 +10074,22 @@
           method: "npwd:boosting:deleteContract," /* DELETE_CONTRACT */
         });
       });
-      onNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, () => {
-        console.log("Contract rewarded!");
+      iterator2 = 0;
+      onNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, (boostContract) => {
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:rewardContract" /* REWARD_CONTRACT */,
+          data: boostContract
+        });
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "SEND_NOTIFICATION" /* SEND_NOTIFICATION */,
+          data: {
+            title: "Bo0ST3Dz",
+            boostNotify: iterator2 += 1,
+            message: "New Contract available!"
+          }
+        });
       });
     }
   });

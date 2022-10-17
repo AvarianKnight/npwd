@@ -1,5 +1,5 @@
-import {PMA} from './../../server';
-import {BoostingEvents, BoostProfile, Contract} from './../../../../typings/boosting';
+import {PMA} from '../../server';
+import {BoostingEvents, BoostProfile, Contract} from '@typings/boosting';
 import {ProfileDB} from '../modules/profile/db';
 
 const profileDB = new ProfileDB();
@@ -18,6 +18,6 @@ onNet(BoostingEvents.LOAD_BOOSTING_PROFILE, async () => {
 onNet(BoostingEvents.DELETE_CONTRACT, async (contractId: number) => {
 	const ply = PMA.getPlayerFromId(source);
 
-	profileDB.deleteContract(contractId);
+	await profileDB.deleteContract(contractId);
 	ply.triggerEvent(BoostingEvents.DELETE_CONTRACT);
 });

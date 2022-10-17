@@ -47148,10 +47148,10 @@ var manageQueuedPlayers = () => {
       tempCachedPlayers.push(plySrc);
     }
   }
-  tempCachedPlayers.forEach((plyId) => {
+  tempCachedPlayers.forEach(async (plyId) => {
     const player = QueueList.get(Number(plyId));
-    contractHandler(player);
-    emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId));
+    const boostContract = await contractHandler(player);
+    emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
   });
 };
 var contractHandler = async (player) => {
@@ -47160,7 +47160,8 @@ var contractHandler = async (player) => {
   const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
   const currentDate = new Date();
   const expires_in = new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)).toString();
-  await ox.execute_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle) VALUES (?, ?, ?, ?, ?)`, [
+  const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
+         VALUES (?, ?, ?, ?, ?)`, [
     player.ssn,
     rankedVehicleList[randomNum].type,
     expires_in,
@@ -47168,6 +47169,14 @@ var contractHandler = async (player) => {
     rankedVehicleList[randomNum].car_model
   ]);
   console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
+  return {
+    id: insertId,
+    uid: player.ssn,
+    contract_type: rankedVehicleList[randomNum].type,
+    expires_in: new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)),
+    cost: 20,
+    vehicle: rankedVehicleList[randomNum].car_model
+  };
 };
 var getBoostRank = (level) => {
   let boostRank;
@@ -47206,7 +47215,7 @@ onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () 
 });
 onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) => {
   const ply = PMA.getPlayerFromId(source);
-  profileDB.deleteContract(contractId);
+  await profileDB.deleteContract(contractId);
   ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
 });
 

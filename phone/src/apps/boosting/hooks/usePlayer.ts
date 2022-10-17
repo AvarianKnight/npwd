@@ -3,7 +3,7 @@ import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
 import {SyntheticEvent} from 'react';
 import {useSetRecoilState} from 'recoil';
 import {Player} from '../../../../../resources/server/players/player.class';
-import {BOOSTING_APP} from '../../../../../typings/boosting';
+import {BOOSTING_APP} from '@typings/boosting';
 import {PlayerState, TradeState} from '../state/atoms';
 
 export const usePlayer = () => {

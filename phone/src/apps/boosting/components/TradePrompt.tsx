@@ -1,17 +1,16 @@
 import {Autocomplete, Box, TextField} from '@mui/material';
 import {useRecoilState, useRecoilValue} from 'recoil';
-import {PromptState} from '../../../ui/state/PromptState';
+import {PromptState} from '@ui/state/PromptState';
 import Row from '../common/Row';
 import Button from '../common/Button';
 import CarImage from '../common/CarImage';
 import ArrowsImg from '../../../assets/boosting/arrows.png';
 import styled from 'styled-components';
-import {PlayerListState} from '../../property/atoms/state';
 import {PlayerState, TradeState} from '../state/atoms';
 import {SyntheticEvent} from 'react';
-import {Player} from '../../../../../typings/property';
+import {Player} from '@typings/property';
 import {useContracts} from '../hooks/useContracts';
-import {usePlayer} from '../../boosting/hooks/usePlayer';
+import {usePlayer} from '../hooks/usePlayer';
 
 const ArrowsImage = styled(Box)`
 	background: url(${ArrowsImg}) no-repeat;

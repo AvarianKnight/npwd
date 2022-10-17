@@ -1,13 +1,12 @@
 import {useRecoilState, useSetRecoilState} from 'recoil';
-import {BOOSTING_APP, BoostingEvents, Contract} from '@typings/boosting';
-import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
+import {BoostingEvents, Contract} from '@typings/boosting';
+import {useNuiRequest} from 'fivem-nui-react-lib';
 import {ContractsState} from '../state/atoms';
-import InjectDebugData from '../../../os/debug/InjectDebugData';
 import {PromptState} from '@ui/state/PromptState';
 import StartPrompt from '../components/StartPrompt';
 import TradePrompt from '../components/TradePrompt';
 import DeclinePrompt from '../components/DeclinePrompt';
-import {useSnackbar} from '../../../os/snackbar/hooks/useSnackbar';
+import {useSnackbar} from '@os/snackbar/hooks/useSnackbar';
 
 export const useContracts = () => {
 	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
@@ -83,10 +82,6 @@ export const useContracts = () => {
 			.catch((err: any) => addAlert({message: err, type: 'error'}));
 	};
 
-	useNuiEvent(BOOSTING_APP, BoostingEvents.FETCH_CONTRACTS, setContracts);
-	useNuiEvent(BOOSTING_APP, BoostingEvents.DELETE_CONTRACT, closePrompt);
-	useNuiEvent(BOOSTING_APP, BoostingEvents.TRADE_CONTRACT, closePrompt);
-
 	return {
 		startPrompt,
 		startHandler,
@@ -97,50 +92,3 @@ export const useContracts = () => {
 		declineHandler,
 	};
 };
-
-InjectDebugData(
-	[
-		{
-			app: BOOSTING_APP,
-			method: BoostingEvents.FETCH_CONTRACTS,
-			data: [
-				{
-					uid: 2,
-					contract_type: 'A',
-					expires_in: new Date(),
-					cost: 20,
-					vehicle: 'tesla3',
-				},
-				{
-					uid: 2,
-					contract_type: 'S+',
-					expires_in: new Date(),
-					cost: 50,
-					vehicle: 'teslas',
-				},
-				{
-					uid: 2,
-					contract_type: 'S',
-					expires_in: new Date(),
-					cost: 20,
-					vehicle: 'teslay',
-				},
-				{
-					uid: 2,
-					contract_type: 'S',
-					expires_in: new Date(),
-					cost: 20,
-					vehicle: 'teslay',
-				},
-				{
-					uid: 2,
-					contract_type: 'S',
-					expires_in: new Date(),
-					cost: 20,
-					vehicle: 'teslay',
-				},
-			],
-		},
-	],
-	500,
-);

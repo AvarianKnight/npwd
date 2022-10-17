@@ -1,15 +1,14 @@
-import {BoostingEvents, BoostingProfile, BOOSTING_APP} from '@typings/boosting';
+import {BOOSTING_APP, BoostingEvents} from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
-import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useNuiRequest} from 'fivem-nui-react-lib';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
 import QueuePrompt from '../components/QueuePrompt';
-import {BoostProfileState, ContractsState, QueState} from '../state/atoms';
+import {BoostProfileState, QueState} from '../state/atoms';
 
 export const useBoosting = () => {
 	const {send} = useNuiRequest();
-	const [boostProfile, setBoostProfile] = useRecoilState(BoostProfileState.profile);
-	const setContracts = useSetRecoilState(ContractsState.contracts);
+	const boostProfile = useRecoilValue(BoostProfileState.profile);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const setQueue = useSetRecoilState(QueState.inQue);
 
@@ -32,13 +31,6 @@ export const useBoosting = () => {
 		});
 		setQueue(false);
 	};
-
-	const setProfileHandler = (data: BoostingProfile) => {
-		setBoostProfile(data.profile);
-		setContracts(data.contracts);
-	};
-
-	useNuiEvent(BOOSTING_APP, BoostingEvents.LOAD_BOOSTING_PROFILE, setProfileHandler);
 
 	return {joinQueueHandler, leaveQueueHandler};
 };

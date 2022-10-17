@@ -1,5 +1,5 @@
-import {BoostingEvents, BoostProfile, QueuedPlayer} from './../../../../typings/boosting';
-import {PMA} from './../../server';
+import {BoostingEvents, BoostProfile, QueuedPlayer} from '@typings/boosting';
+import {PMA} from '../../server';
 
 export const QueueList = new Map<number, QueuedPlayer>();
 

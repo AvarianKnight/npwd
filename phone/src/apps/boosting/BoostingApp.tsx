@@ -2,7 +2,7 @@ import {Box} from '@mui/material';
 import {useNuiRequest} from 'fivem-nui-react-lib';
 import {useEffect, useRef} from 'react';
 import styled from 'styled-components';
-import {BoostingEvents} from '../../../../typings/boosting';
+import {BoostingEvents} from '@typings/boosting';
 import backgroundImg from '../../assets/boosting/background.png';
 import Prompt from '../../ui/components/Prompt';
 import Text from './common/Text';
@@ -11,7 +11,6 @@ import Level from './components/Level';
 import Queue from './components/Queue';
 import Status from './components/Status';
 import {useBoosting} from './hooks/useBoosting';
-import {useContracts} from './hooks/useContracts';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -32,11 +31,9 @@ const TextWrapper = styled(Box)`
 const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
-	const {startPrompt, tradePrompt, declinePrompt} = useContracts();
 	const {send} = useNuiRequest();
 
 	useBoosting();
-	useContracts();
 
 	useEffect(() => {
 		send(BoostingEvents.LOAD_BOOSTING_PROFILE);
@@ -60,11 +57,7 @@ const BoostingApp = () => {
 			<Level />
 			<Status />
 			<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />
-			<Contracts
-				startPrompt={startPrompt}
-				tradePrompt={tradePrompt}
-				declinePrompt={declinePrompt}
-			/>
+			<Contracts />
 		</Wrapper>
 	);
 };

@@ -11,6 +11,7 @@ export enum BoostingEvents {
 	DELETE_CONTRACT = 'npwd:boosting:deleteContract,',
 	TRADE_CONTRACT = 'npwd:boosting:tradeContract',
 	GET_PLAYERS = 'npwd:boosting:getPlayers',
+	SEND_NOTIFICATION = 'SEND_NOTIFICATION',
 }
 
 export interface BoostList {

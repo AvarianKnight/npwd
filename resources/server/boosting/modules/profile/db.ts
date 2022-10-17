@@ -1,5 +1,5 @@
-import {BoostProfile, Contract} from '../../../../../typings/boosting';
-import {ox} from './../../../server';
+import {BoostProfile, Contract} from '@typings/boosting';
+import {ox} from '../../../server';
 
 export class ProfileDB {
 	fetchProfile = async (uid: number) => {

@@ -1,6 +1,6 @@
 import {atom} from 'recoil';
 import {BoostProfile, Contract} from '@typings/boosting';
-import {Player} from '../../../../../typings/property';
+import {Player} from '@typings/property';
 
 export const BoostProfileState = {
 	profile: atom<BoostProfile>({

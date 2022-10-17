@@ -1,13 +1,14 @@
 import {Box, IconButton as MuiButton} from '@mui/material';
 import {useRecoilValue} from 'recoil';
 import styled from 'styled-components';
-import {ButtonOption, Contract} from '../../../../../typings/boosting';
+import {ButtonOption, Contract} from '@typings/boosting';
 import ButtonImg from '../../../assets/boosting/button.png';
 import CarImg from '../../../assets/boosting/car.png';
 import DeclineImg from '../../../assets/boosting/decline.png';
 import StartImg from '../../../assets/boosting/start.png';
 import TradeImg from '../../../assets/boosting/trade.png';
 import Text from '../common/Text';
+import {useContracts} from '../hooks/useContracts';
 import {ContractsState} from '../state/atoms';
 
 const Container = styled(Box)`
@@ -96,13 +97,16 @@ const ContractsWrapper = styled(Box)`
 	height: 270px;
 `;
 
-interface Props {
-	startPrompt: (index: number) => any;
-	tradePrompt: (index: number) => any;
-	declinePrompt: (index: number) => any;
-}
+//interface Props {
+//	startPrompt: (index: number) => any;
+//	tradePrompt: (index: number) => any;
+//	declinePrompt: (index: number) => any;
+//}
 
-const Contracts = ({startPrompt, tradePrompt, declinePrompt}: Props) => {
+//const Contracts = ({startPrompt, tradePrompt, declinePrompt}: Props) => {
+
+const Contracts = () => {
+	const {startPrompt, tradePrompt, declinePrompt} = useContracts();
 	const contracts = useRecoilValue(ContractsState.contracts);
 
 	const buttonOptions: ButtonOption[] = [

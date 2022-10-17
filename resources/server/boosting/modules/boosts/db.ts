@@ -1,4 +1,4 @@
-import {BoostList} from '../../../../../typings/boosting';
+import {BoostList} from '@typings/boosting';
 import {ox} from '../../../server';
 
 export class BoostsDB {
