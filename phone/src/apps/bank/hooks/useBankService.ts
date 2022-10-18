@@ -9,25 +9,25 @@ import { useTranslation } from 'react-i18next';
 import { BankEvents } from '@typings/bank';
 
 export const useBankService = () => {
-  const setTransaction = useSetRecoilState(bankState.transactions);
-  const setCredentials = useSetRecoilState(bankState.bankCredentials);
-  // const setNotification = useSetRecoilState(bankState.notification);
-  const { setNotification } = useBankNotification();
+	// const setTransaction = useSetRecoilState(bankState.transactions);
+	const setCredentials = useSetRecoilState(bankState.bankCredentials);
+	// const setNotification = useSetRecoilState(bankState.notification);
+	const { setNotification } = useBankNotification();
 
-  const { addAlert } = useSnackbar();
-  const [t] = useTranslation();
+	const { addAlert } = useSnackbar();
+	const [t] = useTranslation();
 
-  const handleAddAlert = ({ message, type }: IAlert) => {
-    addAlert({
-      // @ts-ignore
-      message: t(`APPS_${message}`),
-      type,
-    });
-  };
+	const handleAddAlert = ({ message, type }: IAlert) => {
+		addAlert({
+			// @ts-ignore
+			message: t(`APPS_${message}`),
+			type,
+		});
+	};
 
-  useNuiEvent('BANK', BankEvents.FETCH_TRANSACTIONS, setTransaction);
-  useNuiEvent('BANK', BankEvents.SEND_CREDENTIALS, setCredentials);
-  useNuiEvent('BANK', BankEvents.SEND_ALERT, handleAddAlert);
-  useNuiEvent('BANK', BankEvents.SEND_NOTIFICATION, setNotification);
-  return { useTransactions, useCredentials, useBankNotification };
+	// useNuiEvent('BANK', BankEvents.FETCH_TRANSACTIONS, setTransaction);
+	useNuiEvent('BANK', BankEvents.SEND_CREDENTIALS, setCredentials);
+	useNuiEvent('BANK', BankEvents.SEND_ALERT, handleAddAlert);
+	useNuiEvent('BANK', BankEvents.SEND_NOTIFICATION, setNotification);
+	return { useTransactions, useCredentials, useBankNotification };
 };

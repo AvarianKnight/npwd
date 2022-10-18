@@ -1,40 +1,44 @@
 export interface IBankCredentials {
-  name: string;
-  balance: number;
-  transactions: ITransactions[];
-  playerId: number;
+	name: string;
+	balance: number;
+	transactions: Transfer[];
+	playerId: number;
 }
 
 // data.transferID, data.transferAmount, data.message
-export type TransferData = {
-  targetID: number;
-  transferAmount: number;
-  message: string;
-};
+// export type TransferData = {
+// 	targetID: number;
+// 	transferAmount: number;
+// 	message: string;
+// 	name: string;
+// };
 
 export interface ITransactions {
-  uniqueId: number;
-  type: string;
-  amount: number;
+	uniqueId: number;
+	type: string;
+	amount: number;
 }
 
 export interface Transfer {
-  id: number;
-  targetID: number;
-  uniqueId: string;
-  transferAmount: number;
-  message: string;
+	id: number;
+	targetID: number;
+	uniqueId: string;
+	transferAmount: number;
+	amount: number;
+	name?: string;
+	message?: string;
+	type?: string;
 }
 
 export enum BankEvents {
-  ADD_TRANSFER = 'npwd:addTransfer',
-  ADD_TRANSFER_SUCCESS = 'npwd:addTransferSuccess',
-  FETCH_TRANSACTIONS = 'npwd:fetchAllTransactions',
-  SEND_TRANSFERS = 'npwd:sendTransfers',
-  TRANSACTION_ALERT = 'npwd:bankTransactionAlert',
-  TRANSACTION_NOTIFICATION = 'npwd:bankTransactionNotification',
-  SEND_CREDENTIALS = 'npwd:sendBankCredentials',
-  GET_CREDENTIALS = 'npwd:getBankCredentials',
-  SEND_ALERT = 'npwd:sendBankAlert',
-  SEND_NOTIFICATION = 'npwd:sendBankNotification',
+	ADD_TRANSFER = 'npwd:addTransfer',
+	ADD_TRANSFER_SUCCESS = 'npwd:addTransferSuccess',
+	FETCH_TRANSACTIONS = 'npwd:fetchAllTransactions',
+	SEND_TRANSFERS = 'npwd:sendTransfers',
+	TRANSACTION_ALERT = 'npwd:bankTransactionAlert',
+	TRANSACTION_NOTIFICATION = 'npwd:bankTransactionNotification',
+	SEND_CREDENTIALS = 'npwd:sendBankCredentials',
+	GET_CREDENTIALS = 'npwd:getBankCredentials',
+	SEND_ALERT = 'npwd:sendBankAlert',
+	SEND_NOTIFICATION = 'npwd:sendBankNotification',
 }
