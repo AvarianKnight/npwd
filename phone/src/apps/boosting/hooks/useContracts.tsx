@@ -50,7 +50,15 @@ export const useContracts = () => {
 
 	//TODO: write UI -> Client -> Service code ::: declineHandler first
 	const startHandler = (index: number) => {
-		console.log(contracts[index]);
+		console.log(index);
+		send(BoostingEvents.START_CONTRACT, contracts[index]).then(() => {
+			closePrompt();
+
+			addAlert({
+				message: 'Contract started!',
+				type: 'success',
+			});
+		});
 	};
 
 	//TODO error check for what happens when a player logs out?

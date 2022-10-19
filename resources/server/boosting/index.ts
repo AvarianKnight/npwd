@@ -8,3 +8,4 @@ import './modules/queue/service';
 
 import './controllers/profile';
 import './controllers/queue';
+import './controllers/boosts';

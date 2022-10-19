@@ -12,6 +12,7 @@ export enum BoostingEvents {
 	TRADE_CONTRACT = 'npwd:boosting:tradeContract',
 	GET_PLAYERS = 'npwd:boosting:getPlayers',
 	SEND_NOTIFICATION = 'SEND_NOTIFICATION',
+	LOW_TIER_MISSION = 'LOW_TIER_MISSION',
 }
 
 export interface BoostList {

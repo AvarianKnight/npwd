@@ -32,7 +32,11 @@ const StartPrompt = forwardRef((props: Props, ref) => {
 				</Row>
 			</Box>
 			<Box style={{display: 'flex', justifyContent: 'space-evenly', paddingTop: '10px'}}>
-				<Button clickHandler={startHandler} index={props.index} text={'YES'} />
+				<Button
+					clickHandler={(index) => startHandler(index)}
+					index={props.index}
+					text={'YES'}
+				/>
 				<Button clickHandler={closePopupHandler} text={'NO'} />
 			</Box>
 		</Box>

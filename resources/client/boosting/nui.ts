@@ -1,5 +1,8 @@
 import {BoostingEvents, Contract} from '../../../typings/boosting';
 import {PropertyEvents} from '../../../typings/property';
+import {highTierHandler} from './boost-tiers/high';
+import {lowTierHandler} from './boost-tiers/low';
+import {mediumTierHandler} from './boost-tiers/medium';
 
 RegisterNuiCallbackType(BoostingEvents.LOAD_BOOSTING_PROFILE);
 RegisterNuiCallbackType(BoostingEvents.JOIN_WAITLIST);
@@ -24,8 +27,17 @@ on(`__cfx_nui:${BoostingEvents.LEAVE_WAITLIST}`, (data: any, cb: any) => {
 	cb({});
 });
 
-on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (data: any, cb: any) => {
-	emitNet(BoostingEvents.START_CONTRACT);
+on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (contract: Contract, cb: any) => {
+	console.log('🚀 ~ file: nui.ts ~ line 31 ~ on ~ contract', contract);
+	if (contract.contract_type === 'B' || contract.contract_type === 'A') {
+		lowTierHandler(contract);
+	} else if (contract.contract_type === 'S') {
+		mediumTierHandler(contract);
+	} else if (contract.contract_type === 'S+') {
+		highTierHandler(contract);
+	}
+
+	// emitNet(BoostingEvents.START_CONTRACT, contract);
 	cb({});
 });
 
