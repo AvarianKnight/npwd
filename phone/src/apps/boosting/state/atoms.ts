@@ -36,3 +36,14 @@ export const PlayerState = {
 		default: undefined,
 	}),
 };
+
+export const HoverStateContracts = {
+	hoverItem: atom<Contract>({
+		key: 'hoverContracts',
+		default: undefined,
+	}),
+	anchorItem: atom({
+		key: 'anchorContracts',
+		default: undefined,
+	}),
+};

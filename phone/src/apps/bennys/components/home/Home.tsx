@@ -1,15 +1,15 @@
-import { Box, Divider, List, ListItem, Stack } from '@mui/material';
-import { useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import {Box, Divider, List, ListItem, Stack} from '@mui/material';
+import {useRef} from 'react';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import styled from 'styled-components';
-import { Vehicle } from '../../../../../../typings/bennys';
-import { phoneState } from '../../../../os/phone/hooks/state';
-import { Button } from '../../../../ui/components/Button';
-import { TextField } from '../../../../ui/components/Input';
-import { hoverState } from '../../atoms/state';
-import { useBennys } from '../../hooks/useBennys';
-import { useDropDown } from '../../hooks/useDropdown';
-import { Notify } from '../notify/Notify';
+import {Vehicle} from '../../../../../../typings/bennys';
+import {phoneState} from '../../../../os/phone/hooks/state';
+import {Button} from '../../../../ui/components/Button';
+import {TextField} from '../../../../ui/components/Input';
+import {hoverState} from '../../atoms/state';
+import {useBennys} from '../../hooks/useBennys';
+import {useDropDown} from '../../hooks/useDropdown';
+import {Notify} from '../notify/Notify';
 import Dropdown from './Dropdown';
 import FlyOver from './FlyOver';
 import Prompt from './Prompt';
@@ -23,8 +23,8 @@ const Home = () => {
 	const visibility = useRecoilValue(phoneState.visibility);
 	const [hoveredItem, setHoveredItem] = useRecoilState<Vehicle | null>(hoverState.hoverItem);
 	const [anchor, setAnchorItem] = useRecoilState<any>(hoverState.anchorItem);
-	const { filterVehicleList, vehicleList, payImpound } = useBennys();
-	const { rightClick, dropdown } = useDropDown();
+	const {filterVehicleList, vehicleList, payImpound} = useBennys();
+	const {rightClick, dropdown} = useDropDown();
 	const rootRef = useRef<HTMLDivElement>(null);
 
 	const carLocation = (state: number, police_lock: string) => {
@@ -66,17 +66,17 @@ const Home = () => {
 		<Wrapper ref={rootRef}>
 			<Prompt rootRef={rootRef} />
 			<Notify />
-			<Box style={{ paddingBottom: 15, paddingLeft: 15 }}>
+			<Box style={{paddingBottom: 15, paddingLeft: 15}}>
 				<TextField
 					id="standard-search"
 					label="Search"
 					type="search"
 					variant="standard"
-					style={{ fontSize: 12 }}
+					style={{fontSize: 12}}
 					onChange={(e) => filterVehicleList(e.currentTarget.value)}
 				/>
 			</Box>
-			<Box style={{ overflow: 'auto', height: '425px' }}>
+			<Box style={{overflow: 'auto', height: '425px'}}>
 				{visibility ? <FlyOver /> : <></>}
 				{dropdown ? <Dropdown anchor={anchor} /> : <></>}
 				<List>

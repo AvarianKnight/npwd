@@ -1,6 +1,6 @@
-import { Box, Divider, List, ListItem, ListSubheader, Popover } from '@mui/material';
-import { useRecoilValue } from 'recoil';
-import { DropdownState, hoverState, PromptState } from '../../atoms/state';
+import {Box, Divider, List, ListItem, ListSubheader, Popover} from '@mui/material';
+import {useRecoilValue} from 'recoil';
+import {DropdownState, hoverState, PromptState} from '../../atoms/state';
 
 const FlyOver = () => {
 	const hoverItem = useRecoilValue(hoverState.hoverItem);
@@ -33,17 +33,17 @@ const FlyOver = () => {
 			>
 				<List
 					dense
-					style={{ fontSize: 12 }}
+					style={{fontSize: 12}}
 					subheader={
 						<>
-							<ListSubheader sx={{ fontWeight: 'bolder', lineHeight: '30px' }}>
+							<ListSubheader sx={{fontWeight: 'bolder', lineHeight: '30px'}}>
 								Vehicle Data
 							</ListSubheader>{' '}
-							<Divider sx={{ borderColor: 'gray' }} />
+							<Divider sx={{borderColor: 'gray'}} />
 						</>
 					}
 				>
-					<Box sx={{ paddingTop: '5px' }}>
+					<Box sx={{paddingTop: '5px'}}>
 						<ListItem>
 							Engine: {Math.floor((hoverItem.engine_health / 1000) * 100)}%
 						</ListItem>

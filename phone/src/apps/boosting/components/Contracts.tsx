@@ -10,6 +10,9 @@ import TradeImg from '../../../assets/boosting/trade.png';
 import Text from '../common/Text';
 import {useContracts} from '../hooks/useContracts';
 import {ContractsState} from '../state/atoms';
+import {useFlyOver} from '../hooks/useFlyOver';
+import {phoneState} from '../../../os/phone/hooks/state';
+import FlyOver from './FlyOver';
 
 const Container = styled(Box)`
 	width: 355px;
@@ -108,6 +111,8 @@ const ContractsWrapper = styled(Box)`
 const Contracts = () => {
 	const {startPrompt, tradePrompt, declinePrompt} = useContracts();
 	const contracts = useRecoilValue(ContractsState.contracts);
+	const {flyOverOpenHandler, flyOverCloseHandler} = useFlyOver();
+	const visibility = useRecoilValue(phoneState.visibility);
 
 	const buttonOptions: ButtonOption[] = [
 		{
@@ -132,10 +137,15 @@ const Contracts = () => {
 			<TextWrapper style={{paddingBottom: '5px'}}>
 				<Text fontSize={'24px'}>AVAILABLE CONTRACTS</Text>
 			</TextWrapper>
+			{visibility ? <FlyOver /> : <></>}
 			<ContractsWrapper>
 				{contracts?.map((contract: Contract, contactIndex: number) => {
 					return (
-						<ContractContainer key={contactIndex}>
+						<ContractContainer
+							key={contactIndex}
+							onMouseEnter={(e) => flyOverOpenHandler(e, contactIndex)}
+							onMouseLeave={() => flyOverCloseHandler()}
+						>
 							<Wrapper style={{width: '125px'}}>
 								<Car />
 								<Wrapper style={{flexWrap: 'wrap', justifyContent: 'center'}}>
