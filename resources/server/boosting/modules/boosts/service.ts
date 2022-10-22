@@ -1,6 +1,7 @@
 import {Vector3} from '@nativewrappers/client';
 import {BoostList} from '@typings/boosting';
 import {Delay} from '../../../../utils/fivem';
+import {PMA} from '../../../server';
 import {BoostsDB} from './db';
 
 const boostsDB = new BoostsDB();
@@ -12,17 +13,8 @@ setImmediate(async () => {
 
 export class BoostMission {
 	spawnCar = async (model: string, coords: Vector3) => {
-		const veh: number = CreateVehicle(
-			GetHashKey(model),
-			coords.x,
-			coords.y,
-			coords.z,
-			0.0,
-			true,
-			false,
-		);
+		const veh: number = PMA.createVehicle(model, coords);
 		await Delay(500);
-		console.log('🚀 ~ file: service.ts ~ line 27 ~ BoostMission ~ spawnCar= ~ veh', veh);
 		return veh;
 	};
 

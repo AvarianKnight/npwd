@@ -815,7 +815,7 @@
 
   // client/cl_photo.ts
   var require_cl_photo = __commonJS({
-    "client/cl_photo.ts"(exports) {
+    "client/cl_photo.ts"(exports2) {
       init_photo();
       init_fivem();
       init_messages();
@@ -825,7 +825,7 @@
       init_animation_controller();
       init_cl_utils();
       var SCREENSHOT_BASIC_TOKEN = GetConvar("SCREENSHOT_BASIC_TOKEN", "none");
-      var exp2 = global.exports;
+      var exp3 = global.exports;
       var inCameraMode = false;
       function closePhoneTemp() {
         SetNuiFocus(false, false);
@@ -845,7 +845,7 @@
         AddTextComponentString("Take Picture: ~INPUT_CELLPHONE_SELECT~");
         EndTextCommandDisplayHelp(0, true, false, -1);
       };
-      RegisterNuiCB("npwd:TakePhoto" /* TAKE_PHOTO */, (_, cb) => __async(exports, null, function* () {
+      RegisterNuiCB("npwd:TakePhoto" /* TAKE_PHOTO */, (_, cb) => __async(exports2, null, function* () {
         yield animationService.openCamera();
         emit("npwd:disableControlActions", false);
         let frontCam = false;
@@ -875,7 +875,7 @@
         emit("npwd:disableControlActions", true);
         yield animationService.closeCamera();
       }));
-      var handleTakePicture = () => __async(exports, null, function* () {
+      var handleTakePicture = () => __async(exports2, null, function* () {
         ClearHelp(true);
         yield Delay(0);
         setTimeout(() => {
@@ -889,7 +889,7 @@
         inCameraMode = false;
         return resp;
       });
-      var handleCameraExit = () => __async(exports, null, function* () {
+      var handleCameraExit = () => __async(exports2, null, function* () {
         sendCameraEvent("npwd:cameraExited" /* CAMERA_EXITED */);
         ClearHelp(true);
         yield animationService.closeCamera();
@@ -903,13 +903,13 @@
         if (SCREENSHOT_BASIC_TOKEN === "none" && config.images.useAuthorization) {
           return console.error("Screenshot basic token not found. Please set in server.cfg");
         }
-        exp2["screenshot-basic"].requestScreenshotUpload(config.images.url, config.images.type, {
+        exp3["screenshot-basic"].requestScreenshotUpload(config.images.url, config.images.type, {
           encoding: config.images.imageEncoding,
           headers: {
             authorization: config.images.useAuthorization ? `${config.images.authorizationPrefix} ${SCREENSHOT_BASIC_TOKEN}` : void 0,
             "content-type": config.images.contentType
           }
-        }, (data) => __async(exports, null, function* () {
+        }, (data) => __async(exports2, null, function* () {
           try {
             let parsedData = JSON.parse(data);
             for (const index of config.images.returnedDataIndexes)
@@ -1213,7 +1213,7 @@
 
   // client/cl_exports.ts
   var require_cl_exports = __commonJS({
-    "client/cl_exports.ts"(exports) {
+    "client/cl_exports.ts"(exports2) {
       init_messages();
       init_phone();
       init_cl_utils();
@@ -1226,7 +1226,7 @@
         verifyExportArgType("openApp", app, ["string"]);
         sendMessage("PHONE", "npwd:openApp" /* OPEN_APP */, app);
       });
-      exps2("setPhoneVisible", (bool) => __async(exports, null, function* () {
+      exps2("setPhoneVisible", (bool) => __async(exports2, null, function* () {
         verifyExportArgType("setPhoneVisible", bool, ["boolean", "number"]);
         const isPhoneDisabled = global.isPhoneDisabled;
         const isPhoneOpen = global.isPhoneOpen;
@@ -1239,7 +1239,7 @@
           yield hidePhone();
       }));
       exps2("isPhoneVisible", () => global.isPhoneOpen);
-      exps2("setPhoneDisabled", (bool) => __async(exports, null, function* () {
+      exps2("setPhoneDisabled", (bool) => __async(exports2, null, function* () {
         verifyExportArgType("setPhoneDisabled", bool, ["boolean", "number"]);
         const coercedType = !!bool;
         global.isPhoneDisabled = coercedType;
@@ -1967,6 +1967,373 @@
     }
   });
 
+  // node_modules/@nativewrappers/client/lib/enums/Control.js
+  var Control;
+  var init_Control = __esm({
+    "node_modules/@nativewrappers/client/lib/enums/Control.js"() {
+      (function(Control2) {
+        Control2[Control2["NextCamera"] = 0] = "NextCamera";
+        Control2[Control2["LookLeftRight"] = 1] = "LookLeftRight";
+        Control2[Control2["LookUpDown"] = 2] = "LookUpDown";
+        Control2[Control2["LookUpOnly"] = 3] = "LookUpOnly";
+        Control2[Control2["LookDownOnly"] = 4] = "LookDownOnly";
+        Control2[Control2["LookLeftOnly"] = 5] = "LookLeftOnly";
+        Control2[Control2["LookRightOnly"] = 6] = "LookRightOnly";
+        Control2[Control2["CinematicSlowMo"] = 7] = "CinematicSlowMo";
+        Control2[Control2["FlyUpDown"] = 8] = "FlyUpDown";
+        Control2[Control2["FlyLeftRight"] = 9] = "FlyLeftRight";
+        Control2[Control2["ScriptedFlyZUp"] = 10] = "ScriptedFlyZUp";
+        Control2[Control2["ScriptedFlyZDown"] = 11] = "ScriptedFlyZDown";
+        Control2[Control2["WeaponWheelUpDown"] = 12] = "WeaponWheelUpDown";
+        Control2[Control2["WeaponWheelLeftRight"] = 13] = "WeaponWheelLeftRight";
+        Control2[Control2["WeaponWheelNext"] = 14] = "WeaponWheelNext";
+        Control2[Control2["WeaponWheelPrev"] = 15] = "WeaponWheelPrev";
+        Control2[Control2["SelectNextWeapon"] = 16] = "SelectNextWeapon";
+        Control2[Control2["SelectPrevWeapon"] = 17] = "SelectPrevWeapon";
+        Control2[Control2["SkipCutscene"] = 18] = "SkipCutscene";
+        Control2[Control2["CharacterWheel"] = 19] = "CharacterWheel";
+        Control2[Control2["MultiplayerInfo"] = 20] = "MultiplayerInfo";
+        Control2[Control2["Sprint"] = 21] = "Sprint";
+        Control2[Control2["Jump"] = 22] = "Jump";
+        Control2[Control2["Enter"] = 23] = "Enter";
+        Control2[Control2["Attack"] = 24] = "Attack";
+        Control2[Control2["Aim"] = 25] = "Aim";
+        Control2[Control2["LookBehind"] = 26] = "LookBehind";
+        Control2[Control2["Phone"] = 27] = "Phone";
+        Control2[Control2["SpecialAbility"] = 28] = "SpecialAbility";
+        Control2[Control2["SpecialAbilitySecondary"] = 29] = "SpecialAbilitySecondary";
+        Control2[Control2["MoveLeftRight"] = 30] = "MoveLeftRight";
+        Control2[Control2["MoveUpDown"] = 31] = "MoveUpDown";
+        Control2[Control2["MoveUpOnly"] = 32] = "MoveUpOnly";
+        Control2[Control2["MoveDownOnly"] = 33] = "MoveDownOnly";
+        Control2[Control2["MoveLeftOnly"] = 34] = "MoveLeftOnly";
+        Control2[Control2["MoveRightOnly"] = 35] = "MoveRightOnly";
+        Control2[Control2["Duck"] = 36] = "Duck";
+        Control2[Control2["SelectWeapon"] = 37] = "SelectWeapon";
+        Control2[Control2["Pickup"] = 38] = "Pickup";
+        Control2[Control2["SniperZoom"] = 39] = "SniperZoom";
+        Control2[Control2["SniperZoomInOnly"] = 40] = "SniperZoomInOnly";
+        Control2[Control2["SniperZoomOutOnly"] = 41] = "SniperZoomOutOnly";
+        Control2[Control2["SniperZoomInSecondary"] = 42] = "SniperZoomInSecondary";
+        Control2[Control2["SniperZoomOutSecondary"] = 43] = "SniperZoomOutSecondary";
+        Control2[Control2["Cover"] = 44] = "Cover";
+        Control2[Control2["Reload"] = 45] = "Reload";
+        Control2[Control2["Talk"] = 46] = "Talk";
+        Control2[Control2["Detonate"] = 47] = "Detonate";
+        Control2[Control2["HUDSpecial"] = 48] = "HUDSpecial";
+        Control2[Control2["Arrest"] = 49] = "Arrest";
+        Control2[Control2["AccurateAim"] = 50] = "AccurateAim";
+        Control2[Control2["Context"] = 51] = "Context";
+        Control2[Control2["ContextSecondary"] = 52] = "ContextSecondary";
+        Control2[Control2["WeaponSpecial"] = 53] = "WeaponSpecial";
+        Control2[Control2["WeaponSpecial2"] = 54] = "WeaponSpecial2";
+        Control2[Control2["Dive"] = 55] = "Dive";
+        Control2[Control2["DropWeapon"] = 56] = "DropWeapon";
+        Control2[Control2["DropAmmo"] = 57] = "DropAmmo";
+        Control2[Control2["ThrowGrenade"] = 58] = "ThrowGrenade";
+        Control2[Control2["VehicleMoveLeftRight"] = 59] = "VehicleMoveLeftRight";
+        Control2[Control2["VehicleMoveUpDown"] = 60] = "VehicleMoveUpDown";
+        Control2[Control2["VehicleMoveUpOnly"] = 61] = "VehicleMoveUpOnly";
+        Control2[Control2["VehicleMoveDownOnly"] = 62] = "VehicleMoveDownOnly";
+        Control2[Control2["VehicleMoveLeftOnly"] = 63] = "VehicleMoveLeftOnly";
+        Control2[Control2["VehicleMoveRightOnly"] = 64] = "VehicleMoveRightOnly";
+        Control2[Control2["VehicleSpecial"] = 65] = "VehicleSpecial";
+        Control2[Control2["VehicleGunLeftRight"] = 66] = "VehicleGunLeftRight";
+        Control2[Control2["VehicleGunUpDown"] = 67] = "VehicleGunUpDown";
+        Control2[Control2["VehicleAim"] = 68] = "VehicleAim";
+        Control2[Control2["VehicleAttack"] = 69] = "VehicleAttack";
+        Control2[Control2["VehicleAttack2"] = 70] = "VehicleAttack2";
+        Control2[Control2["VehicleAccelerate"] = 71] = "VehicleAccelerate";
+        Control2[Control2["VehicleBrake"] = 72] = "VehicleBrake";
+        Control2[Control2["VehicleDuck"] = 73] = "VehicleDuck";
+        Control2[Control2["VehicleHeadlight"] = 74] = "VehicleHeadlight";
+        Control2[Control2["VehicleExit"] = 75] = "VehicleExit";
+        Control2[Control2["VehicleHandbrake"] = 76] = "VehicleHandbrake";
+        Control2[Control2["VehicleHotwireLeft"] = 77] = "VehicleHotwireLeft";
+        Control2[Control2["VehicleHotwireRight"] = 78] = "VehicleHotwireRight";
+        Control2[Control2["VehicleLookBehind"] = 79] = "VehicleLookBehind";
+        Control2[Control2["VehicleCinCam"] = 80] = "VehicleCinCam";
+        Control2[Control2["VehicleNextRadio"] = 81] = "VehicleNextRadio";
+        Control2[Control2["VehiclePrevRadio"] = 82] = "VehiclePrevRadio";
+        Control2[Control2["VehicleNextRadioTrack"] = 83] = "VehicleNextRadioTrack";
+        Control2[Control2["VehiclePrevRadioTrack"] = 84] = "VehiclePrevRadioTrack";
+        Control2[Control2["VehicleRadioWheel"] = 85] = "VehicleRadioWheel";
+        Control2[Control2["VehicleHorn"] = 86] = "VehicleHorn";
+        Control2[Control2["VehicleFlyThrottleUp"] = 87] = "VehicleFlyThrottleUp";
+        Control2[Control2["VehicleFlyThrottleDown"] = 88] = "VehicleFlyThrottleDown";
+        Control2[Control2["VehicleFlyYawLeft"] = 89] = "VehicleFlyYawLeft";
+        Control2[Control2["VehicleFlyYawRight"] = 90] = "VehicleFlyYawRight";
+        Control2[Control2["VehiclePassengerAim"] = 91] = "VehiclePassengerAim";
+        Control2[Control2["VehiclePassengerAttack"] = 92] = "VehiclePassengerAttack";
+        Control2[Control2["VehicleSpecialAbilityFranklin"] = 93] = "VehicleSpecialAbilityFranklin";
+        Control2[Control2["VehicleStuntUpDown"] = 94] = "VehicleStuntUpDown";
+        Control2[Control2["VehicleCinematicUpDown"] = 95] = "VehicleCinematicUpDown";
+        Control2[Control2["VehicleCinematicUpOnly"] = 96] = "VehicleCinematicUpOnly";
+        Control2[Control2["VehicleCinematicDownOnly"] = 97] = "VehicleCinematicDownOnly";
+        Control2[Control2["VehicleCinematicLeftRight"] = 98] = "VehicleCinematicLeftRight";
+        Control2[Control2["VehicleSelectNextWeapon"] = 99] = "VehicleSelectNextWeapon";
+        Control2[Control2["VehicleSelectPrevWeapon"] = 100] = "VehicleSelectPrevWeapon";
+        Control2[Control2["VehicleRoof"] = 101] = "VehicleRoof";
+        Control2[Control2["VehicleJump"] = 102] = "VehicleJump";
+        Control2[Control2["VehicleGrapplingHook"] = 103] = "VehicleGrapplingHook";
+        Control2[Control2["VehicleShuffle"] = 104] = "VehicleShuffle";
+        Control2[Control2["VehicleDropProjectile"] = 105] = "VehicleDropProjectile";
+        Control2[Control2["VehicleMouseControlOverride"] = 106] = "VehicleMouseControlOverride";
+        Control2[Control2["VehicleFlyRollLeftRight"] = 107] = "VehicleFlyRollLeftRight";
+        Control2[Control2["VehicleFlyRollLeftOnly"] = 108] = "VehicleFlyRollLeftOnly";
+        Control2[Control2["VehicleFlyRollRightOnly"] = 109] = "VehicleFlyRollRightOnly";
+        Control2[Control2["VehicleFlyPitchUpDown"] = 110] = "VehicleFlyPitchUpDown";
+        Control2[Control2["VehicleFlyPitchUpOnly"] = 111] = "VehicleFlyPitchUpOnly";
+        Control2[Control2["VehicleFlyPitchDownOnly"] = 112] = "VehicleFlyPitchDownOnly";
+        Control2[Control2["VehicleFlyUnderCarriage"] = 113] = "VehicleFlyUnderCarriage";
+        Control2[Control2["VehicleFlyAttack"] = 114] = "VehicleFlyAttack";
+        Control2[Control2["VehicleFlySelectNextWeapon"] = 115] = "VehicleFlySelectNextWeapon";
+        Control2[Control2["VehicleFlySelectPrevWeapon"] = 116] = "VehicleFlySelectPrevWeapon";
+        Control2[Control2["VehicleFlySelectTargetLeft"] = 117] = "VehicleFlySelectTargetLeft";
+        Control2[Control2["VehicleFlySelectTargetRight"] = 118] = "VehicleFlySelectTargetRight";
+        Control2[Control2["VehicleFlyVerticalFlightMode"] = 119] = "VehicleFlyVerticalFlightMode";
+        Control2[Control2["VehicleFlyDuck"] = 120] = "VehicleFlyDuck";
+        Control2[Control2["VehicleFlyAttackCamera"] = 121] = "VehicleFlyAttackCamera";
+        Control2[Control2["VehicleFlyMouseControlOverride"] = 122] = "VehicleFlyMouseControlOverride";
+        Control2[Control2["VehicleSubTurnLeftRight"] = 123] = "VehicleSubTurnLeftRight";
+        Control2[Control2["VehicleSubTurnLeftOnly"] = 124] = "VehicleSubTurnLeftOnly";
+        Control2[Control2["VehicleSubTurnRightOnly"] = 125] = "VehicleSubTurnRightOnly";
+        Control2[Control2["VehicleSubPitchUpDown"] = 126] = "VehicleSubPitchUpDown";
+        Control2[Control2["VehicleSubPitchUpOnly"] = 127] = "VehicleSubPitchUpOnly";
+        Control2[Control2["VehicleSubPitchDownOnly"] = 128] = "VehicleSubPitchDownOnly";
+        Control2[Control2["VehicleSubThrottleUp"] = 129] = "VehicleSubThrottleUp";
+        Control2[Control2["VehicleSubThrottleDown"] = 130] = "VehicleSubThrottleDown";
+        Control2[Control2["VehicleSubAscend"] = 131] = "VehicleSubAscend";
+        Control2[Control2["VehicleSubDescend"] = 132] = "VehicleSubDescend";
+        Control2[Control2["VehicleSubTurnHardLeft"] = 133] = "VehicleSubTurnHardLeft";
+        Control2[Control2["VehicleSubTurnHardRight"] = 134] = "VehicleSubTurnHardRight";
+        Control2[Control2["VehicleSubMouseControlOverride"] = 135] = "VehicleSubMouseControlOverride";
+        Control2[Control2["VehiclePushbikePedal"] = 136] = "VehiclePushbikePedal";
+        Control2[Control2["VehiclePushbikeSprint"] = 137] = "VehiclePushbikeSprint";
+        Control2[Control2["VehiclePushbikeFrontBrake"] = 138] = "VehiclePushbikeFrontBrake";
+        Control2[Control2["VehiclePushbikeRearBrake"] = 139] = "VehiclePushbikeRearBrake";
+        Control2[Control2["MeleeAttackLight"] = 140] = "MeleeAttackLight";
+        Control2[Control2["MeleeAttackHeavy"] = 141] = "MeleeAttackHeavy";
+        Control2[Control2["MeleeAttackAlternate"] = 142] = "MeleeAttackAlternate";
+        Control2[Control2["MeleeBlock"] = 143] = "MeleeBlock";
+        Control2[Control2["ParachuteDeploy"] = 144] = "ParachuteDeploy";
+        Control2[Control2["ParachuteDetach"] = 145] = "ParachuteDetach";
+        Control2[Control2["ParachuteTurnLeftRight"] = 146] = "ParachuteTurnLeftRight";
+        Control2[Control2["ParachuteTurnLeftOnly"] = 147] = "ParachuteTurnLeftOnly";
+        Control2[Control2["ParachuteTurnRightOnly"] = 148] = "ParachuteTurnRightOnly";
+        Control2[Control2["ParachutePitchUpDown"] = 149] = "ParachutePitchUpDown";
+        Control2[Control2["ParachutePitchUpOnly"] = 150] = "ParachutePitchUpOnly";
+        Control2[Control2["ParachutePitchDownOnly"] = 151] = "ParachutePitchDownOnly";
+        Control2[Control2["ParachuteBrakeLeft"] = 152] = "ParachuteBrakeLeft";
+        Control2[Control2["ParachuteBrakeRight"] = 153] = "ParachuteBrakeRight";
+        Control2[Control2["ParachuteSmoke"] = 154] = "ParachuteSmoke";
+        Control2[Control2["ParachutePrecisionLanding"] = 155] = "ParachutePrecisionLanding";
+        Control2[Control2["Map"] = 156] = "Map";
+        Control2[Control2["SelectWeaponUnarmed"] = 157] = "SelectWeaponUnarmed";
+        Control2[Control2["SelectWeaponMelee"] = 158] = "SelectWeaponMelee";
+        Control2[Control2["SelectWeaponHandgun"] = 159] = "SelectWeaponHandgun";
+        Control2[Control2["SelectWeaponShotgun"] = 160] = "SelectWeaponShotgun";
+        Control2[Control2["SelectWeaponSmg"] = 161] = "SelectWeaponSmg";
+        Control2[Control2["SelectWeaponAutoRifle"] = 162] = "SelectWeaponAutoRifle";
+        Control2[Control2["SelectWeaponSniper"] = 163] = "SelectWeaponSniper";
+        Control2[Control2["SelectWeaponHeavy"] = 164] = "SelectWeaponHeavy";
+        Control2[Control2["SelectWeaponSpecial"] = 165] = "SelectWeaponSpecial";
+        Control2[Control2["SelectCharacterMichael"] = 166] = "SelectCharacterMichael";
+        Control2[Control2["SelectCharacterFranklin"] = 167] = "SelectCharacterFranklin";
+        Control2[Control2["SelectCharacterTrevor"] = 168] = "SelectCharacterTrevor";
+        Control2[Control2["SelectCharacterMultiplayer"] = 169] = "SelectCharacterMultiplayer";
+        Control2[Control2["SaveReplayClip"] = 170] = "SaveReplayClip";
+        Control2[Control2["SpecialAbilityPC"] = 171] = "SpecialAbilityPC";
+        Control2[Control2["PhoneUp"] = 172] = "PhoneUp";
+        Control2[Control2["PhoneDown"] = 173] = "PhoneDown";
+        Control2[Control2["PhoneLeft"] = 174] = "PhoneLeft";
+        Control2[Control2["PhoneRight"] = 175] = "PhoneRight";
+        Control2[Control2["PhoneSelect"] = 176] = "PhoneSelect";
+        Control2[Control2["PhoneCancel"] = 177] = "PhoneCancel";
+        Control2[Control2["PhoneOption"] = 178] = "PhoneOption";
+        Control2[Control2["PhoneExtraOption"] = 179] = "PhoneExtraOption";
+        Control2[Control2["PhoneScrollForward"] = 180] = "PhoneScrollForward";
+        Control2[Control2["PhoneScrollBackward"] = 181] = "PhoneScrollBackward";
+        Control2[Control2["PhoneCameraFocusLock"] = 182] = "PhoneCameraFocusLock";
+        Control2[Control2["PhoneCameraGrid"] = 183] = "PhoneCameraGrid";
+        Control2[Control2["PhoneCameraSelfie"] = 184] = "PhoneCameraSelfie";
+        Control2[Control2["PhoneCameraDOF"] = 185] = "PhoneCameraDOF";
+        Control2[Control2["PhoneCameraExpression"] = 186] = "PhoneCameraExpression";
+        Control2[Control2["FrontendDown"] = 187] = "FrontendDown";
+        Control2[Control2["FrontendUp"] = 188] = "FrontendUp";
+        Control2[Control2["FrontendLeft"] = 189] = "FrontendLeft";
+        Control2[Control2["FrontendRight"] = 190] = "FrontendRight";
+        Control2[Control2["FrontendRdown"] = 191] = "FrontendRdown";
+        Control2[Control2["FrontendRup"] = 192] = "FrontendRup";
+        Control2[Control2["FrontendRleft"] = 193] = "FrontendRleft";
+        Control2[Control2["FrontendRright"] = 194] = "FrontendRright";
+        Control2[Control2["FrontendAxisX"] = 195] = "FrontendAxisX";
+        Control2[Control2["FrontendAxisY"] = 196] = "FrontendAxisY";
+        Control2[Control2["FrontendRightAxisX"] = 197] = "FrontendRightAxisX";
+        Control2[Control2["FrontendRightAxisY"] = 198] = "FrontendRightAxisY";
+        Control2[Control2["FrontendPause"] = 199] = "FrontendPause";
+        Control2[Control2["FrontendPauseAlternate"] = 200] = "FrontendPauseAlternate";
+        Control2[Control2["FrontendAccept"] = 201] = "FrontendAccept";
+        Control2[Control2["FrontendCancel"] = 202] = "FrontendCancel";
+        Control2[Control2["FrontendX"] = 203] = "FrontendX";
+        Control2[Control2["FrontendY"] = 204] = "FrontendY";
+        Control2[Control2["FrontendLb"] = 205] = "FrontendLb";
+        Control2[Control2["FrontendRb"] = 206] = "FrontendRb";
+        Control2[Control2["FrontendLt"] = 207] = "FrontendLt";
+        Control2[Control2["FrontendRt"] = 208] = "FrontendRt";
+        Control2[Control2["FrontendLs"] = 209] = "FrontendLs";
+        Control2[Control2["FrontendRs"] = 210] = "FrontendRs";
+        Control2[Control2["FrontendLeaderboard"] = 211] = "FrontendLeaderboard";
+        Control2[Control2["FrontendSocialClub"] = 212] = "FrontendSocialClub";
+        Control2[Control2["FrontendSocialClubSecondary"] = 213] = "FrontendSocialClubSecondary";
+        Control2[Control2["FrontendDelete"] = 214] = "FrontendDelete";
+        Control2[Control2["FrontendEndscreenAccept"] = 215] = "FrontendEndscreenAccept";
+        Control2[Control2["FrontendEndscreenExpand"] = 216] = "FrontendEndscreenExpand";
+        Control2[Control2["FrontendSelect"] = 217] = "FrontendSelect";
+        Control2[Control2["ScriptLeftAxisX"] = 218] = "ScriptLeftAxisX";
+        Control2[Control2["ScriptLeftAxisY"] = 219] = "ScriptLeftAxisY";
+        Control2[Control2["ScriptRightAxisX"] = 220] = "ScriptRightAxisX";
+        Control2[Control2["ScriptRightAxisY"] = 221] = "ScriptRightAxisY";
+        Control2[Control2["ScriptRUp"] = 222] = "ScriptRUp";
+        Control2[Control2["ScriptRDown"] = 223] = "ScriptRDown";
+        Control2[Control2["ScriptRLeft"] = 224] = "ScriptRLeft";
+        Control2[Control2["ScriptRRight"] = 225] = "ScriptRRight";
+        Control2[Control2["ScriptLB"] = 226] = "ScriptLB";
+        Control2[Control2["ScriptRB"] = 227] = "ScriptRB";
+        Control2[Control2["ScriptLT"] = 228] = "ScriptLT";
+        Control2[Control2["ScriptRT"] = 229] = "ScriptRT";
+        Control2[Control2["ScriptLS"] = 230] = "ScriptLS";
+        Control2[Control2["ScriptRS"] = 231] = "ScriptRS";
+        Control2[Control2["ScriptPadUp"] = 232] = "ScriptPadUp";
+        Control2[Control2["ScriptPadDown"] = 233] = "ScriptPadDown";
+        Control2[Control2["ScriptPadLeft"] = 234] = "ScriptPadLeft";
+        Control2[Control2["ScriptPadRight"] = 235] = "ScriptPadRight";
+        Control2[Control2["ScriptSelect"] = 236] = "ScriptSelect";
+        Control2[Control2["CursorAccept"] = 237] = "CursorAccept";
+        Control2[Control2["CursorCancel"] = 238] = "CursorCancel";
+        Control2[Control2["CursorX"] = 239] = "CursorX";
+        Control2[Control2["CursorY"] = 240] = "CursorY";
+        Control2[Control2["CursorScrollUp"] = 241] = "CursorScrollUp";
+        Control2[Control2["CursorScrollDown"] = 242] = "CursorScrollDown";
+        Control2[Control2["EnterCheatCode"] = 243] = "EnterCheatCode";
+        Control2[Control2["InteractionMenu"] = 244] = "InteractionMenu";
+        Control2[Control2["MpTextChatAll"] = 245] = "MpTextChatAll";
+        Control2[Control2["MpTextChatTeam"] = 246] = "MpTextChatTeam";
+        Control2[Control2["MpTextChatFriends"] = 247] = "MpTextChatFriends";
+        Control2[Control2["MpTextChatCrew"] = 248] = "MpTextChatCrew";
+        Control2[Control2["PushToTalk"] = 249] = "PushToTalk";
+        Control2[Control2["CreatorLS"] = 250] = "CreatorLS";
+        Control2[Control2["CreatorRS"] = 251] = "CreatorRS";
+        Control2[Control2["CreatorLT"] = 252] = "CreatorLT";
+        Control2[Control2["CreatorRT"] = 253] = "CreatorRT";
+        Control2[Control2["CreatorMenuToggle"] = 254] = "CreatorMenuToggle";
+        Control2[Control2["CreatorAccept"] = 255] = "CreatorAccept";
+        Control2[Control2["CreatorDelete"] = 256] = "CreatorDelete";
+        Control2[Control2["Attack2"] = 257] = "Attack2";
+        Control2[Control2["RappelJump"] = 258] = "RappelJump";
+        Control2[Control2["RappelLongJump"] = 259] = "RappelLongJump";
+        Control2[Control2["RappelSmashWindow"] = 260] = "RappelSmashWindow";
+        Control2[Control2["PrevWeapon"] = 261] = "PrevWeapon";
+        Control2[Control2["NextWeapon"] = 262] = "NextWeapon";
+        Control2[Control2["MeleeAttack1"] = 263] = "MeleeAttack1";
+        Control2[Control2["MeleeAttack2"] = 264] = "MeleeAttack2";
+        Control2[Control2["Whistle"] = 265] = "Whistle";
+        Control2[Control2["MoveLeft"] = 266] = "MoveLeft";
+        Control2[Control2["MoveRight"] = 267] = "MoveRight";
+        Control2[Control2["MoveUp"] = 268] = "MoveUp";
+        Control2[Control2["MoveDown"] = 269] = "MoveDown";
+        Control2[Control2["LookLeft"] = 270] = "LookLeft";
+        Control2[Control2["LookRight"] = 271] = "LookRight";
+        Control2[Control2["LookUp"] = 272] = "LookUp";
+        Control2[Control2["LookDown"] = 273] = "LookDown";
+        Control2[Control2["SniperZoomIn"] = 274] = "SniperZoomIn";
+        Control2[Control2["SniperZoomOut"] = 275] = "SniperZoomOut";
+        Control2[Control2["SniperZoomInAlternate"] = 276] = "SniperZoomInAlternate";
+        Control2[Control2["SniperZoomOutAlternate"] = 277] = "SniperZoomOutAlternate";
+        Control2[Control2["VehicleMoveLeft"] = 278] = "VehicleMoveLeft";
+        Control2[Control2["VehicleMoveRight"] = 279] = "VehicleMoveRight";
+        Control2[Control2["VehicleMoveUp"] = 280] = "VehicleMoveUp";
+        Control2[Control2["VehicleMoveDown"] = 281] = "VehicleMoveDown";
+        Control2[Control2["VehicleGunLeft"] = 282] = "VehicleGunLeft";
+        Control2[Control2["VehicleGunRight"] = 283] = "VehicleGunRight";
+        Control2[Control2["VehicleGunUp"] = 284] = "VehicleGunUp";
+        Control2[Control2["VehicleGunDown"] = 285] = "VehicleGunDown";
+        Control2[Control2["VehicleLookLeft"] = 286] = "VehicleLookLeft";
+        Control2[Control2["VehicleLookRight"] = 287] = "VehicleLookRight";
+        Control2[Control2["ReplayStartStopRecording"] = 288] = "ReplayStartStopRecording";
+        Control2[Control2["ReplayStartStopRecordingSecondary"] = 289] = "ReplayStartStopRecordingSecondary";
+        Control2[Control2["ScaledLookLeftRight"] = 290] = "ScaledLookLeftRight";
+        Control2[Control2["ScaledLookUpDown"] = 291] = "ScaledLookUpDown";
+        Control2[Control2["ScaledLookUpOnly"] = 292] = "ScaledLookUpOnly";
+        Control2[Control2["ScaledLookDownOnly"] = 293] = "ScaledLookDownOnly";
+        Control2[Control2["ScaledLookLeftOnly"] = 294] = "ScaledLookLeftOnly";
+        Control2[Control2["ScaledLookRightOnly"] = 295] = "ScaledLookRightOnly";
+        Control2[Control2["ReplayMarkerDelete"] = 296] = "ReplayMarkerDelete";
+        Control2[Control2["ReplayClipDelete"] = 297] = "ReplayClipDelete";
+        Control2[Control2["ReplayPause"] = 298] = "ReplayPause";
+        Control2[Control2["ReplayRewind"] = 299] = "ReplayRewind";
+        Control2[Control2["ReplayFfwd"] = 300] = "ReplayFfwd";
+        Control2[Control2["ReplayNewmarker"] = 301] = "ReplayNewmarker";
+        Control2[Control2["ReplayRecord"] = 302] = "ReplayRecord";
+        Control2[Control2["ReplayScreenshot"] = 303] = "ReplayScreenshot";
+        Control2[Control2["ReplayHidehud"] = 304] = "ReplayHidehud";
+        Control2[Control2["ReplayStartpoint"] = 305] = "ReplayStartpoint";
+        Control2[Control2["ReplayEndpoint"] = 306] = "ReplayEndpoint";
+        Control2[Control2["ReplayAdvance"] = 307] = "ReplayAdvance";
+        Control2[Control2["ReplayBack"] = 308] = "ReplayBack";
+        Control2[Control2["ReplayTools"] = 309] = "ReplayTools";
+        Control2[Control2["ReplayRestart"] = 310] = "ReplayRestart";
+        Control2[Control2["ReplayShowhotkey"] = 311] = "ReplayShowhotkey";
+        Control2[Control2["ReplayCycleMarkerLeft"] = 312] = "ReplayCycleMarkerLeft";
+        Control2[Control2["ReplayCycleMarkerRight"] = 313] = "ReplayCycleMarkerRight";
+        Control2[Control2["ReplayFOVIncrease"] = 314] = "ReplayFOVIncrease";
+        Control2[Control2["ReplayFOVDecrease"] = 315] = "ReplayFOVDecrease";
+        Control2[Control2["ReplayCameraUp"] = 316] = "ReplayCameraUp";
+        Control2[Control2["ReplayCameraDown"] = 317] = "ReplayCameraDown";
+        Control2[Control2["ReplaySave"] = 318] = "ReplaySave";
+        Control2[Control2["ReplayToggletime"] = 319] = "ReplayToggletime";
+        Control2[Control2["ReplayToggletips"] = 320] = "ReplayToggletips";
+        Control2[Control2["ReplayPreview"] = 321] = "ReplayPreview";
+        Control2[Control2["ReplayToggleTimeline"] = 322] = "ReplayToggleTimeline";
+        Control2[Control2["ReplayTimelinePickupClip"] = 323] = "ReplayTimelinePickupClip";
+        Control2[Control2["ReplayTimelineDuplicateClip"] = 324] = "ReplayTimelineDuplicateClip";
+        Control2[Control2["ReplayTimelinePlaceClip"] = 325] = "ReplayTimelinePlaceClip";
+        Control2[Control2["ReplayCtrl"] = 326] = "ReplayCtrl";
+        Control2[Control2["ReplayTimelineSave"] = 327] = "ReplayTimelineSave";
+        Control2[Control2["ReplayPreviewAudio"] = 328] = "ReplayPreviewAudio";
+        Control2[Control2["VehicleDriveLook"] = 329] = "VehicleDriveLook";
+        Control2[Control2["VehicleDriveLook2"] = 330] = "VehicleDriveLook2";
+        Control2[Control2["VehicleFlyAttack2"] = 331] = "VehicleFlyAttack2";
+        Control2[Control2["RadioWheelUpDown"] = 332] = "RadioWheelUpDown";
+        Control2[Control2["RadioWheelLeftRight"] = 333] = "RadioWheelLeftRight";
+        Control2[Control2["VehicleSlowMoUpDown"] = 334] = "VehicleSlowMoUpDown";
+        Control2[Control2["VehicleSlowMoUpOnly"] = 335] = "VehicleSlowMoUpOnly";
+        Control2[Control2["VehicleSlowMoDownOnly"] = 336] = "VehicleSlowMoDownOnly";
+        Control2[Control2["VehicleHydraulicsControlToggle"] = 337] = "VehicleHydraulicsControlToggle";
+        Control2[Control2["VehicleHydraulicsControlLeft"] = 338] = "VehicleHydraulicsControlLeft";
+        Control2[Control2["VehicleHydraulicsControlRight"] = 339] = "VehicleHydraulicsControlRight";
+        Control2[Control2["VehicleHydraulicsControlUp"] = 340] = "VehicleHydraulicsControlUp";
+        Control2[Control2["VehicleHydraulicsControlDown"] = 341] = "VehicleHydraulicsControlDown";
+        Control2[Control2["VehicleHydraulicsControlUpDown"] = 342] = "VehicleHydraulicsControlUpDown";
+        Control2[Control2["VehicleHydraulicsControlLeftRight"] = 343] = "VehicleHydraulicsControlLeftRight";
+        Control2[Control2["SwitchVisor"] = 344] = "SwitchVisor";
+        Control2[Control2["VehicleMeleeHold"] = 345] = "VehicleMeleeHold";
+        Control2[Control2["VehicleMeleeLeft"] = 346] = "VehicleMeleeLeft";
+        Control2[Control2["VehicleMeleeRight"] = 347] = "VehicleMeleeRight";
+        Control2[Control2["MapPointOfInterest"] = 348] = "MapPointOfInterest";
+        Control2[Control2["ReplaySnapmaticPhoto"] = 349] = "ReplaySnapmaticPhoto";
+        Control2[Control2["VehicleCarJump"] = 350] = "VehicleCarJump";
+        Control2[Control2["VehicleRocketBoost"] = 351] = "VehicleRocketBoost";
+        Control2[Control2["VehicleFlyBoost"] = 352] = "VehicleFlyBoost";
+        Control2[Control2["VehicleParachute"] = 353] = "VehicleParachute";
+        Control2[Control2["VehicleBikeWings"] = 354] = "VehicleBikeWings";
+        Control2[Control2["VehicleFlyBombBay"] = 355] = "VehicleFlyBombBay";
+        Control2[Control2["VehicleFlyCounter"] = 356] = "VehicleFlyCounter";
+        Control2[Control2["VehicleFlyTransform"] = 357] = "VehicleFlyTransform";
+      })(Control || (Control = {}));
+    }
+  });
+
   // node_modules/@nativewrappers/client/lib/enums/Driving.js
   var DrivingStyle, VehicleDrivingFlags;
   var init_Driving = __esm({
@@ -2554,6 +2921,7 @@
     "node_modules/@nativewrappers/client/lib/enums/index.js"() {
       init_Blip();
       init_CloudHat();
+      init_Control();
       init_Driving();
       init_FiringPattern();
       init_ForceType();
@@ -9764,7 +10132,7 @@
 
   // client/cl_darkmarket.ts
   var require_cl_darkmarket = __commonJS({
-    "client/cl_darkmarket.ts"(exports) {
+    "client/cl_darkmarket.ts"(exports2) {
       init_lib();
       init_darkmarket();
       init_fivem();
@@ -9784,14 +10152,14 @@
           data: amount
         });
       });
-      onNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, (coords, alertId) => __async(exports, null, function* () {
+      onNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, (coords, alertId) => __async(exports2, null, function* () {
         const blip = World.createBlip(coords, 5);
         blip.Name = "Drop Off";
         blip.ShowRoute = true;
         blip.Sprite = 175;
         blip.Color = BlipColor.Yellow;
         SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
-        const weaponDropTick = setTick(() => __async(exports, null, function* () {
+        const weaponDropTick = setTick(() => __async(exports2, null, function* () {
           if (Game.PlayerPed.Position.distance(coords) < 5) {
             yield Delay(250);
             blip.delete();
@@ -9919,9 +10287,9 @@
 
   // client/cl_property.ts
   var require_cl_property = __commonJS({
-    "client/cl_property.ts"(exports) {
+    "client/cl_property.ts"(exports2) {
       init_property();
-      onNet("npwd:property:reload" /* RELOAD_APP */, () => __async(exports, null, function* () {
+      onNet("npwd:property:reload" /* RELOAD_APP */, () => __async(exports2, null, function* () {
         emitNet("npwd:property:addPlayerCache" /* ADD_PLAYER */);
       }));
       onNet("pma:playerLoaded", () => {
@@ -10004,6 +10372,50 @@
     }
   });
 
+  // client/boosting/boost-tiers/utility.ts
+  var pedRadius, dropOffSpot, showRoute, spawnPedRadius;
+  var init_utility = __esm({
+    "client/boosting/boost-tiers/utility.ts"() {
+      init_lib();
+      init_fivem();
+      init_main();
+      pedRadius = 30;
+      dropOffSpot = () => {
+        const garages = exp2["pma-garage"].AllPublicGarages();
+        const GarageList = {};
+        Object.keys(garages).map((k) => {
+          GarageList[k] = JSON.parse(garages[k]);
+        });
+        return Object.values(GarageList);
+      };
+      showRoute = (coords) => {
+        const blip = World.createBlip(coords, 5);
+        blip.Name = "Boost Location";
+        blip.ShowRoute = true;
+        blip.Sprite = 175;
+        blip.Color = BlipColor.Yellow;
+        SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
+        const boostTick = setTick(() => __async(void 0, null, function* () {
+          if (Game.PlayerPed.Position.distance(coords) < 10) {
+            yield Delay(250);
+            blip.delete();
+            clearTick(boostTick);
+          }
+        }));
+      };
+      spawnPedRadius = (coords, radius) => {
+        const rcs = new Vector3(coords.x + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1), coords.y + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1), coords.z);
+        while (!GetSafeCoordForPed(rcs.x, rcs.y, rcs.z, true, 1)[1]) {
+          rcs.x = coords.x + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1);
+          rcs.y = coords.y + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1);
+          rcs.z = coords.z;
+        }
+        return rcs;
+      };
+      exports("spawnPedRadius", spawnPedRadius);
+    }
+  });
+
   // client/boosting/boost-tiers/high.ts
   var highTierHandler;
   var init_high = __esm({
@@ -10023,33 +10435,28 @@
     }
   });
 
-  // client/boosting/boost-tiers/utility.ts
-  var lockedSpawnedVehicle;
-  var init_utility = __esm({
-    "client/boosting/boost-tiers/utility.ts"() {
-      lockedSpawnedVehicle = (vehNet) => {
-        const veh = NetToVeh(vehNet);
-        SetVehicleDoorsLocked(veh, 1);
-        SetVehicleDoorsLockedForPlayer(veh, PlayerId(), true);
-        SetVehicleDoorsLockedForAllPlayers(veh, true);
-      };
-    }
-  });
-
   // client/boosting/boost-tiers/low.ts
   var lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
+      init_lib();
       init_boosting();
       init_coords();
       init_utility();
       lowTierHandler = (contract) => {
         const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
-        console.log("\u{1F680} ~ file: low.ts ~ line 6 ~ lowTierHandler ~ randomCoords", randomCoords);
+        showRoute(randomCoords);
         emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords);
       };
-      onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet) => {
-        lockedSpawnedVehicle(vehNet);
+      onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
+        const spawnPedTick = setTick(() => __async(void 0, null, function* () {
+          if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
+            const rcs = spawnPedRadius(coords, pedRadius);
+            const ped = yield World.createPed(new Model("A_M_M_EastSA_01"), rcs, 0, true);
+            TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
+            clearTick(spawnPedTick);
+          }
+        }));
       });
     }
   });
@@ -10118,11 +10525,13 @@
   });
 
   // client/boosting/main.ts
-  var iterator2;
+  var exp2, iterator2;
   var init_main = __esm({
     "client/boosting/main.ts"() {
       init_boosting();
+      init_utility();
       init_nui();
+      exp2 = global.exports;
       onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
         SendNUIMessage({
           app: BOOSTING_APP,
@@ -10161,6 +10570,10 @@
           }
         });
       });
+      RegisterCommand("garage", () => {
+        const garages = dropOffSpot();
+        console.log(garages);
+      }, false);
     }
   });
 

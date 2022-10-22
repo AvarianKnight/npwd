@@ -1,5 +1,8 @@
 import {BoostingEvents, BoostingProfile, BOOSTING_APP, Contract} from '../../../typings/boosting';
+import {dropOffSpot} from './boost-tiers/utility';
 import './nui';
+
+export const exp = (global as any).exports;
 
 onNet(BoostingEvents.LOAD_BOOSTING_PROFILE, (boostingProfile: BoostingProfile) => {
 	SendNUIMessage({
@@ -46,3 +49,12 @@ onNet(BoostingEvents.REWARD_CONTRACT, (boostContract: Contract) => {
 		},
 	});
 });
+
+RegisterCommand(
+	'garage',
+	() => {
+		const garages = dropOffSpot();
+		console.log(garages);
+	},
+	false,
+);

@@ -47112,9 +47112,8 @@ setImmediate(async () => {
 });
 var BoostMission = class {
   spawnCar = async (model, coords) => {
-    const veh = CreateVehicle(GetHashKey(model), coords.x, coords.y, coords.z, 0, true, false);
+    const veh = PMA.createVehicle(model, coords);
     await Delay(500);
-    console.log("\u{1F680} ~ file: service.ts ~ line 27 ~ BoostMission ~ spawnCar= ~ veh", veh);
     return veh;
   };
   rewardVehicle = () => {
@@ -47238,7 +47237,8 @@ var boostMission = new BoostMission();
 onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords) => {
   const ply = PMA.getPlayerFromId(source);
   const veh = await boostMission.spawnCar(contract.vehicle, coords);
-  ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh));
+  SetVehicleDoorsLocked(veh, 2);
+  ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
 });
 
 // server/bridge/bridge.utils.ts

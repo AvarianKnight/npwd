@@ -15,6 +15,10 @@ export enum BoostingEvents {
 	LOW_TIER_MISSION = 'LOW_TIER_MISSION',
 }
 
+export enum BoostMissionEvents {
+	SPAWN_ATTACKER = 'npwd:boosting:spawnAttacker',
+}
+
 export interface BoostList {
 	car_model: string;
 	type: string;
