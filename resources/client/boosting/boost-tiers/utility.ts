@@ -12,7 +12,9 @@ export const dropOffSpot = () => {
 		GarageList[k] = JSON.parse(garages[k]);
 	});
 
-	return Object.values(GarageList);
+	const garageList = Object.values(GarageList);
+	const dropoff = garageList[Math.floor(Math.random() * (garageList.length - 0) + 0)];
+	return dropoff;
 };
 
 /**

@@ -107,6 +107,7 @@
     "index.html": "/resources/html/index.html"
   },
   "entrypoints": [
-    "static/js/bundle.js"
+    "static/js/bundle.js",
+    "main.d7ad96d61ff393a3cc8f.hot-update.js"
   ]
 }

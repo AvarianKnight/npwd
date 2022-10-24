@@ -20,3 +20,4 @@ import './cl_property';
 import './boosting/main';
 
 export const ClUtils = new ClientUtils();
+export const PMA = exports['pma-framework'].getData();

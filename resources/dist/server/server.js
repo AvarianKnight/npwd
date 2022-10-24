@@ -47102,6 +47102,8 @@ var BoostsDB = class {
     const boostList = await ox.query_async(`SELECT car_model, type FROM boosting_list`);
     return boostList;
   };
+  rewardVehicle = async () => {
+  };
 };
 
 // server/boosting/modules/boosts/service.ts
@@ -47116,8 +47118,8 @@ var BoostMission = class {
     await Delay(500);
     return veh;
   };
-  rewardVehicle = () => {
-    console.log(19);
+  rewardVehicle = async (plate, vehProps, uniqueId) => {
+    await ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
   };
 };
 
@@ -47239,6 +47241,11 @@ onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coord
   const veh = await boostMission.spawnCar(contract.vehicle, coords);
   SetVehicleDoorsLocked(veh, 2);
   ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+});
+onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps) => {
+  console.log("\u{1F680} ~ file: boosts.ts ~ line 18 ~ onNet ~ vehProps", vehProps);
+  const ply = PMA.getPlayerFromId(source);
+  await boostMission.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
 });
 
 // server/bridge/bridge.utils.ts

@@ -17,6 +17,7 @@ export enum BoostingEvents {
 
 export enum BoostMissionEvents {
 	SPAWN_ATTACKER = 'npwd:boosting:spawnAttacker',
+	REWARD_VEHICLE = 'npwd:boosting:rewardVehicle',
 }
 
 export interface BoostList {

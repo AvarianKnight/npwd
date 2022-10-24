@@ -10386,7 +10386,9 @@
         Object.keys(garages).map((k) => {
           GarageList[k] = JSON.parse(garages[k]);
         });
-        return Object.values(GarageList);
+        const garageList = Object.values(GarageList);
+        const dropoff = garageList[Math.floor(Math.random() * (garageList.length - 0) + 0)];
+        return dropoff;
       };
       showRoute = (coords) => {
         const blip = World.createBlip(coords, 5);
@@ -10436,11 +10438,12 @@
   });
 
   // client/boosting/boost-tiers/low.ts
-  var lowTierHandler;
+  var dropOffCoords, lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
       init_boosting();
+      init_client();
       init_coords();
       init_utility();
       lowTierHandler = (contract) => {
@@ -10449,12 +10452,42 @@
         emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords);
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
+        let firstLegCompleted = false;
+        let secondLegCompleted = false;
         const spawnPedTick = setTick(() => __async(void 0, null, function* () {
           if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
             const ped = yield World.createPed(new Model("A_M_M_EastSA_01"), rcs, 0, true);
             TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
-            clearTick(spawnPedTick);
+            firstLegCompleted = true;
+            if (firstLegCompleted) {
+              clearTick(spawnPedTick);
+              const obtainVehicle = setTick(() => __async(void 0, null, function* () {
+                const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
+                if (veh === 0)
+                  return;
+                const boostedVehNet = VehToNet(veh);
+                if (boostedVehNet === vehNet) {
+                  dropOffCoords = dropOffSpot();
+                  showRoute(dropOffCoords);
+                  secondLegCompleted = true;
+                }
+                if (firstLegCompleted && secondLegCompleted) {
+                  clearTick(obtainVehicle);
+                  const dropOff = setTick(() => __async(void 0, null, function* () {
+                    if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+                      const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+                      const boostedVehNet2 = VehToNet(veh2);
+                      if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 2 && IsControlJustPressed(0, Control.Pickup)) {
+                        const vehProps = PMA.Game.GetVehicleProperties(veh2);
+                        emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps);
+                        clearTick(dropOff);
+                      }
+                    }
+                  }));
+                }
+              }));
+            }
           }
         }));
       });
@@ -10578,7 +10611,7 @@
   });
 
   // client/client.ts
-  var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils;
+  var import_cl_photo, import_cl_exports, import_cl_darkmarket, import_cl_property, ClUtils, PMA;
   var init_client = __esm({
     "client/client.ts"() {
       init_cl_utils();
@@ -10601,6 +10634,7 @@
       import_cl_property = __toESM(require_cl_property());
       init_main();
       ClUtils = new ClientUtils();
+      PMA = exports["pma-framework"].getData();
     }
   });
   init_client();

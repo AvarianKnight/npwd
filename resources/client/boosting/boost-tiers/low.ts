@@ -1,7 +1,10 @@
 import {Control, Game, Model, Vector3, World} from '@nativewrappers/client';
-import {BoostingEvents, Contract} from '@typings/boosting';
+import {BoostingEvents, BoostMissionEvents, Contract} from '@typings/boosting';
+import {PMA} from '../../client';
 import {LowTierCoords} from '../coords';
-import {pedRadius, showRoute, spawnPedRadius} from './utility';
+import {dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
+
+let dropOffCoords: Vector3;
 
 export const lowTierHandler = (contract: Contract) => {
 	const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
@@ -10,6 +13,9 @@ export const lowTierHandler = (contract: Contract) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
+	let firstLegCompleted = false;
+	let secondLegCompleted = false;
+
 	const spawnPedTick = setTick(async () => {
 		if (
 			Game.PlayerPed.Position.distance(coords) < 5 &&
@@ -22,8 +28,43 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 			//TODO: give ped weapon?
 			TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
 
-			clearTick(spawnPedTick);
+			firstLegCompleted = true;
+
+			//After boosting vehicle, be directed to drop off location.
+			if (firstLegCompleted) {
+				clearTick(spawnPedTick);
+
+				const obtainVehicle = setTick(async () => {
+					const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
+					if (veh === 0) return;
+					const boostedVehNet = VehToNet(veh);
+
+					if (boostedVehNet === vehNet) {
+						dropOffCoords = dropOffSpot();
+						showRoute(dropOffCoords);
+						secondLegCompleted = true;
+					}
+
+					if (firstLegCompleted && secondLegCompleted) {
+						clearTick(obtainVehicle);
+						const dropOff = setTick(async () => {
+							if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+								const veh = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+								const boostedVehNet = VehToNet(veh);
+								if (
+									boostedVehNet === vehNet &&
+									Game.PlayerPed.Position.distance(dropOffCoords) < 2 &&
+									IsControlJustPressed(0, Control.Pickup)
+								) {
+									const vehProps = PMA.Game.GetVehicleProperties(veh);
+									emitNet(BoostMissionEvents.REWARD_VEHICLE, vehProps);
+									clearTick(dropOff);
+								}
+							}
+						});
+					}
+				});
+			}
 		}
 	});
-	// lockedSpawnedVehicle(vehNet);
 });

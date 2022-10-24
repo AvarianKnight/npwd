@@ -8,4 +8,6 @@ export class BoostsDB {
 		);
 		return boostList;
 	};
+
+	rewardVehicle = async () => {};
 }
