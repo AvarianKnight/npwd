@@ -53,7 +53,6 @@ export const useContracts = () => {
 		console.log(index);
 		send(BoostingEvents.START_CONTRACT, contracts[index]).then(() => {
 			closePrompt();
-
 			addAlert({
 				message: 'Contract started!',
 				type: 'success',

@@ -10372,6 +10372,25 @@
     }
   });
 
+  // client/boosting/boost-tiers/high.ts
+  var highTierHandler;
+  var init_high = __esm({
+    "client/boosting/boost-tiers/high.ts"() {
+      highTierHandler = (contract) => {
+        console.log("high");
+      };
+    }
+  });
+
+  // client/boosting/coords.ts
+  var LowTierCoords;
+  var init_coords = __esm({
+    "client/boosting/coords.ts"() {
+      init_lib();
+      LowTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
+    }
+  });
+
   // client/boosting/boost-tiers/utility.ts
   var pedRadius, dropOffSpot, showRoute, spawnPedRadius;
   var init_utility = __esm({
@@ -10418,27 +10437,8 @@
     }
   });
 
-  // client/boosting/boost-tiers/high.ts
-  var highTierHandler;
-  var init_high = __esm({
-    "client/boosting/boost-tiers/high.ts"() {
-      highTierHandler = (contract) => {
-        console.log("high");
-      };
-    }
-  });
-
-  // client/boosting/coords.ts
-  var LowTierCoords;
-  var init_coords = __esm({
-    "client/boosting/coords.ts"() {
-      init_lib();
-      LowTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
-    }
-  });
-
   // client/boosting/boost-tiers/low.ts
-  var dropOffCoords, lowTierHandler;
+  var dropOffCoords, firstLegCompleted, secondLegCompleted, lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
@@ -10446,14 +10446,20 @@
       init_client();
       init_coords();
       init_utility();
+      firstLegCompleted = false;
+      secondLegCompleted = false;
+      on("pma:onPlayerDeath", () => {
+        if (firstLegCompleted || secondLegCompleted) {
+          firstLegCompleted = false;
+          secondLegCompleted = false;
+        }
+      });
       lowTierHandler = (contract) => {
         const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
         showRoute(randomCoords);
         emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords);
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
-        let firstLegCompleted = false;
-        let secondLegCompleted = false;
         const spawnPedTick = setTick(() => __async(void 0, null, function* () {
           if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
@@ -10562,7 +10568,6 @@
   var init_main = __esm({
     "client/boosting/main.ts"() {
       init_boosting();
-      init_utility();
       init_nui();
       exp2 = global.exports;
       onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
@@ -10578,6 +10583,13 @@
           app: BOOSTING_APP,
           method: "npwd:boosting:getPlayers" /* GET_PLAYERS */,
           data: playersCopy
+        });
+      });
+      onNet("npwd:boosting:fetchContracts" /* FETCH_CONTRACTS */, (contractList) => {
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:fetchContracts" /* FETCH_CONTRACTS */,
+          data: contractList
         });
       });
       onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, () => {
@@ -10602,11 +10614,13 @@
             message: "New Contract available!"
           }
         });
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */,
+          data: false
+        });
+        emitNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
       });
-      RegisterCommand("garage", () => {
-        const garages = dropOffSpot();
-        console.log(garages);
-      }, false);
     }
   });
 

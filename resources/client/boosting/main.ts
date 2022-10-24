@@ -1,5 +1,4 @@
 import {BoostingEvents, BoostingProfile, BOOSTING_APP, Contract} from '../../../typings/boosting';
-import {dropOffSpot} from './boost-tiers/utility';
 import './nui';
 
 export const exp = (global as any).exports;
@@ -21,6 +20,14 @@ onNet(BoostingEvents.GET_PLAYERS, (players: any, source: number) => {
 		app: BOOSTING_APP,
 		method: BoostingEvents.GET_PLAYERS,
 		data: playersCopy,
+	});
+});
+
+onNet(BoostingEvents.FETCH_CONTRACTS, (contractList: Contract[]) => {
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostingEvents.FETCH_CONTRACTS,
+		data: contractList,
 	});
 });
 
@@ -48,13 +55,12 @@ onNet(BoostingEvents.REWARD_CONTRACT, (boostContract: Contract) => {
 			message: 'New Contract available!',
 		},
 	});
-});
 
-RegisterCommand(
-	'garage',
-	() => {
-		const garages = dropOffSpot();
-		console.log(garages);
-	},
-	false,
-);
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostingEvents.LEAVE_WAITLIST,
+		data: false,
+	});
+
+	emitNet(BoostingEvents.LEAVE_WAITLIST);
+});

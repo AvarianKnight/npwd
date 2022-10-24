@@ -3,6 +3,9 @@ import {Delay} from '../../../../utils/fivem';
 import {ox, PMA} from '../../../server';
 import {QueueList} from '../../controllers/queue';
 import {CarList} from '../boosts/service';
+import {ContractsDB} from '../contracts/db';
+
+const contractsDB = new ContractsDB();
 
 setTick(async () => {
 	await Delay(15000);
@@ -42,32 +45,30 @@ const contractHandler = async (player: QueuedPlayer) => {
 	const rankedVehicleList = CarList.filter((car: BoostList) => car.type === boostRank);
 
 	const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
-	const currentDate = new Date();
-	const expires_in = new Date(
-		new Date(currentDate).setHours(currentDate.getHours() + 6),
-	).toString();
-	const insertId = await ox.insert_async(
-		`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
-         VALUES (?, ?, ?, ?, ?)`,
-		[
-			player.ssn,
-			rankedVehicleList[randomNum].type,
-			expires_in,
-			20,
-			rankedVehicleList[randomNum].car_model,
-		],
+
+	const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 9)).getTime();
+	const vehicleType = rankedVehicleList[randomNum].type;
+	const carModel = rankedVehicleList[randomNum].car_model;
+
+	const insertId = await contractsDB.insertContract(
+		player.ssn,
+		vehicleType,
+		expires,
+		20,
+		carModel,
 	);
 
 	console.log(
 		`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`,
 	);
+
 	return {
 		id: insertId,
 		uid: player.ssn,
-		contract_type: rankedVehicleList[randomNum].type,
-		expires_in: new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)),
+		contract_type: vehicleType,
+		expires_in: expires,
 		cost: 20,
-		vehicle: rankedVehicleList[randomNum].car_model,
+		vehicle: carModel,
 	};
 };
 

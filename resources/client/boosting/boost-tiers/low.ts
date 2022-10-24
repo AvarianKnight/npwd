@@ -5,6 +5,18 @@ import {LowTierCoords} from '../coords';
 import {dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
 
 let dropOffCoords: Vector3;
+let firstLegCompleted = false;
+let secondLegCompleted = false;
+
+/**
+ * Ends boost if dead.
+ */
+on('pma:onPlayerDeath', () => {
+	if (firstLegCompleted || secondLegCompleted) {
+		firstLegCompleted = false;
+		secondLegCompleted = false;
+	}
+});
 
 export const lowTierHandler = (contract: Contract) => {
 	const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
@@ -13,9 +25,6 @@ export const lowTierHandler = (contract: Contract) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
-	let firstLegCompleted = false;
-	let secondLegCompleted = false;
-
 	const spawnPedTick = setTick(async () => {
 		if (
 			Game.PlayerPed.Position.distance(coords) < 5 &&

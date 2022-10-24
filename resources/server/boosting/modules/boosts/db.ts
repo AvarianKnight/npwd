@@ -9,5 +9,10 @@ export class BoostsDB {
 		return boostList;
 	};
 
-	rewardVehicle = async () => {};
+	rewardVehicle = async (plate: string, vehProps: any, uniqueId: any) => {
+		await ox.execute_async(
+			`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`,
+			[plate, JSON.stringify(vehProps), uniqueId, 1],
+		);
+	};
 }

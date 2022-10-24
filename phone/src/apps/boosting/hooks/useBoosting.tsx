@@ -1,6 +1,6 @@
 import {BOOSTING_APP, BoostingEvents} from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
-import {useNuiRequest} from 'fivem-nui-react-lib';
+import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
 import QueuePrompt from '../components/QueuePrompt';
@@ -31,6 +31,8 @@ export const useBoosting = () => {
 		});
 		setQueue(false);
 	};
+
+	useNuiEvent(BOOSTING_APP, BoostingEvents.LEAVE_WAITLIST, setQueue);
 
 	return {joinQueueHandler, leaveQueueHandler};
 };

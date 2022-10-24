@@ -36,7 +36,7 @@ export interface Contract {
 	id: number;
 	uid: number;
 	contract_type: string;
-	expires_in: Date;
+	expires_in: number;
 	cost: number;
 	vehicle: string;
 }

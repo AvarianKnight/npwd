@@ -47087,13 +47087,6 @@ var ProfileDB = class {
       return { uid, level: 1, experience: "0" };
     }
   };
-  fetchContracts = async (uid) => {
-    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
-    return contracts;
-  };
-  deleteContract = async (id) => {
-    await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
-  };
 };
 
 // server/boosting/modules/boosts/db.ts
@@ -47102,7 +47095,8 @@ var BoostsDB = class {
     const boostList = await ox.query_async(`SELECT car_model, type FROM boosting_list`);
     return boostList;
   };
-  rewardVehicle = async () => {
+  rewardVehicle = async (plate, vehProps, uniqueId) => {
+    await ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
   };
 };
 
@@ -47117,9 +47111,6 @@ var BoostMission = class {
     const veh = PMA.createVehicle(model, coords);
     await Delay(500);
     return veh;
-  };
-  rewardVehicle = async (plate, vehProps, uniqueId) => {
-    await ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
   };
 };
 
@@ -47141,7 +47132,27 @@ onNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */, () => {
   console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just left the queue, currently ${QueueList.size} in queue still.`);
 });
 
+// server/boosting/modules/contracts/db.ts
+var ContractsDB = class {
+  fetchContracts = async (uid) => {
+    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
+    return contracts;
+  };
+  deleteContract = async (id) => {
+    await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
+  };
+  transferContract = async () => {
+    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`);
+  };
+  insertContract = async (ssn, vehicleType, expires, cost, carModel) => {
+    const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
+             VALUES (?, ?, ?, ?, ?)`, [ssn, vehicleType, expires, cost, carModel]);
+    return insertId;
+  };
+};
+
 // server/boosting/modules/queue/service.ts
+var contractsDB = new ContractsDB();
 setTick(async () => {
   await Delay(15e3);
   manageQueuedPlayers();
@@ -47173,24 +47184,18 @@ var contractHandler = async (player) => {
   const boostRank = getBoostRank(player.level);
   const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
   const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
-  const currentDate = new Date();
-  const expires_in = new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)).toString();
-  const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
-         VALUES (?, ?, ?, ?, ?)`, [
-    player.ssn,
-    rankedVehicleList[randomNum].type,
-    expires_in,
-    20,
-    rankedVehicleList[randomNum].car_model
-  ]);
+  const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 9)).getTime();
+  const vehicleType = rankedVehicleList[randomNum].type;
+  const carModel = rankedVehicleList[randomNum].car_model;
+  const insertId = await contractsDB.insertContract(player.ssn, vehicleType, expires, 20, carModel);
   console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
   return {
     id: insertId,
     uid: player.ssn,
-    contract_type: rankedVehicleList[randomNum].type,
-    expires_in: new Date(new Date(currentDate).setHours(currentDate.getHours() + 6)),
+    contract_type: vehicleType,
+    expires_in: expires,
     cost: 20,
-    vehicle: rankedVehicleList[randomNum].car_model
+    vehicle: carModel
   };
 };
 var getBoostRank = (level) => {
@@ -47219,10 +47224,11 @@ var getBoostRank = (level) => {
 
 // server/boosting/controllers/profile.ts
 var profileDB = new ProfileDB();
+var contractsDB2 = new ContractsDB();
 onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
   const ply = PMA.getPlayerFromId(source);
   const profile = await profileDB.fetchProfile(ply.uniqueId);
-  const contracts = await profileDB.fetchContracts(ply.uniqueId);
+  const contracts = await contractsDB2.fetchContracts(ply.uniqueId);
   ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
     profile,
     contracts
@@ -47230,22 +47236,26 @@ onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () 
 });
 onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) => {
   const ply = PMA.getPlayerFromId(source);
-  await profileDB.deleteContract(contractId);
+  await contractsDB2.deleteContract(contractId);
   ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
 });
 
 // server/boosting/controllers/boosts.ts
 var boostMission = new BoostMission();
+var boostsDB2 = new BoostsDB();
+var contractsDB3 = new ContractsDB();
 onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords) => {
   const ply = PMA.getPlayerFromId(source);
+  await contractsDB3.deleteContract(contract.id);
+  const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
   const veh = await boostMission.spawnCar(contract.vehicle, coords);
   SetVehicleDoorsLocked(veh, 2);
+  ply.triggerEvent("npwd:boosting:fetchContracts" /* FETCH_CONTRACTS */, contractList);
   ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
 });
 onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps) => {
-  console.log("\u{1F680} ~ file: boosts.ts ~ line 18 ~ onNet ~ vehProps", vehProps);
   const ply = PMA.getPlayerFromId(source);
-  await boostMission.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+  await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
 });
 
 // server/bridge/bridge.utils.ts

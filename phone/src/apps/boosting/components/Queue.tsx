@@ -1,8 +1,10 @@
 import {Box, IconButton} from '@mui/material';
+import {useRecoilValue} from 'recoil';
 import styled from 'styled-components';
 import JoinQueueImg from '../../../assets/boosting/join-queue.png';
 import LeaveQueueImg from '../../../assets/boosting/leave-queue.png';
 import Text from '../common/Text';
+import {QueState} from '../state/atoms';
 
 const Container = styled(Box)`
 	position: absolute;
@@ -49,10 +51,12 @@ interface QueueProps {
 }
 
 const Queue = ({joinQueueHandler, leaveQueueHandler}: QueueProps) => {
+	const inQueue = useRecoilValue(QueState.inQue);
+
 	return (
 		<Container>
 			<JoinContainer>
-				<IconButton onClick={joinQueueHandler}>
+				<IconButton disabled={inQueue} onClick={joinQueueHandler}>
 					<JoinImg />
 				</IconButton>
 				<Text textAlign={'center'} width={'104px'}>
@@ -60,7 +64,7 @@ const Queue = ({joinQueueHandler, leaveQueueHandler}: QueueProps) => {
 				</Text>
 			</JoinContainer>
 			<LeaveContainer>
-				<IconButton onClick={leaveQueueHandler}>
+				<IconButton disabled={!inQueue} onClick={leaveQueueHandler}>
 					<LeaveImg />
 				</IconButton>
 				<Text textAlign={'center'} width={'115px'}>
