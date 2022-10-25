@@ -1,7 +1,7 @@
-import {PMA} from '../../server';
 import {BoostingEvents, BoostProfile, Contract} from '@typings/boosting';
-import {ProfileDB} from '../modules/profile/db';
+import {PMA} from '../../server';
 import {ContractsDB} from '../modules/contracts/db';
+import {ProfileDB} from '../modules/profile/db';
 
 const profileDB = new ProfileDB();
 const contractsDB = new ContractsDB();

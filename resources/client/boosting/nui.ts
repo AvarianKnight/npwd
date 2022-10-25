@@ -1,4 +1,4 @@
-import {BoostingEvents, Contract} from '../../../typings/boosting';
+import {BoostingEvents, Contract, PurchaseContract} from '../../../typings/boosting';
 import {PropertyEvents} from '../../../typings/property';
 import {highTierHandler} from './boost-tiers/high';
 import {lowTierHandler} from './boost-tiers/low';
@@ -27,17 +27,18 @@ on(`__cfx_nui:${BoostingEvents.LEAVE_WAITLIST}`, (data: any, cb: any) => {
 	cb({});
 });
 
-on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (contract: Contract, cb: any) => {
-	console.log('🚀 ~ file: nui.ts ~ line 31 ~ on ~ contract', contract);
-	if (contract.contract_type === 'B' || contract.contract_type === 'A') {
-		lowTierHandler(contract);
-	} else if (contract.contract_type === 'S') {
-		mediumTierHandler(contract);
-	} else if (contract.contract_type === 'S+') {
-		highTierHandler(contract);
+on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (purchaseContract: PurchaseContract, cb: any) => {
+	if (
+		purchaseContract.contract.contract_type === 'B' ||
+		purchaseContract.contract.contract_type === 'A'
+	) {
+		lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+	} else if (purchaseContract.contract.contract_type === 'S') {
+		mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+	} else if (purchaseContract.contract.contract_type === 'S+') {
+		highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
 	}
 
-	// emitNet(BoostingEvents.START_CONTRACT, contract);
 	cb({});
 });
 

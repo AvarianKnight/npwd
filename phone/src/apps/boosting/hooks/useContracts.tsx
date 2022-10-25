@@ -1,16 +1,17 @@
-import {useRecoilState, useSetRecoilState} from 'recoil';
-import {BoostingEvents, Contract} from '@typings/boosting';
-import {useNuiRequest} from 'fivem-nui-react-lib';
-import {ContractsState} from '../state/atoms';
+import {useSnackbar} from '@os/snackbar/hooks/useSnackbar';
+import {BoostingEvents, BuyContract, Contract} from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
+import {useNuiRequest} from 'fivem-nui-react-lib';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
+import DeclinePrompt from '../components/DeclinePrompt';
 import StartPrompt from '../components/StartPrompt';
 import TradePrompt from '../components/TradePrompt';
-import DeclinePrompt from '../components/DeclinePrompt';
-import {useSnackbar} from '@os/snackbar/hooks/useSnackbar';
+import {BoostProfileState, ContractsState} from '../state/atoms';
 
 export const useContracts = () => {
 	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
+	const profile = useRecoilValue(BoostProfileState.profile);
 	const {send} = useNuiRequest();
 	const {addAlert} = useSnackbar();
 
@@ -50,8 +51,13 @@ export const useContracts = () => {
 
 	//TODO: write UI -> Client -> Service code ::: declineHandler first
 	const startHandler = (index: number) => {
-		console.log(index);
-		send(BoostingEvents.START_CONTRACT, contracts[index]).then(() => {
+		// console.log(index);
+		const transferData: BuyContract = {
+			contract: contracts[index],
+			small_coin: profile.small_coin,
+		};
+
+		send(BoostingEvents.START_CONTRACT, transferData).then(() => {
 			closePrompt();
 			addAlert({
 				message: 'Contract started!',

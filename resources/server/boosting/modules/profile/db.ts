@@ -17,4 +17,11 @@ export class ProfileDB {
 			return {uid: uid, level: 1, experience: '0'};
 		}
 	};
+
+	updateCoins = async (coinTotal: number, uid: number) => {
+		await ox.execute_async(`UPDATE cryptocurrency SET small_coin = ? WHERE ssn = ?`, [
+			coinTotal,
+			uid,
+		]);
+	};
 }

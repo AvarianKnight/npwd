@@ -47087,6 +47087,12 @@ var ProfileDB = class {
       return { uid, level: 1, experience: "0" };
     }
   };
+  updateCoins = async (coinTotal, uid) => {
+    await ox.execute_async(`UPDATE cryptocurrency SET small_coin = ? WHERE ssn = ?`, [
+      coinTotal,
+      uid
+    ]);
+  };
 };
 
 // server/boosting/modules/boosts/db.ts
@@ -47249,14 +47255,24 @@ onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) 
 var boostMission = new BoostMission();
 var boostsDB2 = new BoostsDB();
 var contractsDB3 = new ContractsDB();
-onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords) => {
+var profilesDB = new ProfileDB();
+onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords, totalCoins) => {
   const ply = PMA.getPlayerFromId(source);
-  await contractsDB3.deleteContract(contract.id);
-  const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
-  const veh = await boostMission.spawnCar(contract.vehicle, coords);
-  SetVehicleDoorsLocked(veh, 2);
-  ply.triggerEvent("npwd:boosting:fetchContracts" /* FETCH_CONTRACTS */, contractList);
-  ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+  if (totalCoins >= contract.cost) {
+    const newCoinTotal = totalCoins - contract.cost;
+    await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
+    await contractsDB3.deleteContract(contract.id);
+    const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
+    const veh = await boostMission.spawnCar(contract.vehicle, coords);
+    SetVehicleDoorsLocked(veh, 2);
+    ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
+      small_coin: newCoinTotal,
+      contracts: contractList
+    });
+    ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+  } else {
+    console.log("too much");
+  }
 });
 onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps) => {
   const ply = PMA.getPlayerFromId(source);

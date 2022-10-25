@@ -18,10 +18,10 @@ on('pma:onPlayerDeath', () => {
 	}
 });
 
-export const lowTierHandler = (contract: Contract) => {
+export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 	const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
 	showRoute(randomCoords);
-	emitNet(BoostingEvents.START_CONTRACT, contract, randomCoords);
+	emitNet(BoostingEvents.START_CONTRACT, contract, randomCoords, totalCoins);
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {

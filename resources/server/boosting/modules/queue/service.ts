@@ -1,6 +1,6 @@
 import {BoostingEvents, BoostList, Contract, QueuedPlayer} from '@typings/boosting';
 import {Delay} from '../../../../utils/fivem';
-import {ox, PMA} from '../../../server';
+import {PMA} from '../../../server';
 import {QueueList} from '../../controllers/queue';
 import {CarList} from '../boosts/service';
 import {ContractsDB} from '../contracts/db';

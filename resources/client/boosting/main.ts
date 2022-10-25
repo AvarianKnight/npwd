@@ -1,4 +1,10 @@
-import {BoostingEvents, BoostingProfile, BOOSTING_APP, Contract} from '../../../typings/boosting';
+import {
+	BoostingEvents,
+	BoostingProfile,
+	BOOSTING_APP,
+	Contract,
+	PurchaseContract,
+} from '../../../typings/boosting';
 import './nui';
 
 export const exp = (global as any).exports;
@@ -63,4 +69,12 @@ onNet(BoostingEvents.REWARD_CONTRACT, (boostContract: Contract) => {
 	});
 
 	emitNet(BoostingEvents.LEAVE_WAITLIST);
+});
+
+onNet(BoostingEvents.PURCHASE_CONTRACT, (purchaseContract: PurchaseContract) => {
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostingEvents.PURCHASE_CONTRACT,
+		data: purchaseContract,
+	});
 });

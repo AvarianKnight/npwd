@@ -10454,10 +10454,10 @@
           secondLegCompleted = false;
         }
       });
-      lowTierHandler = (contract) => {
+      lowTierHandler = (contract, totalCoins) => {
         const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
         showRoute(randomCoords);
-        emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords);
+        emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords, totalCoins);
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
         const spawnPedTick = setTick(() => __async(void 0, null, function* () {
@@ -10537,14 +10537,13 @@
         emitNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
         cb({});
       });
-      on(`__cfx_nui:${"npwd:boosting:startContract" /* START_CONTRACT */}`, (contract, cb) => {
-        console.log("\u{1F680} ~ file: nui.ts ~ line 31 ~ on ~ contract", contract);
-        if (contract.contract_type === "B" || contract.contract_type === "A") {
-          lowTierHandler(contract);
-        } else if (contract.contract_type === "S") {
-          mediumTierHandler(contract);
-        } else if (contract.contract_type === "S+") {
-          highTierHandler(contract);
+      on(`__cfx_nui:${"npwd:boosting:startContract" /* START_CONTRACT */}`, (purchaseContract, cb) => {
+        if (purchaseContract.contract.contract_type === "B" || purchaseContract.contract.contract_type === "A") {
+          lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+        } else if (purchaseContract.contract.contract_type === "S") {
+          mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+        } else if (purchaseContract.contract.contract_type === "S+") {
+          highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
         }
         cb({});
       });
@@ -10620,6 +10619,13 @@
           data: false
         });
         emitNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
+      });
+      onNet("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, (purchaseContract) => {
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */,
+          data: purchaseContract
+        });
       });
     }
   });

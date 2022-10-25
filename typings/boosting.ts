@@ -13,6 +13,7 @@ export enum BoostingEvents {
 	GET_PLAYERS = 'npwd:boosting:getPlayers',
 	SEND_NOTIFICATION = 'SEND_NOTIFICATION',
 	LOW_TIER_MISSION = 'LOW_TIER_MISSION',
+	PURCHASE_CONTRACT = 'PURCHASE_CONTRACT',
 }
 
 export enum BoostMissionEvents {
@@ -40,6 +41,11 @@ export interface Contract {
 	expires_in: number;
 	cost: number;
 	vehicle: string;
+}
+
+export interface PurchaseContract {
+	contracts: Contract[];
+	small_coin: number;
 }
 
 export interface BoostingProfile {
