@@ -94,7 +94,7 @@ const TradePrompt = (props: Props) => {
 						//@ts-ignore
 						onChange={selectedPlayerHandler}
 						style={{width: 280}}
-						getOptionLabel={(option: any) => option.fullname}
+						getOptionLabel={(option: any) => option.source}
 						filterSelectedOptions
 						renderInput={(params) => (
 							<MuiTextField

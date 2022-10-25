@@ -11,6 +11,8 @@ import Level from './components/Level';
 import Queue from './components/Queue';
 import Status from './components/Status';
 import {useBoosting} from './hooks/useBoosting';
+import {BoostProfileState} from './state/atoms';
+import {useRecoilValue} from 'recoil';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -20,7 +22,7 @@ const Wrapper = styled(Box)`
 	width: 100%;
 `;
 
-const TextWrapper = styled(Box)`
+const WelcomeWrapper = styled(Box)`
 	top: 68px;
 	position: absolute;
 	width: 100%;
@@ -28,11 +30,21 @@ const TextWrapper = styled(Box)`
 	justify-content: center;
 `;
 
+const CoinWrapper = styled(Box)`
+	position: absolute;
+	width: 70px;
+	height: 22px;
+	left: 290px;
+	top: 75px;
+	background: #00bb60;
+	border-radius: 13px;
+`;
+
 const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
 	const {send} = useNuiRequest();
-
+	const profile = useRecoilValue(BoostProfileState.profile);
 	useBoosting();
 
 	useEffect(() => {
@@ -51,9 +63,20 @@ const BoostingApp = () => {
 				borderRadius={'34px'}
 				fontWeight={'bolder'}
 			/>
-			<TextWrapper>
+			<WelcomeWrapper>
 				<Text fontSize={'24px'}>WELCOME</Text>
-			</TextWrapper>
+			</WelcomeWrapper>
+			<CoinWrapper>
+				<Text
+					fontSize={'20px'}
+					color={'#000000'}
+					lineHeight={'23px'}
+					display={'flex'}
+					justifyContent={'center'}
+				>
+					{profile?.small_coin ?? 0}
+				</Text>
+			</CoinWrapper>
 			<Level />
 			<Status />
 			<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />

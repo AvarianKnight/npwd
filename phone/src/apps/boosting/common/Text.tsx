@@ -21,6 +21,8 @@ interface Props {
 	top?: string;
 	bottom?: string;
 	color?: string;
+	display?: string;
+	justifyContent?: string;
 }
 
 const Text = ({
@@ -34,6 +36,8 @@ const Text = ({
 	top,
 	bottom,
 	color,
+	display,
+	justifyContent,
 }: Props) => {
 	return (
 		<CSSText
@@ -47,6 +51,8 @@ const Text = ({
 				bottom: bottom,
 				color: color,
 				textAlign: textAlign,
+				display: display,
+				justifyContent: justifyContent,
 			}}
 		>
 			{children}

@@ -47079,7 +47079,7 @@ onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
 // server/boosting/modules/profile/db.ts
 var ProfileDB = class {
   fetchProfile = async (uid) => {
-    const profile = await ox.single_async(`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`, [uid]);
+    const profile = await ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE uid = ?`, [uid]);
     if (profile) {
       return profile;
     } else {
@@ -47184,7 +47184,7 @@ var contractHandler = async (player) => {
   const boostRank = getBoostRank(player.level);
   const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
   const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
-  const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 9)).getTime();
+  const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 6)).getTime();
   const vehicleType = rankedVehicleList[randomNum].type;
   const carModel = rankedVehicleList[randomNum].car_model;
   const insertId = await contractsDB.insertContract(player.ssn, vehicleType, expires, 20, carModel);
@@ -47228,7 +47228,12 @@ var contractsDB2 = new ContractsDB();
 onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
   const ply = PMA.getPlayerFromId(source);
   const profile = await profileDB.fetchProfile(ply.uniqueId);
-  const contracts = await contractsDB2.fetchContracts(ply.uniqueId);
+  let contracts = await contractsDB2.fetchContracts(ply.uniqueId);
+  const contractsDeleted = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) < 0);
+  if (contractsDeleted.length > 0) {
+    contractsDeleted.map((contract) => contractsDB2.deleteContract(contract.id));
+  }
+  contracts = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) > 0);
   ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
     profile,
     contracts

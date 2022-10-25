@@ -4,7 +4,7 @@ import {ox} from '../../../server';
 export class ProfileDB {
 	fetchProfile = async (uid: number) => {
 		const profile: BoostProfile = await ox.single_async(
-			`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`,
+			`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE uid = ?`,
 			[uid],
 		);
 		if (profile) {

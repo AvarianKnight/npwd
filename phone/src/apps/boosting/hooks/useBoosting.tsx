@@ -34,7 +34,7 @@ export const useBoosting = () => {
 
 	useNuiEvent(BOOSTING_APP, BoostingEvents.LEAVE_WAITLIST, setQueue);
 
-	return {joinQueueHandler, leaveQueueHandler};
+	return {joinQueueHandler, leaveQueueHandler, boostProfile};
 };
 
 InjectDebugData(

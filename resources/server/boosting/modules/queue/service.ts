@@ -46,7 +46,7 @@ const contractHandler = async (player: QueuedPlayer) => {
 
 	const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
 
-	const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 9)).getTime();
+	const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 6)).getTime();
 	const vehicleType = rankedVehicleList[randomNum].type;
 	const carModel = rankedVehicleList[randomNum].car_model;
 

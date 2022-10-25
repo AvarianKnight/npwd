@@ -30,6 +30,7 @@ export interface BoostProfile {
 	uid: number;
 	level: number;
 	experience: string;
+	small_coin?: number;
 }
 
 export interface Contract {
