@@ -1,9 +1,9 @@
-import { BoostProfileState } from '../state/atoms';
-import { useSetRecoilState } from 'recoil';
-import { BoostingEvents, BOOSTING_APP, BoostProfile } from '@typings/boosting';
+import { BoostingEvents, BOOSTING_APP } from '@typings/boosting';
 import { useNuiEvent, useNuiRequest } from 'fivem-nui-react-lib';
 import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 import InjectDebugData from '../../../os/debug/InjectDebugData';
+import { BoostProfileState } from '../state/atoms';
 
 export const useBoosting = () => {
 	const { send } = useNuiRequest();

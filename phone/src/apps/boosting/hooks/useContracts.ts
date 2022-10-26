@@ -1,6 +1,6 @@
-import { useSetRecoilState } from 'recoil';
 import { BoostingEvents, BOOSTING_APP } from '@typings/boosting';
 import { useNuiEvent } from 'fivem-nui-react-lib';
+import { useSetRecoilState } from 'recoil';
 import { ContractsState } from '../state/atoms';
 
 export const useContracts = () => {
