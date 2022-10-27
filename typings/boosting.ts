@@ -1,3 +1,5 @@
+import {Player} from './property';
+
 export const BOOSTING_APP = 'BOOSTING';
 
 export enum BoostingEvents {
@@ -44,6 +46,11 @@ export interface Contract {
 }
 
 export interface PurchaseContract {
+	contract: Contract;
+	small_coin: number;
+}
+
+export interface ContractListAndCoins {
 	contracts: Contract[];
 	small_coin: number;
 }
@@ -64,4 +71,9 @@ export interface QueuedPlayer {
 	fullName: string;
 	level: number;
 	experience: string;
+}
+
+export interface TradeContract {
+	contract: Contract;
+	player: Player;
 }

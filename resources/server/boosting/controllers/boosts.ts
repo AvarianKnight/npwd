@@ -16,7 +16,7 @@ onNet(
 	async (contract: Contract, coords: Vector3, totalCoins: number) => {
 		const ply = PMA.getPlayerFromId(source);
 
-		if (totalCoins >= contract.cost) {
+		if (totalCoins > contract.cost) {
 			const newCoinTotal = totalCoins - contract.cost;
 			await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
 			await contractsDB.deleteContract(contract.id);
@@ -29,11 +29,13 @@ onNet(
 				contracts: contractList,
 			});
 
-			ply.triggerEvent(
-				BoostingEvents.LOW_TIER_MISSION,
-				NetworkGetNetworkIdFromEntity(veh),
-				coords,
-			);
+			if (contract.contract_type === 'B') {
+				ply.triggerEvent(
+					BoostingEvents.LOW_TIER_MISSION,
+					NetworkGetNetworkIdFromEntity(veh),
+					coords,
+				);
+			}
 		} else {
 			console.log('too much');
 		}

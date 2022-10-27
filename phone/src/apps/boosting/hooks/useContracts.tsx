@@ -1,12 +1,12 @@
 import {useSnackbar} from '@os/snackbar/hooks/useSnackbar';
-import {BoostingEvents, BuyContract, Contract} from '@typings/boosting';
+import {BoostingEvents, Contract, PurchaseContract} from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
 import {useNuiRequest} from 'fivem-nui-react-lib';
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import DeclinePrompt from '../components/DeclinePrompt';
 import StartPrompt from '../components/StartPrompt';
 import TradePrompt from '../components/TradePrompt';
-import {BoostProfileState, ContractsState} from '../state/atoms';
+import {BoostProfileState, ContractsState, TradeState} from '../state/atoms';
 
 export const useContracts = () => {
 	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
@@ -14,6 +14,7 @@ export const useContracts = () => {
 	const profile = useRecoilValue(BoostProfileState.profile);
 	const {send} = useNuiRequest();
 	const {addAlert} = useSnackbar();
+	const selectedPlayerBoosting = useRecoilValue(TradeState.selectedPlayerBoosting);
 
 	const startPrompt = (index: number) => {
 		setPrompt({
@@ -51,8 +52,7 @@ export const useContracts = () => {
 
 	//TODO: write UI -> Client -> Service code ::: declineHandler first
 	const startHandler = (index: number) => {
-		// console.log(index);
-		const transferData: BuyContract = {
+		const transferData: PurchaseContract = {
 			contract: contracts[index],
 			small_coin: profile.small_coin,
 		};
@@ -68,11 +68,15 @@ export const useContracts = () => {
 
 	//TODO error check for what happens when a player logs out?
 	const tradeHandler = (index: number) => {
-		send(BoostingEvents.TRADE_CONTRACT, contracts[index])
+		send(BoostingEvents.TRADE_CONTRACT, {
+			contract: contracts[index],
+			player: selectedPlayerBoosting,
+		})
 			.then(() => {
 				setContracts((prevState) =>
 					prevState.filter((contract: Contract) => contract.id !== contracts[index].id),
 				);
+				closePrompt();
 				addAlert({
 					message: 'Contract traded!',
 					type: 'success',

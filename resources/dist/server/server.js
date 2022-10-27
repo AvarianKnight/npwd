@@ -47079,7 +47079,7 @@ onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
 // server/boosting/modules/profile/db.ts
 var ProfileDB = class {
   fetchProfile = async (uid) => {
-    const profile = await ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE uid = ?`, [uid]);
+    const profile = await ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE c.ssn = ? and bp.uid = c.ssn`, [uid]);
     if (profile) {
       return profile;
     } else {
@@ -47147,8 +47147,8 @@ var ContractsDB = class {
   deleteContract = async (id) => {
     await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
   };
-  transferContract = async () => {
-    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`);
+  transferContract = async (plyUid, contractId) => {
+    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [plyUid, contractId]);
   };
   insertContract = async (ssn, vehicleType, expires, cost, carModel) => {
     const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
@@ -47250,6 +47250,12 @@ onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) 
   await contractsDB2.deleteContract(contractId);
   ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
 });
+onNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, async (tradeContract) => {
+  await contractsDB2.transferContract(Number(tradeContract.player.ssn), tradeContract.contract.id);
+  const copyContract = { ...tradeContract.contract };
+  copyContract.uid = Number(tradeContract.player.ssn);
+  emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, tradeContract.player.source, copyContract);
+});
 
 // server/boosting/controllers/boosts.ts
 var boostMission = new BoostMission();
@@ -47258,7 +47264,7 @@ var contractsDB3 = new ContractsDB();
 var profilesDB = new ProfileDB();
 onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords, totalCoins) => {
   const ply = PMA.getPlayerFromId(source);
-  if (totalCoins >= contract.cost) {
+  if (totalCoins > contract.cost) {
     const newCoinTotal = totalCoins - contract.cost;
     await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
     await contractsDB3.deleteContract(contract.id);
@@ -47269,7 +47275,9 @@ onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coord
       small_coin: newCoinTotal,
       contracts: contractList
     });
-    ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+    if (contract.contract_type === "B") {
+      ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+    }
   } else {
     console.log("too much");
   }

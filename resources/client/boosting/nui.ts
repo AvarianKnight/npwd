@@ -1,7 +1,8 @@
-import {BoostingEvents, Contract, PurchaseContract} from '../../../typings/boosting';
+import {BoostingEvents, Contract, PurchaseContract, TradeContract} from '../../../typings/boosting';
 import {PropertyEvents} from '../../../typings/property';
 import {highTierHandler} from './boost-tiers/high';
 import {lowTierHandler} from './boost-tiers/low';
+import {BPlayer} from './boost-tiers/main';
 import {mediumTierHandler} from './boost-tiers/medium';
 
 RegisterNuiCallbackType(BoostingEvents.LOAD_BOOSTING_PROFILE);
@@ -28,15 +29,20 @@ on(`__cfx_nui:${BoostingEvents.LEAVE_WAITLIST}`, (data: any, cb: any) => {
 });
 
 on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (purchaseContract: PurchaseContract, cb: any) => {
-	if (
-		purchaseContract.contract.contract_type === 'B' ||
-		purchaseContract.contract.contract_type === 'A'
-	) {
-		lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
-	} else if (purchaseContract.contract.contract_type === 'S') {
-		mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
-	} else if (purchaseContract.contract.contract_type === 'S+') {
-		highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+	//if boosting player is already in another mission, do not allow another.
+	if (!BPlayer.active) {
+		if (
+			purchaseContract.contract.contract_type === 'B' ||
+			purchaseContract.contract.contract_type === 'A'
+		) {
+			lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+		} else if (purchaseContract.contract.contract_type === 'S') {
+			mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+		} else if (purchaseContract.contract.contract_type === 'S+') {
+			highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+		}
+	} else {
+		console.log('not working');
 	}
 
 	cb({});
@@ -52,7 +58,7 @@ on(`__cfx_nui:${BoostingEvents.GET_PLAYERS}`, (data: any, cb: any) => {
 	cb({});
 });
 
-on(`__cfx_nui:${BoostingEvents.TRADE_CONTRACT}`, (data: any, cb: any) => {
-	emitNet(BoostingEvents.TRADE_CONTRACT);
+on(`__cfx_nui:${BoostingEvents.TRADE_CONTRACT}`, (tradeContract: TradeContract, cb: any) => {
+	emitNet(BoostingEvents.TRADE_CONTRACT, tradeContract);
 	cb({});
 });

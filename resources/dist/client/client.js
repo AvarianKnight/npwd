@@ -10397,7 +10397,7 @@
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
       init_fivem();
-      init_main();
+      init_main2();
       pedRadius = 30;
       dropOffSpot = () => {
         const garages = exp2["pma-garage"].AllPublicGarages();
@@ -10437,14 +10437,39 @@
     }
   });
 
+  // client/boosting/boost-tiers/medium.ts
+  var mediumTierHandler;
+  var init_medium = __esm({
+    "client/boosting/boost-tiers/medium.ts"() {
+      mediumTierHandler = (contract) => {
+        console.log("medium");
+      };
+    }
+  });
+
+  // client/boosting/boost-tiers/main.ts
+  var BPlayer;
+  var init_main = __esm({
+    "client/boosting/boost-tiers/main.ts"() {
+      init_utility();
+      init_low();
+      init_medium();
+      init_high();
+      BPlayer = {
+        active: false
+      };
+    }
+  });
+
   // client/boosting/boost-tiers/low.ts
-  var dropOffCoords, firstLegCompleted, secondLegCompleted, lowTierHandler;
+  var dropOffCoords, firstLegCompleted, secondLegCompleted, dropOffTick, lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
       init_boosting();
       init_client();
       init_coords();
+      init_main();
       init_utility();
       firstLegCompleted = false;
       secondLegCompleted = false;
@@ -10460,53 +10485,43 @@
         emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords, totalCoins);
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
+        BPlayer.active = true;
         const spawnPedTick = setTick(() => __async(void 0, null, function* () {
           if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
             const ped = yield World.createPed(new Model("A_M_M_EastSA_01"), rcs, 0, true);
             TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
-            firstLegCompleted = true;
-            if (firstLegCompleted) {
-              clearTick(spawnPedTick);
-              const obtainVehicle = setTick(() => __async(void 0, null, function* () {
-                const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
-                if (veh === 0)
-                  return;
-                const boostedVehNet = VehToNet(veh);
-                if (boostedVehNet === vehNet) {
-                  dropOffCoords = dropOffSpot();
-                  showRoute(dropOffCoords);
-                  secondLegCompleted = true;
-                }
-                if (firstLegCompleted && secondLegCompleted) {
-                  clearTick(obtainVehicle);
-                  const dropOff = setTick(() => __async(void 0, null, function* () {
-                    if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
-                      const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
-                      const boostedVehNet2 = VehToNet(veh2);
-                      if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 2 && IsControlJustPressed(0, Control.Pickup)) {
-                        const vehProps = PMA.Game.GetVehicleProperties(veh2);
-                        emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps);
-                        clearTick(dropOff);
-                      }
+            clearTick(spawnPedTick);
+            const obtainVehicleTick = setTick(() => __async(void 0, null, function* () {
+              const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
+              if (veh === 0)
+                return;
+              const boostedVehNet = VehToNet(veh);
+              if (boostedVehNet === vehNet) {
+                dropOffCoords = dropOffSpot();
+                showRoute(dropOffCoords);
+                secondLegCompleted = true;
+              }
+              if (!dropOffTick) {
+                clearTick(obtainVehicleTick);
+                dropOffTick = setTick(() => __async(void 0, null, function* () {
+                  if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+                    const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+                    const boostedVehNet2 = VehToNet(veh2);
+                    if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 2 && IsControlJustPressed(0, Control.Pickup)) {
+                      const vehProps = PMA.Game.GetVehicleProperties(veh2);
+                      emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps);
+                      BPlayer.active = false;
+                      clearTick(dropOffTick);
+                      dropOffTick = null;
                     }
-                  }));
-                }
-              }));
-            }
+                  }
+                }));
+              }
+            }));
           }
         }));
       });
-    }
-  });
-
-  // client/boosting/boost-tiers/medium.ts
-  var mediumTierHandler;
-  var init_medium = __esm({
-    "client/boosting/boost-tiers/medium.ts"() {
-      mediumTierHandler = (contract) => {
-        console.log("medium");
-      };
     }
   });
 
@@ -10517,6 +10532,7 @@
       init_property();
       init_high();
       init_low();
+      init_main();
       init_medium();
       RegisterNuiCallbackType("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
       RegisterNuiCallbackType("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */);
@@ -10538,12 +10554,16 @@
         cb({});
       });
       on(`__cfx_nui:${"npwd:boosting:startContract" /* START_CONTRACT */}`, (purchaseContract, cb) => {
-        if (purchaseContract.contract.contract_type === "B" || purchaseContract.contract.contract_type === "A") {
-          lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
-        } else if (purchaseContract.contract.contract_type === "S") {
-          mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
-        } else if (purchaseContract.contract.contract_type === "S+") {
-          highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+        if (!BPlayer.active) {
+          if (purchaseContract.contract.contract_type === "B" || purchaseContract.contract.contract_type === "A") {
+            lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+          } else if (purchaseContract.contract.contract_type === "S") {
+            mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+          } else if (purchaseContract.contract.contract_type === "S+") {
+            highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+          }
+        } else {
+          console.log("not working");
         }
         cb({});
       });
@@ -10555,8 +10575,8 @@
         emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, "boosting");
         cb({});
       });
-      on(`__cfx_nui:${"npwd:boosting:tradeContract" /* TRADE_CONTRACT */}`, (data, cb) => {
-        emitNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */);
+      on(`__cfx_nui:${"npwd:boosting:tradeContract" /* TRADE_CONTRACT */}`, (tradeContract, cb) => {
+        emitNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, tradeContract);
         cb({});
       });
     }
@@ -10564,7 +10584,7 @@
 
   // client/boosting/main.ts
   var exp2, iterator2;
-  var init_main = __esm({
+  var init_main2 = __esm({
     "client/boosting/main.ts"() {
       init_boosting();
       init_nui();
@@ -10578,6 +10598,7 @@
       });
       onNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, (players, source) => {
         const playersCopy = __spreadValues({}, players);
+        delete playersCopy[source];
         SendNUIMessage({
           app: BOOSTING_APP,
           method: "npwd:boosting:getPlayers" /* GET_PLAYERS */,
@@ -10652,7 +10673,7 @@
       import_cl_darkmarket = __toESM(require_cl_darkmarket());
       init_cl_bennys();
       import_cl_property = __toESM(require_cl_property());
-      init_main();
+      init_main2();
       ClUtils = new ClientUtils();
       PMA = exports["pma-framework"].getData();
     }

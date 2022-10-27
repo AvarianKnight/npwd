@@ -1,4 +1,4 @@
-import {BoostingEvents, BoostProfile, Contract} from '@typings/boosting';
+import {BoostingEvents, BoostProfile, Contract, TradeContract} from '@typings/boosting';
 import {PMA} from '../../server';
 import {ContractsDB} from '../modules/contracts/db';
 import {ProfileDB} from '../modules/profile/db';
@@ -42,4 +42,12 @@ onNet(BoostingEvents.DELETE_CONTRACT, async (contractId: number) => {
 
 	await contractsDB.deleteContract(contractId);
 	ply.triggerEvent(BoostingEvents.DELETE_CONTRACT);
+});
+
+onNet(BoostingEvents.TRADE_CONTRACT, async (tradeContract: TradeContract) => {
+	await contractsDB.transferContract(Number(tradeContract.player.ssn), tradeContract.contract.id);
+
+	const copyContract = {...tradeContract.contract};
+	copyContract.uid = Number(tradeContract.player.ssn);
+	emitNet(BoostingEvents.REWARD_CONTRACT, tradeContract.player.source, copyContract);
 });

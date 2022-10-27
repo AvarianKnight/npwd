@@ -2,12 +2,13 @@ import {Control, Game, Model, Vector3, World} from '@nativewrappers/client';
 import {BoostingEvents, BoostMissionEvents, Contract} from '@typings/boosting';
 import {PMA} from '../../client';
 import {LowTierCoords} from '../coords';
+import {BPlayer} from './main';
 import {dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
 
 let dropOffCoords: Vector3;
 let firstLegCompleted = false;
 let secondLegCompleted = false;
-
+let dropOffTick: number;
 /**
  * Ends boost if dead.
  */
@@ -25,6 +26,9 @@ export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
+	// if active is true you cannot start another mission at the same time.
+	BPlayer.active = true;
+
 	const spawnPedTick = setTick(async () => {
 		if (
 			Game.PlayerPed.Position.distance(coords) < 5 &&
@@ -33,47 +37,44 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 			//ped handle
 			const rcs = spawnPedRadius(coords, pedRadius);
 			const ped = await World.createPed(new Model('A_M_M_EastSA_01'), rcs, 0.0, true);
-
-			//TODO: give ped weapon?
 			TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
 
-			firstLegCompleted = true;
-
 			//After boosting vehicle, be directed to drop off location.
-			if (firstLegCompleted) {
-				clearTick(spawnPedTick);
+			clearTick(spawnPedTick);
 
-				const obtainVehicle = setTick(async () => {
-					const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
-					if (veh === 0) return;
-					const boostedVehNet = VehToNet(veh);
+			const obtainVehicleTick = setTick(async () => {
+				const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
+				if (veh === 0) return;
+				const boostedVehNet = VehToNet(veh);
 
-					if (boostedVehNet === vehNet) {
-						dropOffCoords = dropOffSpot();
-						showRoute(dropOffCoords);
-						secondLegCompleted = true;
-					}
+				if (boostedVehNet === vehNet) {
+					dropOffCoords = dropOffSpot();
+					showRoute(dropOffCoords);
+					secondLegCompleted = true;
+				}
 
-					if (firstLegCompleted && secondLegCompleted) {
-						clearTick(obtainVehicle);
-						const dropOff = setTick(async () => {
-							if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
-								const veh = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
-								const boostedVehNet = VehToNet(veh);
-								if (
-									boostedVehNet === vehNet &&
-									Game.PlayerPed.Position.distance(dropOffCoords) < 2 &&
-									IsControlJustPressed(0, Control.Pickup)
-								) {
-									const vehProps = PMA.Game.GetVehicleProperties(veh);
-									emitNet(BoostMissionEvents.REWARD_VEHICLE, vehProps);
-									clearTick(dropOff);
-								}
+				if (!dropOffTick) {
+					clearTick(obtainVehicleTick);
+					dropOffTick = setTick(async () => {
+						if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+							const veh = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+							const boostedVehNet = VehToNet(veh);
+							if (
+								boostedVehNet === vehNet &&
+								Game.PlayerPed.Position.distance(dropOffCoords) < 2 &&
+								IsControlJustPressed(0, Control.Pickup)
+							) {
+								const vehProps = PMA.Game.GetVehicleProperties(veh);
+								emitNet(BoostMissionEvents.REWARD_VEHICLE, vehProps);
+
+								BPlayer.active = false;
+								clearTick(dropOffTick);
+								dropOffTick = null;
 							}
-						});
-					}
-				});
-			}
+						}
+					});
+				}
+			});
 		}
 	});
 });

@@ -1,16 +1,16 @@
+import InjectDebugData from '@os/debug/InjectDebugData';
 import {
-	BOOSTING_APP,
 	BoostingEvents,
-	Contract,
 	BoostingProfile,
-	PurchaseContract,
+	BOOSTING_APP,
 	BoostProfile,
+	Contract,
+	ContractListAndCoins,
 } from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
 import {useNuiEvent} from 'fivem-nui-react-lib';
 import {useSetRecoilState} from 'recoil';
 import {BoostProfileState, ContractsState} from '../state/atoms';
-import InjectDebugData from '@os/debug/InjectDebugData';
 import {useBoostingNotification} from './useBoostingNotification';
 
 export const useContractsService = () => {
@@ -36,7 +36,7 @@ export const useContractsService = () => {
 		setContracts(data.contracts);
 	};
 
-	const purchaseHandler = (purchaseContract: PurchaseContract) => {
+	const purchaseHandler = (purchaseContract: ContractListAndCoins) => {
 		setContracts(purchaseContract.contracts);
 		setBoostProfile((prevState: BoostProfile) => ({
 			...prevState,

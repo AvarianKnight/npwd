@@ -15,8 +15,11 @@ export class ContractsDB {
 		await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
 	};
 
-	transferContract = async () => {
-		await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`);
+	transferContract = async (plyUid: number, contractId: number) => {
+		await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [
+			plyUid,
+			contractId,
+		]);
 	};
 
 	insertContract = async (

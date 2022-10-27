@@ -3,8 +3,8 @@ import {
 	BoostingProfile,
 	BOOSTING_APP,
 	Contract,
-	PurchaseContract,
-} from '../../../typings/boosting';
+	ContractListAndCoins,
+} from '@typings/boosting';
 import './nui';
 
 export const exp = (global as any).exports;
@@ -17,10 +17,9 @@ onNet(BoostingEvents.LOAD_BOOSTING_PROFILE, (boostingProfile: BoostingProfile) =
 	});
 });
 
-//TODO: uncomment playersCopy when done with app.
 onNet(BoostingEvents.GET_PLAYERS, (players: any, source: number) => {
 	const playersCopy = {...players};
-	// delete playersCopy[source];
+	delete playersCopy[source];
 
 	SendNUIMessage({
 		app: BOOSTING_APP,
@@ -71,7 +70,7 @@ onNet(BoostingEvents.REWARD_CONTRACT, (boostContract: Contract) => {
 	emitNet(BoostingEvents.LEAVE_WAITLIST);
 });
 
-onNet(BoostingEvents.PURCHASE_CONTRACT, (purchaseContract: PurchaseContract) => {
+onNet(BoostingEvents.PURCHASE_CONTRACT, (purchaseContract: ContractListAndCoins) => {
 	SendNUIMessage({
 		app: BOOSTING_APP,
 		method: BoostingEvents.PURCHASE_CONTRACT,
