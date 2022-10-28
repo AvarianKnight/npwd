@@ -10392,7 +10392,7 @@
   });
 
   // client/boosting/boost-tiers/utility.ts
-  var pedRadius, dropOffSpot, showRoute, spawnPedRadius;
+  var pedRadius, dropOffSpot, showRoute, spawnPedRadius, calculateExperience, experienceGainPerLevel;
   var init_utility = __esm({
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
@@ -10434,6 +10434,32 @@
         return rcs;
       };
       exports("spawnPedRadius", spawnPedRadius);
+      calculateExperience = () => {
+        const level = boosterProfile.profile.level;
+        const experienceGain = experienceGainPerLevel(level);
+        boosterProfile.profile.experience = (Number(boosterProfile.profile.experience) + experienceGain).toString();
+        if (Number(boosterProfile.profile.experience) > 100 && boosterProfile.profile.level < 5) {
+          boosterProfile.profile.experience = "0";
+          boosterProfile.profile.level = boosterProfile.profile.level + 1;
+        }
+        return boosterProfile.profile;
+      };
+      experienceGainPerLevel = (level) => {
+        switch (level) {
+          case 1:
+            return 1;
+            break;
+          case 2:
+            return 0.75;
+            break;
+          case 3:
+            return 0.5;
+            break;
+          case 4:
+            return 0.25;
+            break;
+        }
+      };
     }
   });
 
@@ -10469,6 +10495,7 @@
       init_boosting();
       init_client();
       init_coords();
+      init_main2();
       init_main();
       init_utility();
       firstLegCompleted = false;
@@ -10510,7 +10537,8 @@
                     const boostedVehNet2 = VehToNet(veh2);
                     if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 2 && IsControlJustPressed(0, Control.Pickup)) {
                       const vehProps = PMA.Game.GetVehicleProperties(veh2);
-                      emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps);
+                      boosterProfile.profile = calculateExperience();
+                      emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
                       BPlayer.active = false;
                       clearTick(dropOffTick);
                       dropOffTick = null;
@@ -10583,13 +10611,14 @@
   });
 
   // client/boosting/main.ts
-  var exp2, iterator2;
+  var exp2, boosterProfile, iterator2;
   var init_main2 = __esm({
     "client/boosting/main.ts"() {
       init_boosting();
       init_nui();
       exp2 = global.exports;
       onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, (boostingProfile) => {
+        boosterProfile = boostingProfile;
         SendNUIMessage({
           app: BOOSTING_APP,
           method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,

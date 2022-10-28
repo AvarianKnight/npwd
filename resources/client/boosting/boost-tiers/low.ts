@@ -2,13 +2,15 @@ import {Control, Game, Model, Vector3, World} from '@nativewrappers/client';
 import {BoostingEvents, BoostMissionEvents, Contract} from '@typings/boosting';
 import {PMA} from '../../client';
 import {LowTierCoords} from '../coords';
+import {boosterProfile} from '../main';
 import {BPlayer} from './main';
-import {dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
+import {calculateExperience, dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
 
 let dropOffCoords: Vector3;
 let firstLegCompleted = false;
 let secondLegCompleted = false;
 let dropOffTick: number;
+
 /**
  * Ends boost if dead.
  */
@@ -65,7 +67,13 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 								IsControlJustPressed(0, Control.Pickup)
 							) {
 								const vehProps = PMA.Game.GetVehicleProperties(veh);
-								emitNet(BoostMissionEvents.REWARD_VEHICLE, vehProps);
+								boosterProfile.profile = calculateExperience();
+
+								emitNet(
+									BoostMissionEvents.REWARD_VEHICLE,
+									vehProps,
+									boosterProfile.profile,
+								);
 
 								BPlayer.active = false;
 								clearTick(dropOffTick);

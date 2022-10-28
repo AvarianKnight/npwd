@@ -1,5 +1,5 @@
 import {Vector3} from '@nativewrappers/client/lib/utils/Vector3';
-import {BoostingEvents, BoostMissionEvents, Contract} from '@typings/boosting';
+import {BoostingEvents, BoostMissionEvents, BoostProfile, Contract} from '@typings/boosting';
 import {PMA} from '../../server';
 import {BoostsDB} from '../modules/boosts/db';
 import {BoostMission} from '../modules/boosts/service';
@@ -42,7 +42,12 @@ onNet(
 	},
 );
 
-onNet(BoostMissionEvents.REWARD_VEHICLE, async (vehProps: any) => {
+onNet(BoostMissionEvents.REWARD_VEHICLE, async (vehProps: any, boostProfile: BoostProfile) => {
 	const ply = PMA.getPlayerFromId(source);
+
+	//deposit vehicle in inventory
 	await boostsDB.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+
+	//update experience and/or level
+	await profilesDB.updateExperience(boostProfile, ply.uniqueId);
 });

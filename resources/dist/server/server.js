@@ -47093,6 +47093,9 @@ var ProfileDB = class {
       uid
     ]);
   };
+  updateExperience = async (boostProfile, uid) => {
+    await ox.execute_async(`UPDATE boosting_profile SET level = ?, experience = ? WHERE uid = ?`, [boostProfile.level, boostProfile.experience, uid]);
+  };
 };
 
 // server/boosting/modules/boosts/db.ts
@@ -47148,7 +47151,10 @@ var ContractsDB = class {
     await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
   };
   transferContract = async (plyUid, contractId) => {
-    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [plyUid, contractId]);
+    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [
+      plyUid,
+      contractId
+    ]);
   };
   insertContract = async (ssn, vehicleType, expires, cost, carModel) => {
     const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
@@ -47282,9 +47288,10 @@ onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coord
     console.log("too much");
   }
 });
-onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps) => {
+onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boostProfile) => {
   const ply = PMA.getPlayerFromId(source);
   await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+  await profilesDB.updateExperience(boostProfile, ply.uniqueId);
 });
 
 // server/bridge/bridge.utils.ts

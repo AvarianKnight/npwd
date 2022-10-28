@@ -9,7 +9,11 @@ import './nui';
 
 export const exp = (global as any).exports;
 
+export let boosterProfile: BoostingProfile;
+
 onNet(BoostingEvents.LOAD_BOOSTING_PROFILE, (boostingProfile: BoostingProfile) => {
+	boosterProfile = boostingProfile;
+
 	SendNUIMessage({
 		app: BOOSTING_APP,
 		method: BoostingEvents.LOAD_BOOSTING_PROFILE,

@@ -24,4 +24,11 @@ export class ProfileDB {
 			uid,
 		]);
 	};
+
+	updateExperience = async (boostProfile: BoostProfile, uid: number) => {
+		await ox.execute_async(
+			`UPDATE boosting_profile SET level = ?, experience = ? WHERE uid = ?`,
+			[boostProfile.level, boostProfile.experience, uid],
+		);
+	};
 }

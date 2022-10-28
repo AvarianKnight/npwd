@@ -1,6 +1,6 @@
 import {BlipColor, Game, Vector3, World} from '@nativewrappers/client';
 import {Delay} from '@utils/*';
-import {exp} from '../main';
+import {boosterProfile, exp} from '../main';
 
 export const pedRadius = 30;
 
@@ -61,3 +61,33 @@ export const spawnPedRadius = (coords: Vector3, radius: number) => {
 };
 
 exports('spawnPedRadius', spawnPedRadius);
+
+export const calculateExperience = () => {
+	const level = boosterProfile.profile.level;
+	const experienceGain = experienceGainPerLevel(level);
+	boosterProfile.profile.experience = (
+		Number(boosterProfile.profile.experience) + experienceGain
+	).toString();
+	if (Number(boosterProfile.profile.experience) > 100 && boosterProfile.profile.level < 5) {
+		boosterProfile.profile.experience = '0';
+		boosterProfile.profile.level = boosterProfile.profile.level + 1;
+	}
+	return boosterProfile.profile;
+};
+
+const experienceGainPerLevel = (level: number) => {
+	switch (level) {
+		case 1:
+			return 1.0;
+			break;
+		case 2:
+			return 0.75;
+			break;
+		case 3:
+			return 0.5;
+			break;
+		case 4:
+			return 0.25;
+			break;
+	}
+};
