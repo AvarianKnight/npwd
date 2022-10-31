@@ -10396,7 +10396,6 @@
   var init_utility = __esm({
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
-      init_fivem();
       init_main2();
       pedRadius = 30;
       dropOffSpot = () => {
@@ -10410,19 +10409,7 @@
         return dropoff;
       };
       showRoute = (coords) => {
-        const blip = World.createBlip(coords, 5);
-        blip.Name = "Boost Location";
-        blip.ShowRoute = true;
-        blip.Sprite = 175;
-        blip.Color = BlipColor.Yellow;
-        SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
-        const boostTick = setTick(() => __async(void 0, null, function* () {
-          if (Game.PlayerPed.Position.distance(coords) < 10) {
-            yield Delay(250);
-            blip.delete();
-            clearTick(boostTick);
-          }
-        }));
+        SetNewWaypoint(coords.x, coords.y);
       };
       spawnPedRadius = (coords, radius) => {
         const rcs = new Vector3(coords.x + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1), coords.y + Math.floor(Math.random() * (radius - 1) + 1) * (Math.round(Math.random()) ? 1 : -1), coords.z);
@@ -10488,7 +10475,7 @@
   });
 
   // client/boosting/boost-tiers/low.ts
-  var dropOffCoords, firstLegCompleted, secondLegCompleted, dropOffTick, lowTierHandler;
+  var dropOffCoords, firstLegCompleted, secondLegCompleted, dropOffTick, promptHack, lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
@@ -10500,6 +10487,7 @@
       init_utility();
       firstLegCompleted = false;
       secondLegCompleted = false;
+      promptHack = false;
       on("pma:onPlayerDeath", () => {
         if (firstLegCompleted || secondLegCompleted) {
           firstLegCompleted = false;
@@ -10517,7 +10505,10 @@
           if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
             const ped = yield World.createPed(new Model("A_M_M_EastSA_01"), rcs, 0, true);
+            SetPedCombatAttributes(ped.Handle, 5, true);
+            SetPedCombatAttributes(ped.Handle, 46, true);
             TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
+            SetPedKeepTask(ped.Handle, true);
             clearTick(spawnPedTick);
             const obtainVehicleTick = setTick(() => __async(void 0, null, function* () {
               const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
@@ -10531,20 +10522,37 @@
               }
               if (!dropOffTick) {
                 clearTick(obtainVehicleTick);
-                dropOffTick = setTick(() => __async(void 0, null, function* () {
-                  if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
-                    const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
-                    const boostedVehNet2 = VehToNet(veh2);
-                    if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 2 && IsControlJustPressed(0, Control.Pickup)) {
-                      const vehProps = PMA.Game.GetVehicleProperties(veh2);
-                      boosterProfile.profile = calculateExperience();
-                      emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
-                      BPlayer.active = false;
-                      clearTick(dropOffTick);
-                      dropOffTick = null;
-                    }
+                const radius = Math.floor(Math.random() * (1e3 - 250) + 250);
+                const randomSeconds = Math.floor(Math.random() * (15e3 - 12e3) + 12e3);
+                const randomRounds = Math.floor(Math.random() * (5 - 2) + 2);
+                const hackTick = setTick(() => {
+                  if (Game.PlayerPed.Position.distance(dropOffCoords) < radius && !promptHack) {
+                    promptHack = true;
+                    exp2["pma-hack"].startHacking(randomSeconds, randomRounds, (success) => {
+                      if (success) {
+                        clearTick(hackTick);
+                        dropOffTick = setTick(() => __async(void 0, null, function* () {
+                          if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+                            const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+                            const boostedVehNet2 = VehToNet(veh2);
+                            if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 3 && IsControlJustPressed(0, Control.Pickup)) {
+                              console.log("yay");
+                              const vehProps = PMA.Game.GetVehicleProperties(veh2);
+                              boosterProfile.profile = calculateExperience();
+                              emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
+                              BPlayer.active = false;
+                              clearTick(dropOffTick);
+                              dropOffTick = null;
+                            }
+                          }
+                        }));
+                      } else {
+                        emit("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+                        clearTick(hackTick);
+                      }
+                    });
                   }
-                }));
+                });
               }
             }));
           }
@@ -10675,6 +10683,25 @@
           app: BOOSTING_APP,
           method: "PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */,
           data: purchaseContract
+        });
+      });
+      onNet("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, (msg) => {
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */,
+          data: msg
+        });
+      });
+      on("npwd:boosting:failBoost" /* FAIL_VEHICLE */, () => {
+        ClearGpsPlayerWaypoint();
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "SEND_NOTIFICATION" /* SEND_NOTIFICATION */,
+          data: {
+            title: "Bo0ST3Dz",
+            boostNotify: iterator2 += 1,
+            message: "Failed - contract has been destroyed!"
+          }
         });
       });
     }

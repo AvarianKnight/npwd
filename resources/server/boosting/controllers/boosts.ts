@@ -16,28 +16,39 @@ onNet(
 	async (contract: Contract, coords: Vector3, totalCoins: number) => {
 		const ply = PMA.getPlayerFromId(source);
 
-		if (totalCoins > contract.cost) {
-			const newCoinTotal = totalCoins - contract.cost;
-			await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
-			await contractsDB.deleteContract(contract.id);
-			const contractList: Contract[] = await contractsDB.fetchContracts(ply.uniqueId);
-			const veh = await boostMission.spawnCar(contract.vehicle, coords);
-			SetVehicleDoorsLocked(veh, 2);
+		const calculateSubtraction = totalCoins - contract.cost;
+		if (calculateSubtraction >= 0) {
+			if (ply.getInventoryItem('raspberry').quantity > 0) {
+				const newCoinTotal = totalCoins - contract.cost;
+				await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
+				await contractsDB.deleteContract(contract.id);
+				const contractList: Contract[] = await contractsDB.fetchContracts(ply.uniqueId);
+				const veh = await boostMission.spawnCar(contract.vehicle, coords);
+				SetVehicleDoorsLocked(veh, 2);
 
-			ply.triggerEvent(BoostingEvents.PURCHASE_CONTRACT, {
-				small_coin: newCoinTotal,
-				contracts: contractList,
-			});
+				ply.triggerEvent(BoostingEvents.PURCHASE_CONTRACT, {
+					small_coin: newCoinTotal,
+					contracts: contractList,
+				});
 
-			if (contract.contract_type === 'B') {
+				if (contract.contract_type === 'B') {
+					ply.triggerEvent(
+						BoostingEvents.LOW_TIER_MISSION,
+						NetworkGetNetworkIdFromEntity(veh),
+						coords,
+					);
+				}
+			} else {
 				ply.triggerEvent(
-					BoostingEvents.LOW_TIER_MISSION,
-					NetworkGetNetworkIdFromEntity(veh),
-					coords,
+					BoostingEvents.MISSING_EQUIPMENT,
+					'You are missing a required item.',
 				);
 			}
 		} else {
-			console.log('too much');
+			ply.triggerEvent(
+				BoostingEvents.MISSING_EQUIPMENT,
+				'You are missing the required coins.',
+			);
 		}
 	},
 );

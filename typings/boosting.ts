@@ -16,11 +16,13 @@ export enum BoostingEvents {
 	SEND_NOTIFICATION = 'SEND_NOTIFICATION',
 	LOW_TIER_MISSION = 'LOW_TIER_MISSION',
 	PURCHASE_CONTRACT = 'PURCHASE_CONTRACT',
+	MISSING_EQUIPMENT = 'MISSING_EQUIPMENT',
 }
 
 export enum BoostMissionEvents {
 	SPAWN_ATTACKER = 'npwd:boosting:spawnAttacker',
 	REWARD_VEHICLE = 'npwd:boosting:rewardVehicle',
+	FAIL_VEHICLE = 'npwd:boosting:failBoost',
 }
 
 export interface BoostList {

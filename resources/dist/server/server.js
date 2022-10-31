@@ -47270,22 +47270,27 @@ var contractsDB3 = new ContractsDB();
 var profilesDB = new ProfileDB();
 onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords, totalCoins) => {
   const ply = PMA.getPlayerFromId(source);
-  if (totalCoins > contract.cost) {
-    const newCoinTotal = totalCoins - contract.cost;
-    await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
-    await contractsDB3.deleteContract(contract.id);
-    const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
-    const veh = await boostMission.spawnCar(contract.vehicle, coords);
-    SetVehicleDoorsLocked(veh, 2);
-    ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
-      small_coin: newCoinTotal,
-      contracts: contractList
-    });
-    if (contract.contract_type === "B") {
-      ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+  const calculateSubtraction = totalCoins - contract.cost;
+  if (calculateSubtraction >= 0) {
+    if (ply.getInventoryItem("raspberry").quantity > 0) {
+      const newCoinTotal = totalCoins - contract.cost;
+      await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
+      await contractsDB3.deleteContract(contract.id);
+      const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
+      const veh = await boostMission.spawnCar(contract.vehicle, coords);
+      SetVehicleDoorsLocked(veh, 2);
+      ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
+        small_coin: newCoinTotal,
+        contracts: contractList
+      });
+      if (contract.contract_type === "B") {
+        ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+      }
+    } else {
+      ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing a required item.");
     }
   } else {
-    console.log("too much");
+    ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing the required coins.");
   }
 });
 onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boostProfile) => {

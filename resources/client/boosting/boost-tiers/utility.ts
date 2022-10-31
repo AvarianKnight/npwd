@@ -1,5 +1,4 @@
-import {BlipColor, Game, Vector3, World} from '@nativewrappers/client';
-import {Delay} from '@utils/*';
+import {Vector3} from '@nativewrappers/client';
 import {boosterProfile, exp} from '../main';
 
 export const pedRadius = 30;
@@ -22,20 +21,7 @@ export const dropOffSpot = () => {
  * @param coords
  */
 export const showRoute = (coords: Vector3) => {
-	const blip = World.createBlip(coords, 5.0);
-	blip.Name = 'Boost Location';
-	blip.ShowRoute = true;
-	blip.Sprite = 175;
-	blip.Color = BlipColor.Yellow;
-	SetBlipRouteColour(blip.Handle, BlipColor.Yellow);
-
-	const boostTick = setTick(async () => {
-		if (Game.PlayerPed.Position.distance(coords) < 10) {
-			await Delay(250);
-			blip.delete();
-			clearTick(boostTick);
-		}
-	});
+	SetNewWaypoint(coords.x, coords.y);
 };
 
 export const spawnPedRadius = (coords: Vector3, radius: number) => {

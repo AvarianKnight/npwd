@@ -2,6 +2,7 @@ import {
 	BoostingEvents,
 	BoostingProfile,
 	BOOSTING_APP,
+	BoostMissionEvents,
 	Contract,
 	ContractListAndCoins,
 } from '@typings/boosting';
@@ -79,5 +80,26 @@ onNet(BoostingEvents.PURCHASE_CONTRACT, (purchaseContract: ContractListAndCoins)
 		app: BOOSTING_APP,
 		method: BoostingEvents.PURCHASE_CONTRACT,
 		data: purchaseContract,
+	});
+});
+
+onNet(BoostingEvents.MISSING_EQUIPMENT, (msg: string) => {
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostingEvents.MISSING_EQUIPMENT,
+		data: msg,
+	});
+});
+
+on(BoostMissionEvents.FAIL_VEHICLE, () => {
+	ClearGpsPlayerWaypoint();
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostingEvents.SEND_NOTIFICATION,
+		data: {
+			title: 'Bo0ST3Dz',
+			boostNotify: (iterator += 1),
+			message: 'Failed - contract has been destroyed!',
+		},
 	});
 });

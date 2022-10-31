@@ -10,6 +10,7 @@ import {
 import {PromptState} from '@ui/state/PromptState';
 import {useNuiEvent} from 'fivem-nui-react-lib';
 import {useSetRecoilState} from 'recoil';
+import {useSnackbar} from '../../../os/snackbar/hooks/useSnackbar';
 import {BoostProfileState, ContractsState} from '../state/atoms';
 import {useBoostingNotification} from './useBoostingNotification';
 
@@ -18,6 +19,7 @@ export const useContractsService = () => {
 	const setContracts = useSetRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const {setNotification} = useBoostingNotification();
+	const {addAlert} = useSnackbar();
 
 	const closePrompt = () => {
 		setPrompt({
@@ -44,12 +46,20 @@ export const useContractsService = () => {
 		}));
 	};
 
+	const alertHandler = (msg: string) => {
+		addAlert({
+			message: msg,
+			type: 'error',
+		});
+	};
+
 	useNuiEvent(BOOSTING_APP, BoostingEvents.LOAD_BOOSTING_PROFILE, setProfileHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.FETCH_CONTRACTS, setContracts);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.PURCHASE_CONTRACT, purchaseHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.DELETE_CONTRACT, closePrompt);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.TRADE_CONTRACT, closePrompt);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.REWARD_CONTRACT, rewardContractHandler);
+	useNuiEvent(BOOSTING_APP, BoostingEvents.MISSING_EQUIPMENT, alertHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotification);
 };
 
