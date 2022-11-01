@@ -4,21 +4,23 @@ import {PMA} from '../../client';
 import {LowTierCoords} from '../coords';
 import {boosterProfile, exp} from '../main';
 import {BPlayer} from './main';
-import {calculateExperience, dropOffSpot, pedRadius, showRoute, spawnPedRadius} from './utility';
+import {
+	calculateExperience,
+	dropOffSpot,
+	pedRadius,
+	randomWeaponSelector,
+	resetBoostMissions,
+	showRoute,
+	spawnPedRadius,
+} from './utility';
 
-let dropOffCoords: Vector3;
-let firstLegCompleted = false;
-let secondLegCompleted = false;
-let dropOffTick: number;
-let hackTick: number;
-let promptHack = false;
 /**
  * Ends boost if dead.
  */
 on('pma:onPlayerDeath', () => {
-	if (firstLegCompleted || secondLegCompleted) {
-		firstLegCompleted = false;
-		secondLegCompleted = false;
+	if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
+		BPlayer.firstLegCompleted = false;
+		BPlayer.secondLegCompleted = false;
 	}
 });
 
@@ -32,9 +34,10 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 	// if active is true you cannot start another mission at the same time.
 	BPlayer.active = true;
 
-	const spawnPedTick = setTick(async () => {
+	BPlayer.spawnPedTick = setTick(async () => {
 		if (
-			Game.PlayerPed.Position.distance(coords) < 5 &&
+			exp['pma-inv'].getInventoryItem('lockpick').quantity > 0 &&
+			Game.PlayerPed.Position.distance(coords) < 3 &&
 			IsControlJustPressed(0, Control.Pickup)
 		) {
 			//ped handle
@@ -42,45 +45,60 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 			const ped = await World.createPed(new Model('A_M_M_EastSA_01'), rcs, 0.0, true);
 
 			//ped combat
+			SetPedCombatAttributes(ped.Handle, 3, false);
 			SetPedCombatAttributes(ped.Handle, 5, true);
 			SetPedCombatAttributes(ped.Handle, 46, true);
-			TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
+			SetEntityAsMissionEntity(ped.Handle, false, false);
+			SetPedAccuracy(ped.Handle, 100);
+			SetPedMaxHealth(ped.Handle, 400);
+			SetEntityHealth(ped.Handle, 400);
+			GiveWeaponToPed(ped.Handle, GetHashKey(randomWeaponSelector()), 5000, true, true);
+			SetPedDropsWeaponsWhenDead(ped.Handle, false);
+			TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 16);
 			SetPedKeepTask(ped.Handle, true);
 
 			//After boosting vehicle, be directed to drop off location.
-			clearTick(spawnPedTick);
-
+			clearTick(BPlayer.spawnPedTick);
+			BPlayer.spawnPedTick = null;
 			const obtainVehicleTick = setTick(async () => {
 				const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
 				if (veh === 0) return;
 				const boostedVehNet = VehToNet(veh);
 
 				if (boostedVehNet === vehNet) {
-					dropOffCoords = dropOffSpot();
-					showRoute(dropOffCoords);
-					secondLegCompleted = true;
+					BPlayer.dropOffCoords = dropOffSpot();
+					showRoute(BPlayer.dropOffCoords);
+					BPlayer.secondLegCompleted = true;
 				}
 
-				if (!dropOffTick) {
+				if (!BPlayer.dropOffTick) {
 					clearTick(obtainVehicleTick);
 					const radius = Math.floor(Math.random() * (1000 - 250) + 250);
 					const randomSeconds = Math.floor(Math.random() * (15000 - 12000) + 12000);
 					const randomRounds = Math.floor(Math.random() * (5 - 2) + 2);
-					const hackTick = setTick(() => {
+
+					// if ped is in any vehicle, this allows them to use friends to get involved as the missions get harder.
+					// one you're closer, the radius is randomized to prompt the player, if player passes - they are good.
+					BPlayer.hackTick = setTick(() => {
 						if (
-							Game.PlayerPed.Position.distance(dropOffCoords) < radius &&
-							!promptHack
+							Game.PlayerPed.isInAnyVehicle() &&
+							Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < radius &&
+							!BPlayer.promptHack
 						) {
-							promptHack = true;
+							BPlayer.promptHack = true;
 							exp['pma-hack'].startHacking(
 								randomSeconds,
 								randomRounds,
 								(success: boolean) => {
 									if (success) {
-										clearTick(hackTick);
-										dropOffTick = setTick(async () => {
+										clearTick(BPlayer.hackTick);
+
+										// only the driver will be able to get the reward, they will have to swap seats.
+										BPlayer.dropOffTick = setTick(async () => {
 											if (
-												Game.PlayerPed.Position.distance(dropOffCoords) < 5
+												Game.PlayerPed.Position.distance(
+													BPlayer.dropOffCoords,
+												) < 10
 											) {
 												const veh = GetVehiclePedIsIn(
 													Game.PlayerPed.Handle,
@@ -90,30 +108,27 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 												if (
 													boostedVehNet === vehNet &&
 													Game.PlayerPed.Position.distance(
-														dropOffCoords,
-													) < 3 &&
+														BPlayer.dropOffCoords,
+													) < 5 &&
 													IsControlJustPressed(0, Control.Pickup)
 												) {
-													console.log('yay');
 													const vehProps =
 														PMA.Game.GetVehicleProperties(veh);
 													boosterProfile.profile = calculateExperience();
 
+													resetBoostMissions();
 													emitNet(
 														BoostMissionEvents.REWARD_VEHICLE,
 														vehProps,
 														boosterProfile.profile,
 													);
-
-													BPlayer.active = false;
-													clearTick(dropOffTick);
-													dropOffTick = null;
 												}
 											}
 										});
 									} else {
+										// reset boost if failed
+										resetBoostMissions();
 										emit(BoostMissionEvents.FAIL_VEHICLE);
-										clearTick(hackTick);
 									}
 								},
 							);

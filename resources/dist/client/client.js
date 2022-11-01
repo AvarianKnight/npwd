@@ -10392,11 +10392,12 @@
   });
 
   // client/boosting/boost-tiers/utility.ts
-  var pedRadius, dropOffSpot, showRoute, spawnPedRadius, calculateExperience, experienceGainPerLevel;
+  var pedRadius, dropOffSpot, showRoute, spawnPedRadius, calculateExperience, experienceGainPerLevel, resetBoostMissions, randomWeaponSelector;
   var init_utility = __esm({
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
       init_main2();
+      init_main();
       pedRadius = 30;
       dropOffSpot = () => {
         const garages = exp2["pma-garage"].AllPublicGarages();
@@ -10447,6 +10448,35 @@
             break;
         }
       };
+      on("pma:onPlayerDeath", () => {
+        if (BPlayer.active) {
+          resetBoostMissions();
+        }
+      });
+      resetBoostMissions = () => {
+        BPlayer.active = false;
+        BPlayer.dropOffCoords = null;
+        BPlayer.firstLegCompleted = false;
+        BPlayer.secondLegCompleted = false;
+        clearTick(BPlayer.spawnPedTick);
+        BPlayer.spawnPedTick = null;
+        clearTick(BPlayer.dropOffTick);
+        BPlayer.dropOffTick = null;
+        clearTick(BPlayer.hackTick);
+        BPlayer.hackTick = null;
+        BPlayer.promptHack = null;
+      };
+      randomWeaponSelector = () => {
+        const weaponList = [
+          "WEAPON_PISTOL_MK2",
+          "WEAPON_BAT",
+          "WEAPON_APPISTOL",
+          "WEAPON_CRUTCH",
+          "WEAPON_DAGGER",
+          "WEAPON_GUITAR"
+        ];
+        return weaponList[Math.floor(Math.random() * weaponList.length + 0)];
+      };
     }
   });
 
@@ -10469,13 +10499,20 @@
       init_medium();
       init_high();
       BPlayer = {
-        active: false
+        active: false,
+        dropOffCoords: null,
+        firstLegCompleted: false,
+        secondLegCompleted: false,
+        spawnPedTick: null,
+        dropOffTick: null,
+        hackTick: null,
+        promptHack: false
       };
     }
   });
 
   // client/boosting/boost-tiers/low.ts
-  var dropOffCoords, firstLegCompleted, secondLegCompleted, dropOffTick, promptHack, lowTierHandler;
+  var lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
@@ -10485,13 +10522,10 @@
       init_main2();
       init_main();
       init_utility();
-      firstLegCompleted = false;
-      secondLegCompleted = false;
-      promptHack = false;
       on("pma:onPlayerDeath", () => {
-        if (firstLegCompleted || secondLegCompleted) {
-          firstLegCompleted = false;
-          secondLegCompleted = false;
+        if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
+          BPlayer.firstLegCompleted = false;
+          BPlayer.secondLegCompleted = false;
         }
       });
       lowTierHandler = (contract, totalCoins) => {
@@ -10501,54 +10535,59 @@
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
         BPlayer.active = true;
-        const spawnPedTick = setTick(() => __async(void 0, null, function* () {
-          if (Game.PlayerPed.Position.distance(coords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
+        BPlayer.spawnPedTick = setTick(() => __async(void 0, null, function* () {
+          if (exp2["pma-inv"].getInventoryItem("lockpick").quantity > 0 && Game.PlayerPed.Position.distance(coords) < 3 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
             const ped = yield World.createPed(new Model("A_M_M_EastSA_01"), rcs, 0, true);
+            SetPedCombatAttributes(ped.Handle, 3, false);
             SetPedCombatAttributes(ped.Handle, 5, true);
             SetPedCombatAttributes(ped.Handle, 46, true);
-            TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 1);
+            SetEntityAsMissionEntity(ped.Handle, false, false);
+            SetPedAccuracy(ped.Handle, 100);
+            SetPedMaxHealth(ped.Handle, 400);
+            SetEntityHealth(ped.Handle, 400);
+            GiveWeaponToPed(ped.Handle, GetHashKey(randomWeaponSelector()), 5e3, true, true);
+            SetPedDropsWeaponsWhenDead(ped.Handle, false);
+            TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 16);
             SetPedKeepTask(ped.Handle, true);
-            clearTick(spawnPedTick);
+            clearTick(BPlayer.spawnPedTick);
+            BPlayer.spawnPedTick = null;
             const obtainVehicleTick = setTick(() => __async(void 0, null, function* () {
               const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
               if (veh === 0)
                 return;
               const boostedVehNet = VehToNet(veh);
               if (boostedVehNet === vehNet) {
-                dropOffCoords = dropOffSpot();
-                showRoute(dropOffCoords);
-                secondLegCompleted = true;
+                BPlayer.dropOffCoords = dropOffSpot();
+                showRoute(BPlayer.dropOffCoords);
+                BPlayer.secondLegCompleted = true;
               }
-              if (!dropOffTick) {
+              if (!BPlayer.dropOffTick) {
                 clearTick(obtainVehicleTick);
                 const radius = Math.floor(Math.random() * (1e3 - 250) + 250);
                 const randomSeconds = Math.floor(Math.random() * (15e3 - 12e3) + 12e3);
                 const randomRounds = Math.floor(Math.random() * (5 - 2) + 2);
-                const hackTick = setTick(() => {
-                  if (Game.PlayerPed.Position.distance(dropOffCoords) < radius && !promptHack) {
-                    promptHack = true;
+                BPlayer.hackTick = setTick(() => {
+                  if (Game.PlayerPed.isInAnyVehicle() && Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < radius && !BPlayer.promptHack) {
+                    BPlayer.promptHack = true;
                     exp2["pma-hack"].startHacking(randomSeconds, randomRounds, (success) => {
                       if (success) {
-                        clearTick(hackTick);
-                        dropOffTick = setTick(() => __async(void 0, null, function* () {
-                          if (Game.PlayerPed.Position.distance(dropOffCoords) < 5) {
+                        clearTick(BPlayer.hackTick);
+                        BPlayer.dropOffTick = setTick(() => __async(void 0, null, function* () {
+                          if (Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < 10) {
                             const veh2 = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
                             const boostedVehNet2 = VehToNet(veh2);
-                            if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(dropOffCoords) < 3 && IsControlJustPressed(0, Control.Pickup)) {
-                              console.log("yay");
+                            if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
                               const vehProps = PMA.Game.GetVehicleProperties(veh2);
                               boosterProfile.profile = calculateExperience();
+                              resetBoostMissions();
                               emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
-                              BPlayer.active = false;
-                              clearTick(dropOffTick);
-                              dropOffTick = null;
                             }
                           }
                         }));
                       } else {
+                        resetBoostMissions();
                         emit("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
-                        clearTick(hackTick);
                       }
                     });
                   }

@@ -1,7 +1,17 @@
 import {Vector3} from '@nativewrappers/client';
 import {boosterProfile, exp} from '../main';
+import {BPlayer} from './main';
 
 export const pedRadius = 30;
+
+// Mission variables
+// export let dropOffCoords: Vector3;
+// export let firstLegCompleted = false;
+// export let secondLegCompleted = false;
+// export let spawnPedTick: number;
+// export let dropOffTick: number;
+// export let hackTick: number;
+// export let promptHack = false;
 
 export const dropOffSpot = () => {
 	const garages = exp['pma-garage'].AllPublicGarages();
@@ -76,4 +86,37 @@ const experienceGainPerLevel = (level: number) => {
 			return 0.25;
 			break;
 	}
+};
+
+on('pma:onPlayerDeath', () => {
+	if (BPlayer.active) {
+		resetBoostMissions();
+	}
+});
+
+export const resetBoostMissions = () => {
+	BPlayer.active = false;
+	BPlayer.dropOffCoords = null;
+	BPlayer.firstLegCompleted = false;
+	BPlayer.secondLegCompleted = false;
+	clearTick(BPlayer.spawnPedTick);
+	BPlayer.spawnPedTick = null;
+	clearTick(BPlayer.dropOffTick);
+	BPlayer.dropOffTick = null;
+	clearTick(BPlayer.hackTick);
+	BPlayer.hackTick = null;
+	BPlayer.promptHack = null;
+};
+
+export const randomWeaponSelector = () => {
+	const weaponList = [
+		'WEAPON_PISTOL_MK2',
+		'WEAPON_BAT',
+		'WEAPON_APPISTOL',
+		'WEAPON_CRUTCH',
+		'WEAPON_DAGGER',
+		'WEAPON_GUITAR',
+	];
+
+	return weaponList[Math.floor(Math.random() * weaponList.length + 0)];
 };
