@@ -41,11 +41,10 @@ on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (purchaseContract: PurchaseCont
 		} else if (purchaseContract.contract.contract_type === 'S+') {
 			highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
 		}
+		cb({data: true});
 	} else {
-		console.log('not working');
+		cb({data: false});
 	}
-
-	cb({});
 });
 
 on(`__cfx_nui:${BoostingEvents.DELETE_CONTRACT}`, (contract: Contract, cb: any) => {

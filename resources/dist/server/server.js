@@ -45955,6 +45955,47 @@ var _MessagesService = class {
       resp({ status: "error", errorMsg: err.message });
     }
   }
+  async handleSendMessageDark(reqObj, resp) {
+    try {
+      const authorPhoneNumber = "666-000-6969";
+      const conversationList = createGroupHashID([authorPhoneNumber, reqObj.phoneNumber]);
+      let conversationId;
+      const doesExist = await this.messagesDB.doesConversationExist(conversationList);
+      if (!doesExist) {
+        conversationId = await messages_db_default.createConversation([authorPhoneNumber, reqObj.phoneNumber], conversationList, "UNKNOWN NUMBER", false);
+      } else {
+        conversationId = await messages_db_default.getConversationId(conversationList);
+      }
+      const messageId = await this.messagesDB.createMessage({
+        userIdentifier: "b00st3D",
+        authorPhoneNumber,
+        conversationId,
+        message: reqObj.message,
+        is_embed: false,
+        embed: false
+      });
+      const messageData = {
+        id: messageId,
+        message: reqObj.message,
+        conversationList,
+        conversation_id: conversationId,
+        author: authorPhoneNumber
+      };
+      emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, reqObj.source, {
+        ...messageData,
+        conversation_id: conversationId,
+        author: reqObj.phoneNumber
+      });
+      emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, reqObj.source, {
+        conversationName: "H4XZ",
+        conversation_id: conversationId,
+        message: messageData.message
+      });
+      await this.messagesDB.setMessageUnread(conversationId, reqObj.phoneNumber);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async handleSetMessageRead(reqObj, resp) {
     const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
     try {
@@ -46080,6 +46121,9 @@ onNetPromise("npwd:sendMessage" /* SEND_MESSAGE */, async (reqObj, resp) => {
     messagesLogger.error(`Error occurred while sending message (${reqObj.source}), Error: ${e.message}`);
     resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
   });
+});
+on("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, async (reqObj, resp) => {
+  await messages_service_default.handleSendMessageDark(reqObj, resp);
 });
 onNetPromise("nwpd:deleteConversation" /* DELETE_CONVERSATION */, async (reqObj, resp) => {
   messages_service_default.handleDeleteConversation(reqObj, resp).catch((e) => {
@@ -47297,6 +47341,16 @@ onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boost
   const ply = PMA.getPlayerFromId(source);
   await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
   await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+});
+onNet("SEND_TEXT" /* SEND_TEXT */, () => {
+  const plySrc = source;
+  const ply = PMA.getPlayerFromId(plySrc);
+  const dataObj = {
+    source: plySrc,
+    phoneNumber: ply.getPhoneNumber(),
+    message: "The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck."
+  };
+  emit("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, dataObj);
 });
 
 // server/bridge/bridge.utils.ts

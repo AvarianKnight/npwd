@@ -19,20 +19,24 @@ import {
  */
 on('pma:onPlayerDeath', () => {
 	if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
-		BPlayer.firstLegCompleted = false;
-		BPlayer.secondLegCompleted = false;
+		resetBoostMissions();
 	}
 });
 
 export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 	const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
-	showRoute(randomCoords);
 	emitNet(BoostingEvents.START_CONTRACT, contract, randomCoords, totalCoins);
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
+	// emitNet(MessageEvents.SEND_MESSAGE, {tgtPhoneNumber: });
+	// PMA.ShowNotification(
+	// 	'Time is ticking, if the vehicle is not there on your arrival, the contract is canceled.',
+	// );
+	emitNet(BoostingEvents.SEND_TEXT);
 	// if active is true you cannot start another mission at the same time.
 	BPlayer.active = true;
+	showRoute(coords);
 
 	BPlayer.spawnPedTick = setTick(async () => {
 		if (

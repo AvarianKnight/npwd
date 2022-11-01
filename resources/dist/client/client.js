@@ -10383,11 +10383,13 @@
   });
 
   // client/boosting/coords.ts
-  var LowTierCoords;
+  var LowTierCoords, MidTierCoords, HighTierCoords;
   var init_coords = __esm({
     "client/boosting/coords.ts"() {
       init_lib();
-      LowTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
+      LowTierCoords = [new Vector3(-507.7, -608.7, 25.3), new Vector3(-507.7, -608.7, 25.3), new Vector3(-507.7, -608.7, 25.3)];
+      MidTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
+      HighTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
     }
   });
 
@@ -10524,17 +10526,17 @@
       init_utility();
       on("pma:onPlayerDeath", () => {
         if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
-          BPlayer.firstLegCompleted = false;
-          BPlayer.secondLegCompleted = false;
+          resetBoostMissions();
         }
       });
       lowTierHandler = (contract, totalCoins) => {
         const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
-        showRoute(randomCoords);
         emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords, totalCoins);
       };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
+        emitNet("SEND_TEXT" /* SEND_TEXT */);
         BPlayer.active = true;
+        showRoute(coords);
         BPlayer.spawnPedTick = setTick(() => __async(void 0, null, function* () {
           if (exp2["pma-inv"].getInventoryItem("lockpick").quantity > 0 && Game.PlayerPed.Position.distance(coords) < 3 && IsControlJustPressed(0, Control.Pickup)) {
             const rcs = spawnPedRadius(coords, pedRadius);
@@ -10637,10 +10639,10 @@
           } else if (purchaseContract.contract.contract_type === "S+") {
             highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
           }
+          cb({ data: true });
         } else {
-          console.log("not working");
+          cb({ data: false });
         }
-        cb({});
       });
       on(`__cfx_nui:${"npwd:boosting:deleteContract," /* DELETE_CONTRACT */}`, (contract, cb) => {
         emitNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, contract.id);

@@ -1,5 +1,6 @@
 import {Vector3} from '@nativewrappers/client/lib/utils/Vector3';
 import {BoostingEvents, BoostMissionEvents, BoostProfile, Contract} from '@typings/boosting';
+import {MessageEvents} from '@typings/messages';
 import {PMA} from '../../server';
 import {BoostsDB} from '../modules/boosts/db';
 import {BoostMission} from '../modules/boosts/service';
@@ -61,4 +62,17 @@ onNet(BoostMissionEvents.REWARD_VEHICLE, async (vehProps: any, boostProfile: Boo
 
 	//update experience and/or level
 	await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+});
+
+onNet(BoostingEvents.SEND_TEXT, () => {
+	const plySrc = source;
+	const ply = PMA.getPlayerFromId(plySrc);
+
+	const dataObj = {
+		source: plySrc,
+		phoneNumber: ply.getPhoneNumber(),
+		message:
+			'The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.',
+	};
+	emit(MessageEvents.SEND_MESSAGE_DARK, dataObj);
 });

@@ -17,6 +17,7 @@ export enum BoostingEvents {
 	LOW_TIER_MISSION = 'LOW_TIER_MISSION',
 	PURCHASE_CONTRACT = 'PURCHASE_CONTRACT',
 	MISSING_EQUIPMENT = 'MISSING_EQUIPMENT',
+	SEND_TEXT = 'SEND_TEXT',
 }
 
 export enum BoostMissionEvents {

@@ -57,13 +57,23 @@ export const useContracts = () => {
 			small_coin: profile.small_coin,
 		};
 
-		send(BoostingEvents.START_CONTRACT, transferData).then(() => {
-			closePrompt();
-			addAlert({
-				message: 'Contract started!',
-				type: 'success',
+		send(BoostingEvents.START_CONTRACT, transferData)
+			.then((allowed) => allowed.json())
+			.then((allowed) => {
+				if (allowed.data) {
+					closePrompt();
+					addAlert({
+						message: 'Contract started!',
+						type: 'success',
+					});
+				} else {
+					closePrompt();
+					addAlert({
+						message: 'You already have an active contract!',
+						type: 'error',
+					});
+				}
 			});
-		});
 	};
 
 	//TODO error check for what happens when a player logs out?
