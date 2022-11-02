@@ -10472,6 +10472,7 @@
         clearTick(BPlayer.hackTick);
         BPlayer.hackTick = null;
         BPlayer.promptHack = null;
+        ClearGpsPlayerWaypoint();
         SendNUIMessage({
           app: BOOSTING_APP,
           method: "npwd:boosting:failBoost" /* FAIL_VEHICLE */,

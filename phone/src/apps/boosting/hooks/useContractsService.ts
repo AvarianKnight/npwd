@@ -12,13 +12,14 @@ import {PromptState} from '@ui/state/PromptState';
 import {useNuiEvent} from 'fivem-nui-react-lib';
 import {useSetRecoilState} from 'recoil';
 import {useSnackbar} from '../../../os/snackbar/hooks/useSnackbar';
-import {BoostProfileState, ContractsState} from '../state/atoms';
+import {BoostProfileState, ContractsState, QueState} from '../state/atoms';
 import {useBoostingNotification} from './useBoostingNotification';
 
 export const useContractsService = () => {
 	const setBoostProfile = useSetRecoilState(BoostProfileState.profile);
 	const setReset = useSetRecoilState(BoostProfileState.reset);
 	const setContracts = useSetRecoilState(ContractsState.contracts);
+	const setQueue = useSetRecoilState(QueState.inQue);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const {setNotification} = useBoostingNotification();
 	const {addAlert} = useSnackbar();
@@ -33,6 +34,7 @@ export const useContractsService = () => {
 
 	const rewardContractHandler = (newContract: Contract) => {
 		setContracts((contractList: Contract[]) => [...contractList, newContract]);
+		setQueue(false);
 	};
 
 	const setProfileHandler = (data: BoostingProfile) => {

@@ -98,6 +98,7 @@ export const resetBoostMissions = () => {
 	clearTick(BPlayer.hackTick);
 	BPlayer.hackTick = null;
 	BPlayer.promptHack = null;
+	ClearGpsPlayerWaypoint();
 
 	SendNUIMessage({
 		app: BOOSTING_APP,
