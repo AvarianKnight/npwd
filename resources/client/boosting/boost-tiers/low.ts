@@ -29,10 +29,6 @@ export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
-	// emitNet(MessageEvents.SEND_MESSAGE, {tgtPhoneNumber: });
-	// PMA.ShowNotification(
-	// 	'Time is ticking, if the vehicle is not there on your arrival, the contract is canceled.',
-	// );
 	emitNet(BoostingEvents.SEND_TEXT);
 	// if active is true you cannot start another mission at the same time.
 	BPlayer.active = true;
