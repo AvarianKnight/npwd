@@ -1,9 +1,16 @@
-import {BoostingEvents, Contract, PurchaseContract, TradeContract} from '../../../typings/boosting';
+import {
+	BoostingEvents,
+	BoostMissionEvents,
+	Contract,
+	PurchaseContract,
+	TradeContract,
+} from '@typings/boosting';
 import {PropertyEvents} from '../../../typings/property';
 import {highTierHandler} from './boost-tiers/high';
 import {lowTierHandler} from './boost-tiers/low';
 import {BPlayer} from './boost-tiers/main';
 import {mediumTierHandler} from './boost-tiers/medium';
+import {resetBoostMissions} from './boost-tiers/utility';
 
 RegisterNuiCallbackType(BoostingEvents.LOAD_BOOSTING_PROFILE);
 RegisterNuiCallbackType(BoostingEvents.JOIN_WAITLIST);
@@ -12,6 +19,7 @@ RegisterNuiCallbackType(BoostingEvents.START_CONTRACT);
 RegisterNuiCallbackType(BoostingEvents.DELETE_CONTRACT);
 RegisterNuiCallbackType(BoostingEvents.TRADE_CONTRACT);
 RegisterNuiCallbackType(BoostingEvents.GET_PLAYERS);
+RegisterNuiCallbackType(BoostMissionEvents.RESET_APP);
 
 on(`__cfx_nui:${BoostingEvents.LOAD_BOOSTING_PROFILE}`, (data: any, cb: any) => {
 	emitNet(BoostingEvents.LOAD_BOOSTING_PROFILE);
@@ -41,6 +49,7 @@ on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (purchaseContract: PurchaseCont
 		} else if (purchaseContract.contract.contract_type === 'S+') {
 			highTierHandler(purchaseContract.contract, purchaseContract.small_coin);
 		}
+
 		cb({data: true});
 	} else {
 		cb({data: false});
@@ -59,5 +68,10 @@ on(`__cfx_nui:${BoostingEvents.GET_PLAYERS}`, (data: any, cb: any) => {
 
 on(`__cfx_nui:${BoostingEvents.TRADE_CONTRACT}`, (tradeContract: TradeContract, cb: any) => {
 	emitNet(BoostingEvents.TRADE_CONTRACT, tradeContract);
+	cb({});
+});
+
+on(`__cfx_nui:${BoostMissionEvents.RESET_APP}`, (data: any, cb: any) => {
+	resetBoostMissions();
 	cb({});
 });

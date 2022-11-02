@@ -13,6 +13,8 @@ import Status from './components/Status';
 import {useBoosting} from './hooks/useBoosting';
 import {BoostProfileState} from './state/atoms';
 import {useRecoilValue} from 'recoil';
+import Button from './common/Button';
+import {useContracts} from './hooks/useContracts';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -20,6 +22,7 @@ const Wrapper = styled(Box)`
 	background-size: contain;
 	height: 100%;
 	width: 100%;
+	user-select: none;
 `;
 
 const WelcomeWrapper = styled(Box)`
@@ -43,8 +46,11 @@ const CoinWrapper = styled(Box)`
 const BoostingApp = () => {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
+	const {resetAppPrompt} = useContracts();
 	const {send} = useNuiRequest();
 	const profile = useRecoilValue(BoostProfileState.profile);
+	const reset = useRecoilValue(BoostProfileState.reset);
+
 	useBoosting();
 
 	useEffect(() => {
@@ -64,7 +70,11 @@ const BoostingApp = () => {
 				fontWeight={'bolder'}
 			/>
 			<WelcomeWrapper>
-				<Text fontSize={'24px'}>WELCOME</Text>
+				{!reset ? (
+					<Text fontSize={'24px'}>WELCOME</Text>
+				) : (
+					<Button clickHandler={resetAppPrompt} text={'RESET'} />
+				)}
 			</WelcomeWrapper>
 			<CoinWrapper>
 				<Text

@@ -7,6 +7,10 @@ export const BoostProfileState = {
 		key: 'boostProfile',
 		default: undefined,
 	}),
+	reset: atom<boolean>({
+		key: 'boostAppReset',
+		default: false,
+	}),
 };
 
 export const QueState = {

@@ -10387,7 +10387,11 @@
   var init_coords = __esm({
     "client/boosting/coords.ts"() {
       init_lib();
-      LowTierCoords = [new Vector3(-507.7, -608.7, 25.3), new Vector3(-507.7, -608.7, 25.3), new Vector3(-507.7, -608.7, 25.3)];
+      LowTierCoords = [
+        new Vector3(-507.7, -608.7, 25.3),
+        new Vector3(-507.7, -608.7, 25.3),
+        new Vector3(-507.7, -608.7, 25.3)
+      ];
       MidTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
       HighTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
     }
@@ -10398,6 +10402,7 @@
   var init_utility = __esm({
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
+      init_boosting();
       init_main2();
       init_main();
       pedRadius = 30;
@@ -10467,6 +10472,11 @@
         clearTick(BPlayer.hackTick);
         BPlayer.hackTick = null;
         BPlayer.promptHack = null;
+        SendNUIMessage({
+          app: BOOSTING_APP,
+          method: "npwd:boosting:failBoost" /* FAIL_VEHICLE */,
+          data: BPlayer.active
+        });
       };
       randomWeaponSelector = () => {
         const weaponList = [
@@ -10611,6 +10621,7 @@
       init_low();
       init_main();
       init_medium();
+      init_utility();
       RegisterNuiCallbackType("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
       RegisterNuiCallbackType("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */);
       RegisterNuiCallbackType("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */);
@@ -10618,6 +10629,7 @@
       RegisterNuiCallbackType("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
       RegisterNuiCallbackType("npwd:boosting:tradeContract" /* TRADE_CONTRACT */);
       RegisterNuiCallbackType("npwd:boosting:getPlayers" /* GET_PLAYERS */);
+      RegisterNuiCallbackType("npwd:boosting:resetApp" /* RESET_APP */);
       on(`__cfx_nui:${"npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */}`, (data, cb) => {
         emitNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */);
         cb({});
@@ -10654,6 +10666,10 @@
       });
       on(`__cfx_nui:${"npwd:boosting:tradeContract" /* TRADE_CONTRACT */}`, (tradeContract, cb) => {
         emitNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, tradeContract);
+        cb({});
+      });
+      on(`__cfx_nui:${"npwd:boosting:resetApp" /* RESET_APP */}`, (data, cb) => {
+        resetBoostMissions();
         cb({});
       });
     }

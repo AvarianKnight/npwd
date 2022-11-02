@@ -1,16 +1,18 @@
 import {useSnackbar} from '@os/snackbar/hooks/useSnackbar';
-import {BoostingEvents, Contract, PurchaseContract} from '@typings/boosting';
+import {BoostingEvents, BoostMissionEvents, Contract, PurchaseContract} from '@typings/boosting';
 import {PromptState} from '@ui/state/PromptState';
 import {useNuiRequest} from 'fivem-nui-react-lib';
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
-import DeclinePrompt from '../components/DeclinePrompt';
-import StartPrompt from '../components/StartPrompt';
-import TradePrompt from '../components/TradePrompt';
+import Decline from '../components/prompts/Decline';
+import Reset from '../components/prompts/Reset';
+import Start from '../components/prompts/Start';
+import Trade from '../components/prompts/Trade';
 import {BoostProfileState, ContractsState, TradeState} from '../state/atoms';
 
 export const useContracts = () => {
 	const [contracts, setContracts] = useRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
+	const setReset = useSetRecoilState(BoostProfileState.reset);
 	const profile = useRecoilValue(BoostProfileState.profile);
 	const {send} = useNuiRequest();
 	const {addAlert} = useSnackbar();
@@ -18,7 +20,7 @@ export const useContracts = () => {
 
 	const startPrompt = (index: number) => {
 		setPrompt({
-			component: <StartPrompt index={index} />,
+			component: <Start index={index} />,
 			message: 'ARE YOU READY TO START YOUR MISSION?',
 			open: true,
 		});
@@ -27,7 +29,7 @@ export const useContracts = () => {
 	const tradePrompt = (index: number) => {
 		send(BoostingEvents.GET_PLAYERS).then(() => {
 			setPrompt({
-				component: <TradePrompt index={index} />,
+				component: <Trade index={index} />,
 				message: 'TRADE CONTRACT',
 				open: true,
 			});
@@ -36,7 +38,7 @@ export const useContracts = () => {
 
 	const declinePrompt = (index: number) => {
 		setPrompt({
-			component: <DeclinePrompt index={index} />,
+			component: <Decline index={index} />,
 			message: 'ARE YOU SURE YOU WANT TO TRASH THIS CONTRACT?',
 			open: true,
 		});
@@ -50,7 +52,6 @@ export const useContracts = () => {
 		});
 	};
 
-	//TODO: write UI -> Client -> Service code ::: declineHandler first
 	const startHandler = (index: number) => {
 		const transferData: PurchaseContract = {
 			contract: contracts[index],
@@ -62,12 +63,14 @@ export const useContracts = () => {
 			.then((allowed) => {
 				if (allowed.data) {
 					closePrompt();
+					setReset(true);
 					addAlert({
 						message: 'Contract started!',
 						type: 'success',
 					});
 				} else {
 					closePrompt();
+					setReset(true);
 					addAlert({
 						message: 'You already have an active contract!',
 						type: 'error',
@@ -109,6 +112,20 @@ export const useContracts = () => {
 			.catch((err: any) => addAlert({message: err, type: 'error'}));
 	};
 
+	const resetAppPrompt = () => {
+		setPrompt({
+			component: <Reset />,
+			message: 'ARE YOU SURE YOU WANT TO RESET?',
+			open: true,
+		});
+	};
+
+	const resetAppHandler = () => {
+		setReset(false);
+		closePrompt();
+		send(BoostMissionEvents.RESET_APP);
+	};
+
 	return {
 		startPrompt,
 		startHandler,
@@ -117,5 +134,7 @@ export const useContracts = () => {
 		tradeHandler,
 		declinePrompt,
 		declineHandler,
+		resetAppPrompt,
+		resetAppHandler,
 	};
 };

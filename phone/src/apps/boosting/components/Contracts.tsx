@@ -100,14 +100,6 @@ const ContractsWrapper = styled(Box)`
 	height: 270px;
 `;
 
-//interface Props {
-//	startPrompt: (index: number) => any;
-//	tradePrompt: (index: number) => any;
-//	declinePrompt: (index: number) => any;
-//}
-
-//const Contracts = ({startPrompt, tradePrompt, declinePrompt}: Props) => {
-
 const Contracts = () => {
 	const {startPrompt, tradePrompt, declinePrompt} = useContracts();
 	const contracts = useRecoilValue(ContractsState.contracts);

@@ -3,6 +3,7 @@ import {
 	BoostingEvents,
 	BoostingProfile,
 	BOOSTING_APP,
+	BoostMissionEvents,
 	BoostProfile,
 	Contract,
 	ContractListAndCoins,
@@ -16,6 +17,7 @@ import {useBoostingNotification} from './useBoostingNotification';
 
 export const useContractsService = () => {
 	const setBoostProfile = useSetRecoilState(BoostProfileState.profile);
+	const setReset = useSetRecoilState(BoostProfileState.reset);
 	const setContracts = useSetRecoilState(ContractsState.contracts);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
 	const {setNotification} = useBoostingNotification();
@@ -61,6 +63,7 @@ export const useContractsService = () => {
 	useNuiEvent(BOOSTING_APP, BoostingEvents.REWARD_CONTRACT, rewardContractHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.MISSING_EQUIPMENT, alertHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotification);
+	useNuiEvent(BOOSTING_APP, BoostMissionEvents.FAIL_VEHICLE, setReset);
 };
 
 InjectDebugData(

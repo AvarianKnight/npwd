@@ -1,17 +1,9 @@
 import {Vector3} from '@nativewrappers/client';
+import {BOOSTING_APP, BoostMissionEvents} from '@typings/boosting';
 import {boosterProfile, exp} from '../main';
 import {BPlayer} from './main';
 
 export const pedRadius = 30;
-
-// Mission variables
-// export let dropOffCoords: Vector3;
-// export let firstLegCompleted = false;
-// export let secondLegCompleted = false;
-// export let spawnPedTick: number;
-// export let dropOffTick: number;
-// export let hackTick: number;
-// export let promptHack = false;
 
 export const dropOffSpot = () => {
 	const garages = exp['pma-garage'].AllPublicGarages();
@@ -106,6 +98,12 @@ export const resetBoostMissions = () => {
 	clearTick(BPlayer.hackTick);
 	BPlayer.hackTick = null;
 	BPlayer.promptHack = null;
+
+	SendNUIMessage({
+		app: BOOSTING_APP,
+		method: BoostMissionEvents.FAIL_VEHICLE,
+		data: BPlayer.active,
+	});
 };
 
 export const randomWeaponSelector = () => {
