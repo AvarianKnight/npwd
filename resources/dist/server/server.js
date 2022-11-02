@@ -47339,8 +47339,13 @@ onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coord
 });
 onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boostProfile) => {
   const ply = PMA.getPlayerFromId(source);
-  await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
-  await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+  if (ply.getInventoryItem("raspberry").quantity > 0) {
+    await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+    await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+    ply.removeInventoryItem("raspberry", 1);
+  } else {
+    ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+  }
 });
 onNet("SEND_TEXT" /* SEND_TEXT */, () => {
   const plySrc = source;

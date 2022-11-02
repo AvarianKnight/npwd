@@ -56,12 +56,16 @@ onNet(
 
 onNet(BoostMissionEvents.REWARD_VEHICLE, async (vehProps: any, boostProfile: BoostProfile) => {
 	const ply = PMA.getPlayerFromId(source);
+	if (ply.getInventoryItem('raspberry').quantity > 0) {
+		//deposit vehicle in inventory
+		await boostsDB.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
 
-	//deposit vehicle in inventory
-	await boostsDB.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
-
-	//update experience and/or level
-	await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+		//update experience and/or level
+		await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+		ply.removeInventoryItem('raspberry', 1);
+	} else {
+		ply.triggerEvent(BoostMissionEvents.FAIL_VEHICLE);
+	}
 });
 
 onNet(BoostingEvents.SEND_TEXT, () => {

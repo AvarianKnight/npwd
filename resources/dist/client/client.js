@@ -10388,8 +10388,6 @@
     "client/boosting/coords.ts"() {
       init_lib();
       LowTierCoords = [
-        new Vector3(-507.7, -608.7, 25.3),
-        new Vector3(-507.7, -608.7, 25.3),
         new Vector3(-507.7, -608.7, 25.3)
       ];
       MidTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
@@ -10750,7 +10748,7 @@
           data: msg
         });
       });
-      on("npwd:boosting:failBoost" /* FAIL_VEHICLE */, () => {
+      onNet("npwd:boosting:failBoost" /* FAIL_VEHICLE */, () => {
         ClearGpsPlayerWaypoint();
         SendNUIMessage({
           app: BOOSTING_APP,

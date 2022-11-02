@@ -91,7 +91,7 @@ onNet(BoostingEvents.MISSING_EQUIPMENT, (msg: string) => {
 	});
 });
 
-on(BoostMissionEvents.FAIL_VEHICLE, () => {
+onNet(BoostMissionEvents.FAIL_VEHICLE, () => {
 	ClearGpsPlayerWaypoint();
 	SendNUIMessage({
 		app: BOOSTING_APP,

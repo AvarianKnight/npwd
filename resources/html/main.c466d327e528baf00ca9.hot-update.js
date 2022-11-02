@@ -1,0 +1,30 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+globalThis["webpackHotUpdatenpwd_nui"]("main",{
+
+/***/ "./src/apps/boosting/hooks/useBoostingNotification.ts":
+/*!************************************************************!*\
+  !*** ./src/apps/boosting/hooks/useBoostingNotification.ts ***!
+  \************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"useBoostingNotification\": () => (/* binding */ useBoostingNotification)\n/* harmony export */ });\n/* harmony import */ var _os_apps_hooks_useApps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @os/apps/hooks/useApps */ \"./src/os/apps/hooks/useApps.tsx\");\n/* harmony import */ var _os_notifications_hooks_useNotifications__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @os/notifications/hooks/useNotifications */ \"./src/os/notifications/hooks/useNotifications.tsx\");\n/* provided dependency */ var __react_refresh_utils__ = __webpack_require__(/*! ./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js */ \"./node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js\");\n__webpack_require__.$Refresh$.runtime = __webpack_require__(/*! ./node_modules/react-refresh/runtime.js */ \"./node_modules/react-refresh/runtime.js\");\n\nvar _s = __webpack_require__.$Refresh$.signature();\n\n\n\nconst NOTIFICATION_ID = 'messages:broadcast';\nconst useBoostingNotification = () => {\n  _s();\n\n  const {\n    addNotificationAlert\n  } = (0,_os_notifications_hooks_useNotifications__WEBPACK_IMPORTED_MODULE_1__.useNotifications)();\n  const {\n    icon,\n    notificationIcon\n  } = (0,_os_apps_hooks_useApps__WEBPACK_IMPORTED_MODULE_0__.useApp)('BOOSTING');\n\n  const setNotificationHandler = data => {\n    const id = `${NOTIFICATION_ID}:${data.boostNotify}`;\n    const notification = {\n      app: 'BOOSTING',\n      id,\n      sound: true,\n      title: data.title,\n      content: data.message,\n      icon,\n      notificationIcon\n    };\n    addNotificationAlert(notification);\n  };\n\n  return {\n    setNotificationHandler\n  }; // useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotificationHandler);\n};\n\n_s(useBoostingNotification, \"j73Ai93dBoEuXWKGJ3i7V55cWNI=\", false, function () {\n  return [_os_notifications_hooks_useNotifications__WEBPACK_IMPORTED_MODULE_1__.useNotifications, _os_apps_hooks_useApps__WEBPACK_IMPORTED_MODULE_0__.useApp];\n});\n\nconst $ReactRefreshModuleId$ = __webpack_require__.$Refresh$.moduleId;\nconst $ReactRefreshCurrentExports$ = __react_refresh_utils__.getModuleExports(\n\t$ReactRefreshModuleId$\n);\n\nfunction $ReactRefreshModuleRuntime$(exports) {\n\tif (true) {\n\t\tlet errorOverlay;\n\t\tif (true) {\n\t\t\terrorOverlay = false;\n\t\t}\n\t\tlet testMode;\n\t\tif (typeof __react_refresh_test__ !== 'undefined') {\n\t\t\ttestMode = __react_refresh_test__;\n\t\t}\n\t\treturn __react_refresh_utils__.executeRuntime(\n\t\t\texports,\n\t\t\t$ReactRefreshModuleId$,\n\t\t\tmodule.hot,\n\t\t\terrorOverlay,\n\t\t\ttestMode\n\t\t);\n\t}\n}\n\nif (typeof Promise !== 'undefined' && $ReactRefreshCurrentExports$ instanceof Promise) {\n\t$ReactRefreshCurrentExports$.then($ReactRefreshModuleRuntime$);\n} else {\n\t$ReactRefreshModuleRuntime$($ReactRefreshCurrentExports$);\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvYXBwcy9ib29zdGluZy9ob29rcy91c2VCb29zdGluZ05vdGlmaWNhdGlvbi50cy5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztBQUFBO0FBQ0E7QUFFQTtBQUVBO0FBQUE7O0FBQ0E7QUFBQTtBQUFBO0FBQ0E7QUFBQTtBQUFBO0FBQUE7O0FBRUE7QUFDQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFQQTtBQVVBO0FBQ0E7O0FBRUE7QUFBQTtBQUFBO0FBRUE7O0FBdEJBO0FBQ0EiLCJzb3VyY2VzIjpbIkM6L1Byb2plY3RzL0ZYU2VydmVyL3NlcnZlci1kYXRhL3Jlc291cmNlcy9ucHdkL3Bob25lL3NyYy9hcHBzL2Jvb3N0aW5nL2hvb2tzL3VzZUJvb3N0aW5nTm90aWZpY2F0aW9uLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7dXNlQXBwfSBmcm9tICdAb3MvYXBwcy9ob29rcy91c2VBcHBzJztcclxuaW1wb3J0IHt1c2VOb3RpZmljYXRpb25zfSBmcm9tICdAb3Mvbm90aWZpY2F0aW9ucy9ob29rcy91c2VOb3RpZmljYXRpb25zJztcclxuXHJcbmNvbnN0IE5PVElGSUNBVElPTl9JRCA9ICdtZXNzYWdlczpicm9hZGNhc3QnO1xyXG5cclxuZXhwb3J0IGNvbnN0IHVzZUJvb3N0aW5nTm90aWZpY2F0aW9uID0gKCkgPT4ge1xyXG5cdGNvbnN0IHthZGROb3RpZmljYXRpb25BbGVydH0gPSB1c2VOb3RpZmljYXRpb25zKCk7XHJcblx0Y29uc3Qge2ljb24sIG5vdGlmaWNhdGlvbkljb259ID0gdXNlQXBwKCdCT09TVElORycpO1xyXG5cclxuXHRjb25zdCBzZXROb3RpZmljYXRpb25IYW5kbGVyID0gKGRhdGEpID0+IHtcclxuXHRcdGNvbnN0IGlkID0gYCR7Tk9USUZJQ0FUSU9OX0lEfToke2RhdGEuYm9vc3ROb3RpZnl9YDtcclxuXHJcblx0XHRjb25zdCBub3RpZmljYXRpb24gPSB7XHJcblx0XHRcdGFwcDogJ0JPT1NUSU5HJyxcclxuXHRcdFx0aWQsXHJcblx0XHRcdHNvdW5kOiB0cnVlLFxyXG5cdFx0XHR0aXRsZTogZGF0YS50aXRsZSxcclxuXHRcdFx0Y29udGVudDogZGF0YS5tZXNzYWdlLFxyXG5cdFx0XHRpY29uLFxyXG5cdFx0XHRub3RpZmljYXRpb25JY29uLFxyXG5cdFx0fTtcclxuXHJcblx0XHRhZGROb3RpZmljYXRpb25BbGVydChub3RpZmljYXRpb24pO1xyXG5cdH07XHJcblxyXG5cdHJldHVybiB7c2V0Tm90aWZpY2F0aW9uSGFuZGxlcn07XHJcblx0Ly8gdXNlTnVpRXZlbnQoQk9PU1RJTkdfQVBQLCBCb29zdGluZ0V2ZW50cy5TRU5EX05PVElGSUNBVElPTiwgc2V0Tm90aWZpY2F0aW9uSGFuZGxlcik7XHJcbn07XHJcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/apps/boosting/hooks/useBoostingNotification.ts\n");
+
+/***/ })
+
+},
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ /* webpack/runtime/getFullHash */
+/******/ (() => {
+/******/ 	__webpack_require__.h = () => ("721e7f191777654a8021")
+/******/ })();
+/******/ 
+/******/ }
+);

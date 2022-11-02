@@ -29,7 +29,7 @@ export const hoverState = {
 		default: undefined,
 	}),
 	anchorItem: atom({
-		key: 'anchorBennys',
+		key: 'anchorHoverBennys',
 		default: undefined,
 	}),
 };

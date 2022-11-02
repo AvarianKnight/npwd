@@ -21,8 +21,8 @@ export const useContractsService = () => {
 	const setContracts = useSetRecoilState(ContractsState.contracts);
 	const setQueue = useSetRecoilState(QueState.inQue);
 	const setPrompt = useSetRecoilState(PromptState.prompt);
-	const {setNotification} = useBoostingNotification();
 	const {addAlert} = useSnackbar();
+	const {setNotificationHandler} = useBoostingNotification();
 
 	const closePrompt = () => {
 		setPrompt({
@@ -64,7 +64,7 @@ export const useContractsService = () => {
 	useNuiEvent(BOOSTING_APP, BoostingEvents.TRADE_CONTRACT, closePrompt);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.REWARD_CONTRACT, rewardContractHandler);
 	useNuiEvent(BOOSTING_APP, BoostingEvents.MISSING_EQUIPMENT, alertHandler);
-	useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotification);
+	useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotificationHandler);
 	useNuiEvent(BOOSTING_APP, BoostMissionEvents.FAIL_VEHICLE, setReset);
 };
 

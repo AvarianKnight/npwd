@@ -15,6 +15,8 @@ import {BoostProfileState} from './state/atoms';
 import {useRecoilValue} from 'recoil';
 import Button from './common/Button';
 import {useContracts} from './hooks/useContracts';
+import {useBoostingNotification} from './hooks/useBoostingNotification';
+import {AppWrapper} from '../../ui/components';
 
 const Wrapper = styled(Box)`
 	position: absolute;
@@ -52,46 +54,49 @@ const BoostingApp = () => {
 	const reset = useRecoilValue(BoostProfileState.reset);
 
 	useBoosting();
+	useBoostingNotification();
 
 	useEffect(() => {
 		send(BoostingEvents.LOAD_BOOSTING_PROFILE);
 	}, []);
 
 	return (
-		<Wrapper ref={rootRef}>
-			<Prompt
-				rootRef={rootRef}
-				background={'#000000'}
-				color={'#01B963'}
-				border={'1px solid #01B963'}
-				height={'278px'}
-				width={'335px'}
-				borderRadius={'34px'}
-				fontWeight={'bolder'}
-			/>
-			<WelcomeWrapper>
-				{!reset ? (
-					<Text fontSize={'24px'}>WELCOME</Text>
-				) : (
-					<Button clickHandler={resetAppPrompt} text={'RESET'} />
-				)}
-			</WelcomeWrapper>
-			<CoinWrapper>
-				<Text
-					fontSize={'20px'}
-					color={'#000000'}
-					lineHeight={'23px'}
-					display={'flex'}
-					justifyContent={'center'}
-				>
-					{profile?.small_coin ?? 0}
-				</Text>
-			</CoinWrapper>
-			<Level />
-			<Status />
-			<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />
-			<Contracts />
-		</Wrapper>
+		<AppWrapper>
+			<Wrapper ref={rootRef}>
+				<Prompt
+					rootRef={rootRef}
+					background={'#000000'}
+					color={'#01B963'}
+					border={'1px solid #01B963'}
+					height={'278px'}
+					width={'335px'}
+					borderRadius={'34px'}
+					fontWeight={'bolder'}
+				/>
+				<WelcomeWrapper>
+					{!reset ? (
+						<Text fontSize={'24px'}>WELCOME</Text>
+					) : (
+						<Button clickHandler={resetAppPrompt} text={'RESET'} />
+					)}
+				</WelcomeWrapper>
+				<CoinWrapper>
+					<Text
+						fontSize={'20px'}
+						color={'#000000'}
+						lineHeight={'23px'}
+						display={'flex'}
+						justifyContent={'center'}
+					>
+						{profile?.small_coin ?? 0}
+					</Text>
+				</CoinWrapper>
+				<Level />
+				<Status />
+				<Queue joinQueueHandler={joinQueueHandler} leaveQueueHandler={leaveQueueHandler} />
+				<Contracts />
+			</Wrapper>
+		</AppWrapper>
 	);
 };
 

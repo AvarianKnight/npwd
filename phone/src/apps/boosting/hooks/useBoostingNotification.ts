@@ -1,5 +1,5 @@
-import {useNotifications} from '@os/notifications/hooks/useNotifications';
 import {useApp} from '@os/apps/hooks/useApps';
+import {useNotifications} from '@os/notifications/hooks/useNotifications';
 
 const NOTIFICATION_ID = 'messages:broadcast';
 
@@ -7,15 +7,15 @@ export const useBoostingNotification = () => {
 	const {addNotificationAlert} = useNotifications();
 	const {icon, notificationIcon} = useApp('BOOSTING');
 
-	const setNotification = ({title, boostNotifyId, message}) => {
-		const id = `${NOTIFICATION_ID}:${boostNotifyId}`;
+	const setNotificationHandler = (data) => {
+		const id = `${NOTIFICATION_ID}:${data.boostNotify}`;
 
 		const notification = {
 			app: 'BOOSTING',
 			id,
 			sound: true,
-			title: title,
-			content: message,
+			title: data.title,
+			content: data.message,
 			icon,
 			notificationIcon,
 		};
@@ -23,5 +23,6 @@ export const useBoostingNotification = () => {
 		addNotificationAlert(notification);
 	};
 
-	return {setNotification};
+	return {setNotificationHandler};
+	// useNuiEvent(BOOSTING_APP, BoostingEvents.SEND_NOTIFICATION, setNotificationHandler);
 };
