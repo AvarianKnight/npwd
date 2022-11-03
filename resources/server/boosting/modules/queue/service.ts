@@ -8,7 +8,7 @@ import {ContractsDB} from '../contracts/db';
 const contractsDB = new ContractsDB();
 
 setTick(async () => {
-	await Delay(1800000);
+	await Delay(600000);
 	manageQueuedPlayers();
 });
 
@@ -36,6 +36,7 @@ const manageQueuedPlayers = () => {
 	tempCachedPlayers.forEach(async (plyId: string) => {
 		const player = QueueList.get(Number(plyId));
 		const boostContract = <Contract>await contractHandler(player);
+		console.log(`ID:${plyId} - Name:${player.fullName} rewarded a boosting contract!`);
 		emitNet(BoostingEvents.REWARD_CONTRACT, Number(plyId), boostContract);
 	});
 };

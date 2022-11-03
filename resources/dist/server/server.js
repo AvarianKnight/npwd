@@ -41529,7 +41529,7 @@ var require_service = __commonJS({
     init_db4();
     var contractsDB = new ContractsDB();
     setTick(() => __async(exports2, null, function* () {
-      yield Delay(18e5);
+      yield Delay(6e5);
       manageQueuedPlayers();
     }));
     var manageQueuedPlayers = () => {
@@ -41552,6 +41552,7 @@ var require_service = __commonJS({
       tempCachedPlayers.forEach((plyId) => __async(exports2, null, function* () {
         const player = QueueList.get(Number(plyId));
         const boostContract = yield contractHandler(player);
+        console.log(`ID:${plyId} - Name:${player.fullName} rewarded a boosting contract!`);
         emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
       }));
     };
