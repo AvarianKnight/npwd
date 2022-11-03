@@ -1,4 +1,4 @@
-import {Vector3} from '@nativewrappers/client';
+import {Game, Model, Vector3, World} from '@nativewrappers/client';
 import {BOOSTING_APP, BoostMissionEvents} from '@typings/boosting';
 import {boosterProfile, exp} from '../main';
 import {BPlayer} from './main';
@@ -112,10 +112,40 @@ export const randomWeaponSelector = () => {
 		'WEAPON_PISTOL_MK2',
 		'WEAPON_BAT',
 		'WEAPON_APPISTOL',
-		'WEAPON_CRUTCH',
+		'WEAPON_DBSHOTGUN',
 		'WEAPON_DAGGER',
-		'WEAPON_GUITAR',
+		'WEAPON_PISTOL',
 	];
 
 	return weaponList[Math.floor(Math.random() * weaponList.length + 0)];
+};
+
+export const getRandomInt = (min: number, max: number) => {
+	return Math.floor(Math.random() * (max - min) + min);
+};
+
+export const spawnPed = async (coord: Vector3, radius: number, pedCount: number) => {
+	for (let i = 1; i <= pedCount; i++) {
+		const ped = await World.createPed(
+			new Model('A_M_M_EastSA_01'),
+			spawnPedRadius(coord, radius),
+			0.0,
+			true,
+		);
+
+		//ped combat
+		SetPedCombatAttributes(ped.Handle, 3, false);
+		SetPedCombatAttributes(ped.Handle, 5, true);
+		SetPedCombatAttributes(ped.Handle, 46, true);
+		SetEntityAsMissionEntity(ped.Handle, false, false);
+		SetPedAccuracy(ped.Handle, 100);
+		SetPedMaxHealth(ped.Handle, 400);
+		SetEntityHealth(ped.Handle, 400);
+		GiveWeaponToPed(ped.Handle, GetHashKey(randomWeaponSelector()), 5000, true, true);
+		SetPedSuffersCriticalHits(ped.Handle, false);
+		SetRagdollBlockingFlags(ped.Handle, 1);
+		SetPedDropsWeaponsWhenDead(ped.Handle, false);
+		TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 16);
+		SetPedKeepTask(ped.Handle, true);
+	}
 };

@@ -47210,7 +47210,7 @@ var ContractsDB = class {
 // server/boosting/modules/queue/service.ts
 var contractsDB = new ContractsDB();
 setTick(async () => {
-  await Delay(15e3);
+  await Delay(18e5);
   manageQueuedPlayers();
 });
 var manageQueuedPlayers = () => {
@@ -47236,6 +47236,13 @@ var manageQueuedPlayers = () => {
     emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
   });
 };
+on("playerDropped", () => {
+  const player = QueueList.get(source);
+  if (player) {
+    QueueList.delete(source);
+    console.log("Source: " + source + "\nName: " + player.fullName + "\nSSN: " + player.ssn + "\nHas left the boost queue by leaving the server.");
+  }
+});
 var contractHandler = async (player) => {
   const boostRank = getBoostRank(player.level);
   const rankedVehicleList = CarList.filter((car) => car.type === boostRank);

@@ -39,7 +39,7 @@ import {BankApp} from '../../../apps/bank/components/BankApp';
 import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
 import BennysApp from '../../../apps/bennys/components/BennysApp';
 import PropertyApp from '../../../apps/property/components/PropertyApp';
-import BoostingApp from '../../../apps/boosting/BoostingApp';
+import BoostingApp from '../../../apps/boosting/BoostingLayout';
 
 export interface IAppConfig {
 	id: string;

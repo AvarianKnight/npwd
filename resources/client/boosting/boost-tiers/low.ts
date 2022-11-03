@@ -7,10 +7,12 @@ import {BPlayer} from './main';
 import {
 	calculateExperience,
 	dropOffSpot,
+	getRandomInt,
 	pedRadius,
 	randomWeaponSelector,
 	resetBoostMissions,
 	showRoute,
+	spawnPed,
 	spawnPedRadius,
 } from './utility';
 
@@ -41,21 +43,8 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 			IsControlJustPressed(0, Control.Pickup)
 		) {
 			//ped handle
-			const rcs = spawnPedRadius(coords, pedRadius);
-			const ped = await World.createPed(new Model('A_M_M_EastSA_01'), rcs, 0.0, true);
-
-			//ped combat
-			SetPedCombatAttributes(ped.Handle, 3, false);
-			SetPedCombatAttributes(ped.Handle, 5, true);
-			SetPedCombatAttributes(ped.Handle, 46, true);
-			SetEntityAsMissionEntity(ped.Handle, false, false);
-			SetPedAccuracy(ped.Handle, 100);
-			SetPedMaxHealth(ped.Handle, 400);
-			SetEntityHealth(ped.Handle, 400);
-			GiveWeaponToPed(ped.Handle, GetHashKey(randomWeaponSelector()), 5000, true, true);
-			SetPedDropsWeaponsWhenDead(ped.Handle, false);
-			TaskCombatPed(ped.Handle, Game.PlayerPed.Handle, 0, 16);
-			SetPedKeepTask(ped.Handle, true);
+			// const rcs = spawnPedRadius(coords, pedRadius);
+			spawnPed(coords, pedRadius, getRandomInt(1, 3));
 
 			//After boosting vehicle, be directed to drop off location.
 			clearTick(BPlayer.spawnPedTick);
@@ -73,9 +62,9 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 
 				if (!BPlayer.dropOffTick) {
 					clearTick(obtainVehicleTick);
-					const radius = Math.floor(Math.random() * (1000 - 250) + 250);
-					const randomSeconds = Math.floor(Math.random() * (15000 - 12000) + 12000);
-					const randomRounds = Math.floor(Math.random() * (5 - 2) + 2);
+					const radius = getRandomInt(250, 1000);
+					const randomSeconds = getRandomInt(12, 15) * 1000;
+					const randomRounds = getRandomInt(2, 5);
 
 					// if ped is in any vehicle, this allows them to use friends to get involved as the missions get harder.
 					// one you're closer, the radius is randomized to prompt the player, if player passes - they are good.

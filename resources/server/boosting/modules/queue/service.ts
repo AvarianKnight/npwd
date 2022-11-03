@@ -8,7 +8,7 @@ import {ContractsDB} from '../contracts/db';
 const contractsDB = new ContractsDB();
 
 setTick(async () => {
-	await Delay(15000);
+	await Delay(1800000);
 	manageQueuedPlayers();
 });
 
@@ -39,6 +39,24 @@ const manageQueuedPlayers = () => {
 		emitNet(BoostingEvents.REWARD_CONTRACT, Number(plyId), boostContract);
 	});
 };
+
+on('playerDropped', () => {
+	const player = QueueList.get(source);
+	if (player) {
+		QueueList.delete(source);
+		console.log(
+			'Source: ' +
+				source +
+				'\n' +
+				'Name: ' +
+				player.fullName +
+				'\n' +
+				'SSN: ' +
+				player.ssn +
+				'\nHas left the boost queue by leaving the server.',
+		);
+	}
+});
 
 const contractHandler = async (player: QueuedPlayer) => {
 	const boostRank = getBoostRank(player.level);
