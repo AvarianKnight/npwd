@@ -1,26 +1,16 @@
-import {Box} from '@mui/material';
-import {useNuiRequest} from 'fivem-nui-react-lib';
-import {useEffect, useRef} from 'react';
-import styled from 'styled-components';
 import {BoostingEvents} from '@typings/boosting';
+import {useNuiRequest} from 'fivem-nui-react-lib';
+import {useEffect} from 'react';
 
-import {useBoosting} from './hooks/useBoosting';
-import {BoostProfileState} from './state/atoms';
-import {useRecoilValue} from 'recoil';
-import {useContracts} from './hooks/useContracts';
-import {useBoostingNotification} from './hooks/useBoostingNotification';
-import {AppWrapper} from '../../ui/components';
 import {Route, Switch} from 'react-router-dom';
+import {AppWrapper} from '../../ui/components';
 import App from './App';
+import {useBoosting} from './hooks/useBoosting';
+import {useBoostingNotification} from './hooks/useBoostingNotification';
 import PDM from './PDM';
 
 const BoostingApp = () => {
-	const rootRef = useRef<HTMLDivElement>(null);
-	const {joinQueueHandler, leaveQueueHandler} = useBoosting();
-	const {resetAppPrompt} = useContracts();
 	const {send} = useNuiRequest();
-	const profile = useRecoilValue(BoostProfileState.profile);
-	const reset = useRecoilValue(BoostProfileState.reset);
 
 	useBoosting();
 	useBoostingNotification();

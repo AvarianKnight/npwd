@@ -1,19 +1,19 @@
 import {Box} from '@mui/material';
-import React, {useRef} from 'react';
-import styled from 'styled-components';
-import Prompt from '../../ui/components/Prompt';
-import backgroundImg from '../../assets/boosting/background.png';
-import {useRecoilValue} from 'recoil';
-import {BoostProfileState} from './state/atoms';
-import {useBoosting} from './hooks/useBoosting';
-import {useContracts} from './hooks/useContracts';
 import {useNuiRequest} from 'fivem-nui-react-lib';
-import Level from './components/Level';
-import Status from './components/Status';
-import Queue from './components/Queue';
-import Contracts from './components/Contracts';
+import {useRef} from 'react';
+import {useRecoilValue} from 'recoil';
+import styled from 'styled-components';
+import backgroundImg from '../../assets/boosting/background.png';
+import Prompt from '../../ui/components/Prompt';
 import Button from './common/Button';
 import Text from './common/Text';
+import Contracts from './components/Contracts';
+import Level from './components/Level';
+import Queue from './components/Queue';
+import Status from './components/Status';
+import {useBoosting} from './hooks/useBoosting';
+import {useContracts} from './hooks/useContracts';
+import {BoostProfileState} from './state/atoms';
 
 type Props = {};
 

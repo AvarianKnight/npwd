@@ -1,13 +1,11 @@
-import {BoostingEvents} from '@typings/boosting';
-import {useNuiEvent, useNuiRequest} from 'fivem-nui-react-lib';
+import {BoostingEvents, BOOSTING_APP} from '@typings/boosting';
+import {useNuiEvent} from 'fivem-nui-react-lib';
 import {SyntheticEvent} from 'react';
 import {useSetRecoilState} from 'recoil';
 import {Player} from '../../../../../resources/server/players/player.class';
-import {BOOSTING_APP} from '@typings/boosting';
 import {PlayerState, TradeState} from '../state/atoms';
 
 export const usePlayer = () => {
-	const {send} = useNuiRequest();
 	const setPlayersBoosting = useSetRecoilState(PlayerState.playersBoosting);
 	const setSelectedPlayer = useSetRecoilState(TradeState.selectedPlayerBoosting);
 

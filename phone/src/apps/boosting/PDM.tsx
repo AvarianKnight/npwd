@@ -1,10 +1,10 @@
+import {Box, IconButton} from '@mui/material';
+import {useHistory} from 'react-router-dom';
+import styled from 'styled-components';
 import backSplashImg from '../../assets/boosting/pdm/backsplash.png';
-import logoImg from '../../assets/boosting/pdm/logo.png';
 import carImg from '../../assets/boosting/pdm/car.png';
 import homeImg from '../../assets/boosting/pdm/home.png';
-import styled from 'styled-components';
-import {Box, IconButton, Typography} from '@mui/material';
-import {useHistory} from 'react-router-dom';
+import logoImg from '../../assets/boosting/pdm/logo.png';
 import Text from './common/Text';
 
 type Props = {};
