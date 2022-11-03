@@ -41535,7 +41535,6 @@ var require_service = __commonJS({
     var manageQueuedPlayers = () => {
       console.log("\nBeginning queue selector...\n");
       const tempCachedPlayers = [];
-      console.log("\u{1F680} ~ file: service.ts ~ line 15 ~ manageQueuedPlayers ~ QueueList", QueueList);
       const playerSources = [...QueueList.keys()];
       if (playerSources.length === 0) {
         console.log("\nNo one in queue...\n");

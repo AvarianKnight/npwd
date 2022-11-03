@@ -1,5 +1,5 @@
-import {Control, Game, Model, Vector3, World} from '@nativewrappers/client';
-import {BoostingEvents, BoostMissionEvents, Contract} from '@typings/boosting';
+import {Control, Game, Vector3} from '@nativewrappers/client';
+import {BoostingEvents, BOOSTING_APP, BoostMissionEvents, Contract} from '@typings/boosting';
 import {PMA} from '../../client';
 import {LowTierCoords} from '../coords';
 import {boosterProfile, exp} from '../main';
@@ -9,11 +9,9 @@ import {
 	dropOffSpot,
 	getRandomInt,
 	pedRadius,
-	randomWeaponSelector,
 	resetBoostMissions,
 	showRoute,
 	spawnPed,
-	spawnPedRadius,
 } from './utility';
 
 /**
@@ -104,7 +102,11 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 													const vehProps =
 														PMA.Game.GetVehicleProperties(veh);
 													boosterProfile.profile = calculateExperience();
-
+													SendNUIMessage({
+														app: BOOSTING_APP,
+														method: BoostingEvents.LOAD_BOOSTING_PROFILE,
+														data: boosterProfile,
+													});
 													resetBoostMissions();
 													emitNet(
 														BoostMissionEvents.REWARD_VEHICLE,

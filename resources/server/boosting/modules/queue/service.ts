@@ -15,7 +15,6 @@ setTick(async () => {
 const manageQueuedPlayers = () => {
 	console.log('\nBeginning queue selector...\n');
 	const tempCachedPlayers: string[] = [];
-	console.log('🚀 ~ file: service.ts ~ line 15 ~ manageQueuedPlayers ~ QueueList', QueueList);
 	const playerSources = [...QueueList.keys()];
 
 	if (playerSources.length === 0) {

@@ -10660,6 +10660,11 @@
                             if (boostedVehNet2 === vehNet && Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
                               const vehProps = PMA.Game.GetVehicleProperties(veh2);
                               boosterProfile.profile = calculateExperience();
+                              SendNUIMessage({
+                                app: BOOSTING_APP,
+                                method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
+                                data: boosterProfile
+                              });
                               resetBoostMissions();
                               emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
                             }
