@@ -1,6 +1,6 @@
-import { Transfer } from '@typings/bank';
-import { useRecoilValue } from 'recoil';
-import { bankState } from '../../hooks/state';
+import {Transfer} from '@typings/bank';
+import {useRecoilValue} from 'recoil';
+import {bankState} from '../../hooks/state';
 import useStyles from '../bank.styles';
 
 export const TransactionList = () => {

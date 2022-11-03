@@ -1,4 +1,4 @@
-import { BankEvents, IBankCredentials } from '@typings/bank';
+import {BankEvents, IBankCredentials} from '@typings/bank';
 
 RegisterNuiCallbackType(BankEvents.GET_CREDENTIALS);
 RegisterNuiCallbackType(BankEvents.ADD_TRANSFER);

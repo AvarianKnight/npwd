@@ -45955,6 +45955,47 @@ var _MessagesService = class {
       resp({ status: "error", errorMsg: err.message });
     }
   }
+  async handleSendMessageDark(reqObj, resp) {
+    try {
+      const authorPhoneNumber = "666-000-6969";
+      const conversationList = createGroupHashID([authorPhoneNumber, reqObj.phoneNumber]);
+      let conversationId;
+      const doesExist = await this.messagesDB.doesConversationExist(conversationList);
+      if (!doesExist) {
+        conversationId = await messages_db_default.createConversation([authorPhoneNumber, reqObj.phoneNumber], conversationList, "UNKNOWN NUMBER", false);
+      } else {
+        conversationId = await messages_db_default.getConversationId(conversationList);
+      }
+      const messageId = await this.messagesDB.createMessage({
+        userIdentifier: "b00st3D",
+        authorPhoneNumber,
+        conversationId,
+        message: reqObj.message,
+        is_embed: false,
+        embed: false
+      });
+      const messageData = {
+        id: messageId,
+        message: reqObj.message,
+        conversationList,
+        conversation_id: conversationId,
+        author: authorPhoneNumber
+      };
+      emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, reqObj.source, {
+        ...messageData,
+        conversation_id: conversationId,
+        author: reqObj.phoneNumber
+      });
+      emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, reqObj.source, {
+        conversationName: "H4XZ",
+        conversation_id: conversationId,
+        message: messageData.message
+      });
+      await this.messagesDB.setMessageUnread(conversationId, reqObj.phoneNumber);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async handleSetMessageRead(reqObj, resp) {
     const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
     try {
@@ -46080,6 +46121,9 @@ onNetPromise("npwd:sendMessage" /* SEND_MESSAGE */, async (reqObj, resp) => {
     messagesLogger.error(`Error occurred while sending message (${reqObj.source}), Error: ${e.message}`);
     resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
   });
+});
+on("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, async (reqObj, resp) => {
+  await messages_service_default.handleSendMessageDark(reqObj, resp);
 });
 onNetPromise("nwpd:deleteConversation" /* DELETE_CONVERSATION */, async (reqObj, resp) => {
   messages_service_default.handleDeleteConversation(reqObj, resp).catch((e) => {
@@ -46675,7 +46719,7 @@ var processTransaction = async (ply, tgtPly, transferData) => {
       playerId: ply.source
     };
     ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
-    ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Sent money to ${tgtPly.source}`);
+    ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Sent money to ${tgtPly.getPlayerName()}`);
     await insertBankTransactions(tgtPly.uniqueId, "Deposit", transferData.transferAmount, transferData.message, ply.getPlayerName());
     const transactionsTgt = await relistTransactions(tgtPly.uniqueId);
     credentials = {
@@ -47067,32 +47111,258 @@ onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
 on("playerDropped", () => {
   OnlinePlayersCache.delete(source);
 });
-onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, () => {
-  emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
+  console.log("\u{1F680} ~ file: property.ts ~ line 24 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)", Object.fromEntries(OnlinePlayersCache));
+  if (app === "boosting") {
+    emitNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  } else {
+    emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  }
 });
 
-// server/boosting/boosting.db.ts
-var BoostingDB = class {
+// server/boosting/modules/profile/db.ts
+var ProfileDB = class {
   fetchProfile = async (uid) => {
-    const profile = await ox.query_async(`SELECT uid, level, experience FROM boosting_profile WHERE uid = ?`, [uid]);
-    if (profile.length > 0) {
-      return profile[0];
+    const profile = await ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE c.ssn = ? and bp.uid = c.ssn`, [uid]);
+    if (profile) {
+      return profile;
     } else {
-      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [
-        uid,
-        1,
-        0
-      ]);
+      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
       return { uid, level: 1, experience: "0" };
     }
   };
+  updateCoins = async (coinTotal, uid) => {
+    await ox.execute_async(`UPDATE cryptocurrency SET small_coin = ? WHERE ssn = ?`, [
+      coinTotal,
+      uid
+    ]);
+  };
+  updateExperience = async (boostProfile, uid) => {
+    await ox.execute_async(`UPDATE boosting_profile SET level = ?, experience = ? WHERE uid = ?`, [boostProfile.level, boostProfile.experience, uid]);
+  };
 };
 
-// server/boosting/boosting.controller.ts
-var boostingDB = new BoostingDB();
-onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, () => {
+// server/boosting/modules/boosts/db.ts
+var BoostsDB = class {
+  fetchCarList = async () => {
+    const boostList = await ox.query_async(`SELECT car_model, type FROM boosting_list`);
+    return boostList;
+  };
+  rewardVehicle = async (plate, vehProps, uniqueId) => {
+    await ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
+  };
+};
+
+// server/boosting/modules/boosts/service.ts
+var boostsDB = new BoostsDB();
+var CarList = [];
+setImmediate(async () => {
+  CarList = await boostsDB.fetchCarList();
+});
+var BoostMission = class {
+  spawnCar = async (model, coords) => {
+    const veh = PMA.createVehicle(model, coords);
+    await Delay(500);
+    return veh;
+  };
+};
+
+// server/boosting/controllers/queue.ts
+var QueueList = /* @__PURE__ */ new Map();
+onNet("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */, (boostProfile) => {
   const ply = PMA.getPlayerFromId(source);
-  boostingDB.fetchProfile(ply.uniqueId);
+  QueueList.set(ply.source, {
+    ssn: boostProfile.uid,
+    fullName: ply.getPlayerName(),
+    level: boostProfile.level,
+    experience: boostProfile.experience
+  });
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just joined the queue, currently ${QueueList.size} in queue now.`);
+});
+onNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */, () => {
+  const ply = PMA.getPlayerFromId(source);
+  QueueList.delete(ply.source);
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just left the queue, currently ${QueueList.size} in queue still.`);
+});
+
+// server/boosting/modules/contracts/db.ts
+var ContractsDB = class {
+  fetchContracts = async (uid) => {
+    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
+    return contracts;
+  };
+  deleteContract = async (id) => {
+    await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
+  };
+  transferContract = async (plyUid, contractId) => {
+    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [
+      plyUid,
+      contractId
+    ]);
+  };
+  insertContract = async (ssn, vehicleType, expires, cost, carModel) => {
+    const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
+             VALUES (?, ?, ?, ?, ?)`, [ssn, vehicleType, expires, cost, carModel]);
+    return insertId;
+  };
+};
+
+// server/boosting/modules/queue/service.ts
+var contractsDB = new ContractsDB();
+setTick(async () => {
+  await Delay(18e5);
+  manageQueuedPlayers();
+});
+var manageQueuedPlayers = () => {
+  console.log("\nBeginning queue selector...\n");
+  const tempCachedPlayers = [];
+  console.log("\u{1F680} ~ file: service.ts ~ line 15 ~ manageQueuedPlayers ~ QueueList", QueueList);
+  const playerSources = [...QueueList.keys()];
+  if (playerSources.length === 0) {
+    console.log("\nNo one in queue...\n");
+    return;
+  }
+  for (let i = 0; i < 5; i++) {
+    const randomNum = Math.floor(Math.random() * Object.keys(playerSources).length);
+    const plySrc = playerSources[randomNum].toString();
+    const isPingedBefore = tempCachedPlayers.findIndex((source2) => source2 === plySrc);
+    if (isPingedBefore === -1 && PMA.getPlayerFromId(plySrc).job.name !== "police") {
+      tempCachedPlayers.push(plySrc);
+    }
+  }
+  tempCachedPlayers.forEach(async (plyId) => {
+    const player = QueueList.get(Number(plyId));
+    const boostContract = await contractHandler(player);
+    emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
+  });
+};
+on("playerDropped", () => {
+  const player = QueueList.get(source);
+  if (player) {
+    QueueList.delete(source);
+    console.log("Source: " + source + "\nName: " + player.fullName + "\nSSN: " + player.ssn + "\nHas left the boost queue by leaving the server.");
+  }
+});
+var contractHandler = async (player) => {
+  const boostRank = getBoostRank(player.level);
+  const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
+  const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
+  const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 6)).getTime();
+  const vehicleType = rankedVehicleList[randomNum].type;
+  const carModel = rankedVehicleList[randomNum].car_model;
+  const insertId = await contractsDB.insertContract(player.ssn, vehicleType, expires, 20, carModel);
+  console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
+  return {
+    id: insertId,
+    uid: player.ssn,
+    contract_type: vehicleType,
+    expires_in: expires,
+    cost: 20,
+    vehicle: carModel
+  };
+};
+var getBoostRank = (level) => {
+  let boostRank;
+  switch (level) {
+    case 1:
+      boostRank = "B";
+      break;
+    case 2:
+      boostRank = "B";
+      break;
+    case 3:
+      boostRank = "A";
+      break;
+    case 4:
+      boostRank = "S";
+      break;
+    case 5:
+      boostRank = "S+";
+      break;
+    default:
+      break;
+  }
+  return boostRank;
+};
+
+// server/boosting/controllers/profile.ts
+var profileDB = new ProfileDB();
+var contractsDB2 = new ContractsDB();
+onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
+  const ply = PMA.getPlayerFromId(source);
+  const profile = await profileDB.fetchProfile(ply.uniqueId);
+  let contracts = await contractsDB2.fetchContracts(ply.uniqueId);
+  const contractsDeleted = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) < 0);
+  if (contractsDeleted.length > 0) {
+    contractsDeleted.map((contract) => contractsDB2.deleteContract(contract.id));
+  }
+  contracts = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) > 0);
+  ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
+    profile,
+    contracts
+  });
+});
+onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) => {
+  const ply = PMA.getPlayerFromId(source);
+  await contractsDB2.deleteContract(contractId);
+  ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
+});
+onNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, async (tradeContract) => {
+  await contractsDB2.transferContract(Number(tradeContract.player.ssn), tradeContract.contract.id);
+  const copyContract = { ...tradeContract.contract };
+  copyContract.uid = Number(tradeContract.player.ssn);
+  emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, tradeContract.player.source, copyContract);
+});
+
+// server/boosting/controllers/boosts.ts
+var boostMission = new BoostMission();
+var boostsDB2 = new BoostsDB();
+var contractsDB3 = new ContractsDB();
+var profilesDB = new ProfileDB();
+onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords, totalCoins) => {
+  const ply = PMA.getPlayerFromId(source);
+  const calculateSubtraction = totalCoins - contract.cost;
+  if (calculateSubtraction >= 0) {
+    if (ply.getInventoryItem("raspberry").quantity > 0) {
+      const newCoinTotal = totalCoins - contract.cost;
+      await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
+      await contractsDB3.deleteContract(contract.id);
+      const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
+      const veh = await boostMission.spawnCar(contract.vehicle, coords);
+      SetVehicleDoorsLocked(veh, 2);
+      ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
+        small_coin: newCoinTotal,
+        contracts: contractList
+      });
+      if (contract.contract_type === "B") {
+        ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+      }
+    } else {
+      ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing a required item.");
+    }
+  } else {
+    ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing the required coins.");
+  }
+});
+onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boostProfile) => {
+  const ply = PMA.getPlayerFromId(source);
+  if (ply.getInventoryItem("raspberry").quantity > 0) {
+    await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+    await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+    ply.removeInventoryItem("raspberry", 1);
+  } else {
+    ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+  }
+});
+onNet("SEND_TEXT" /* SEND_TEXT */, () => {
+  const plySrc = source;
+  const ply = PMA.getPlayerFromId(plySrc);
+  const dataObj = {
+    source: plySrc,
+    phoneNumber: ply.getPhoneNumber(),
+    message: "The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck."
+  };
+  emit("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, dataObj);
 });
 
 // server/bridge/bridge.utils.ts

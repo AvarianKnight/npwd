@@ -1,5 +1,5 @@
-import { IBankCredentials } from '@typings/bank';
-import { atom } from 'recoil';
+import {IBankCredentials} from '@typings/bank';
+import {atom} from 'recoil';
 
 export const bankState = {
 	transactions: atom({

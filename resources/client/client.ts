@@ -17,6 +17,7 @@ import './cl_bank';
 import './cl_darkmarket';
 import './cl_bennys';
 import './cl_property';
-import './cl_boosting';
+import './boosting/main';
 
 export const ClUtils = new ClientUtils();
+export const PMA = exports['pma-framework'].getData();

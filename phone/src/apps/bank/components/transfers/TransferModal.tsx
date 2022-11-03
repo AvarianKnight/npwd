@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Modal from '../../../../ui/components/Modal';
-import { Button, List, ListItem } from '@mui/material';
+import {Button, List, ListItem} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { useBankModal } from '../../hooks/useBankModal';
-import { useNuiRequest } from 'fivem-nui-react-lib';
-import { TextField } from '@ui/components/Input';
-import { BankEvents } from '@typings/bank';
+import {useBankModal} from '../../hooks/useBankModal';
+import {useNuiRequest} from 'fivem-nui-react-lib';
+import {TextField} from '@ui/components/Input';
+import {BankEvents} from '@typings/bank';
 
 const useStyles = makeStyles((theme) => ({
 	input: {
@@ -37,7 +37,7 @@ export const TransferModal = () => {
 	const [amount, setAmount] = useState('');
 	const [message, setMessage] = useState('');
 
-	const { showBankModal, setShowBankModal } = useBankModal();
+	const {showBankModal, setShowBankModal} = useBankModal();
 
 	const _handleClose = () => {
 		setShowBankModal(false);
@@ -55,10 +55,10 @@ export const TransferModal = () => {
 
 	return (
 		<Modal visible={showBankModal} handleClose={_handleClose}>
-			<List style={{ marginTop: 20 }}>
+			<List style={{marginTop: 20}}>
 				<ListItem>
 					<TextField
-						inputProps={{ className: classes.modalInputCenter }}
+						inputProps={{className: classes.modalInputCenter}}
 						fullWidth
 						type="number"
 						placeholder="ID"
@@ -68,7 +68,7 @@ export const TransferModal = () => {
 				</ListItem>
 				<ListItem>
 					<TextField
-						inputProps={{ className: classes.modalInputCenter }}
+						inputProps={{className: classes.modalInputCenter}}
 						placeholder="Amount"
 						fullWidth
 						type="number"
@@ -78,7 +78,7 @@ export const TransferModal = () => {
 				</ListItem>
 				<ListItem>
 					<TextField
-						inputProps={{ className: classes.modalInput, maxLength: 100 }}
+						inputProps={{className: classes.modalInput, maxLength: 100}}
 						placeholder="Message"
 						fullWidth
 						value={message}

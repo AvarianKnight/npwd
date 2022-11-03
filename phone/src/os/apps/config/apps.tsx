@@ -1,15 +1,15 @@
 import React from 'react';
-import { blue, common, grey, purple } from '@mui/material/colors';
-import { DialerApp } from '../../../apps/dialer/components/DialerApp';
-import { ContactsApp } from '../../../apps/contacts/components/ContactsApp';
-import { CalculatorApp } from '../../../apps/calculator/components/CalculatorApp';
-import { SettingsApp } from '../../../apps/settings/components/SettingsApp';
-import { MessagesApp } from '../../../apps/messages/components/MessagesApp';
-import { ExampleAppWrapper } from '../../../apps/example/components/ExampleAppWrapper';
-import { MarketplaceApp } from '../../../apps/marketplace/components/MarketplaceApp';
-import { NotesApp } from '../../../apps/notes/NotesApp';
+import {blue, common, grey, purple} from '@mui/material/colors';
+import {DialerApp} from '../../../apps/dialer/components/DialerApp';
+import {ContactsApp} from '../../../apps/contacts/components/ContactsApp';
+import {CalculatorApp} from '../../../apps/calculator/components/CalculatorApp';
+import {SettingsApp} from '../../../apps/settings/components/SettingsApp';
+import {MessagesApp} from '../../../apps/messages/components/MessagesApp';
+import {ExampleAppWrapper} from '../../../apps/example/components/ExampleAppWrapper';
+import {MarketplaceApp} from '../../../apps/marketplace/components/MarketplaceApp';
+import {NotesApp} from '../../../apps/notes/NotesApp';
 import CameraApp from '../../../apps/camera/components/CameraApp';
-import { AppRoute } from '../components/AppRoute';
+import {AppRoute} from '../components/AppRoute';
 
 import {
 	MESSAGES_APP_PRIMARY_COLOR,
@@ -23,23 +23,23 @@ import {
 	MARKETPLACE_APP_PRIMARY_COLOR,
 	MARKETPLACE_APP_ICON_COLOR,
 } from '../../../apps/marketplace/marketplace.theme';
-import { NOTES_APP_ICON_COLOR, NOTES_APP_PRIMARY_COLOR } from '../../../apps/notes/notes.theme';
-import { DIALER_APP_PRIMARY_COLOR, DIALER_APP_TEXT_COLOR } from '../../../apps/dialer/dialer.theme';
+import {NOTES_APP_ICON_COLOR, NOTES_APP_PRIMARY_COLOR} from '../../../apps/notes/notes.theme';
+import {DIALER_APP_PRIMARY_COLOR, DIALER_APP_TEXT_COLOR} from '../../../apps/dialer/dialer.theme';
 import {
 	TWITTER_APP_PRIMARY_COLOR,
 	TWITTER_APP_TEXT_COLOR,
 } from '../../../apps/twitter/twitter.theme';
-import { MATCH_APP_PRIMARY_COLOR, MATCH_APP_TEXT_COLOR } from '../../../apps/match/match.theme';
-import { SvgIconProps } from '@mui/material';
-import { INotificationIcon } from '@os/notifications/providers/NotificationsProvider';
-import { BrowserApp } from '../../../apps/browser/components/BrowserApp';
-import { MatchApp } from '../../../apps/match/components/MatchApp';
+import {MATCH_APP_PRIMARY_COLOR, MATCH_APP_TEXT_COLOR} from '../../../apps/match/match.theme';
+import {SvgIconProps} from '@mui/material';
+import {INotificationIcon} from '@os/notifications/providers/NotificationsProvider';
+import {BrowserApp} from '../../../apps/browser/components/BrowserApp';
+import {MatchApp} from '../../../apps/match/components/MatchApp';
 import TwitterContainer from '../../../apps/twitter/components/TwitterContainer';
-import { BankApp } from '../../../apps/bank/components/BankApp';
+import {BankApp} from '../../../apps/bank/components/BankApp';
 import DarkMarketApp from '../../../apps/darkmarket/components/DarkMarketApp';
 import BennysApp from '../../../apps/bennys/components/BennysApp';
 import PropertyApp from '../../../apps/property/components/PropertyApp';
-import BoostingApp from '../../../apps/boosting/BoostingApp';
+import BoostingApp from '../../../apps/boosting/BoostingLayout';
 
 export interface IAppConfig {
 	id: string;
@@ -225,16 +225,16 @@ export const APPS: IAppConfig[] = [
 			<AppRoute id="PROPERTY" path="/property" component={PropertyApp} emitOnOpen={false} />
 		),
 	},
-	// {
-	// 	id: 'BOOSTING',
-	// 	nameLocale: 'Boosting',
-	// 	backgroundColor: '#BA55D3',
-	// 	color: common.white,
-	// 	path: '/boosting',
-	// 	Route: () => (
-	// 		<AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
-	// 	),
-	// },
+	{
+		id: 'BOOSTING',
+		nameLocale: 'Boosting',
+		backgroundColor: '#BA55D3',
+		color: common.white,
+		path: '/boosting',
+		Route: () => (
+			<AppRoute id="BOOSTING" path="/boosting" component={BoostingApp} emitOnOpen={false} />
+		),
+	},
 ];
 
 // Example app only in dev

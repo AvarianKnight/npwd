@@ -1,5 +1,5 @@
-import { BankEvents, IBankCredentials, Transfer } from '@typings/bank';
-import { AC, ox, PMA } from '../server';
+import {BankEvents, IBankCredentials, ITransactions, Transfer} from '@typings/bank';
+import {AC, ox, PMA} from '../server';
 
 export const exp = (global as any).exports;
 
@@ -88,7 +88,7 @@ const processTransaction = async (ply: any, tgtPly: any, transferData: Transfer)
 		};
 
 		ply.triggerEvent(BankEvents.SEND_CREDENTIALS, credentials);
-		ply.triggerEvent(BankEvents.SEND_NOTIFICATION, `Sent money to ${tgtPly.source}`);
+		ply.triggerEvent(BankEvents.SEND_NOTIFICATION, `Sent money to ${tgtPly.getPlayerName()}`);
 
 		await insertBankTransactions(
 			tgtPly.uniqueId,
