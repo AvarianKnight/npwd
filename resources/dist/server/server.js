@@ -39614,7 +39614,8 @@ var init_messages_db = __esm({
           author,
           message,
           is_embed,
-          embed
+          embed,
+		  (UNIX_TIMESTAMP(createdAt) * 1000) as createdAt
         FROM npwd_messages
         WHERE conversation_id = ?
         ORDER BY id DESC
@@ -41394,7 +41395,6 @@ var init_property2 = __esm({
       OnlinePlayersCache.delete(source);
     });
     onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
-      console.log("\u{1F680} ~ file: property.ts ~ line 24 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)", Object.fromEntries(OnlinePlayersCache));
       if (app === "boosting") {
         emitNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
       } else {
@@ -48521,7 +48521,6 @@ var init_server = __esm({
       yield Delay(5e3);
       const onlinePlayers = getPlayers();
       for (const player of onlinePlayers) {
-        console.log("\u{1F680} ~ file: server.ts ~ line 64 ~ on ~ player", typeof player);
         emitNet("npwd:property:reload" /* RELOAD_APP */, Number(player));
       }
       mainLogger.info("Successfully started");

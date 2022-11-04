@@ -61,7 +61,6 @@ on('onResourceStart', async (resource: string) => {
 	await Delay(5000);
 	const onlinePlayers = getPlayers();
 	for (const player of onlinePlayers) {
-		console.log('🚀 ~ file: server.ts ~ line 64 ~ on ~ player', typeof player);
 		emitNet(PropertyEvents.RELOAD_APP, Number(player));
 	}
 	mainLogger.info('Successfully started');

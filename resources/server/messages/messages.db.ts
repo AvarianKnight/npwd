@@ -55,7 +55,8 @@ export class _MessagesDB {
           author,
           message,
           is_embed,
-          embed
+          embed,
+		  (UNIX_TIMESTAMP(createdAt) * 1000) as createdAt
         FROM npwd_messages
         WHERE conversation_id = ?
         ORDER BY id DESC

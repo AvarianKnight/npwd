@@ -19,10 +19,6 @@ on('playerDropped', () => {
 });
 
 onNet(PropertyEvents.GET_PLAYERS, (app: string) => {
-	console.log(
-		'🚀 ~ file: property.ts ~ line 24 ~ onNet ~ Object.fromEntries(OnlinePlayersCache)',
-		Object.fromEntries(OnlinePlayersCache),
-	);
 	if (app === 'boosting') {
 		emitNet(BoostingEvents.GET_PLAYERS, source, Object.fromEntries(OnlinePlayersCache), source);
 	} else {
