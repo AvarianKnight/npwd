@@ -143,7 +143,9 @@ class _MessagesService {
 			const player = PlayerService.getPlayer(reqObj.source);
 			const authorPhoneNumber = player.getPhoneNumber();
 			const messageData = reqObj.data;
+
 			const participants = getIdentifiersFromParticipants(messageData.conversationList);
+
 			const userIdentifier = player.getIdentifier();
 
 			const conversationDetails = await this.messagesDB.getConversation(
@@ -230,11 +232,18 @@ class _MessagesService {
 								conversation_id: messageData.conversationId,
 								author: authorPhoneNumber,
 							});
+
+							// get display name for immersion
+							const displayName = await this.messagesDB.getDisplayName(
+								authorPhoneNumber,
+								participantPlayer,
+							);
+
 							emitNet(
 								MessageEvents.CREATE_MESSAGE_BROADCAST,
 								participantPlayer.source,
 								{
-									conversationName: authorPhoneNumber,
+									conversationName: displayName,
 									conversation_id: messageData.conversationId,
 									message: messageData.message,
 									is_embed: messageData.is_embed,
@@ -353,11 +362,23 @@ class _MessagesService {
 
 		try {
 			const senderPlayer = await PlayerService.getIdentifierByPhoneNumber(senderNumber, true);
+			console.log(
+				'🚀 ~ file: messages.service.ts ~ line 356 ~ _MessagesService ~ handleEmitMessage ~ senderPlayer',
+				senderPlayer,
+			);
 
 			const participantIdentifier = await PlayerService.getIdentifierByPhoneNumber(
 				targetNumber,
 			);
+			console.log(
+				'🚀 ~ file: messages.service.ts ~ line 360 ~ _MessagesService ~ handleEmitMessage ~ participantIdentifier',
+				participantIdentifier,
+			);
 			const participantPlayer = PlayerService.getPlayerFromIdentifier(participantIdentifier);
+			console.log(
+				'🚀 ~ file: messages.service.ts ~ line 361 ~ _MessagesService ~ handleEmitMessage ~ participantPlayer',
+				participantPlayer,
+			);
 
 			// Create our groupId hash
 			const conversationList = createGroupHashID([senderNumber, targetNumber]);
