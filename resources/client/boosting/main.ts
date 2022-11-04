@@ -93,13 +93,8 @@ onNet(BoostingEvents.MISSING_EQUIPMENT, (msg: string) => {
 
 onNet(BoostMissionEvents.FAIL_VEHICLE, () => {
 	ClearGpsPlayerWaypoint();
-	SendNUIMessage({
-		app: BOOSTING_APP,
-		method: BoostingEvents.SEND_NOTIFICATION,
-		data: {
-			title: 'Bo0ST3Dz',
-			boostNotify: (iterator += 1),
-			message: 'Failed - contract has been destroyed!',
-		},
-	});
+	emitNet(
+		BoostingEvents.SEND_TEXT,
+		'You failed the contract, make sure you reset the app if applicable.',
+	);
 });

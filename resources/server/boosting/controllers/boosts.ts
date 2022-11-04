@@ -68,15 +68,23 @@ onNet(BoostMissionEvents.REWARD_VEHICLE, async (vehProps: any, boostProfile: Boo
 	}
 });
 
-onNet(BoostingEvents.SEND_TEXT, () => {
+onNet(BoostMissionEvents.FAIL_VEHICLE, async () => {
+	const ply = PMA.getPlayerFromId(source);
+
+	if (ply.getInventoryItem('raspberry').quantity > 0) {
+		ply.removeInventoryItem('raspberry', 1);
+	}
+	ply.triggerEvent(BoostMissionEvents.FAIL_VEHICLE);
+});
+
+onNet(BoostingEvents.SEND_TEXT, (message: string) => {
 	const plySrc = source;
 	const ply = PMA.getPlayerFromId(plySrc);
 
 	const dataObj = {
 		source: plySrc,
 		phoneNumber: ply.getPhoneNumber(),
-		message:
-			'The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.',
+		message: message,
 	};
 	emit(MessageEvents.SEND_MESSAGE_DARK, dataObj);
 });

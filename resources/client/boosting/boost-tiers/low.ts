@@ -29,7 +29,10 @@ export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
-	emitNet(BoostingEvents.SEND_TEXT);
+	emitNet(
+		BoostingEvents.SEND_TEXT,
+		'The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.',
+	);
 	// if active is true you cannot start another mission at the same time.
 	BPlayer.active = true;
 	showRoute(coords);
@@ -119,7 +122,7 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 									} else {
 										// reset boost if failed
 										resetBoostMissions();
-										emit(BoostMissionEvents.FAIL_VEHICLE);
+										emitNet(BoostMissionEvents.FAIL_VEHICLE);
 									}
 								},
 							);

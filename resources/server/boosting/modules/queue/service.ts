@@ -8,7 +8,9 @@ import {ContractsDB} from '../contracts/db';
 const contractsDB = new ContractsDB();
 
 setTick(async () => {
-	await Delay(600000);
+	// await Delay(600000);
+
+	await Delay(6000);
 	manageQueuedPlayers();
 });
 

@@ -31,19 +31,6 @@ export const useMessageNotifications = () => {
 	});
 
 	const setNotification = ({conversationName, conversationId, message}) => {
-		console.log(
-			'🚀 ~ file: useMessageNotifications.ts ~ line 34 ~ setNotification ~ message',
-			message,
-		);
-		console.log(
-			'🚀 ~ file: useMessageNotifications.ts ~ line 34 ~ setNotification ~ conversationId',
-			conversationId,
-		);
-		console.log(
-			'🚀 ~ file: useMessageNotifications.ts ~ line 34 ~ setNotification ~ conversationName',
-			conversationName,
-		);
-
 		let group = getMessageConversationById(conversationId) as MessageConversation;
 
 		if (!group) return;
