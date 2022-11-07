@@ -225,8 +225,11 @@ export class _MessagesDB {
                   WHERE number = ? AND identifier = ?`;
 		const [results] = await DbInterface._rawExec(query, [number, player.ssn]);
 		const result = <any>results;
-
-		return result[0].display;
+		if (result[0]) {
+			return result[0].display;
+		} else {
+			return player.getPhoneNumber();
+		}
 	}
 }
 

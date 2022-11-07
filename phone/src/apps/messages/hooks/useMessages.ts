@@ -1,73 +1,75 @@
-import { useCallback } from 'react';
-import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll } from 'recoil';
-import { MessageConversation } from '@typings/messages';
-import { messageState, useSetConversationId } from './state';
-import { useHistory } from 'react-router-dom';
+import {useCallback} from 'react';
+import {useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll} from 'recoil';
+import {MessageConversation} from '@typings/messages';
+import {messageState, useSetConversationId} from './state';
+import {useHistory} from 'react-router-dom';
+import {useMessagesService} from './useMessageService';
+import {useMessageAPI} from './useMessageAPI';
 
 interface IUseMessages {
-  conversations?: MessageConversation[];
-  getMessageConversationById: (id: number) => MessageConversation | null;
-  setActiveMessageConversation: (conversation_id: number) => MessageConversation | null;
-  activeMessageConversation: MessageConversation | null;
+	conversations?: MessageConversation[];
+	getMessageConversationById: (id: number) => MessageConversation | null;
+	setActiveMessageConversation: (conversation_id: number) => MessageConversation | null;
+	activeMessageConversation: MessageConversation | null;
 
-  goToConversation(g: Pick<MessageConversation, 'id'>): void;
+	goToConversation(g: Pick<MessageConversation, 'id'>): void;
 }
 
 const useMessages = (): IUseMessages => {
-  const history = useHistory();
+	const history = useHistory();
+	const {state: conversationLoading, contents} = useRecoilValueLoadable(
+		messageState.messageCoversations,
+	);
+	const [activeMessageConversation] = useRecoilValue(
+		waitForAll([messageState.activeMessageConversation]),
+	);
 
-  const { state: conversationLoading, contents } = useRecoilValueLoadable(
-    messageState.messageCoversations,
-  );
-  const [activeMessageConversation] = useRecoilValue(
-    waitForAll([messageState.activeMessageConversation]),
-  );
+	const setCurrentConversationId = useSetConversationId();
+	const _setActiveMessageConversation = useSetRecoilState(messageState.activeMessageConversation);
 
-  const setCurrentConversationId = useSetConversationId();
-  const _setActiveMessageConversation = useSetRecoilState(messageState.activeMessageConversation);
+	const getMessageConversationById = useCallback(
+		(id: number): MessageConversation | null => {
+			if (conversationLoading !== 'hasValue') return null;
+			if (!contents) return null;
+			if (!contents.length) return null;
 
-  const getMessageConversationById = useCallback(
-    (id: number): MessageConversation | null => {
-      if (conversationLoading !== 'hasValue') return null;
-      if (!contents) return null;
-      if (!contents.length) return null;
+			const conversationGroup = contents.find((c) => c.id === id);
 
-      const conversationGroup = contents.find((c) => c.id === id);
+			if (!conversationGroup) return null;
 
-      if (!conversationGroup) return null;
+			// FIXME: Make sure we have contents as a number as well..
+			return conversationGroup;
+		},
+		[contents, conversationLoading],
+	);
 
-      // FIXME: Make sure we have contents as a number as well..
-      return conversationGroup;
-    },
-    [contents, conversationLoading],
-  );
+	const setActiveMessageConversation = useCallback(
+		(groupId: number) => {
+			const group = getMessageConversationById(groupId);
 
-  const setActiveMessageConversation = useCallback(
-    (groupId: number) => {
-      const group = getMessageConversationById(groupId);
-      _setActiveMessageConversation(group);
-      return group;
-    },
-    [_setActiveMessageConversation, getMessageConversationById],
-  );
+			_setActiveMessageConversation(group);
+			return group;
+		},
+		[_setActiveMessageConversation, getMessageConversationById],
+	);
 
-  const goToConversation = useCallback(
-    (messageConversation: MessageConversation) => {
-      if (!messageConversation?.id || !history) return;
-      setCurrentConversationId(messageConversation.id);
+	const goToConversation = useCallback(
+		(messageConversation: MessageConversation) => {
+			if (!messageConversation?.id || !history) return;
+			setCurrentConversationId(messageConversation.id);
 
-      history.push(`/messages/conversations/${messageConversation.id.toString()}`);
-    },
-    [setCurrentConversationId, history],
-  );
+			history.push(`/messages/conversations/${messageConversation.id.toString()}`);
+		},
+		[setCurrentConversationId, history],
+	);
 
-  return {
-    activeMessageConversation,
-    setActiveMessageConversation,
-    getMessageConversationById,
-    goToConversation,
-    conversations: contents,
-  };
+	return {
+		activeMessageConversation,
+		setActiveMessageConversation,
+		getMessageConversationById,
+		goToConversation,
+		conversations: contents,
+	};
 };
 
 export default useMessages;

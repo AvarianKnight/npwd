@@ -39760,7 +39760,11 @@ var init_messages_db = __esm({
                   WHERE number = ? AND identifier = ?`;
           const [results] = yield db_wrapper_default._rawExec(query, [number, player.ssn]);
           const result = results;
-          return result[0].display;
+          if (result[0]) {
+            return result[0].display;
+          } else {
+            return player.getPhoneNumber();
+          }
         });
       }
     };
@@ -40013,11 +40017,8 @@ var init_messages_service = __esm({
           const { senderNumber, targetNumber, message } = dto;
           try {
             const senderPlayer = yield player_service_default.getIdentifierByPhoneNumber(senderNumber, true);
-            console.log("\u{1F680} ~ file: messages.service.ts ~ line 356 ~ _MessagesService ~ handleEmitMessage ~ senderPlayer", senderPlayer);
             const participantIdentifier = yield player_service_default.getIdentifierByPhoneNumber(targetNumber);
-            console.log("\u{1F680} ~ file: messages.service.ts ~ line 360 ~ _MessagesService ~ handleEmitMessage ~ participantIdentifier", participantIdentifier);
             const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
-            console.log("\u{1F680} ~ file: messages.service.ts ~ line 361 ~ _MessagesService ~ handleEmitMessage ~ participantPlayer", participantPlayer);
             const conversationList = createGroupHashID([senderNumber, targetNumber]);
             const conversationId = yield this.messagesDB.getConversationId(conversationList);
             const messageId = yield this.messagesDB.createMessage({

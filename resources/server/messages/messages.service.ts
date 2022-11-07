@@ -362,23 +362,12 @@ class _MessagesService {
 
 		try {
 			const senderPlayer = await PlayerService.getIdentifierByPhoneNumber(senderNumber, true);
-			console.log(
-				'🚀 ~ file: messages.service.ts ~ line 356 ~ _MessagesService ~ handleEmitMessage ~ senderPlayer',
-				senderPlayer,
-			);
 
 			const participantIdentifier = await PlayerService.getIdentifierByPhoneNumber(
 				targetNumber,
 			);
-			console.log(
-				'🚀 ~ file: messages.service.ts ~ line 360 ~ _MessagesService ~ handleEmitMessage ~ participantIdentifier',
-				participantIdentifier,
-			);
+
 			const participantPlayer = PlayerService.getPlayerFromIdentifier(participantIdentifier);
-			console.log(
-				'🚀 ~ file: messages.service.ts ~ line 361 ~ _MessagesService ~ handleEmitMessage ~ participantPlayer',
-				participantPlayer,
-			);
 
 			// Create our groupId hash
 			const conversationList = createGroupHashID([senderNumber, targetNumber]);

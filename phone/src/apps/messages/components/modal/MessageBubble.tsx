@@ -110,11 +110,9 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({message}) => {
 							)}
 						</StyledMessage>
 					)}
-					{/* {!isMine && ( */}
 					<Typography fontWeight="bold" fontSize={14} color="rgb(255, 143, 0)">
 						{moment(message.createdAt).startOf('minute').fromNow()}
 					</Typography>
-					{/* )} */}
 				</Paper>
 			</Box>
 			<MessageBubbleMenu open={menuOpen} handleClose={() => setMenuOpen(false)} />
