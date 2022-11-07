@@ -2,7 +2,7 @@ import {Avatar, Box, IconButton, Paper, Typography} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {makeStyles} from '@mui/styles';
 import React, {useState} from 'react';
-import {Message} from '@typings/messages';
+import {Message, MessageConversation} from '@typings/messages';
 import StyledMessage from '../ui/StyledMessage';
 import {PictureResponsive} from '@ui/components/PictureResponsive';
 import {PictureReveal} from '@ui/components/PictureReveal';
@@ -54,9 +54,10 @@ const isImage = (url) => {
 
 interface MessageBubbleProps {
 	message: Message;
+	activeMessageGroup: MessageConversation;
 }
 
-export const MessageBubble: React.FC<MessageBubbleProps> = ({message}) => {
+export const MessageBubble: React.FC<MessageBubbleProps> = ({message, activeMessageGroup}) => {
 	const classes = useStyles();
 	const [menuOpen, setMenuOpen] = useState(false);
 	const {getContactByNumber} = useContactActions();
@@ -110,8 +111,14 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({message}) => {
 							)}
 						</StyledMessage>
 					)}
-					<Typography fontWeight="bold" fontSize={14} color="rgb(255, 143, 0)">
-						{moment(message.createdAt).startOf('minute').fromNow()}
+					<Typography fontWeight="bold" fontSize={13} color="rgb(255, 143, 0)">
+						{!activeMessageGroup.isGroupChat ? (
+							moment(message.createdAt).startOf('minute').fromNow()
+						) : !isMine ? (
+							message.author
+						) : (
+							<></>
+						)}
 					</Typography>
 				</Paper>
 			</Box>

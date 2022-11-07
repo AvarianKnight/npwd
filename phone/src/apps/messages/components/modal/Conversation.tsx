@@ -107,7 +107,11 @@ const Conversation: React.FC<IProps> = ({activeMessageGroup, messages}) => {
 								dataLength={messages.length}
 							>
 								{messages.map((message, index) => (
-									<MessageBubble key={index} message={message} />
+									<MessageBubble
+										key={index}
+										message={message}
+										activeMessageGroup={activeMessageGroup}
+									/>
 								))}
 							</InfiniteScroll>
 						</div>

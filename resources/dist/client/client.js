@@ -212,7 +212,10 @@
         contentType: "multipart/form-data",
         authorizationPrefix: "Client-ID",
         useAuthorization: false,
-        returnedDataIndexes: ["data", "link"]
+        returnedDataIndexes: [
+          "data",
+          "link"
+        ]
       };
       imageSafety = {
         filterUnsafeImageUrls: true,
@@ -231,7 +234,9 @@
       };
       profanityFilter = {
         enabled: false,
-        badWords: ["esx"]
+        badWords: [
+          "esx"
+        ]
       };
       twitter = {
         showNotifications: true,
@@ -239,7 +244,7 @@
         allowEditableProfileName: true,
         allowDeleteTweets: true,
         allowReportTweets: true,
-        allowRetweet: false,
+        allowRetweet: true,
         characterLimit: 160,
         newLineLimit: 10,
         enableAvatars: true,

@@ -43812,7 +43812,10 @@ var images = {
   contentType: "multipart/form-data",
   authorizationPrefix: "Client-ID",
   useAuthorization: false,
-  returnedDataIndexes: ["data", "link"]
+  returnedDataIndexes: [
+    "data",
+    "link"
+  ]
 };
 var imageSafety = {
   filterUnsafeImageUrls: true,
@@ -43831,7 +43834,9 @@ var imageSafety = {
 };
 var profanityFilter = {
   enabled: false,
-  badWords: ["esx"]
+  badWords: [
+    "esx"
+  ]
 };
 var twitter = {
   showNotifications: true,
@@ -43839,7 +43844,7 @@ var twitter = {
   allowEditableProfileName: true,
   allowDeleteTweets: true,
   allowReportTweets: true,
-  allowRetweet: false,
+  allowRetweet: true,
   characterLimit: 160,
   newLineLimit: 10,
   enableAvatars: true,

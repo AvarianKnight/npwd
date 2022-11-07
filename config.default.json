@@ -1,72 +1,72 @@
 {
-  "PhoneAsItem": {
-    "enabled": false,
-    "exportResource": "my-core-resource",
-    "exportFunction": "myCheckerFunction"
-  },
-  "general": {
-    "useResourceIntegration": false,
-    "toggleKey": "f1",
-    "toggleCommand": "phone",
-    "defaultLanguage": "en"
-  },
-  "database": {
-    "useIdentifierPrefix": false,
-    "playerTable": "users",
-    "identifierColumn": "identifier",
-    "identifierType": "license",
-    "profileQueries": true,
-    "phoneNumberColumn": "phone_number"
-  },
-  "images": {
-    "url": "https://i.pma.network/v1/image",
-    "type": "imgur",
-    "imageEncoding": "jpg",
-    "contentType": "multipart/form-data",
-    "authorizationPrefix": "Client-ID",
-    "useAuthorization": false,
-    "returnedDataIndexes": ["data", "link"]
-  },
-  "imageSafety": {
-    "filterUnsafeImageUrls": true,
-    "embedUnsafeImages": true,
-    "embedUrl": "https://i.pma.network/v1/embed",
-    "safeImageUrls": [
-      "imgur.com",
-      "file.glass",
-      "dropbox.com",
-      "tenor.com",
-      "discord.com",
-      "discordapp.com",
-      "wikipedia.org",
-      "i.pma.network"
-    ]
-  },
-  "profanityFilter": {
-    "enabled": false,
-    "badWords": ["esx"]
-  },
-  "twitter": {
-    "showNotifications": true,
-    "generateProfileNameFromUsers": true,
-    "allowEditableProfileName": true,
-    "allowDeleteTweets": true,
-    "allowReportTweets": true,
-    "allowRetweet": false,
-    "characterLimit": 160,
-    "newLineLimit": 10,
-    "enableAvatars": true,
-    "enableEmojis": true,
-    "enableImages": true,
-    "maxImages": 3
-  },
-  "match": {
-    "generateProfileNameFromUsers": true,
-    "allowEditableProfileName": true
-  },
-  "debug": {
-    "level": "error",
-    "enabled": true,
-    "sentryEnabled": true
-  }
+	"PhoneAsItem": {
+		"enabled": false,
+		"exportResource": "my-core-resource",
+		"exportFunction": "myCheckerFunction"
+	},
+	"general": {
+		"useResourceIntegration": false,
+		"toggleKey": "f1",
+		"toggleCommand": "phone",
+		"defaultLanguage": "en"
+	},
+	"database": {
+		"useIdentifierPrefix": false,
+		"playerTable": "users",
+		"identifierColumn": "identifier",
+		"identifierType": "license",
+		"profileQueries": true,
+		"phoneNumberColumn": "phone_number"
+	},
+	"images": {
+		"url": "https://i.pma.network/v1/image",
+		"type": "imgur",
+		"imageEncoding": "jpg",
+		"contentType": "multipart/form-data",
+		"authorizationPrefix": "Client-ID",
+		"useAuthorization": false,
+		"returnedDataIndexes": ["data", "link"]
+	},
+	"imageSafety": {
+		"filterUnsafeImageUrls": true,
+		"embedUnsafeImages": true,
+		"embedUrl": "https://i.pma.network/v1/embed",
+		"safeImageUrls": [
+			"imgur.com",
+			"file.glass",
+			"dropbox.com",
+			"tenor.com",
+			"discord.com",
+			"discordapp.com",
+			"wikipedia.org",
+			"i.pma.network"
+		]
+	},
+	"profanityFilter": {
+		"enabled": false,
+		"badWords": ["esx"]
+	},
+	"twitter": {
+		"showNotifications": true,
+		"generateProfileNameFromUsers": true,
+		"allowEditableProfileName": true,
+		"allowDeleteTweets": true,
+		"allowReportTweets": true,
+		"allowRetweet": true,
+		"characterLimit": 160,
+		"newLineLimit": 10,
+		"enableAvatars": true,
+		"enableEmojis": true,
+		"enableImages": true,
+		"maxImages": 3
+	},
+	"match": {
+		"generateProfileNameFromUsers": true,
+		"allowEditableProfileName": true
+	},
+	"debug": {
+		"level": "error",
+		"enabled": true,
+		"sentryEnabled": true
+	}
 }
