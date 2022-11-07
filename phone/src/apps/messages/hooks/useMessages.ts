@@ -3,8 +3,6 @@ import {useRecoilValue, useRecoilValueLoadable, useSetRecoilState, waitForAll} f
 import {MessageConversation} from '@typings/messages';
 import {messageState, useSetConversationId} from './state';
 import {useHistory} from 'react-router-dom';
-import {useMessagesService} from './useMessageService';
-import {useMessageAPI} from './useMessageAPI';
 
 interface IUseMessages {
 	conversations?: MessageConversation[];

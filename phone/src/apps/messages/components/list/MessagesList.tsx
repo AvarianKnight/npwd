@@ -87,7 +87,6 @@ const MessagesList = (): any => {
 								if (n !== 0) {
 									return n;
 								}
-								// return b.unreadCount - a.unreadCount;
 								return b.updatedAt - a.updatedAt;
 							})
 							.map((conversation) => (

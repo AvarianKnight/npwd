@@ -65,6 +65,7 @@ const Conversation: React.FC<IProps> = ({activeMessageGroup, messages}) => {
 		if (activeConversation.unreadCount > 0 && activeConversation.id === conversationId) {
 			setMessageRead(conversationId);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages]);
 
 	return (

@@ -50,12 +50,12 @@ export const useMessageNotifications = () => {
 
 		addNotificationAlert(notification, (n) => {
 			removeId(id);
-			if (group.unread && group.unread > 1) {
+			if (group.unreadCount && group.unreadCount >= 1) {
 				addNotification({
 					...n,
 					title: group.participant || '',
 					content: t('MESSAGES.MESSAGES.UNREAD_MESSAGES', {
-						count: group.unread,
+						count: group.unreadCount,
 					}),
 				});
 				return;

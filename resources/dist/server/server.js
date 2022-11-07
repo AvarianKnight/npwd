@@ -1,29 +1,9 @@
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -41,184 +21,6 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
-
-// ../config.default.json
-var PhoneAsItem, general, database, images, imageSafety, profanityFilter, twitter, match, debug, config_default_default;
-var init_config_default = __esm({
-  "../config.default.json"() {
-    PhoneAsItem = {
-      enabled: false,
-      exportResource: "my-core-resource",
-      exportFunction: "myCheckerFunction"
-    };
-    general = {
-      useResourceIntegration: false,
-      toggleKey: "f1",
-      toggleCommand: "phone",
-      defaultLanguage: "en"
-    };
-    database = {
-      useIdentifierPrefix: false,
-      playerTable: "users",
-      identifierColumn: "identifier",
-      identifierType: "license",
-      profileQueries: true,
-      phoneNumberColumn: "phone_number"
-    };
-    images = {
-      url: "https://i.pma.network/v1/image",
-      type: "imgur",
-      imageEncoding: "jpg",
-      contentType: "multipart/form-data",
-      authorizationPrefix: "Client-ID",
-      useAuthorization: false,
-      returnedDataIndexes: ["data", "link"]
-    };
-    imageSafety = {
-      filterUnsafeImageUrls: true,
-      embedUnsafeImages: true,
-      embedUrl: "https://i.pma.network/v1/embed",
-      safeImageUrls: [
-        "imgur.com",
-        "file.glass",
-        "dropbox.com",
-        "tenor.com",
-        "discord.com",
-        "discordapp.com",
-        "wikipedia.org",
-        "i.pma.network"
-      ]
-    };
-    profanityFilter = {
-      enabled: false,
-      badWords: ["esx"]
-    };
-    twitter = {
-      showNotifications: true,
-      generateProfileNameFromUsers: true,
-      allowEditableProfileName: true,
-      allowDeleteTweets: true,
-      allowReportTweets: true,
-      allowRetweet: false,
-      characterLimit: 160,
-      newLineLimit: 10,
-      enableAvatars: true,
-      enableEmojis: true,
-      enableImages: true,
-      maxImages: 3
-    };
-    match = {
-      generateProfileNameFromUsers: true,
-      allowEditableProfileName: true
-    };
-    debug = {
-      level: "error",
-      enabled: true,
-      sentryEnabled: true
-    };
-    config_default_default = {
-      PhoneAsItem,
-      general,
-      database,
-      images,
-      imageSafety,
-      profanityFilter,
-      twitter,
-      match,
-      debug
-    };
-  }
-});
-
-// ../shared/deepMergeObjects.ts
-function isObject(item) {
-  return item && typeof item === "object" && !Array.isArray(item);
-}
-function deepMergeObjects(target, ...sources) {
-  if (!sources.length)
-    return target;
-  const source2 = sources.shift();
-  if (isObject(target) && isObject(source2)) {
-    for (const key in source2) {
-      if (isObject(source2[key])) {
-        if (!target[key])
-          Object.assign(target, { [key]: {} });
-        deepMergeObjects(target[key], source2[key]);
-      } else {
-        Object.assign(target, { [key]: source2[key] });
-      }
-    }
-  }
-  return deepMergeObjects(target, ...sources);
-}
-var init_deepMergeObjects = __esm({
-  "../shared/deepMergeObjects.ts"() {
-  }
-});
-
-// server/utils/config.ts
-var getConfig;
-var init_config = __esm({
-  "server/utils/config.ts"() {
-    init_config_default();
-    init_deepMergeObjects();
-    getConfig = () => {
-      const resourceName = GetCurrentResourceName();
-      const config3 = JSON.parse(LoadResourceFile(resourceName, "config.json"));
-      return deepMergeObjects({}, config_default_default, config3);
-    };
-  }
-});
-
-// server/config.ts
-var config;
-var init_config2 = __esm({
-  "server/config.ts"() {
-    init_config();
-    config = (() => {
-      const config3 = getConfig();
-      let database2 = GetConvar("npwd:database", "");
-      if (database2 !== "") {
-        database2 = JSON.parse(database2);
-        Object.entries(config3.database).forEach(([key, value]) => {
-          const record = database2;
-          const configDb = config3.database;
-          if (record[key] && typeof value === typeof record[key]) {
-            configDb[key] = record[key];
-          }
-        });
-      }
-      if (GetConvar("npwd:useResourceIntegration", "") == "true") {
-        config3.general.useResourceIntegration = true;
-      }
-      return config3;
-    })();
-  }
-});
 
 // node_modules/tslib/tslib.js
 var require_tslib = __commonJS({
@@ -780,7 +582,7 @@ var require_browser = __commonJS({
     }
     exports2.htmlTreeAsString = htmlTreeAsString;
     function _htmlElementAsString(el, keyAttrs) {
-      var _a2, _b;
+      var _a, _b;
       var elem = el;
       var out = [];
       var className;
@@ -792,7 +594,7 @@ var require_browser = __commonJS({
         return "";
       }
       out.push(elem.tagName.toLowerCase());
-      var keyAttrPairs = ((_a2 = keyAttrs) === null || _a2 === void 0 ? void 0 : _a2.length) ? keyAttrs.filter(function(keyAttr) {
+      var keyAttrPairs = ((_a = keyAttrs) === null || _a === void 0 ? void 0 : _a.length) ? keyAttrs.filter(function(keyAttr) {
         return elem.getAttribute(keyAttr);
       }).map(function(keyAttr) {
         return [keyAttr, elem.getAttribute(keyAttr)];
@@ -898,7 +700,7 @@ var require_dsn = __commonJS({
         if (withPassword === void 0) {
           withPassword = false;
         }
-        var _a2 = this, host = _a2.host, path2 = _a2.path, pass = _a2.pass, port = _a2.port, projectId = _a2.projectId, protocol = _a2.protocol, publicKey = _a2.publicKey;
+        var _a = this, host = _a.host, path2 = _a.path, pass = _a.pass, port = _a.port, projectId = _a.projectId, protocol = _a.protocol, publicKey = _a.publicKey;
         return protocol + "://" + publicKey + (withPassword && pass ? ":" + pass : "") + ("@" + host + (port ? ":" + port : "") + "/" + (path2 ? path2 + "/" : path2) + projectId);
       };
       Dsn2.prototype._fromString = function(str) {
@@ -906,7 +708,7 @@ var require_dsn = __commonJS({
         if (!match2) {
           throw new error_1.SentryError(ERROR_MESSAGE);
         }
-        var _a2 = tslib_1.__read(match2.slice(1), 6), protocol = _a2[0], publicKey = _a2[1], _b = _a2[2], pass = _b === void 0 ? "" : _b, host = _a2[3], _c = _a2[4], port = _c === void 0 ? "" : _c, lastPath = _a2[5];
+        var _a = tslib_1.__read(match2.slice(1), 6), protocol = _a[0], publicKey = _a[1], _b = _a[2], pass = _b === void 0 ? "" : _b, host = _a[3], _c = _a[4], port = _c === void 0 ? "" : _c, lastPath = _a[5];
         var path2 = "";
         var projectId = lastPath;
         var split = projectId.split("/");
@@ -1400,7 +1202,7 @@ var require_object = __commonJS({
     }
     exports2.extractExceptionKeysForMessage = extractExceptionKeysForMessage;
     function dropUndefinedKeys(val) {
-      var e_1, _a2;
+      var e_1, _a;
       if (is_1.isPlainObject(val)) {
         var obj = val;
         var rv = {};
@@ -1415,8 +1217,8 @@ var require_object = __commonJS({
           e_1 = { error: e_1_1 };
         } finally {
           try {
-            if (_c && !_c.done && (_a2 = _b.return))
-              _a2.call(_b);
+            if (_c && !_c.done && (_a = _b.return))
+              _a.call(_b);
           } finally {
             if (e_1)
               throw e_1.error;
@@ -1613,7 +1415,7 @@ var require_instrument = __commonJS({
     }
     exports2.addInstrumentationHandler = addInstrumentationHandler;
     function triggerHandlers(type, data) {
-      var e_1, _a2;
+      var e_1, _a;
       if (!type || !handlers[type]) {
         return;
       }
@@ -1630,8 +1432,8 @@ var require_instrument = __commonJS({
         e_1 = { error: e_1_1 };
       } finally {
         try {
-          if (_c && !_c.done && (_a2 = _b.return))
-            _a2.call(_b);
+          if (_c && !_c.done && (_a = _b.return))
+            _a.call(_b);
         } finally {
           if (e_1)
             throw e_1.error;
@@ -2071,7 +1873,7 @@ var require_misc = __commonJS({
     }
     exports2.addExceptionTypeValue = addExceptionTypeValue;
     function addExceptionMechanism(event, newMechanism) {
-      var _a2;
+      var _a;
       if (!event.exception || !event.exception.values) {
         return;
       }
@@ -2080,7 +1882,7 @@ var require_misc = __commonJS({
       var currentMechanism = exceptionValue0.mechanism;
       exceptionValue0.mechanism = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, defaultMechanism), currentMechanism), newMechanism);
       if (newMechanism && "data" in newMechanism) {
-        var mergedData = tslib_1.__assign(tslib_1.__assign({}, (_a2 = currentMechanism) === null || _a2 === void 0 ? void 0 : _a2.data), newMechanism.data);
+        var mergedData = tslib_1.__assign(tslib_1.__assign({}, (_a = currentMechanism) === null || _a === void 0 ? void 0 : _a.data), newMechanism.data);
         exceptionValue0.mechanism.data = mergedData;
       }
     }
@@ -2137,8 +1939,8 @@ var require_misc = __commonJS({
     }
     exports2.stripUrlQueryAndFragment = stripUrlQueryAndFragment;
     function checkOrSetAlreadyCaught(exception) {
-      var _a2;
-      if ((_a2 = exception) === null || _a2 === void 0 ? void 0 : _a2.__sentry_captured__) {
+      var _a;
+      if ((_a = exception) === null || _a === void 0 ? void 0 : _a.__sentry_captured__) {
         return true;
       }
       try {
@@ -3180,7 +2982,7 @@ var require_extraerrordata = __commonJS({
         });
       };
       ExtraErrorData2.prototype.enhanceEventWithErrorData = function(event, hint) {
-        var _a2;
+        var _a;
         if (!hint || !hint.originalException || !utils_1.isError(hint.originalException)) {
           return event;
         }
@@ -3190,14 +2992,14 @@ var require_extraerrordata = __commonJS({
           var contexts = tslib_1.__assign({}, event.contexts);
           var normalizedErrorData = utils_1.normalize(errorData, this._options.depth);
           if (utils_1.isPlainObject(normalizedErrorData)) {
-            contexts = tslib_1.__assign(tslib_1.__assign({}, event.contexts), (_a2 = {}, _a2[name] = tslib_1.__assign({}, normalizedErrorData), _a2));
+            contexts = tslib_1.__assign(tslib_1.__assign({}, event.contexts), (_a = {}, _a[name] = tslib_1.__assign({}, normalizedErrorData), _a));
           }
           return tslib_1.__assign(tslib_1.__assign({}, event), { contexts });
         }
         return event;
       };
       ExtraErrorData2.prototype._extractErrorData = function(error) {
-        var e_1, _a2, e_2, _b;
+        var e_1, _a, e_2, _b;
         try {
           var nativeKeys = [
             "name",
@@ -3224,8 +3026,8 @@ var require_extraerrordata = __commonJS({
             e_1 = { error: e_1_1 };
           } finally {
             try {
-              if (_d && !_d.done && (_a2 = _c.return))
-                _a2.call(_c);
+              if (_d && !_d.done && (_a = _c.return))
+                _a.call(_c);
             } finally {
               if (e_1)
                 throw e_1.error;
@@ -5444,7 +5246,7 @@ var require_offline = __commonJS({
       };
       Offline2.prototype._cacheEvent = function(event) {
         return tslib_1.__awaiter(this, void 0, void 0, function() {
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             return [2, this.offlineEventStore.setItem(utils_1.uuid4(), utils_1.normalize(event))];
           });
         });
@@ -5453,7 +5255,7 @@ var require_offline = __commonJS({
         return tslib_1.__awaiter(this, void 0, void 0, function() {
           var events;
           var _this = this;
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             events = [];
             return [2, this.offlineEventStore.iterate(function(event, cacheKey, _index) {
               events.push({ cacheKey, event });
@@ -5471,7 +5273,7 @@ var require_offline = __commonJS({
       };
       Offline2.prototype._purgeEvent = function(cacheKey) {
         return tslib_1.__awaiter(this, void 0, void 0, function() {
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             return [2, this.offlineEventStore.removeItem(cacheKey)];
           });
         });
@@ -5479,7 +5281,7 @@ var require_offline = __commonJS({
       Offline2.prototype._purgeEvents = function(cacheKeys) {
         return tslib_1.__awaiter(this, void 0, void 0, function() {
           var _this = this;
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             return [2, Promise.all(cacheKeys.map(function(cacheKey) {
               return _this._purgeEvent(cacheKey);
             })).then()];
@@ -5489,7 +5291,7 @@ var require_offline = __commonJS({
       Offline2.prototype._sendEvents = function() {
         return tslib_1.__awaiter(this, void 0, void 0, function() {
           var _this = this;
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             return [2, this.offlineEventStore.iterate(function(event, cacheKey, _index) {
               if (_this.hub) {
                 _this.hub.captureEvent(event);
@@ -5544,7 +5346,7 @@ var require_reportingobserver = __commonJS({
         observer.observe();
       };
       ReportingObserver2.prototype.handler = function(reports) {
-        var e_1, _a2;
+        var e_1, _a;
         var hub = this._getCurrentHub && this._getCurrentHub();
         if (!hub || !hub.getIntegration(ReportingObserver2)) {
           return;
@@ -5580,8 +5382,8 @@ var require_reportingobserver = __commonJS({
           e_1 = { error: e_1_1 };
         } finally {
           try {
-            if (reports_1_1 && !reports_1_1.done && (_a2 = reports_1.return))
-              _a2.call(reports_1);
+            if (reports_1_1 && !reports_1_1.done && (_a = reports_1.return))
+              _a.call(reports_1);
           } finally {
             if (e_1)
               throw e_1.error;
@@ -5703,9 +5505,9 @@ var require_sessiontiming = __commonJS({
         });
       };
       SessionTiming2.prototype.process = function(event) {
-        var _a2;
+        var _a;
         var now = Date.now();
-        return tslib_1.__assign(tslib_1.__assign({}, event), { extra: tslib_1.__assign(tslib_1.__assign({}, event.extra), (_a2 = {}, _a2["session:start"] = this._startTime, _a2["session:duration"] = now - this._startTime, _a2["session:end"] = now, _a2)) });
+        return tslib_1.__assign(tslib_1.__assign({}, event), { extra: tslib_1.__assign(tslib_1.__assign({}, event.extra), (_a = {}, _a["session:start"] = this._startTime, _a["session:duration"] = now - this._startTime, _a["session:end"] = now, _a)) });
       };
       SessionTiming2.id = "SessionTiming";
       return SessionTiming2;
@@ -8064,8 +7866,8 @@ var require_fecha_umd = __commonJS({
         for (var _i = 1; _i < arguments.length; _i++) {
           args[_i - 1] = arguments[_i];
         }
-        for (var _a2 = 0, args_1 = args; _a2 < args_1.length; _a2++) {
-          var obj = args_1[_a2];
+        for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+          var obj = args_1[_a];
           for (var key in obj) {
             origObj[key] = obj[key];
           }
@@ -8386,7 +8188,7 @@ var require_fecha_umd = __commonJS({
         }
         var combinedI18nSettings = assign(assign({}, globalI18n), i18n);
         for (var i = 1; i < matches.length; i++) {
-          var _a2 = parseInfo[i - 1], field = _a2[0], parser = _a2[2];
+          var _a = parseInfo[i - 1], field = _a[0], parser = _a[2];
           var value = parser ? parser(matches[i], combinedI18nSettings) : +matches[i];
           if (value == null) {
             return null;
@@ -17203,7 +17005,8 @@ var require_http = __commonJS({
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
         }
-        const req = (this.ssl ? https : http).request(__spreadProps(__spreadValues({}, this.options), {
+        const req = (this.ssl ? https : http).request({
+          ...this.options,
           method: "POST",
           host: this.host,
           port: this.port,
@@ -17211,7 +17014,7 @@ var require_http = __commonJS({
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
-        }));
+        });
         req.on("error", callback);
         req.on("response", (res) => res.on("end", () => callback(null, res)).resume());
         req.end(Buffer.from(JSON.stringify(options), "utf8"));
@@ -18470,37 +18273,6 @@ var require_winston = __commonJS({
     ]);
     warn.forProperties(exports2, "deprecated", ["emitErrs", "levelLength"]);
     warn.moved(exports2, "createLogger", "Logger");
-  }
-});
-
-// server/sv_logger.ts
-var import_path, import_winston, manualColorize, formatLogs, findLogPath, _a, mainLogger;
-var init_sv_logger = __esm({
-  "server/sv_logger.ts"() {
-    init_config2();
-    import_path = __toESM(require("path"));
-    import_winston = __toESM(require_winston());
-    manualColorize = (strToColor) => `[\x1B[35m${strToColor}\x1B[0m]`;
-    formatLogs = (log) => {
-      if (log.module)
-        return `${log.label} ${manualColorize(log.module)} [${log.level}]: ${log.message}`;
-      return `${log.label} [${log.level}]: ${log.message}`;
-    };
-    findLogPath = () => `${import_path.default.join(GetResourcePath(GetCurrentResourceName()), "sv_npwd.log")}`;
-    mainLogger = (0, import_winston.createLogger)({
-      silent: !config.debug.enabled,
-      transports: [
-        new import_winston.transports.File({
-          filename: findLogPath(),
-          level: "silly",
-          format: import_winston.format.combine(import_winston.format.errors({ stack: true }), import_winston.format.timestamp(), import_winston.format.json())
-        }),
-        new import_winston.transports.Console({
-          level: (_a = config.debug.level) != null ? _a : "info",
-          format: import_winston.format.combine(import_winston.format.label({ label: "[NPWD]" }), import_winston.format.colorize({ all: true }), import_winston.format.printf(formatLogs))
-        })
-      ]
-    });
   }
 });
 
@@ -34302,882 +34074,6 @@ var require_promise = __commonJS({
   }
 });
 
-// server/db/db_utils.ts
-function parseSemiColonFormat(connectionString) {
-  const parts = connectionString.replace(/(?:host(?:name)|ip|server|data\s?source|addr(?:ess)?)=/gi, "host=").replace(/(?:user\s?(?:id|name)?|uid)=/gi, "user=").replace(/(?:pwd|pass)=/gi, "password=").replace(/(?:db)=/gi, "database=").split(";");
-  if (parts.length === 1) {
-    throw new Error(`Connection string ${connectionString} is in the incorrect format. Please follow the README.`);
-  }
-  return parts.reduce((connectionInfo, parameter) => {
-    const [key, value] = parameter.split("=");
-    if (value)
-      connectionInfo[key] = value;
-    return connectionInfo;
-  }, {});
-}
-var CONNECTION_STRING;
-var init_db_utils = __esm({
-  "server/db/db_utils.ts"() {
-    CONNECTION_STRING = "mysql_connection_string";
-  }
-});
-
-// server/db/pool.ts
-function generateConnectionPool() {
-  try {
-    const config3 = mysqlConnectionString.includes("mysql://") ? { uri: mysqlConnectionString } : parseSemiColonFormat(mysqlConnectionString);
-    return import_promise.default.createPool(__spreadValues({
-      connectTimeout: 6e4
-    }, config3));
-  } catch (e) {
-    mainLogger.error(`SQL Connection Pool Error: ${e.message}`, {
-      connection: mysqlConnectionString
-    });
-  }
-}
-var import_promise, mysqlConnectionString, pool;
-var init_pool = __esm({
-  "server/db/pool.ts"() {
-    import_promise = __toESM(require_promise());
-    init_db_utils();
-    init_sv_logger();
-    mysqlConnectionString = GetConvar(CONNECTION_STRING, "none");
-    if (mysqlConnectionString === "none") {
-      const error = new Error(`No connection string provided. make sure "${CONNECTION_STRING}" is set in your config.`);
-      mainLogger.error(error.message);
-      throw error;
-    }
-    pool = generateConnectionPool();
-  }
-});
-
-// server/db/db_wrapper.ts
-var RESOURCE_NAME, _DbInterface, DbInterface, db_wrapper_default;
-var init_db_wrapper = __esm({
-  "server/db/db_wrapper.ts"() {
-    init_pool();
-    init_sv_logger();
-    init_config2();
-    RESOURCE_NAME = GetCurrentResourceName();
-    _DbInterface = class {
-      constructor() {
-        __publicField(this, "logger", mainLogger.child({ module: "DBInterface" }));
-      }
-      _internalQuery(query, values) {
-        return __async(this, null, function* () {
-          try {
-            if (!values)
-              values = [];
-            if (config.database.profileQueries) {
-              const startTime = process.hrtime();
-              ScheduleResourceTick(RESOURCE_NAME);
-              const res = yield pool.execute(query, values);
-              const timeMs = process.hrtime(startTime)[1] / 1e6;
-              this.logger.info(`Executed query (${query} ${JSON.stringify(values)}) in ${timeMs}ms'`);
-              return res;
-            }
-            ScheduleResourceTick(RESOURCE_NAME);
-            return yield pool.execute(query, values);
-          } catch (e) {
-            this.logger.error(`Error executing (${query} ${JSON.stringify(values)}) with error message ${e.message}`);
-          }
-        });
-      }
-      _rawExec(query, values) {
-        return __async(this, null, function* () {
-          return yield this._internalQuery(query, values);
-        });
-      }
-      exec(query, values) {
-        return __async(this, null, function* () {
-          const [res] = yield this._internalQuery(query, values);
-          return res.affectedRows;
-        });
-      }
-      insert(query, values) {
-        return __async(this, null, function* () {
-          const [res] = yield this._internalQuery(query, values);
-          return res.insertId;
-        });
-      }
-      fetch(query, values) {
-        return __async(this, null, function* () {
-          const [res] = yield this._internalQuery(query, values);
-          const castRes = res;
-          return castRes;
-        });
-      }
-    };
-    DbInterface = new _DbInterface();
-    db_wrapper_default = DbInterface;
-  }
-});
-
-// server/db/index.ts
-var init_db = __esm({
-  "server/db/index.ts"() {
-    init_db_utils();
-  }
-});
-
-// server/db/parseUri.ts
-var regex, parseUri;
-var init_parseUri = __esm({
-  "server/db/parseUri.ts"() {
-    regex = new RegExp("^(?:([^:/?#.]+):)?(?://(?:([^/?#]*)@)?([\\w\\d\\-\\u0100-\\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\\?([^#]*))?$");
-    parseUri = (connectionUri) => {
-      const splitMatchGroups = connectionUri.match(regex);
-      const authTgt = splitMatchGroups[2] ? splitMatchGroups[2].split(":") : [];
-      const removeForwardSlash = (str) => str.replace(/^\/+/, "");
-      if (connectionUri.includes("mysql://"))
-        return {
-          driver: splitMatchGroups[1],
-          user: authTgt[0] || void 0,
-          password: authTgt[1] || void 0,
-          host: splitMatchGroups[3],
-          port: parseInt(splitMatchGroups[4], 10),
-          database: removeForwardSlash(splitMatchGroups[5]),
-          params: splitMatchGroups[6]
-        };
-      return connectionUri.replace(/(?:host(?:name)|ip|server|data\s?source|addr(?:ess)?)=/gi, "host=").replace(/(?:user\s?(?:id|name)?|uid)=/gi, "user=").replace(/(?:pwd|pass)=/gi, "password=").replace(/(?:db)=/gi, "database=").split(";").reduce((connectionInfo, parameter) => {
-        const [key, value] = parameter.split("=");
-        connectionInfo[key] = value;
-        return connectionInfo;
-      }, {});
-    };
-  }
-});
-
-// server/commands/registerCommands.ts
-var mysqlConnectionString2, npwdDebugDumpCommand, registerCommands;
-var init_registerCommands = __esm({
-  "server/commands/registerCommands.ts"() {
-    init_sv_logger();
-    init_config2();
-    init_db_wrapper();
-    init_db();
-    init_parseUri();
-    mysqlConnectionString2 = GetConvar(CONNECTION_STRING, "none");
-    npwdDebugDumpCommand = (src) => __async(void 0, null, function* () {
-      if (src !== 0)
-        return;
-      const tableSchema = parseUri(mysqlConnectionString2).database;
-      if (config.debug.level === "error") {
-        console.log("SET DEBUG LEVEL TO INFO/SILLY TO SEE LOGS");
-      }
-      mainLogger.info("NPWD DEBUG DUMP STARTED, THIS WILL WRITE TO THE SV_NPWD.LOG FILE");
-      mainLogger.info("Resource Config >");
-      mainLogger.info(config);
-      const versionInfo = GetResourceMetadata(GetCurrentResourceName(), "version", 0);
-      mainLogger.info(`Manifest VERSION > ${versionInfo}`);
-      const fxServerVersion = GetConvar("version", "unknown");
-      mainLogger.info(`FXServer VERSION > ${fxServerVersion}`);
-      const activePlayerCount = GetNumPlayerIndices();
-      mainLogger.info(`Connected Player Count > ${activePlayerCount}`);
-      try {
-        const playerTableResults = yield db_wrapper_default._rawExec(`SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
-       FROM information_schema.COLUMNS
-       WHERE TABLE_NAME = ?
-         AND TABLE_SCHEMA = ?`, [config.database.playerTable, tableSchema]);
-        const tableExists = playerTableResults.length > 0;
-        if (tableExists) {
-          mainLogger.info("Player Table Info >");
-          mainLogger.info(playerTableResults[0]);
-        } else {
-          mainLogger.error(`Unable to locate schema metadata for specified player table of ${config.database.playerTable}. Maybe it doesn't exist?`);
-        }
-      } catch (e) {
-        mainLogger.error(`Failed to collect debug info for player table, ${e.message}`);
-      }
-    });
-    registerCommands = () => {
-      RegisterCommand("npwd-debug-dump", npwdDebugDumpCommand, false);
-    };
-  }
-});
-
-// server/boot/boot.db.ts
-var mysqlConnectionString3, _BootDb, BootDb, boot_db_default;
-var init_boot_db = __esm({
-  "server/boot/boot.db.ts"() {
-    init_db();
-    init_db_wrapper();
-    init_parseUri();
-    init_config2();
-    mysqlConnectionString3 = GetConvar(CONNECTION_STRING, "none");
-    _BootDb = class {
-      doesPlayerTableExist() {
-        return __async(this, null, function* () {
-          const tableSchema = parseUri(mysqlConnectionString3).database;
-          const tblsh = `Tables_in_${tableSchema}`;
-          const query = `SHOW TABLES WHERE \`${tblsh}\`LIKE ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [config.database.playerTable]);
-          const tableDetails = results;
-          return !!tableDetails.length;
-        });
-      }
-      getPlayerTableColumns() {
-        return __async(this, null, function* () {
-          const query = `SHOW COLUMNS IN ${config.database.playerTable}`;
-          const [results] = yield db_wrapper_default._rawExec(query, []);
-          const columnResults = results;
-          return columnResults.map((columnData) => columnData.Field);
-        });
-      }
-    };
-    BootDb = new _BootDb();
-    boot_db_default = BootDb;
-  }
-});
-
-// server/boot/boot.utils.ts
-var bootLogger, fatalDbError, identifierColumn, phoneNumberColumn, requiredDbColumns, frameworkDependencies;
-var init_boot_utils = __esm({
-  "server/boot/boot.utils.ts"() {
-    init_sv_logger();
-    init_config2();
-    bootLogger = mainLogger.child({
-      module: "boot"
-    });
-    fatalDbError = (reason) => {
-      throw new Error(`
-^1==============================================
-
-!!! NPWD WAS UNABLE TO VALIDATE YOUR DATABASE AND FINISH STARTING !!!
-
-${reason}
-
-This error is most likely caused by incorrect values in the config.json file.
-
-==============================================^0`);
-    };
-    ({ identifierColumn, phoneNumberColumn } = config.database);
-    requiredDbColumns = [identifierColumn, phoneNumberColumn];
-    frameworkDependencies = {
-      ["es_extended"]: ["esx-npwd"],
-      ["qb-core"]: ["qb-npwd"]
-    };
-  }
-});
-
-// server/boot/boot.service.ts
-var _BootService, BootService, boot_service_default;
-var init_boot_service = __esm({
-  "server/boot/boot.service.ts"() {
-    init_boot_db();
-    init_boot_utils();
-    init_config2();
-    init_boot_utils();
-    _BootService = class {
-      constructor() {
-        __publicField(this, "bootDb");
-        this.bootDb = boot_db_default;
-        bootLogger.debug("Boot service started");
-      }
-      handleResourceStarting() {
-        return __async(this, null, function* () {
-          yield this.validateDatabaseSchema();
-          this.performConfigChecks();
-        });
-      }
-      validateDatabaseSchema() {
-        return __async(this, null, function* () {
-          bootLogger.debug("Beginning database schema validation");
-          const doesPlayerTableExist = yield this.bootDb.doesPlayerTableExist();
-          if (!doesPlayerTableExist) {
-            fatalDbError(`Player table "${config.database.playerTable}" does not exist in the configured database.`);
-          }
-          const columnData = yield this.bootDb.getPlayerTableColumns();
-          if (!requiredDbColumns.every((elem) => columnData.includes(elem))) {
-            const missingColumns = requiredDbColumns.filter((elem) => !columnData.includes(elem));
-            fatalDbError(`Player table is missing required columns: [${missingColumns.join(", ")}]`);
-          }
-          bootLogger.debug("Database schema successfully validated");
-        });
-      }
-      performConfigChecks() {
-        if (config.general.useResourceIntegration) {
-          this.checkFrameworkDependencies();
-        }
-      }
-      checkFrameworkDependencies() {
-        bootLogger.debug("Checking for missing framework dependencies");
-        const startedResources = /* @__PURE__ */ new Set();
-        const errorsDetected = /* @__PURE__ */ new Set();
-        const numOfResources = GetNumResources();
-        for (let i = 0; i < numOfResources; i++) {
-          const resourceName = GetResourceByFindIndex(i);
-          if (GetResourceState(resourceName) === "started") {
-            startedResources.add(resourceName);
-          }
-        }
-        for (const [resourceName, depList] of Object.entries(frameworkDependencies)) {
-          if (startedResources.has(resourceName)) {
-            if (!depList.every((elem) => startedResources.has(elem))) {
-              const missingDependencies = depList.filter((depName) => !startedResources.has(depName));
-              errorsDetected.add(`Missing ${resourceName} dependencies detected: ${missingDependencies.join(", ")}`);
-            }
-          }
-        }
-        if (errorsDetected.size) {
-          errorsDetected.forEach((errorString) => bootLogger.error(errorString));
-        } else {
-          bootLogger.debug("No missing dependencies were detected");
-        }
-      }
-    };
-    BootService = new _BootService();
-    boot_service_default = BootService;
-  }
-});
-
-// server/boot/boot.controller.ts
-var require_boot_controller = __commonJS({
-  "server/boot/boot.controller.ts"(exports2) {
-    init_boot_service();
-    on("onServerResourceStart", (resource) => __async(exports2, null, function* () {
-      if (resource === GetCurrentResourceName()) {
-        yield boot_service_default.handleResourceStarting();
-      }
-    }));
-  }
-});
-
-// server/utils/miscUtils.ts
-var getSource, clean, onNetTyped, emitNetTyped;
-var init_miscUtils = __esm({
-  "server/utils/miscUtils.ts"() {
-    getSource = () => global.source;
-    clean = (input) => input ? input.replace(/[^0-9a-z]/gi, "") : input;
-    onNetTyped = (eventName, cb) => onNet(eventName, cb);
-    emitNetTyped = (eventName, data, src) => {
-      if (src) {
-        return emitNet(eventName, src, data);
-      }
-      emitNet(eventName, data);
-    };
-  }
-});
-
-// server/misc/generateUniquePhoneNumber.ts
-function generateUniquePhoneNumber() {
-  return __async(this, null, function* () {
-    const query = `SELECT EXISTS(SELECT * FROM ${config2.database.playerTable} WHERE ${config2.database.phoneNumberColumn} = ?)`;
-    const dashNumber = generateUsNumber();
-    const [results] = yield db_wrapper_default._rawExec(query, [dashNumber]);
-    if (!results)
-      return generateUniquePhoneNumber();
-    return dashNumber;
-  });
-}
-var genNumber, generateUsNumber;
-var init_generateUniquePhoneNumber = __esm({
-  "server/misc/generateUniquePhoneNumber.ts"() {
-    init_server();
-    init_db_wrapper();
-    genNumber = (length) => {
-      const addAmount = 1;
-      let localMax = 11;
-      if (length > localMax) {
-        return genNumber(localMax) + genNumber(length - localMax);
-      }
-      localMax = Math.pow(10, length + addAmount);
-      const min = localMax / 10;
-      const number = Math.floor(Math.random() * (localMax - min + 1)) + min;
-      const strNumber = "" + number;
-      return strNumber.substr(addAmount);
-    };
-    generateUsNumber = () => {
-      const rawNumber = genNumber(10);
-      return rawNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-    };
-  }
-});
-
-// server/players/player.utils.ts
-function getDefaultProfileNames(source2) {
-  return __async(this, null, function* () {
-    const defaultProfileNames = [];
-    const player = player_service_default.getPlayer(source2);
-    if (player.getFirstName() && player.getLastName()) {
-      defaultProfileNames.push(`${player.getFirstName()}_${player.getLastName()}`);
-    } else if (player.getFirstName()) {
-      defaultProfileNames.push(player.getFirstName());
-    } else if (player.getLastName()) {
-      defaultProfileNames.push(player.getLastName());
-    }
-    if (player.getPhoneNumber()) {
-      defaultProfileNames.push(player.getPhoneNumber());
-    }
-    return defaultProfileNames;
-  });
-}
-var playerLogger;
-var init_player_utils = __esm({
-  "server/players/player.utils.ts"() {
-    init_sv_logger();
-    init_player_service();
-    playerLogger = mainLogger.child({
-      module: "player"
-    });
-  }
-});
-
-// server/misc/functions.ts
-function findOrGeneratePhoneNumber(identifier) {
-  return __async(this, null, function* () {
-    const query = `SELECT ${config2.database.phoneNumberColumn} FROM ${config2.database.playerTable} WHERE ${config2.database.identifierColumn} = ? LIMIT 1`;
-    const [res] = yield db_wrapper_default._rawExec(query, [identifier]);
-    playerLogger.debug("Find user for number generation data >");
-    playerLogger.debug(res);
-    const castRes = res;
-    if (castRes && castRes[0] && castRes[0][config2.database.phoneNumberColumn] !== null) {
-      return castRes[0][config2.database.phoneNumberColumn];
-    }
-    playerLogger.debug("Phone number was returned as null, generating new number");
-    const gennedNumber = yield generateUniquePhoneNumber();
-    playerLogger.debug(`Phone number generated > ${gennedNumber}`);
-    const updateQuery = `UPDATE ${config2.database.playerTable} SET ${config2.database.phoneNumberColumn} = ? WHERE ${config2.database.identifierColumn} = ?`;
-    const result = yield db_wrapper_default._rawExec(updateQuery, [gennedNumber, identifier]);
-    if (!result || !result[0] || !result[0].affectedRows) {
-      playerLogger.error(`Failed to store phone number in database`);
-      playerLogger.error(`UPDATE ${config2.database.playerTable} SET ${config2.database.phoneNumberColumn} = ${gennedNumber} WHERE ${config2.database.identifierColumn} = ${identifier}`);
-    }
-    return gennedNumber;
-  });
-}
-var init_functions = __esm({
-  "server/misc/functions.ts"() {
-    init_server();
-    init_db_wrapper();
-    init_generateUniquePhoneNumber();
-    init_player_utils();
-  }
-});
-
-// ../typings/phone.ts
-var init_phone = __esm({
-  "../typings/phone.ts"() {
-  }
-});
-
-// server/players/player.class.ts
-var Player;
-var init_player_class = __esm({
-  "server/players/player.class.ts"() {
-    Player = class {
-      constructor({ source: source2, identifier, phoneNumber, username }) {
-        __publicField(this, "source");
-        __publicField(this, "username");
-        __publicField(this, "fullname");
-        __publicField(this, "ssn");
-        __publicField(this, "_phoneNumber");
-        __publicField(this, "_identifier");
-        __publicField(this, "_firstname");
-        __publicField(this, "_lastname");
-        this.source = source2;
-        this._identifier = identifier;
-        this._phoneNumber = phoneNumber;
-        this.username = username;
-      }
-      getIdentifier() {
-        return this._identifier;
-      }
-      setIdentifier(identifier) {
-        this._identifier = identifier;
-        return this;
-      }
-      getFirstName() {
-        return this._firstname;
-      }
-      setFirstName(firstname) {
-        this._firstname = firstname;
-        return this;
-      }
-      getLastName() {
-        return this._lastname;
-      }
-      setLastName(lastname) {
-        this._lastname = lastname;
-        return this;
-      }
-      getName() {
-        if (!this._firstname || !this._lastname)
-          return null;
-        return `${this._firstname} ${this._lastname}`;
-      }
-      getPhoneNumber() {
-        return this._phoneNumber;
-      }
-      setPhoneNumber(number) {
-        this._phoneNumber = number;
-        return this;
-      }
-    };
-  }
-});
-
-// node_modules/@discordjs/collection/dist/index.mjs
-var h, r, o, c, f;
-var init_dist = __esm({
-  "node_modules/@discordjs/collection/dist/index.mjs"() {
-    h = Object.defineProperty;
-    r = (u, e) => h(u, "name", { value: e, configurable: true });
-    o = class extends Map {
-      get(e) {
-        return super.get(e);
-      }
-      set(e, i) {
-        return super.set(e, i);
-      }
-      has(e) {
-        return super.has(e);
-      }
-      delete(e) {
-        return super.delete(e);
-      }
-      clear() {
-        return super.clear();
-      }
-      hasAll(...e) {
-        return e.every((i) => super.has(i));
-      }
-      hasAny(...e) {
-        return e.some((i) => super.has(i));
-      }
-      first(e) {
-        if (typeof e == "undefined")
-          return this.values().next().value;
-        if (e < 0)
-          return this.last(e * -1);
-        e = Math.min(this.size, e);
-        let i = this.values();
-        return Array.from({ length: e }, () => i.next().value);
-      }
-      firstKey(e) {
-        if (typeof e == "undefined")
-          return this.keys().next().value;
-        if (e < 0)
-          return this.lastKey(e * -1);
-        e = Math.min(this.size, e);
-        let i = this.keys();
-        return Array.from({ length: e }, () => i.next().value);
-      }
-      last(e) {
-        let i = [...this.values()];
-        return typeof e == "undefined" ? i[i.length - 1] : e < 0 ? this.first(e * -1) : e ? i.slice(-e) : [];
-      }
-      lastKey(e) {
-        let i = [...this.keys()];
-        return typeof e == "undefined" ? i[i.length - 1] : e < 0 ? this.firstKey(e * -1) : e ? i.slice(-e) : [];
-      }
-      random(e) {
-        let i = [...this.values()];
-        return typeof e == "undefined" ? i[Math.floor(Math.random() * i.length)] : !i.length || !e ? [] : Array.from({ length: Math.min(e, i.length) }, () => i.splice(Math.floor(Math.random() * i.length), 1)[0]);
-      }
-      randomKey(e) {
-        let i = [...this.keys()];
-        return typeof e == "undefined" ? i[Math.floor(Math.random() * i.length)] : !i.length || !e ? [] : Array.from({ length: Math.min(e, i.length) }, () => i.splice(Math.floor(Math.random() * i.length), 1)[0]);
-      }
-      find(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        for (let [t, l] of this)
-          if (e(l, t, this))
-            return l;
-      }
-      findKey(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        for (let [t, l] of this)
-          if (e(l, t, this))
-            return t;
-      }
-      sweep(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        let t = this.size;
-        for (let [l, n] of this)
-          e(n, l, this) && this.delete(l);
-        return t - this.size;
-      }
-      filter(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        let t = new this.constructor[Symbol.species]();
-        for (let [l, n] of this)
-          e(n, l, this) && t.set(l, n);
-        return t;
-      }
-      partition(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        let t = [new this.constructor[Symbol.species](), new this.constructor[Symbol.species]()];
-        for (let [l, n] of this)
-          e(n, l, this) ? t[0].set(l, n) : t[1].set(l, n);
-        return t;
-      }
-      flatMap(e, i) {
-        let t = this.map(e, i);
-        return new this.constructor[Symbol.species]().concat(...t);
-      }
-      map(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        let t = this.entries();
-        return Array.from({ length: this.size }, () => {
-          let [l, n] = t.next().value;
-          return e(n, l, this);
-        });
-      }
-      mapValues(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        let t = new this.constructor[Symbol.species]();
-        for (let [l, n] of this)
-          t.set(l, e(n, l, this));
-        return t;
-      }
-      some(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        for (let [t, l] of this)
-          if (e(l, t, this))
-            return true;
-        return false;
-      }
-      every(e, i) {
-        typeof i != "undefined" && (e = e.bind(i));
-        for (let [t, l] of this)
-          if (!e(l, t, this))
-            return false;
-        return true;
-      }
-      reduce(e, i) {
-        let t;
-        if (typeof i != "undefined") {
-          t = i;
-          for (let [n, s] of this)
-            t = e(t, s, n, this);
-          return t;
-        }
-        let l = true;
-        for (let [n, s] of this) {
-          if (l) {
-            t = s, l = false;
-            continue;
-          }
-          t = e(t, s, n, this);
-        }
-        if (l)
-          throw new TypeError("Reduce of empty collection with no initial value");
-        return t;
-      }
-      each(e, i) {
-        return this.forEach(e, i), this;
-      }
-      tap(e, i) {
-        return typeof i != "undefined" && (e = e.bind(i)), e(this), this;
-      }
-      clone() {
-        return new this.constructor[Symbol.species](this);
-      }
-      concat(...e) {
-        let i = this.clone();
-        for (let t of e)
-          for (let [l, n] of t)
-            i.set(l, n);
-        return i;
-      }
-      equals(e) {
-        if (!e)
-          return false;
-        if (this === e)
-          return true;
-        if (this.size !== e.size)
-          return false;
-        for (let [i, t] of this)
-          if (!e.has(i) || t !== e.get(i))
-            return false;
-        return true;
-      }
-      sort(e = o.defaultSort) {
-        let i = [...this.entries()];
-        i.sort((t, l) => e(t[1], l[1], t[0], l[0])), super.clear();
-        for (let [t, l] of i)
-          super.set(t, l);
-        return this;
-      }
-      intersect(e) {
-        let i = new this.constructor[Symbol.species]();
-        for (let [t, l] of e)
-          this.has(t) && i.set(t, l);
-        return i;
-      }
-      difference(e) {
-        let i = new this.constructor[Symbol.species]();
-        for (let [t, l] of e)
-          this.has(t) || i.set(t, l);
-        for (let [t, l] of this)
-          e.has(t) || i.set(t, l);
-        return i;
-      }
-      sorted(e = o.defaultSort) {
-        return new this.constructor[Symbol.species](this).sort((i, t, l, n) => e(i, t, l, n));
-      }
-      toJSON() {
-        return [...this.values()];
-      }
-      static defaultSort(e, i) {
-        return Number(e > i) || Number(e === i) - 1;
-      }
-    };
-    c = o;
-    r(c, "Collection"), "constructor", c.default = o;
-    f = c;
-  }
-});
-
-// server/utils/getPlayerGameLicense.ts
-var getPlayerGameLicense;
-var init_getPlayerGameLicense = __esm({
-  "server/utils/getPlayerGameLicense.ts"() {
-    init_server();
-    getPlayerGameLicense = (src) => {
-      const playerIdentifiers = getPlayerIdentifiers(src.toString());
-      let playerIdentifier;
-      for (const identifier of playerIdentifiers) {
-        if (identifier.includes(config2.database.identifierType + ":")) {
-          if (config2.database.useIdentifierPrefix)
-            playerIdentifier = identifier;
-          else
-            playerIdentifier = identifier.split(":")[1];
-        }
-      }
-      if (!playerIdentifier)
-        return null;
-      return playerIdentifier;
-    };
-  }
-});
-
-// server/players/player.db.ts
-var PlayerRepo, player_db_default;
-var init_player_db = __esm({
-  "server/players/player.db.ts"() {
-    init_config2();
-    init_db_wrapper();
-    PlayerRepo = class {
-      fetchIdentifierFromPhoneNumber(phoneNumber) {
-        return __async(this, null, function* () {
-          const query = `SELECT ${config.database.identifierColumn} FROM ${config.database.playerTable} WHERE ${config.database.phoneNumberColumn} = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [phoneNumber]);
-          return results[0][config.database.identifierColumn] || null;
-        });
-      }
-      fetchPhoneNumberFromIdentifier(identifier) {
-        return __async(this, null, function* () {
-          const query = `SELECT ${config.database.phoneNumberColumn} FROM ${config.database.playerTable} WHERE ${config.database.identifierColumn} = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          return results[0][config.database.phoneNumberColumn] || null;
-        });
-      }
-    };
-    player_db_default = new PlayerRepo();
-  }
-});
-
-// server/marketplace/marketplace.utils.ts
-var marketplaceLogger;
-var init_marketplace_utils = __esm({
-  "server/marketplace/marketplace.utils.ts"() {
-    init_sv_logger();
-    marketplaceLogger = mainLogger.child({ module: "marketplace" });
-  }
-});
-
-// server/marketplace/marketplace.db.ts
-var _MarketplaceDB, MarketplaceDB, marketplace_db_default;
-var init_marketplace_db = __esm({
-  "server/marketplace/marketplace.db.ts"() {
-    init_db_wrapper();
-    _MarketplaceDB = class {
-      addListing(identifier, username, name, number, listing) {
-        return __async(this, null, function* () {
-          const query = "INSERT INTO npwd_marketplace_listings (identifier, username, name, number, title, url, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
-          const [result] = yield db_wrapper_default._rawExec(query, [
-            identifier,
-            username,
-            name,
-            number,
-            listing.title,
-            listing.url,
-            listing.description
-          ]);
-          const resultCast = result;
-          return resultCast.insertId;
-        });
-      }
-      fetchListings() {
-        return __async(this, null, function* () {
-          const query = "SELECT * FROM npwd_marketplace_listings WHERE reported = 0 ORDER BY id DESC";
-          const [results] = yield db_wrapper_default._rawExec(query);
-          return results;
-        });
-      }
-      deleteListing(listingId, identifier) {
-        return __async(this, null, function* () {
-          const query = "DELETE FROM npwd_marketplace_listings WHERE id = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [listingId, identifier]);
-        });
-      }
-      deleteListingsOnDrop(identifier) {
-        return __async(this, null, function* () {
-          const query = `DELETE FROM npwd_marketplace_listings WHERE identifier = ? AND reported = 0`;
-          yield db_wrapper_default._rawExec(query, [identifier]);
-        });
-      }
-      getListing(listingId) {
-        return __async(this, null, function* () {
-          const query = `SELECT * FROM npwd_marketplace_listings WHERE id = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [listingId]);
-          const listings = results;
-          return listings[0];
-        });
-      }
-      getListingIdsByIdentifier(identifier) {
-        return __async(this, null, function* () {
-          const query = `SELECT id FROM npwd_marketplace_listings WHERE identifier = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          return results;
-        });
-      }
-      reportListing(listing) {
-        return __async(this, null, function* () {
-          const query = `UPDATE npwd_marketplace_listings SET reported = 1 WHERE id = ?`;
-          yield db_wrapper_default._rawExec(query, [listing.id]);
-        });
-      }
-      doesListingExist(listing, identifier) {
-        return __async(this, null, function* () {
-          const query = `SELECT * FROM npwd_marketplace_listings WHERE identifier = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          const listings = results;
-          return listings.length > 0;
-        });
-      }
-      doesReportExist(listingId, profile) {
-        return __async(this, null, function* () {
-          const query = `SELECT * FROM npwd_marketplace_listings WHERE id = ? AND username = ? AND reported = 1`;
-          const [results] = yield db_wrapper_default._rawExec(query, [listingId, profile]);
-          const result = results;
-          return result.length > 0;
-        });
-      }
-    };
-    MarketplaceDB = new _MarketplaceDB();
-    marketplace_db_default = MarketplaceDB;
-  }
-});
-
-// ../typings/marketplace.ts
-var init_marketplace = __esm({
-  "../typings/marketplace.ts"() {
-  }
-});
-
 // node_modules/axios/lib/helpers/bind.js
 var require_bind = __commonJS({
   "node_modules/axios/lib/helpers/bind.js"(exports2, module2) {
@@ -37733,517 +36629,6 @@ var require_axios2 = __commonJS({
   }
 });
 
-// server/misc/discord.ts
-function reportTweetToDiscord(tweet, reportingProfile) {
-  return __async(this, null, function* () {
-    const guaranteedFields = [
-      {
-        name: "Reported By:",
-        value: `\`\`\`Profile Name: ${reportingProfile.profile_name}
-Profile ID: ${reportingProfile.id}
-User Identifier: ${reportingProfile.identifier}\`\`\``
-      },
-      {
-        name: "Reported User Data:",
-        value: `\`\`\`Profile Name: ${tweet.profile_name}
-Profile ID: ${tweet.profile_id}
-User Identifier: ${tweet.identifier}\`\`\``
-      },
-      {
-        name: "Tweet Message:",
-        value: `\`\`\`Message: ${tweet.message}\`\`\``
-      }
-    ];
-    const finalFields = tweet.images ? guaranteedFields.concat({
-      name: "Reported Image:",
-      value: tweet.images.split(IMAGE_DELIMITER).join("\n")
-    }) : guaranteedFields;
-    const msgObj = createDiscordMsgObj("TWITTER", `Received a report for a tweet`, finalFields);
-    try {
-      yield postToWebhook(msgObj);
-    } catch (e) {
-      discordLogger.error(e.message);
-    }
-  });
-}
-function reportListingToDiscord(listing, reportingProfile) {
-  return __async(this, null, function* () {
-    const guaranteedFields = [
-      {
-        name: "Reported By",
-        value: `\`\`\`Profile Name: ${reportingProfile}\`\`\``
-      },
-      {
-        name: "Reported User Data",
-        value: `\`\`\`Profile Name: ${listing.username}
-Profile ID: ${listing.id}
-User Identifier: ${listing.identifier}\`\`\``
-      },
-      {
-        name: "Reported Listing Title",
-        value: `\`\`\`Title: ${listing.name}\`\`\``
-      },
-      {
-        name: "Reported Listing Desc.",
-        value: `\`\`\`Description: ${listing.description}\`\`\``
-      }
-    ];
-    const finalFields = listing.url ? guaranteedFields.concat({
-      name: "Reported Image:",
-      value: listing.url.split(IMAGE_DELIMITER).join("\n")
-    }) : guaranteedFields;
-    const msgObj = createDiscordMsgObj("MARKETPLACE", `Received a report for a listing`, finalFields);
-    try {
-      yield postToWebhook(msgObj);
-    } catch (e) {
-      discordLogger.error(e.message);
-    }
-  });
-}
-var import_axios, IMAGE_DELIMITER, discordLogger, DISCORD_WEBHOOK, postToWebhook, createDiscordMsgObj;
-var init_discord = __esm({
-  "server/misc/discord.ts"() {
-    import_axios = __toESM(require_axios2());
-    init_sv_logger();
-    IMAGE_DELIMITER = "||!||";
-    discordLogger = mainLogger.child({ module: "discord" });
-    DISCORD_WEBHOOK = GetConvar("NPWD_DISCORD_TOKEN", "");
-    postToWebhook = (content) => __async(void 0, null, function* () {
-      if (!DISCORD_WEBHOOK) {
-        discordLogger.warn("Got a request to report a listing but discord is not configures. See README on how to configure discord endpoints.");
-        return;
-      }
-      const resp = yield import_axios.default.post(DISCORD_WEBHOOK, __spreadValues({}, content));
-      if (resp.status < 200 && resp.status >= 300)
-        throw new Error(`Discord Error: ${resp.status} Error - ${resp.statusText}`);
-    });
-    createDiscordMsgObj = (type, message, fields) => {
-      const curTime = new Date().toISOString();
-      return {
-        username: "NPWD Report",
-        embeds: [
-          {
-            title: `${type} REPORT`,
-            color: 15158332,
-            description: message,
-            timestamp: curTime,
-            fields
-          }
-        ]
-      };
-    };
-  }
-});
-
-// server/utils/imageFiltering.ts
-var imageRegex, checkAndFilterImage;
-var init_imageFiltering = __esm({
-  "server/utils/imageFiltering.ts"() {
-    init_config2();
-    imageRegex = new RegExp(config.imageSafety.safeImageUrls.join("|"));
-    checkAndFilterImage = (imageUrl) => {
-      const image = imageUrl.trim();
-      if (image == "") {
-        return image;
-      }
-      if (!config.imageSafety.filterUnsafeImageUrls)
-        return image;
-      if (imageRegex.test(image))
-        return image;
-      if (config.imageSafety.embedUnsafeImages)
-        return `${config.imageSafety.embedUrl}?url=${imageUrl}`;
-      return null;
-    };
-  }
-});
-
-// server/marketplace/marketplace.service.ts
-var _MarketplaceService, MarketplaceService, marketplace_service_default;
-var init_marketplace_service = __esm({
-  "server/marketplace/marketplace.service.ts"() {
-    init_player_service();
-    init_marketplace_utils();
-    init_marketplace_db();
-    init_marketplace();
-    init_discord();
-    init_imageFiltering();
-    _MarketplaceService = class {
-      constructor() {
-        __publicField(this, "marketplaceDB");
-        this.marketplaceDB = marketplace_db_default;
-        marketplaceLogger.debug("Marketplace service started");
-      }
-      handleAddListing(reqObj, resp) {
-        return __async(this, null, function* () {
-          marketplaceLogger.debug("Handling add listing, listing:");
-          marketplaceLogger.debug(reqObj.data);
-          const player = player_service_default.getPlayer(reqObj.source);
-          const identifier = player.getIdentifier();
-          try {
-            const doesListingExist = yield this.marketplaceDB.doesListingExist(reqObj.data, identifier);
-            if (doesListingExist)
-              return resp({ status: "error", errorMsg: "MARKETPLACE.FEEDBACK.DUPLICATE_LISTING" /* DUPLICATE */ });
-            const imageUrl = checkAndFilterImage(reqObj.data.url);
-            if (imageUrl == null) {
-              return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" /* INVALID_IMAGE_HOST */ });
-            }
-            reqObj.data.url = imageUrl;
-            const listingId = yield this.marketplaceDB.addListing(player.getIdentifier(), player.username, player.getName(), player.getPhoneNumber(), reqObj.data);
-            resp({ status: "ok" });
-            const returnObj = {
-              id: listingId,
-              identifier: player.getIdentifier(),
-              name: player.getName(),
-              number: player.getPhoneNumber(),
-              url: reqObj.data.url,
-              username: player.username,
-              description: reqObj.data.description,
-              title: reqObj.data.title
-            };
-            emitNet("npwd:sendMarketplaceBroadcastAdd" /* BROADCAST_ADD */, -1, { type: "ADD", listing: returnObj });
-          } catch (e) {
-            marketplaceLogger.error(`Failed to add listing ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "MARKETPLACE.FEEDBACK.CREATE_LISTING_FAILED" /* CREATE_FAILED */ });
-          }
-        });
-      }
-      handleFetchListings(req, resp) {
-        return __async(this, null, function* () {
-          try {
-            const listings = yield this.marketplaceDB.fetchListings();
-            resp({ data: listings, status: "ok" });
-          } catch (e) {
-            marketplaceLogger.error(`Failed to fetch listings, ${e.message}`, {
-              source: req.source
-            });
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleDeleteListing(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            yield this.marketplaceDB.deleteListing(reqObj.data.id, identifier);
-            resp({ status: "ok" });
-            const returnObj = reqObj.data.id;
-            emitNet("npwd:sendMarketplaceBroadcastDelete" /* BROADCAST_DELETE */, -1, [returnObj]);
-          } catch (e) {
-            marketplaceLogger.error(`Error in handleDeleteListing, ${e.message}`);
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleDeleteListingsOnDrop(identifier) {
-        return __async(this, null, function* () {
-          try {
-            const listingIds = yield this.marketplaceDB.getListingIdsByIdentifier(identifier);
-            emitNet("npwd:sendMarketplaceBroadcastDelete" /* BROADCAST_DELETE */, -1, listingIds);
-            yield this.marketplaceDB.deleteListingsOnDrop(identifier);
-          } catch (e) {
-            marketplaceLogger.error(`Error when deleting listings on player drop, ${e.message}`);
-          }
-        });
-      }
-      handleReportListing(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const rListing = yield this.marketplaceDB.getListing(reqObj.data.id);
-            const reportExists = yield this.marketplaceDB.doesReportExist(reqObj.data.id, rListing.username);
-            const reportingPlayer = GetPlayerName(reqObj.source.toString());
-            if (reportExists) {
-              marketplaceLogger.error(`This listing has already been reported`);
-              resp({ status: "error", errorMsg: "REPORT_EXISTS" });
-              return;
-            }
-            yield this.marketplaceDB.reportListing(rListing);
-            yield reportListingToDiscord(rListing, reportingPlayer);
-          } catch (e) {
-            marketplaceLogger.error(`Failed to report listing ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-    };
-    MarketplaceService = new _MarketplaceService();
-    marketplace_service_default = MarketplaceService;
-  }
-});
-
-// utils/fivem.ts
-var Delay;
-var init_fivem = __esm({
-  "utils/fivem.ts"() {
-    Delay = (ms) => new Promise((res) => setTimeout(res, ms));
-  }
-});
-
-// server/players/player.service.ts
-var _PlayerService, PlayerService, player_service_default;
-var init_player_service = __esm({
-  "server/players/player.service.ts"() {
-    init_functions();
-    init_phone();
-    init_player_class();
-    init_dist();
-    init_getPlayerGameLicense();
-    init_player_db();
-    init_player_utils();
-    init_marketplace_service();
-    init_fivem();
-    _PlayerService = class {
-      constructor() {
-        __publicField(this, "playersBySource");
-        __publicField(this, "playersByIdentifier");
-        __publicField(this, "playerDB");
-        this.playersBySource = new f();
-        this.playersByIdentifier = new f();
-        this.playerDB = player_db_default;
-        playerLogger.debug("Player Service started");
-      }
-      addPlayerToMaps(source2, player) {
-        this.playersBySource.set(source2, player);
-        this.playersByIdentifier.set(player.getIdentifier(), player);
-      }
-      deletePlayerFromMaps(source2) {
-        const identifier = this.playersBySource.get(source2).getIdentifier();
-        this.playersByIdentifier.delete(identifier);
-        this.playersBySource.delete(source2);
-      }
-      getPlayer(source2) {
-        const player = this.playersBySource.get(source2);
-        if (!player)
-          return null;
-        return player;
-      }
-      getIdentifier(source2) {
-        return this.getPlayer(source2).getIdentifier();
-      }
-      getPlayerFromIdentifier(identifier) {
-        const player = this.playersByIdentifier.get(identifier);
-        if (!player) {
-          return null;
-        }
-        return player;
-      }
-      getIdentifierFromPhoneNumber(phoneNumber, fetch2) {
-        return __async(this, null, function* () {
-          const onlinePlayer = this.playersBySource.find((player) => player.getPhoneNumber() === phoneNumber);
-          if (onlinePlayer)
-            return onlinePlayer.getIdentifier();
-          if (fetch2) {
-            const fetchResult = yield this.playerDB.fetchIdentifierFromPhoneNumber(phoneNumber).catch((e) => {
-              playerLogger.error(`Failed to fetch identifier from phone number for ${phoneNumber}, error: ${e.message}`);
-              return null;
-            });
-            return fetchResult;
-          }
-          return null;
-        });
-      }
-      handleNewPlayerJoined(pSource) {
-        return __async(this, null, function* () {
-          const playerIdentifier = getPlayerGameLicense(pSource);
-          if (!playerIdentifier) {
-            throw new Error(`License identifier could not be found for source (${pSource})`);
-          }
-          const username = GetPlayerName(pSource.toString());
-          playerLogger.info(`Started loading for ${username} (${pSource})`);
-          const phone_number = yield findOrGeneratePhoneNumber(playerIdentifier);
-          const newPlayer = new Player({
-            identifier: playerIdentifier,
-            source: pSource,
-            username,
-            phoneNumber: phone_number
-          });
-          this.addPlayerToMaps(pSource, newPlayer);
-          playerLogger.info("NPWD Player Loaded!");
-          playerLogger.debug(newPlayer);
-          if (process.env.NODE_ENV === "development") {
-            yield Delay(100);
-          }
-          emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, pSource, true);
-        });
-      }
-      createNewPlayer(_0) {
-        return __async(this, arguments, function* ({
-          src,
-          identifier,
-          phoneNumber
-        }) {
-          const username = GetPlayerName(src.toString());
-          if (!phoneNumber) {
-            phoneNumber = yield findOrGeneratePhoneNumber(identifier);
-            if (!phoneNumber)
-              return null;
-          }
-          return new Player({
-            source: src,
-            identifier,
-            phoneNumber,
-            username
-          });
-        });
-      }
-      handleNewPlayerEvent(_0) {
-        return __async(this, arguments, function* ({
-          source: src,
-          identifier,
-          phoneNumber,
-          firstname,
-          lastname
-        }) {
-          const player = yield this.createNewPlayer({
-            src,
-            identifier: identifier.toString(),
-            phoneNumber
-          });
-          if (firstname)
-            player.setFirstName(firstname);
-          if (lastname)
-            player.setLastName(lastname);
-          this.addPlayerToMaps(src, player);
-          playerLogger.info(`New NPWD Player added through event (${src}) (${identifier})`);
-          playerLogger.debug(player);
-          emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, src, true);
-        });
-      }
-      getIdentifierByPhoneNumber(phoneNumber, fetch2) {
-        return __async(this, null, function* () {
-          for (const [_, player] of this.playersBySource) {
-            if (player.getPhoneNumber() === phoneNumber)
-              return player.getIdentifier();
-          }
-          if (fetch2) {
-            return yield this.playerDB.fetchIdentifierFromPhoneNumber(phoneNumber);
-          }
-        });
-      }
-      getPhoneNumberFromIdentifier(identifier) {
-        return __async(this, null, function* () {
-          return yield this.playerDB.fetchPhoneNumberFromIdentifier(identifier);
-        });
-      }
-      clearPlayerData(src) {
-        return __async(this, null, function* () {
-          const identifier = this.getIdentifier(src);
-          try {
-            yield marketplace_service_default.handleDeleteListingsOnDrop(identifier);
-          } catch (e) {
-            playerLogger.error(`Failed to clear player data when dropped, Error: ${e.message}`);
-          }
-        });
-      }
-      handleUnloadPlayerEvent(src) {
-        return __async(this, null, function* () {
-          yield this.clearPlayerData(src);
-          this.deletePlayerFromMaps(src);
-          emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, src, false);
-          playerLogger.info(`Unloaded NPWD Player, source: (${src})`);
-        });
-      }
-    };
-    PlayerService = new _PlayerService();
-    player_service_default = PlayerService;
-  }
-});
-
-// server/players/player.controller.ts
-var require_player_controller = __commonJS({
-  "server/players/player.controller.ts"(exports2) {
-    init_miscUtils();
-    init_player_service();
-    init_config2();
-    init_player_utils();
-    init_phone();
-    onNet("npwd:getCredentials" /* FETCH_CREDENTIALS */, () => {
-      const src = getSource();
-      const phoneNumber = player_service_default.getPlayer(src).getPhoneNumber();
-      emitNet("npwd:sendCredentials" /* SEND_CREDENTIALS */, src, phoneNumber);
-    });
-    if (!config.general.useResourceIntegration) {
-      on("playerJoining", () => __async(exports2, null, function* () {
-        const src = getSource();
-        yield player_service_default.handleNewPlayerJoined(src);
-      }));
-    }
-    on("playerDropped", () => __async(exports2, null, function* () {
-      const src = getSource();
-      try {
-        yield player_service_default.handleUnloadPlayerEvent(src);
-      } catch (e) {
-        playerLogger.debug(`${src} failed to unload, likely was never loaded in the first place.`);
-      }
-    }));
-    if (!config.general.useResourceIntegration) {
-      on("onServerResourceStart", (resource) => __async(exports2, null, function* () {
-        if (resource === GetCurrentResourceName()) {
-          const onlinePlayers = getPlayers();
-          for (const player of onlinePlayers) {
-            yield player_service_default.handleNewPlayerJoined(parseInt(player));
-          }
-        }
-      }));
-    }
-  }
-});
-
-// ../typings/call.ts
-var init_call = __esm({
-  "../typings/call.ts"() {
-  }
-});
-
-// server/utils/ServerConstants.ts
-var init_ServerConstants = __esm({
-  "server/utils/ServerConstants.ts"() {
-  }
-});
-
-// server/calls/calls.db.ts
-var CallsRepo, calls_db_default;
-var init_calls_db = __esm({
-  "server/calls/calls.db.ts"() {
-    init_ServerConstants();
-    init_db_wrapper();
-    CallsRepo = class {
-      saveCall(call) {
-        return __async(this, null, function* () {
-          const query = "INSERT INTO npwd_calls (identifier, transmitter, receiver, `start`) VALUES (?, ?, ?, ?)";
-          yield db_wrapper_default._rawExec(query, [
-            call.identifier,
-            call.transmitter,
-            call.receiver,
-            call.start
-          ]);
-        });
-      }
-      updateCall(call, isAccepted, end) {
-        return __async(this, null, function* () {
-          const query = "UPDATE npwd_calls SET is_accepted=?, end=? WHERE identifier = ?";
-          yield db_wrapper_default._rawExec(query, [isAccepted, end, call.identifier]);
-        });
-      }
-      fetchCalls(_0) {
-        return __async(this, arguments, function* (phoneNumber, limit = 50 /* CALLS_FETCH_LIMIT */) {
-          const query = "SELECT * FROM npwd_calls WHERE receiver = ? OR transmitter = ? ORDER BY id DESC LIMIT ?";
-          const [result] = yield db_wrapper_default._rawExec(query, [
-            phoneNumber,
-            phoneNumber,
-            limit.toString()
-          ]);
-          return result;
-        });
-      }
-    };
-    calls_db_default = new CallsRepo();
-  }
-});
-
 // node_modules/uuid/dist/rng.js
 var require_rng = __commonJS({
   "node_modules/uuid/dist/rng.js"(exports2) {
@@ -38735,3079 +37120,6 @@ var require_dist4 = __commonJS({
   }
 });
 
-// node_modules/uuid/wrapper.mjs
-var import_dist, v1, v3, v4, v5, NIL, version, validate, stringify, parse;
-var init_wrapper = __esm({
-  "node_modules/uuid/wrapper.mjs"() {
-    import_dist = __toESM(require_dist4(), 1);
-    v1 = import_dist.default.v1;
-    v3 = import_dist.default.v3;
-    v4 = import_dist.default.v4;
-    v5 = import_dist.default.v5;
-    NIL = import_dist.default.NIL;
-    version = import_dist.default.version;
-    validate = import_dist.default.validate;
-    stringify = import_dist.default.stringify;
-    parse = import_dist.default.parse;
-  }
-});
-
-// server/calls/calls.utils.ts
-var callLogger;
-var init_calls_utils = __esm({
-  "server/calls/calls.utils.ts"() {
-    init_sv_logger();
-    callLogger = mainLogger.child({ module: "calls" });
-  }
-});
-
-// server/calls/calls.service.ts
-var CallsService, calls_service_default;
-var init_calls_service = __esm({
-  "server/calls/calls.service.ts"() {
-    init_dist();
-    init_call();
-    init_calls_db();
-    init_wrapper();
-    init_player_service();
-    init_calls_utils();
-    init_miscUtils();
-    init_sv_logger();
-    CallsService = class {
-      constructor() {
-        __publicField(this, "callMap");
-        __publicField(this, "callsDB");
-        this.callMap = new f();
-        this.callsDB = calls_db_default;
-        callLogger.debug("Call service started");
-      }
-      setCallInMap(transmitterNumber, callObj) {
-        this.callMap.set(transmitterNumber, callObj);
-        callLogger.debug(`Call obj set with key ${transmitterNumber}, value:`);
-        callLogger.debug(callObj);
-      }
-      handleInitializeCall(reqObj, resp) {
-        return __async(this, null, function* () {
-          const transmittingPlayer = player_service_default.getPlayer(reqObj.source);
-          const transmitterNumber = transmittingPlayer.getPhoneNumber();
-          const receiverIdentifier = yield player_service_default.getIdentifierFromPhoneNumber(reqObj.data.receiverNumber, true);
-          const startCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
-          const callIdentifier = v4();
-          const tempSaveCallObj = {
-            identifier: callIdentifier,
-            transmitter: transmitterNumber,
-            receiver: reqObj.data.receiverNumber,
-            is_accepted: false,
-            start: startCallTimeUnix.toString()
-          };
-          if (!receiverIdentifier) {
-            yield this.callsDB.saveCall(tempSaveCallObj);
-            return resp({
-              status: "ok",
-              data: {
-                transmitter: transmitterNumber,
-                isTransmitter: true,
-                receiver: reqObj.data.receiverNumber,
-                isUnavailable: true,
-                is_accepted: false,
-                start: startCallTimeUnix.toString(),
-                identifier: callIdentifier
-              }
-            });
-          }
-          const receivingPlayer = player_service_default.getPlayerFromIdentifier(receiverIdentifier);
-          if (!receivingPlayer) {
-            yield this.callsDB.saveCall(tempSaveCallObj);
-            return resp({
-              status: "ok",
-              data: {
-                is_accepted: false,
-                transmitter: transmitterNumber,
-                isTransmitter: true,
-                receiver: reqObj.data.receiverNumber,
-                isUnavailable: true,
-                start: startCallTimeUnix.toString(),
-                identifier: callIdentifier
-              }
-            });
-          }
-          callLogger.debug(`Receiving Identifier: ${receiverIdentifier}`);
-          callLogger.debug(`Receiving source: ${receivingPlayer.source} `);
-          const callObj = {
-            identifier: callIdentifier,
-            transmitter: transmitterNumber,
-            transmitterSource: transmittingPlayer.source,
-            receiver: reqObj.data.receiverNumber,
-            receiverSource: receivingPlayer.source,
-            start: startCallTimeUnix.toString(),
-            is_accepted: false
-          };
-          this.setCallInMap(callObj.transmitter, callObj);
-          try {
-            yield this.callsDB.saveCall(callObj);
-          } catch (e) {
-            callLogger.error(`Unable to save call object for transmitter number ${transmitterNumber}. Error: ${e.message}`);
-            resp({ status: "error", errorMsg: "DATABASE_ERROR" });
-          }
-          resp({
-            status: "ok",
-            data: {
-              is_accepted: false,
-              transmitter: transmitterNumber,
-              receiver: reqObj.data.receiverNumber,
-              isTransmitter: true,
-              start: startCallTimeUnix.toString(),
-              identifier: callIdentifier
-            }
-          });
-          emitNetTyped("npwd:startCall" /* START_CALL */, {
-            is_accepted: false,
-            transmitter: transmitterNumber,
-            receiver: reqObj.data.receiverNumber,
-            isTransmitter: false
-          }, receivingPlayer.source);
-        });
-      }
-      handleAcceptCall(src, transmitterNumber) {
-        return __async(this, null, function* () {
-          const targetCallItem = this.callMap.get(transmitterNumber);
-          targetCallItem.is_accepted = true;
-          const channelId = targetCallItem.transmitterSource;
-          yield this.callsDB.updateCall(targetCallItem, true, null);
-          callLogger.debug(`Call with key ${transmitterNumber} was updated to be accepted`);
-          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, __spreadProps(__spreadValues({}, targetCallItem), {
-            is_accepted: true,
-            transmitter: transmitterNumber,
-            receiver: targetCallItem.receiver,
-            isTransmitter: false,
-            channelId
-          }), targetCallItem.receiverSource);
-          mainLogger.debug(targetCallItem);
-          emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, __spreadProps(__spreadValues({}, targetCallItem), {
-            is_accepted: true,
-            transmitter: transmitterNumber,
-            receiver: targetCallItem.receiver,
-            isTransmitter: true,
-            channelId
-          }), targetCallItem.transmitterSource);
-        });
-      }
-      handleFetchCalls(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const player = player_service_default.getPlayer(reqObj.source);
-            const srcPlayerNumber = player.getPhoneNumber();
-            const calls = yield this.callsDB.fetchCalls(srcPlayerNumber);
-            resp({ status: "ok", data: calls });
-          } catch (e) {
-            resp({ status: "error", errorMsg: "DATABASE_ERROR" });
-            console.error(`Error while fetching calls, ${e.message}`);
-          }
-        });
-      }
-      handleRejectCall(src, transmitterNumber) {
-        return __async(this, null, function* () {
-          const currentCall = this.callMap.get(transmitterNumber);
-          const endCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
-          if (!currentCall) {
-            callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
-            return;
-          }
-          emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
-          emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
-          yield this.callsDB.updateCall(currentCall, false, endCallTimeUnix);
-          this.callMap.delete(transmitterNumber);
-        });
-      }
-      handleEndCall(reqObj, resp) {
-        return __async(this, null, function* () {
-          const transmitterNumber = reqObj.data.transmitterNumber;
-          const endCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
-          if (reqObj.data.isUnavailable) {
-            emitNet("npwd:callEnded" /* WAS_ENDED */, reqObj.source);
-            resp({ status: "ok" });
-            return;
-          }
-          const currentCall = this.callMap.get(transmitterNumber);
-          if (!currentCall) {
-            callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
-            return resp({ status: "error", errorMsg: "DOES_NOT_EXIST" });
-          }
-          if (currentCall) {
-            if (currentCall.is_accepted) {
-              emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.receiverSource, currentCall.transmitterSource, currentCall);
-              emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.transmitterSource, currentCall.transmitterSource, currentCall);
-            } else {
-              emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
-              emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
-            }
-          }
-          resp({ status: "ok" });
-          yield this.callsDB.updateCall(currentCall, currentCall == null ? void 0 : currentCall.is_accepted, endCallTimeUnix);
-          this.callMap.delete(transmitterNumber);
-        });
-      }
-    };
-    calls_service_default = new CallsService();
-  }
-});
-
-// server/lib/GlobalRateLimiter.ts
-var GlobalRateLimiter;
-var init_GlobalRateLimiter = __esm({
-  "server/lib/GlobalRateLimiter.ts"() {
-    GlobalRateLimiter = class {
-      constructor(timeBetweenReq = 250) {
-        __publicField(this, "rateLimits", /* @__PURE__ */ new Map());
-        __publicField(this, "timeBetweenRequests");
-        this.timeBetweenRequests = timeBetweenReq;
-      }
-      registerNewEvent(event, options) {
-        this.rateLimits.set(event, { limiters: /* @__PURE__ */ new Map(), options });
-      }
-      isPlayerRateLimited(event, source2) {
-        var _a2;
-        return !!((_a2 = this.rateLimits) == null ? void 0 : _a2.get(event).limiters.get(source2));
-      }
-      rateLimitPlayer(event, source2) {
-        var _a2;
-        let rateLimiter = this.rateLimits.get(event);
-        rateLimiter.limiters.set(source2, true);
-        setTimeout(() => {
-          rateLimiter.limiters.delete(source2);
-        }, ((_a2 = rateLimiter.options) == null ? void 0 : _a2.rateLimit) || this.timeBetweenRequests);
-      }
-    };
-  }
-});
-
-// server/lib/PromiseNetEvents/onNetPromise.ts
-function onNetPromise(eventName, cb, options = null) {
-  globalRateLimiter.registerNewEvent(eventName, options);
-  onNet(eventName, (respEventName, data) => __async(this, null, function* () {
-    const startTime = process.hrtime.bigint();
-    const src = getSource();
-    if (!respEventName) {
-      return netEventLogger.warn(`Promise event (${eventName}) was called with wrong struct by ${src} (maybe originator wasn't a promiseEvent`);
-    }
-    const promiseRequest = {
-      source: src,
-      data
-    };
-    netEventLogger.silly(`netPromise > ${eventName} > RequestObj`);
-    netEventLogger.silly(promiseRequest);
-    const promiseResp = (data2) => {
-      const endTime = process.hrtime.bigint();
-      const totalTime = Number(endTime - startTime) / 1e6;
-      emitNet(respEventName, src, data2);
-      netEventLogger.silly(`Response Promise Event ${respEventName} (${totalTime}ms), Data >>`);
-      netEventLogger.silly(data2);
-    };
-    if (globalRateLimiter.isPlayerRateLimited(eventName, src)) {
-      return promiseResp({ status: "error", errorMsg: "ERROR_RATE_LIMITED" });
-    } else {
-      globalRateLimiter.rateLimitPlayer(eventName, source);
-    }
-    Promise.resolve(cb(promiseRequest, promiseResp)).catch((e) => {
-      netEventLogger.error(`An error occured for a onNetPromise (${eventName}), Error: ${e.message}`);
-      promiseResp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
-    });
-  }));
-}
-var netEventLogger, globalRateLimiter;
-var init_onNetPromise = __esm({
-  "server/lib/PromiseNetEvents/onNetPromise.ts"() {
-    init_miscUtils();
-    init_sv_logger();
-    init_GlobalRateLimiter();
-    netEventLogger = mainLogger.child({ module: "events" });
-    globalRateLimiter = new GlobalRateLimiter(250);
-  }
-});
-
-// server/calls/calls.controller.ts
-var init_calls_controller = __esm({
-  "server/calls/calls.controller.ts"() {
-    init_call();
-    init_miscUtils();
-    init_calls_service();
-    init_calls_utils();
-    init_onNetPromise();
-    onNetPromise("npwd:beginCall" /* INITIALIZE_CALL */, (reqObj, resp) => {
-      calls_service_default.handleInitializeCall(reqObj, resp).catch((e) => {
-        resp({ status: "error", errorMsg: "SERVER_ERROR" });
-        callLogger.error(`Error occured handling init call: ${e.message}`);
-      });
-    });
-    onNetTyped("npwd:acceptCall" /* ACCEPT_CALL */, ({ transmitterNumber }) => {
-      const src = getSource();
-      calls_service_default.handleAcceptCall(src, transmitterNumber).catch((e) => callLogger.error(`Error occured in accept call event (${transmitterNumber}), Error:  ${e.message}`));
-    });
-    onNetTyped("npwd:rejectCall" /* REJECTED */, (data) => {
-      const src = getSource();
-      calls_service_default.handleRejectCall(src, data.transmitterNumber).catch((e) => callLogger.error(`Error occured in rejectcall event (${data.transmitterNumber}), Error:  ${e.message}`));
-    });
-    onNetPromise("npwd:endCall" /* END_CALL */, (reqObj, resp) => {
-      calls_service_default.handleEndCall(reqObj, resp).catch((e) => {
-        callLogger.error(`Error occured in end call event (${reqObj.data.transmitterNumber}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "SERVER_ERROR" });
-      });
-    });
-    onNetPromise("npwd:fetchCalls" /* FETCH_CALLS */, (reqObj, resp) => {
-      calls_service_default.handleFetchCalls(reqObj, resp).catch((e) => {
-        resp({ status: "error", errorMsg: "SERVER_ERROR" });
-        callLogger.error(`Error occured in fetch call event, Error: ${e.message}`);
-      });
-    });
-  }
-});
-
-// ../typings/notes.ts
-var init_notes = __esm({
-  "../typings/notes.ts"() {
-  }
-});
-
-// server/notes/notes.db.ts
-var _NotesDB, NotesDB, notes_db_default;
-var init_notes_db = __esm({
-  "server/notes/notes.db.ts"() {
-    init_db_wrapper();
-    _NotesDB = class {
-      addNote(identifier, note) {
-        return __async(this, null, function* () {
-          const query = "INSERT INTO npwd_notes (identifier, title, content) VALUES (?, ?, ?)";
-          const [result] = yield db_wrapper_default._rawExec(query, [identifier, note.title, note.content]);
-          return result.insertId;
-        });
-      }
-      fetchNotes(identifier) {
-        return __async(this, null, function* () {
-          const query = "SELECT * FROM npwd_notes WHERE identifier = ? ORDER BY id DESC";
-          const [result] = yield db_wrapper_default._rawExec(query, [identifier]);
-          return result;
-        });
-      }
-      deleteNote(noteId, identifier) {
-        return __async(this, null, function* () {
-          const query = "DELETE FROM npwd_notes WHERE id = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [noteId, identifier]);
-        });
-      }
-      updateNote(note, identifier) {
-        return __async(this, null, function* () {
-          const query = "UPDATE npwd_notes SET title = ?, content = ? WHERE id = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [note.title, note.content, note.id, identifier]);
-        });
-      }
-    };
-    NotesDB = new _NotesDB();
-    notes_db_default = NotesDB;
-  }
-});
-
-// server/notes/notes.utils.ts
-var notesLogger;
-var init_notes_utils = __esm({
-  "server/notes/notes.utils.ts"() {
-    init_sv_logger();
-    notesLogger = mainLogger.child({ module: "notes" });
-  }
-});
-
-// server/notes/notes.service.ts
-var _NotesService, NotesService, notes_service_default;
-var init_notes_service = __esm({
-  "server/notes/notes.service.ts"() {
-    init_player_service();
-    init_notes_db();
-    init_notes_utils();
-    _NotesService = class {
-      constructor() {
-        __publicField(this, "notesDB");
-        this.notesDB = notes_db_default;
-        notesLogger.debug("Notes service started");
-      }
-      handleAddNote(reqObj, resp) {
-        return __async(this, null, function* () {
-          notesLogger.debug("Handling add note, note:");
-          notesLogger.debug(reqObj.data);
-          const identifer = player_service_default.getIdentifier(reqObj.source);
-          try {
-            const noteId = yield this.notesDB.addNote(identifer, reqObj.data);
-            resp({
-              status: "ok",
-              data: { id: noteId, content: reqObj.data.content, title: reqObj.data.title }
-            });
-          } catch (e) {
-            notesLogger.error(`Error in handleAddNote, ${e.message}`);
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleFetchNotes(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            const notes = yield this.notesDB.fetchNotes(identifier);
-            resp({ status: "ok", data: notes });
-          } catch (e) {
-            notesLogger.error(`Error in handleFetchNote, ${e.message}`);
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleUpdateNote(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            yield this.notesDB.updateNote(reqObj.data, identifier);
-            resp({ status: "ok" });
-          } catch (e) {
-            notesLogger.error(`Error in handleUpdateNote, ${e.message}`);
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleDeleteNote(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            yield this.notesDB.deleteNote(reqObj.data.id, identifier);
-            resp({ status: "ok", data: reqObj.data });
-          } catch (e) {
-            notesLogger.error(`Error in handleDeleteNote, ${e.message}`);
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-    };
-    NotesService = new _NotesService();
-    notes_service_default = NotesService;
-  }
-});
-
-// server/notes/notes.controller.ts
-var require_notes_controller = __commonJS({
-  "server/notes/notes.controller.ts"(exports2) {
-    init_notes();
-    init_notes_service();
-    init_notes_utils();
-    init_onNetPromise();
-    onNetPromise("npwd:addNote" /* ADD_NOTE */, (reqObj, resp) => {
-      notes_service_default.handleAddNote(reqObj, resp).catch((e) => {
-        notesLogger.error(`Error occured in add note event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
-      });
-    });
-    onNetPromise("npwd:fetchAllNotes" /* FETCH_ALL_NOTES */, (reqObj, resp) => {
-      notes_service_default.handleFetchNotes(reqObj, resp).catch((e) => {
-        notesLogger.error(`Error occurred in fetch note event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
-      });
-    });
-    onNetPromise("npwd:deleteNote" /* DELETE_NOTE */, (reqObj, resp) => __async(exports2, null, function* () {
-      notes_service_default.handleDeleteNote(reqObj, resp).catch((e) => {
-        notesLogger.error(`Error occured in delete note event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:updateNote" /* UPDATE_NOTE */, (reqObj, resp) => __async(exports2, null, function* () {
-      notes_service_default.handleUpdateNote(reqObj, resp).catch((e) => {
-        notesLogger.error(`Error occured in fetch note event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
-      });
-    }));
-  }
-});
-
-// ../typings/contact.ts
-var init_contact = __esm({
-  "../typings/contact.ts"() {
-  }
-});
-
-// server/contacts/contacts.utils.ts
-var contactsLogger;
-var init_contacts_utils = __esm({
-  "server/contacts/contacts.utils.ts"() {
-    init_sv_logger();
-    contactsLogger = mainLogger.child({ module: "contact" });
-  }
-});
-
-// server/contacts/contacts.db.ts
-var _ContactsDB, ContactsDB, contacts_db_default;
-var init_contacts_db = __esm({
-  "server/contacts/contacts.db.ts"() {
-    init_db_wrapper();
-    _ContactsDB = class {
-      fetchAllContacts(identifier) {
-        return __async(this, null, function* () {
-          const query = "SELECT * FROM npwd_phone_contacts WHERE identifier = ? ORDER BY display ASC";
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          return results;
-        });
-      }
-      addContact(_0, _1) {
-        return __async(this, arguments, function* (identifier, { display, avatar, number }) {
-          const query = "INSERT INTO npwd_phone_contacts (identifier, number, display, avatar) VALUES (?, ?, ?, ?)";
-          const [setResult] = yield db_wrapper_default._rawExec(query, [identifier, number, display, avatar]);
-          return {
-            id: setResult.insertId,
-            number,
-            avatar,
-            display
-          };
-        });
-      }
-      updateContact(contact, identifier) {
-        return __async(this, null, function* () {
-          const query = "UPDATE npwd_phone_contacts SET number = ?, display = ?, avatar = ? WHERE id = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [
-            contact.number,
-            contact.display,
-            contact.avatar,
-            contact.id,
-            identifier
-          ]);
-        });
-      }
-      deleteContact(contactId, identifier) {
-        return __async(this, null, function* () {
-          const query = "DELETE FROM npwd_phone_contacts WHERE id = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [contactId, identifier]);
-        });
-      }
-    };
-    ContactsDB = new _ContactsDB();
-    contacts_db_default = ContactsDB;
-  }
-});
-
-// server/contacts/contacts.service.ts
-var _ContactService, ContactService, contacts_service_default;
-var init_contacts_service = __esm({
-  "server/contacts/contacts.service.ts"() {
-    init_player_service();
-    init_contacts_utils();
-    init_contacts_db();
-    init_contact();
-    init_imageFiltering();
-    _ContactService = class {
-      constructor() {
-        __publicField(this, "contactsDB");
-        this.contactsDB = contacts_db_default;
-        contactsLogger.debug("Contacts service started");
-      }
-      handleUpdateContact(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            const imageUrl = checkAndFilterImage(reqObj.data.avatar);
-            if (imageUrl == null) {
-              return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
-            }
-            reqObj.data.avatar = imageUrl;
-            yield this.contactsDB.updateContact(reqObj.data, identifier);
-            resp({ status: "ok" });
-          } catch (e) {
-            contactsLogger.error(`Error in handleUpdateContact (${identifier}), ${e.message}`);
-            resp({ status: "error", errorMsg: "CONTACT.FEEDBACK.UPDATE_FAILED" /* UPDATE_FAILED */ });
-          }
-        });
-      }
-      handleDeleteContact(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            yield this.contactsDB.deleteContact(reqObj.data.id, identifier);
-            resp({ status: "ok" });
-          } catch (e) {
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-            contactsLogger.error(`Error in handleDeleteContact (${identifier}), ${e.message}`);
-          }
-        });
-      }
-      handleAddContact(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            const imageUrl = checkAndFilterImage(reqObj.data.avatar);
-            if (imageUrl == null) {
-              return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
-            }
-            reqObj.data.avatar = imageUrl;
-            const contact = yield this.contactsDB.addContact(identifier, reqObj.data);
-            resp({ status: "ok", data: contact });
-          } catch (e) {
-            contactsLogger.error(`Error in handleAddContact, ${e.message}`);
-            resp({ status: "error", errorMsg: "CONTACT.FEEDBACK.ADD_FAILED" /* ADD_FAILED */ });
-          }
-        });
-      }
-      handleFetchContacts(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            const contacts = yield this.contactsDB.fetchAllContacts(identifier);
-            resp({ status: "ok", data: contacts });
-          } catch (e) {
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-            contactsLogger.error(`Error in handleFetchContact (${identifier}), ${e.message}`);
-          }
-        });
-      }
-    };
-    ContactService = new _ContactService();
-    contacts_service_default = ContactService;
-  }
-});
-
-// server/contacts/contacts.controller.ts
-var init_contacts_controller = __esm({
-  "server/contacts/contacts.controller.ts"() {
-    init_contact();
-    init_contacts_service();
-    init_contacts_utils();
-    init_onNetPromise();
-    onNetPromise("npwd:getContacts" /* GET_CONTACTS */, (reqObj, resp) => {
-      contacts_service_default.handleFetchContacts(reqObj, resp).catch((e) => {
-        contactsLogger.error(`Error occured in fetch contacts event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-    onNetPromise("npwd:addContacts" /* ADD_CONTACT */, (reqObj, resp) => {
-      contacts_service_default.handleAddContact(reqObj, resp).catch((e) => {
-        contactsLogger.error(`Error occured in fetch contacts event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-    onNetPromise("npwd:updateContact" /* UPDATE_CONTACT */, (reqObj, resp) => {
-      contacts_service_default.handleUpdateContact(reqObj, resp).catch((e) => {
-        contactsLogger.error(`Error occured in update contact event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-    onNetPromise("npwd:deleteContact" /* DELETE_CONTACT */, (reqObj, resp) => {
-      contacts_service_default.handleDeleteContact(reqObj, resp).catch((e) => {
-        contactsLogger.error(`Error occured in delete contact event (${reqObj.source}), Error:  ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-  }
-});
-
-// ../typings/photo.ts
-var init_photo = __esm({
-  "../typings/photo.ts"() {
-  }
-});
-
-// server/photo/photo.db.ts
-var _PhotoDB, PhotoDB, photo_db_default;
-var init_photo_db = __esm({
-  "server/photo/photo.db.ts"() {
-    init_db_wrapper();
-    _PhotoDB = class {
-      uploadPhoto(identifier, image) {
-        return __async(this, null, function* () {
-          const query = "INSERT INTO npwd_phone_gallery (identifier, image) VALUES (?, ?)";
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier, image]);
-          return { id: results.insertId, image };
-        });
-      }
-      getPhotosByIdentifier(identifier) {
-        return __async(this, null, function* () {
-          const query = "SELECT id, image FROM npwd_phone_gallery WHERE identifier = ? ORDER BY id DESC";
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          return results;
-        });
-      }
-      deletePhoto(photo, identifier) {
-        return __async(this, null, function* () {
-          const query = "DELETE FROM npwd_phone_gallery WHERE image = ? AND identifier = ?";
-          yield db_wrapper_default._rawExec(query, [photo.image, identifier]);
-        });
-      }
-    };
-    PhotoDB = new _PhotoDB();
-    photo_db_default = PhotoDB;
-  }
-});
-
-// server/photo/photo.utils.ts
-var photoLogger;
-var init_photo_utils = __esm({
-  "server/photo/photo.utils.ts"() {
-    init_sv_logger();
-    photoLogger = mainLogger.child({ module: "photo" });
-  }
-});
-
-// server/photo/photo.service.ts
-var _PhotoService, PhotoService, photo_service_default;
-var init_photo_service = __esm({
-  "server/photo/photo.service.ts"() {
-    init_player_service();
-    init_photo();
-    init_photo_db();
-    init_photo_utils();
-    init_imageFiltering();
-    _PhotoService = class {
-      constructor() {
-        __publicField(this, "photoDB");
-        this.photoDB = photo_db_default;
-        photoLogger.debug("Photo service started");
-      }
-      handleUploadPhoto(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            if (!reqObj.data)
-              return resp({ status: "error", errorMsg: "CAMERA.FAILED_TO_TAKE_PHOTO" /* GENERIC */ });
-            const imageUrl = checkAndFilterImage(reqObj.data);
-            if (imageUrl == null) {
-              return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" /* INVALID_IMAGE_HOST */ });
-            }
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const photo = yield this.photoDB.uploadPhoto(identifier, imageUrl);
-            resp({ status: "ok", data: photo });
-          } catch (e) {
-            photoLogger.error(`Failed to upload photo, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleFetchPhotos(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const photos = yield this.photoDB.getPhotosByIdentifier(identifier);
-            resp({ status: "ok", data: photos });
-          } catch (e) {
-            photoLogger.error(`Failed to fetch photos, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-      handleDeletePhoto(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            yield this.photoDB.deletePhoto(reqObj.data, identifier);
-            resp({ status: "ok" });
-          } catch (e) {
-            photoLogger.error(`Failed to delete photo, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
-          }
-        });
-      }
-    };
-    PhotoService = new _PhotoService();
-    photo_service_default = PhotoService;
-  }
-});
-
-// server/photo/photo.controller.ts
-var init_photo_controller = __esm({
-  "server/photo/photo.controller.ts"() {
-    init_photo();
-    init_photo_service();
-    init_photo_utils();
-    init_onNetPromise();
-    onNetPromise("npwd:UploadPhoto" /* UPLOAD_PHOTO */, (reqObj, resp) => {
-      photo_service_default.handleUploadPhoto(reqObj, resp).catch((e) => {
-        photoLogger.error(`Error occurred in upload photo event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-    onNetPromise("npwd:FetchPhotos" /* FETCH_PHOTOS */, (reqObj, resp) => {
-      photo_service_default.handleFetchPhotos(reqObj, resp).catch((e) => {
-        photoLogger.error(`Error occurred in upload photo event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-    onNetPromise("npwd:deletePhoto" /* DELETE_PHOTO */, (reqObj, resp) => {
-      photo_service_default.handleDeletePhoto(reqObj, resp).catch((e) => {
-        photoLogger.error(`Error occurred in delete photo event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    });
-  }
-});
-
-// ../typings/messages.ts
-var init_messages = __esm({
-  "../typings/messages.ts"() {
-  }
-});
-
-// server/messages/messages.utils.ts
-function createGroupHashID(participants) {
-  participants.sort();
-  return participants.join("+");
-}
-function getIdentifiersFromParticipants(conversationId) {
-  return conversationId.split("+");
-}
-var messagesLogger;
-var init_messages_utils = __esm({
-  "server/messages/messages.utils.ts"() {
-    init_sv_logger();
-    messagesLogger = mainLogger.child({ module: "messages" });
-  }
-});
-
-// server/messages/messages.db.ts
-var MESSAGES_PER_PAGE, _MessagesDB, MessagesDB, messages_db_default;
-var init_messages_db = __esm({
-  "server/messages/messages.db.ts"() {
-    init_db_wrapper();
-    init_messages_utils();
-    MESSAGES_PER_PAGE = 20;
-    _MessagesDB = class {
-      getConversations(phoneNumber) {
-        return __async(this, null, function* () {
-          const query = `SELECT npwd_messages_conversations.id,
-                          npwd_messages_conversations.conversation_list         as conversationList,
-                          npwd_messages_participants.unread_count               as unreadCount,
-                          npwd_messages_conversations.is_group_chat             as isGroupChat,
-                          npwd_messages_conversations.label,
-                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt,
-                          npwd_messages_participants.participant
-                   FROM npwd_messages_conversations
-                            INNER JOIN npwd_messages_participants
-                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
-                   WHERE npwd_messages_participants.participant = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [phoneNumber]);
-          return results;
-        });
-      }
-      getConversation(conversationId) {
-        return __async(this, null, function* () {
-          const query = `SELECT npwd_messages_conversations.id,
-                          npwd_messages_conversations.conversation_list         as conversationList,
-                          npwd_messages_conversations.is_group_chat             as isGroupChat,
-                          npwd_messages_conversations.label,
-                          UNIX_TIMESTAMP(npwd_messages_conversations.createdAt) as createdAt,
-                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt
-                   FROM npwd_messages_conversations
-                   WHERE id = ?
-                   LIMIT 1`;
-          const [results] = yield db_wrapper_default._rawExec(query, [conversationId]);
-          const result = results;
-          return result[0];
-        });
-      }
-      getMessages(dto) {
-        return __async(this, null, function* () {
-          const offset = MESSAGES_PER_PAGE * dto.page;
-          const query = `SELECT * FROM (SELECT
-          id,
-          conversation_id,
-          author,
-          message,
-          is_embed,
-          embed,
-		  (UNIX_TIMESTAMP(createdAt) * 1000) as createdAt
-        FROM npwd_messages
-        WHERE conversation_id = ?
-        ORDER BY id DESC
-        LIMIT ?
-        OFFSET ?
-      ) as nm
-    ORDER BY id`;
-          const [results] = yield db_wrapper_default._rawExec(query, [
-            dto.conversationId,
-            MESSAGES_PER_PAGE.toString(),
-            offset.toString()
-          ]);
-          return results;
-        });
-      }
-      createConversation(participants, conversationList, conversationLabel, isGroupChat) {
-        return __async(this, null, function* () {
-          const conversationQuery = `INSERT INTO npwd_messages_conversations (conversation_list, label, is_group_chat)
-                               VALUES (?, ?, ?)`;
-          const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
-                              VALUES (?, ?)`;
-          const [results] = yield db_wrapper_default._rawExec(conversationQuery, [
-            conversationList,
-            isGroupChat ? conversationLabel : "",
-            isGroupChat
-          ]);
-          const result = results;
-          const conversationId = result.insertId;
-          for (const participant of participants) {
-            yield db_wrapper_default._rawExec(participantQuery, [conversationId, participant]);
-          }
-          return conversationId;
-        });
-      }
-      addParticipantToConversation(conversationList, phoneNumber) {
-        return __async(this, null, function* () {
-          const conversationId = yield this.getConversationId(conversationList);
-          const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
-                              VALUES (?, ?)`;
-          yield db_wrapper_default._rawExec(participantQuery, [conversationId, phoneNumber]);
-          return conversationId;
-        });
-      }
-      createMessage(dto) {
-        return __async(this, null, function* () {
-          const query = `INSERT INTO npwd_messages (message, user_identifier, conversation_id, author, is_embed, embed)
-                   VALUES (?, ?, ?, ?, ?, ?)`;
-          const [results] = yield db_wrapper_default._rawExec(query, [
-            dto.message || "",
-            dto.userIdentifier,
-            dto.conversationId,
-            dto.authorPhoneNumber,
-            dto.is_embed || false,
-            dto.embed || ""
-          ]);
-          const result = results;
-          const updateConversation = `UPDATE npwd_messages_conversations
-                                SET updatedAt = current_timestamp()
-                                WHERE id = ?`;
-          setImmediate(() => __async(this, null, function* () {
-            yield db_wrapper_default._rawExec(updateConversation, [dto.conversationId]).catch((err) => messagesLogger.error(`Error occurred in message update Error: ${err.message}`));
-          }));
-          return result.insertId;
-        });
-      }
-      setMessageUnread(conversationId, tgtPhoneNumber) {
-        return __async(this, null, function* () {
-          const query = `UPDATE npwd_messages_participants
-                   SET unread_count = unread_count + 1
-                   WHERE conversation_id = ?
-                     AND participant = ?`;
-          yield db_wrapper_default._rawExec(query, [conversationId, tgtPhoneNumber]);
-        });
-      }
-      setMessageRead(conversationId, participantNumber) {
-        return __async(this, null, function* () {
-          const query = `UPDATE npwd_messages_participants
-                   SET unread_count = 0
-                   WHERE conversation_id = ?
-                     AND participant = ?`;
-          yield db_wrapper_default._rawExec(query, [conversationId, participantNumber]);
-        });
-      }
-      deleteMessage(message) {
-        return __async(this, null, function* () {
-          const query = `DELETE
-                   FROM npwd_messages
-                   WHERE id = ?`;
-          yield db_wrapper_default._rawExec(query, [message.id]);
-        });
-      }
-      deleteConversation(conversationId, phoneNumber) {
-        return __async(this, null, function* () {
-          const query = `DELETE
-                   FROM npwd_messages_participants
-                   WHERE conversation_id = ?
-                     AND participant = ?`;
-          yield db_wrapper_default._rawExec(query, [conversationId, phoneNumber]);
-        });
-      }
-      doesConversationExist(conversationList) {
-        return __async(this, null, function* () {
-          const query = `SELECT COUNT(*) as count
-                   FROM npwd_messages_conversations
-                            INNER JOIN npwd_messages_participants
-                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
-                   WHERE conversation_list = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [conversationList]);
-          const result = results;
-          const count = result[0].count;
-          return count > 0;
-        });
-      }
-      doesConversationExistForPlayer(conversationList, phoneNumber) {
-        return __async(this, null, function* () {
-          const query = `SELECT COUNT(*) as count
-                   FROM npwd_messages_conversations
-                            INNER JOIN npwd_messages_participants
-                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
-                   WHERE conversation_list = ?
-                     AND npwd_messages_participants.participant = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [conversationList, phoneNumber]);
-          const result = results;
-          const count = result[0].count;
-          return count > 0;
-        });
-      }
-      getConversationId(conversationList) {
-        return __async(this, null, function* () {
-          const query = `SELECT id
-                   FROM npwd_messages_conversations
-                   WHERE conversation_list = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [conversationList]);
-          const result = results;
-          return result[0].id;
-        });
-      }
-      getDisplayName(number, player) {
-        return __async(this, null, function* () {
-          const query = `SELECT display 
-                  FROM npwd_phone_contacts
-                  WHERE number = ? AND identifier = ?`;
-          const [results] = yield db_wrapper_default._rawExec(query, [number, player.ssn]);
-          const result = results;
-          if (result[0]) {
-            return result[0].display;
-          } else {
-            return player.getPhoneNumber();
-          }
-        });
-      }
-    };
-    MessagesDB = new _MessagesDB();
-    messages_db_default = MessagesDB;
-  }
-});
-
-// server/messages/messages.service.ts
-var _MessagesService, MessagesService, messages_service_default;
-var init_messages_service = __esm({
-  "server/messages/messages.service.ts"() {
-    init_messages_db();
-    init_messages_utils();
-    init_messages();
-    init_player_service();
-    init_miscUtils();
-    _MessagesService = class {
-      constructor() {
-        __publicField(this, "messagesDB");
-        this.messagesDB = messages_db_default;
-        messagesLogger.debug("Messages service started");
-      }
-      handleFetchMessageConversations(reqObj, resp) {
-        return __async(this, null, function* () {
-          const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
-          try {
-            const conversations = yield messages_db_default.getConversations(phoneNumber);
-            resp({ status: "ok", data: conversations });
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleCreateMessageConversation(reqObj, resp) {
-        return __async(this, null, function* () {
-          const playerPhoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
-          const conversation = reqObj.data;
-          const participants = conversation.participants;
-          const conversationList = createGroupHashID(participants);
-          const doesExist = yield this.messagesDB.doesConversationExist(conversationList);
-          if (doesExist) {
-            const playerHasConversation = yield this.messagesDB.doesConversationExistForPlayer(conversationList, playerPhoneNumber);
-            if (playerHasConversation) {
-              return resp({
-                status: "error",
-                errorMsg: "MESSAGES.FEEDBACK.MESSAGE_CONVERSATION_DUPLICATE"
-              });
-            } else {
-              const conversationId = yield this.messagesDB.addParticipantToConversation(conversationList, playerPhoneNumber);
-              const respData = {
-                id: conversationId,
-                label: conversation.conversationLabel,
-                conversationList,
-                isGroupChat: conversation.isGroupChat
-              };
-              return resp({ status: "ok", data: __spreadProps(__spreadValues({}, respData), { participant: playerPhoneNumber }) });
-            }
-          }
-          try {
-            const conversationId = yield messages_db_default.createConversation(participants, conversationList, conversation.conversationLabel, conversation.isGroupChat);
-            const respData = {
-              id: conversationId,
-              label: conversation.conversationLabel,
-              conversationList,
-              isGroupChat: conversation.isGroupChat
-            };
-            resp({ status: "ok", data: __spreadProps(__spreadValues({}, respData), { participant: playerPhoneNumber }) });
-            for (const participant of participants) {
-              if (participant !== playerPhoneNumber) {
-                const participantIdentifier = yield player_service_default.getIdentifierByPhoneNumber(participant);
-                const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
-                if (participantPlayer) {
-                  emitNetTyped("npwd:createMessageConversationSuccess" /* CREATE_MESSAGE_CONVERSATION_SUCCESS */, __spreadProps(__spreadValues({}, respData), {
-                    participant: participantPlayer.getPhoneNumber()
-                  }), participantPlayer.source);
-                }
-              }
-            }
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleFetchMessages(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const messages = yield messages_db_default.getMessages(reqObj.data);
-            const sortedMessages = messages.sort((a, b) => a.id - b.id);
-            resp({ status: "ok", data: sortedMessages });
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleSendMessage(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const player = player_service_default.getPlayer(reqObj.source);
-            const authorPhoneNumber = player.getPhoneNumber();
-            const messageData = reqObj.data;
-            const participants = getIdentifiersFromParticipants(messageData.conversationList);
-            const userIdentifier = player.getIdentifier();
-            const conversationDetails = yield this.messagesDB.getConversation(messageData.conversationId);
-            const messageId = yield this.messagesDB.createMessage({
-              userIdentifier,
-              authorPhoneNumber,
-              conversationId: messageData.conversationId,
-              message: messageData.message,
-              is_embed: messageData.is_embed,
-              embed: messageData.embed
-            });
-            resp({
-              status: "ok",
-              data: __spreadProps(__spreadValues({}, messageData), {
-                conversation_id: messageData.conversationId,
-                author: authorPhoneNumber,
-                id: messageId,
-                message: messageData.message,
-                embed: messageData.embed,
-                is_embed: messageData.is_embed
-              })
-            });
-            const conversationData = {
-              id: messageData.conversationId,
-              label: conversationDetails.label,
-              conversationList: conversationDetails.conversationList,
-              isGroupChat: conversationDetails.isGroupChat
-            };
-            for (const participantId of participants) {
-              if (participantId !== authorPhoneNumber) {
-                try {
-                  const playerHasConversation = yield this.messagesDB.doesConversationExistForPlayer(messageData.conversationList, participantId);
-                  if (!playerHasConversation) {
-                    const conversationId = yield this.messagesDB.addParticipantToConversation(conversationDetails.conversationList, participantId);
-                  }
-                  const participantIdentifier = yield player_service_default.getIdentifierByPhoneNumber(participantId, true);
-                  const participantNumber = yield player_service_default.getPhoneNumberFromIdentifier(participantIdentifier);
-                  const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
-                  yield this.messagesDB.setMessageUnread(messageData.conversationId, participantNumber);
-                  if (participantPlayer) {
-                    if (!playerHasConversation) {
-                      emitNetTyped("npwd:createMessageConversationSuccess" /* CREATE_MESSAGE_CONVERSATION_SUCCESS */, __spreadProps(__spreadValues({}, conversationData), {
-                        participant: authorPhoneNumber
-                      }), participantPlayer.source);
-                    }
-                    emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, participantPlayer.source, __spreadProps(__spreadValues({}, messageData), {
-                      conversation_id: messageData.conversationId,
-                      author: authorPhoneNumber
-                    }));
-                    const displayName = yield this.messagesDB.getDisplayName(authorPhoneNumber, participantPlayer);
-                    emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, participantPlayer.source, {
-                      conversationName: displayName,
-                      conversation_id: messageData.conversationId,
-                      message: messageData.message,
-                      is_embed: messageData.is_embed,
-                      embed: messageData.embed
-                    });
-                  }
-                } catch (err) {
-                  messagesLogger.error(`Failed to broadcast message, Error: ${err.message}`);
-                }
-              }
-            }
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleSendMessageDark(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const authorPhoneNumber = "666-000-6969";
-            const conversationList = createGroupHashID([authorPhoneNumber, reqObj.phoneNumber]);
-            let conversationId;
-            const doesExist = yield this.messagesDB.doesConversationExist(conversationList);
-            if (!doesExist) {
-              conversationId = yield messages_db_default.createConversation([authorPhoneNumber, reqObj.phoneNumber], conversationList, "UNKNOWN NUMBER", false);
-            } else {
-              conversationId = yield messages_db_default.getConversationId(conversationList);
-            }
-            const messageId = yield this.messagesDB.createMessage({
-              userIdentifier: "b00st3D",
-              authorPhoneNumber,
-              conversationId,
-              message: reqObj.message,
-              is_embed: false,
-              embed: false
-            });
-            const messageData = {
-              id: messageId,
-              message: reqObj.message,
-              conversationList,
-              conversation_id: conversationId,
-              author: authorPhoneNumber
-            };
-            emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, reqObj.source, __spreadProps(__spreadValues({}, messageData), {
-              conversation_id: conversationId,
-              author: reqObj.phoneNumber
-            }));
-            emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, reqObj.source, {
-              conversationName: "H4XZ",
-              conversation_id: conversationId,
-              message: messageData.message
-            });
-            yield this.messagesDB.setMessageUnread(conversationId, reqObj.phoneNumber);
-          } catch (err) {
-            console.log(err);
-          }
-        });
-      }
-      handleSetMessageRead(reqObj, resp) {
-        return __async(this, null, function* () {
-          const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
-          try {
-            yield this.messagesDB.setMessageRead(reqObj.data, phoneNumber);
-            resp({ status: "ok" });
-          } catch (err) {
-            messagesLogger.error(`Failed to read message. Error: ${err.message}`);
-            resp({ status: "error" });
-          }
-        });
-      }
-      handleDeleteMessage(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            yield this.messagesDB.deleteMessage(reqObj.data);
-            resp({ status: "ok" });
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleDeleteConversation(reqObj, resp) {
-        return __async(this, null, function* () {
-          const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
-          const conversationsId = reqObj.data.conversationsId;
-          try {
-            for (const id of conversationsId) {
-              yield this.messagesDB.deleteConversation(id, phoneNumber);
-            }
-            resp({ status: "ok" });
-          } catch (err) {
-            resp({ status: "error", errorMsg: err.message });
-          }
-        });
-      }
-      handleEmitMessage(dto) {
-        return __async(this, null, function* () {
-          const { senderNumber, targetNumber, message } = dto;
-          try {
-            const senderPlayer = yield player_service_default.getIdentifierByPhoneNumber(senderNumber, true);
-            const participantIdentifier = yield player_service_default.getIdentifierByPhoneNumber(targetNumber);
-            const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
-            const conversationList = createGroupHashID([senderNumber, targetNumber]);
-            const conversationId = yield this.messagesDB.getConversationId(conversationList);
-            const messageId = yield this.messagesDB.createMessage({
-              message,
-              embed: "",
-              is_embed: false,
-              conversationId,
-              userIdentifier: senderPlayer || senderNumber,
-              authorPhoneNumber: senderNumber
-            });
-            const messageData = {
-              id: messageId,
-              message,
-              conversationList,
-              conversation_id: conversationId,
-              author: senderNumber
-            };
-            if (participantPlayer) {
-              emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, participantPlayer.source, __spreadProps(__spreadValues({}, messageData), {
-                conversation_id: conversationId,
-                author: senderNumber
-              }));
-              emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, participantPlayer.source, {
-                conversationName: senderNumber,
-                conversation_id: conversationId,
-                message: messageData.message
-              });
-            }
-            yield this.messagesDB.setMessageUnread(conversationId, targetNumber);
-          } catch (err) {
-            console.log(`Failed to emit message. Error: ${err.message}`);
-          }
-        });
-      }
-      handleGetLocation(reqObj, resp) {
-        return __async(this, null, function* () {
-          const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
-          const playerPed = GetPlayerPed(reqObj.source.toString());
-          resp({
-            status: "ok",
-            data: {
-              phoneNumber,
-              coords: GetEntityCoords(playerPed)
-            }
-          });
-        });
-      }
-    };
-    MessagesService = new _MessagesService();
-    messages_service_default = MessagesService;
-  }
-});
-
-// server/messages/middleware/onMessage.ts
-var exp, OnMessageExportMap;
-var init_onMessage = __esm({
-  "server/messages/middleware/onMessage.ts"() {
-    exp = global.exports;
-    OnMessageExportMap = /* @__PURE__ */ new Map();
-    exp("onMessage", (phoneNumber, cb) => {
-      OnMessageExportMap.set(phoneNumber, cb);
-    });
-  }
-});
-
-// server/messages/messages.controller.ts
-var require_messages_controller = __commonJS({
-  "server/messages/messages.controller.ts"(exports2) {
-    init_miscUtils();
-    init_messages();
-    init_messages_service();
-    init_messages_utils();
-    init_onNetPromise();
-    init_onMessage();
-    onNetPromise("npwd:fetchMessageGroups" /* FETCH_MESSAGE_CONVERSATIONS */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleFetchMessageConversations(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred in fetch message conversations (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:createMessageGroup" /* CREATE_MESSAGE_CONVERSATION */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleCreateMessageConversation(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred on creating messsage converations (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:fetchMessages" /* FETCH_MESSAGES */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleFetchMessages(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred in fetch messages (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:sendMessage" /* SEND_MESSAGE */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleSendMessage(reqObj, resp).then(() => __async(exports2, null, function* () {
-        const funcRef = OnMessageExportMap.get(reqObj.data.tgtPhoneNumber);
-        if (funcRef) {
-          try {
-            yield funcRef({ data: reqObj.data, source: reqObj.source });
-          } catch (e) {
-            messagesLogger.error(`Failed to find a callback reference for onMessage. Probably because the resource(s) using the export was stopped or restarted. Please restart said resource(s). Error: ${e.message}`);
-          }
-        }
-      })).catch((e) => {
-        messagesLogger.error(`Error occurred while sending message (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    on("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, (reqObj, resp) => __async(exports2, null, function* () {
-      yield messages_service_default.handleSendMessageDark(reqObj, resp);
-    }));
-    onNetPromise("nwpd:deleteConversation" /* DELETE_CONVERSATION */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleDeleteConversation(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred while deleting conversation (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:deleteMessage" /* DELETE_MESSAGE */, (reqObj, resp) => __async(exports2, null, function* () {
-      messages_service_default.handleDeleteMessage(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred while deleting message (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:setReadMessages" /* SET_MESSAGE_READ */, (reqObj, resp) => __async(exports2, null, function* () {
-      const src = getSource();
-      messages_service_default.handleSetMessageRead(reqObj, resp).catch((e) => messagesLogger.error(`Error occurred in set message read event (${src}), Error: ${e.message}`));
-    }));
-    onNetPromise("npwd:getMessageLocation" /* GET_MESSAGE_LOCATION */, (reqObj, resp) => __async(exports2, null, function* () {
-      const src = getSource();
-      messages_service_default.handleGetLocation(reqObj, resp).catch((e) => {
-        messagesLogger.error(`Error occurred in get location event (${src}), Error: ${e.message}`);
-      });
-    }));
-  }
-});
-
-// server/marketplace/marketplace.controller.ts
-var require_marketplace_controller = __commonJS({
-  "server/marketplace/marketplace.controller.ts"(exports2) {
-    init_marketplace();
-    init_marketplace_utils();
-    init_marketplace_service();
-    init_onNetPromise();
-    onNetPromise("npwd:fetchAllListings" /* FETCH_LISTING */, (reqObj, resp) => __async(exports2, null, function* () {
-      marketplace_service_default.handleFetchListings(reqObj, resp).catch((e) => {
-        marketplaceLogger.error(`Error occurred in fetch listing event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:addListing" /* ADD_LISTING */, (reqObj, resp) => __async(exports2, null, function* () {
-      marketplace_service_default.handleAddListing(reqObj, resp).catch((e) => {
-        marketplaceLogger.error(`Error occurred in add listing event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:marketplaceDeleteListing" /* DELETE_LISTING */, (reqObj, resp) => __async(exports2, null, function* () {
-      marketplace_service_default.handleDeleteListing(reqObj, resp).catch((e) => {
-        marketplaceLogger.error(`Error occurred in delete listing event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    onNetPromise("npwd:reportListing" /* REPORT_LISTING */, (reqObj, resp) => __async(exports2, null, function* () {
-      marketplace_service_default.handleReportListing(reqObj, resp).catch((e) => {
-        marketplaceLogger.error(`Error occurred in report listing event (${reqObj.source}), Error: ${e.message}`);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      });
-    }));
-    on("npwd:marketplaceDeleteListingsOnDrop" /* DELETE_LISTINGS_ON_DROP */, (identifier) => {
-      marketplace_service_default.handleDeleteListingsOnDrop(identifier).catch((e) => {
-        marketplaceLogger.error(`Error occurred when deleting listing on player drop event, Error: ${e.message}`);
-      });
-    });
-  }
-});
-
-// server/twitter/twitter.utils.ts
-var twitterLogger;
-var init_twitter_utils = __esm({
-  "server/twitter/twitter.utils.ts"() {
-    init_sv_logger();
-    twitterLogger = mainLogger.child({ module: "twitter" });
-  }
-});
-
-// ../typings/twitter.ts
-var init_twitter = __esm({
-  "../typings/twitter.ts"() {
-  }
-});
-
-// server/utils/generateProfileName.ts
-function generateProfileName(identifier, delimiter = "_") {
-  return __async(this, null, function* () {
-    const player = player_service_default.getPlayerFromIdentifier(identifier);
-    const firstname = clean(player.getFirstName());
-    const lastname = clean(player.getLastName());
-    const phone_number = clean(player.getPhoneNumber());
-    if (firstname && lastname) {
-      return `${firstname}${delimiter}${lastname}`;
-    } else if (firstname) {
-      return firstname;
-    } else if (lastname) {
-      return lastname;
-    } else if (phone_number) {
-      return phone_number;
-    }
-    return null;
-  });
-}
-var init_generateProfileName = __esm({
-  "server/utils/generateProfileName.ts"() {
-    init_player_service();
-    init_miscUtils();
-  }
-});
-
-// server/twitter/twitter.db.ts
-var SELECT_FIELDS, TWEETS_PER_PAGE, formatTweets, _TwitterDB, TwitterDB, twitter_db_default;
-var init_twitter_db = __esm({
-  "server/twitter/twitter.db.ts"() {
-    init_pool();
-    init_config2();
-    init_generateProfileName();
-    init_twitter_utils();
-    init_db_wrapper();
-    SELECT_FIELDS = `
-  npwd_twitter_tweets.id,
-  npwd_twitter_tweets.identifier,
-  npwd_twitter_profiles.id AS profile_id,
-  npwd_twitter_profiles.profile_name,
-  npwd_twitter_profiles.avatar_url,
-  npwd_twitter_tweets.likes,
-  npwd_twitter_tweets.visible,
-  IFNULL(COALESCE(retweets.message, npwd_twitter_tweets.message), '') AS message,
-  IFNULL(COALESCE(retweets.images, npwd_twitter_tweets.images), '') AS images,
-  npwd_twitter_tweets.retweet IS NOT NULL AS isRetweet,
-  retweets.id AS retweetId,
-  retweets_profiles.profile_name AS retweetProfileName,
-  retweets_profiles.avatar_url AS retweetAvatarUrl,
-  npwd_twitter_likes.id IS NOT NULL AS isLiked,
-  npwd_twitter_reports.id IS NOT NULL AS isReported,
-  npwd_twitter_tweets.createdAt,
-  npwd_twitter_tweets.updatedAt,
-  TIME_TO_SEC(TIMEDIFF( NOW(), npwd_twitter_tweets.createdAt)) AS seconds_since_tweet
-`;
-    TWEETS_PER_PAGE = 25;
-    formatTweets = (profileId) => (tweet) => __spreadProps(__spreadValues({}, tweet), {
-      isMine: tweet.profile_id === profileId,
-      isRetweet: tweet.isRetweet === 1
-    });
-    _TwitterDB = class {
-      fetchAllTweets(profileId, currPage) {
-        return __async(this, null, function* () {
-          currPage = typeof currPage === "number" ? currPage : 1;
-          const offset = currPage * TWEETS_PER_PAGE;
-          const query = `
-        SELECT ${SELECT_FIELDS}
-        FROM npwd_twitter_tweets
-                 LEFT OUTER JOIN npwd_twitter_profiles
-                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
-                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
-                                                       npwd_twitter_likes.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
-                                                         npwd_twitter_reports.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
-                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
-                                 ON retweets.identifier = retweets_profiles.identifier
-        WHERE npwd_twitter_tweets.visible = 1
-        ORDER BY id DESC
-        LIMIT ? OFFSET ?
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [
-            profileId,
-            profileId,
-            TWEETS_PER_PAGE.toString(),
-            offset.toString()
-          ]);
-          const tweets = results;
-          return tweets.map(formatTweets(profileId));
-        });
-      }
-      fetchTweetsFiltered(profileId, searchValue) {
-        return __async(this, null, function* () {
-          const parameterizedSearchValue = `%${searchValue}%`;
-          const query = `
-        SELECT ${SELECT_FIELDS}
-        FROM npwd_twitter_tweets
-                 LEFT OUTER JOIN npwd_twitter_profiles
-                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
-                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
-                                                       npwd_twitter_likes.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
-                                                         npwd_twitter_reports.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
-                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
-                                 ON retweets.identifier = retweets_profiles.identifier
-        WHERE npwd_twitter_tweets.visible = 1
-          AND (npwd_twitter_profiles.profile_name LIKE ? OR npwd_twitter_tweets.message LIKE ?)
-        ORDER BY npwd_twitter_tweets.id DESC
-        LIMIT 25
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [
-            profileId,
-            profileId,
-            parameterizedSearchValue,
-            parameterizedSearchValue
-          ]);
-          const tweets = results;
-          return tweets.map(formatTweets(profileId));
-        });
-      }
-      getTweet(profileId, tweetId) {
-        return __async(this, null, function* () {
-          const query = `
-        SELECT ${SELECT_FIELDS}
-        FROM npwd_twitter_tweets
-                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
-                                                       npwd_twitter_likes.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
-                                                         npwd_twitter_reports.profile_id = ?
-                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
-                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
-                                 ON retweets.identifier = retweets_profiles.identifier
-                 LEFT OUTER JOIN npwd_twitter_profiles
-                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
-        WHERE npwd_twitter_tweets.id = ?
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [profileId, profileId, tweetId]);
-          const tweets = results;
-          return tweets.map(formatTweets(profileId))[0];
-        });
-      }
-      createTweet(identifier, tweet) {
-        return __async(this, null, function* () {
-          const profile = yield this.getProfile(identifier);
-          const query = `
-        INSERT INTO npwd_twitter_tweets (identifier, message, images, retweet, profile_id)
-        VALUES (?, ?, ?, ?, ?)
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [
-            identifier,
-            tweet.message,
-            tweet.images,
-            tweet.retweet,
-            profile.id
-          ]);
-          const insertData = results;
-          return yield this.getTweet(profile.id, insertData.insertId);
-        });
-      }
-      createTweetReport(tweetId, profileId) {
-        return __async(this, null, function* () {
-          const query = `
-        INSERT INTO npwd_twitter_reports (tweet_id, profile_id)
-        VALUES (?, ?)
-		`;
-          yield pool.execute(query, [tweetId, profileId]);
-        });
-      }
-      getProfile(identifier) {
-        return __async(this, null, function* () {
-          const query = `
-        SELECT *
-        FROM npwd_twitter_profiles
-        WHERE identifier = ?
-        LIMIT 1
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [identifier]);
-          const profiles = results;
-          return profiles.length > 0 ? profiles[0] : null;
-        });
-      }
-      createProfile(identifier, profileName) {
-        return __async(this, null, function* () {
-          const query = `
-        INSERT INTO npwd_twitter_profiles (identifier, profile_name)
-        VALUES (?, ?)
-		`;
-          yield pool.execute(query, [identifier, profileName]);
-          return yield this.getProfile(identifier);
-        });
-      }
-      createDefaultProfile(identifier) {
-        return __async(this, null, function* () {
-          if (!config.twitter.generateProfileNameFromUsers)
-            return null;
-          const defaultProfileName = yield generateProfileName(identifier);
-          if (!defaultProfileName)
-            return null;
-          twitterLogger.info(`Creating default Twitter profile ${defaultProfileName} for ${identifier}`);
-          return yield this.createProfile(identifier, defaultProfileName);
-        });
-      }
-      getOrCreateProfile(identifier) {
-        return __async(this, null, function* () {
-          const profile = yield this.getProfile(identifier);
-          return profile || (yield this.createDefaultProfile(identifier));
-        });
-      }
-      updateProfile(identifier, profile) {
-        return __async(this, null, function* () {
-          const { avatar_url, profile_name } = profile;
-          const query = `
-        UPDATE npwd_twitter_profiles
-        SET avatar_url   = ?,
-            profile_name = ?
-        WHERE identifier = ?
-		`;
-          yield pool.execute(query, [avatar_url, profile_name, identifier]);
-          return profile;
-        });
-      }
-      createLike(profileId, tweetId) {
-        return __async(this, null, function* () {
-          const query = `
-        INSERT INTO npwd_twitter_likes (profile_id, tweet_id)
-        VALUES (?, ?)
-		`;
-          yield pool.execute(query, [profileId, tweetId]);
-        });
-      }
-      deleteLike(profileId, tweetId) {
-        return __async(this, null, function* () {
-          const query = `
-        DELETE
-        FROM npwd_twitter_likes
-        WHERE profile_id = ?
-          AND tweet_id = ?
-		`;
-          yield pool.execute(query, [profileId, tweetId]);
-        });
-      }
-      deleteTweet(identifier, tweetId) {
-        return __async(this, null, function* () {
-          if (!config.twitter.allowDeleteTweets)
-            return;
-          const query = `
-        DELETE
-        FROM npwd_twitter_tweets
-        WHERE identifier = ?
-          AND id = ?
-		`;
-          yield pool.execute(query, [identifier, tweetId]);
-        });
-      }
-      doesLikeExist(profileId, tweetId) {
-        return __async(this, null, function* () {
-          const query = `
-        SELECT *
-        FROM npwd_twitter_likes
-        WHERE profile_id = ?
-          AND tweet_id = ?
-        LIMIT 1
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [profileId, tweetId]);
-          const likes = results;
-          return likes.length > 0;
-        });
-      }
-      doesReportExist(tweetId, profileId) {
-        return __async(this, null, function* () {
-          const query = `
-        SELECT *
-        FROM npwd_twitter_reports
-        WHERE tweet_id = ?
-          AND profile_id = ?
-        LIMIT 1
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [tweetId, profileId]);
-          const reports = results;
-          return reports.length > 0;
-        });
-      }
-      doesRetweetExist(tweetId, identifier) {
-        return __async(this, null, function* () {
-          const query = `
-        SELECT COUNT(id) as count
-        FROM npwd_twitter_tweets
-        WHERE (id = ? OR retweet = ?)
-          AND identifier = ?
-		`;
-          const [results] = yield db_wrapper_default._rawExec(query, [tweetId, tweetId, identifier]);
-          const counts = results;
-          return counts[0].count > 0;
-        });
-      }
-    };
-    TwitterDB = new _TwitterDB();
-    twitter_db_default = TwitterDB;
-  }
-});
-
-// server/twitter/twitter.service.ts
-var _TwitterService, TwitterService, twitter_service_default;
-var init_twitter_service = __esm({
-  "server/twitter/twitter.service.ts"() {
-    init_player_service();
-    init_twitter_db();
-    init_twitter();
-    init_twitter_utils();
-    init_discord();
-    init_player_utils();
-    init_imageFiltering();
-    _TwitterService = class {
-      constructor() {
-        __publicField(this, "twitterDB");
-        this.twitterDB = twitter_db_default;
-        twitterLogger.debug("Twitter service started");
-      }
-      handleGetOrCreateProfile(reqObj, resp) {
-        return __async(this, null, function* () {
-          const identifier = player_service_default.getIdentifier(reqObj.source);
-          try {
-            if (!identifier)
-              return;
-            const profile = yield this.twitterDB.getOrCreateProfile(identifier);
-            if (!profile) {
-              const defaultProfileNames = yield getDefaultProfileNames(reqObj.source);
-              if (!defaultProfileNames)
-                return;
-            } else {
-              resp({ status: "ok", data: profile });
-            }
-          } catch (e) {
-            resp({ status: "error", errorMsg: e.message });
-            twitterLogger.error(`Failed to get or create profile, ${e.message}`, {
-              source: reqObj.source
-            });
-          }
-        });
-      }
-      handleCreateProfile(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const profile = yield this.twitterDB.createProfile(identifier, reqObj.data.profile_name);
-            resp({ status: "ok", data: profile });
-          } catch (e) {
-            twitterLogger.error(`Failed to create twitter profile: ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleUpdateProfile(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const imageUrl = checkAndFilterImage(reqObj.data.avatar_url);
-            if (imageUrl == null) {
-              return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
-            }
-            reqObj.data.avatar_url = imageUrl;
-            const profile = yield this.twitterDB.updateProfile(identifier, reqObj.data);
-            resp({ status: "ok", data: profile });
-          } catch (e) {
-            twitterLogger.error(`Failed to update twitter profile: ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleFetchTweets(src, pageIdx, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(src);
-            const profile = yield this.twitterDB.getProfile(identifier);
-            if (!profile) {
-              twitterLogger.warn(`Aborted fetching tweets for user ${identifier} because they do not have a profile.`);
-              return resp({ status: "ok", data: [] });
-            }
-            const tweets = yield this.twitterDB.fetchAllTweets(profile.id, pageIdx);
-            resp({ data: tweets, status: "ok" });
-          } catch (e) {
-            twitterLogger.error(`Fetching tweets failed, ${e.message}`, {
-              source: src
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleFetchTweetsFiltered(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const profile = yield this.twitterDB.getProfile(identifier);
-            const tweets = yield this.twitterDB.fetchTweetsFiltered(profile.id, reqObj.data.searchValue);
-            resp({ status: "ok", data: tweets });
-          } catch (e) {
-            twitterLogger.error(`Fetch filtered tweets failed, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: "TWITTER.FEEDBACK.FILTERED_FETCH_FAILED" });
-          }
-        });
-      }
-      handleCreateTweet(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            let newImageString = "";
-            const images2 = reqObj.data.images.split("||!||");
-            for (let i = 0; i < images2.length; i++) {
-              const img = images2[i];
-              const imageUrl = checkAndFilterImage(img);
-              if (imageUrl == null) {
-                return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
-              }
-              newImageString += `${imageUrl}${i != images2.length - 1 ? "||!||" : ""}`;
-            }
-            reqObj.data.images = newImageString;
-            const createdTweet = yield this.twitterDB.createTweet(identifier, reqObj.data);
-            resp({ status: "ok" });
-            emitNet("createTweetBroadcast" /* CREATE_TWEET_BROADCAST */, -1, createdTweet);
-          } catch (e) {
-            twitterLogger.error(`Create tweet failed, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleDeleteTweet(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            yield this.twitterDB.deleteTweet(identifier, reqObj.data.tweetId);
-            resp({ status: "ok" });
-          } catch (e) {
-            twitterLogger.error(`Delete tweet failed, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleToggleLike(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const profile = yield this.twitterDB.getOrCreateProfile(identifier);
-            const likeExists = yield this.twitterDB.doesLikeExist(profile.id, reqObj.data.tweetId);
-            if (likeExists) {
-              yield this.twitterDB.deleteLike(profile.id, reqObj.data.tweetId);
-            } else {
-              yield this.twitterDB.createLike(profile.id, reqObj.data.tweetId);
-            }
-            resp({ status: "ok" });
-          } catch (e) {
-            twitterLogger.error(`Like failed, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleRetweet(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            if (yield this.twitterDB.doesRetweetExist(reqObj.data.tweetId, identifier)) {
-              return resp({
-                status: "error",
-                errorMsg: "TWITTER.FEEDBACK.RETWEET_EXISTS"
-              });
-            }
-            const retweet = { message: "", images: "", retweet: reqObj.data.tweetId };
-            const createdTweet = yield this.twitterDB.createTweet(identifier, retweet);
-            const profile = yield this.twitterDB.getProfile(identifier);
-            const tweet = yield this.twitterDB.getTweet(profile.id, createdTweet.id);
-            resp({ status: "ok" });
-            emitNet("createTweetBroadcast" /* CREATE_TWEET_BROADCAST */, -1, tweet);
-          } catch (e) {
-            twitterLogger.error(`Retweet failed, ${e.message}`, {
-              source: reqObj.source
-            });
-            resp({ status: "error", errorMsg: e.message });
-          }
-        });
-      }
-      handleReport(reqObj, resp) {
-        return __async(this, null, function* () {
-          try {
-            const identifier = player_service_default.getIdentifier(reqObj.source);
-            const profile = yield this.twitterDB.getProfile(identifier);
-            const tweet = yield this.twitterDB.getTweet(profile.id, reqObj.data.tweetId);
-            const reportExists = yield this.twitterDB.doesReportExist(tweet.id, profile.id);
-            if (reportExists) {
-              return twitterLogger.warn("This profile has already reported this tweet");
-            }
-            yield this.twitterDB.createTweetReport(tweet.id, profile.id);
-            yield reportTweetToDiscord(tweet, profile);
-            resp({ status: "ok" });
-          } catch (e) {
-            resp({ status: "error", errorMsg: e.message });
-            twitterLogger.error(`Twitter report failed, ${e.message}`, {
-              source: reqObj.source
-            });
-          }
-        });
-      }
-    };
-    TwitterService = new _TwitterService();
-    twitter_service_default = TwitterService;
-  }
-});
-
-// server/twitter/twitter.controller.ts
-var exp2, AC;
-var init_twitter_controller = __esm({
-  "server/twitter/twitter.controller.ts"() {
-    init_config2();
-    init_twitter_utils();
-    init_twitter();
-    init_miscUtils();
-    init_twitter_service();
-    init_onNetPromise();
-    exp2 = global.exports;
-    AC = exp2["pma-anticheat"];
-    onNetPromise("npwd:getOrCreateTwitterProfile" /* GET_OR_CREATE_PROFILE */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleGetOrCreateProfile(reqObj, resp).catch((e) => {
-        twitterLogger.error(`Error occurred in getOrCreateProfile event (${_source}), Error: ${e.message}`);
-      });
-    }));
-    onNetPromise("npwd:createTwitterProfile" /* CREATE_PROFILE */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleCreateProfile(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in createProfile event (${_source}), Error: ${e.message}`));
-    }));
-    onNetPromise("npwd:updateTwitterProfile" /* UPDATE_PROFILE */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleUpdateProfile(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in updateProfile event (${_source}), Error: ${e.message}`));
-    }));
-    onNetPromise("npwd:fetchTweetsFiltered" /* FETCH_TWEETS_FILTERED */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleFetchTweetsFiltered(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in fetchTweetsFiltered event (${_source}), Error: ${e.message}`));
-    }), { rateLimit: 5e3 });
-    onNetPromise("npwd:createTweet" /* CREATE_TWEET */, (reqObj, resp) => __async(void 0, null, function* () {
-      AC.log("*Tweeted*", `${GetPlayerName(reqObj.source)} ${AC.getDiscordId(reqObj.source)}} tweeted: 
- ${reqObj.data.message}`, "red", "tweets");
-      twitter_service_default.handleCreateTweet(reqObj, resp).catch((e) => {
-        twitterLogger.error(`Error occurred in createTweet event (${reqObj.source}), Error: ${e.message}`);
-      });
-    }));
-    onNetPromise("npwd:deleteTweet" /* DELETE_TWEET */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleDeleteTweet(reqObj, resp).catch((e) => {
-        twitterLogger.error(`Error occurred in deleteTweet event (${_source}), Error: ${e.message}`);
-      });
-    }));
-    onNetPromise("npwd:toggleLike" /* TOGGLE_LIKE */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleToggleLike(reqObj, resp).catch((e) => {
-        twitterLogger.error(`Error occurred in toggleEvent event (${_source}), Error: ${e.message}`);
-      });
-    }));
-    onNetPromise("npwd:retweet" /* RETWEET */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleRetweet(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in retweet event (${_source}), Error: ${e.message}`));
-    }));
-    onNetPromise("npwd:reportTweet" /* REPORT */, (reqObj, resp) => __async(void 0, null, function* () {
-      const _source = getSource();
-      twitter_service_default.handleReport(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in report event (${_source}), Error: ${e.message}`));
-    }));
-    onNetPromise("npwd:fetchTweets" /* FETCH_TWEETS */, (req, res) => {
-      twitter_service_default.handleFetchTweets(req.source, req.data.pageId, res).catch((e) => twitterLogger.error(`Error occurred in fetchTweets event (${req.source}), Error: ${e.message}`));
-    });
-    if (!config.twitter.allowEditableProfileName && !config.twitter.generateProfileNameFromUsers) {
-      const warning = `Both allowEdtiableProfileName and generateProfileNameFromUsers are set false - this means users will likely not have profile names for the Twitter App and won't be able to use it!`;
-      twitterLogger.warn(warning);
-    }
-  }
-});
-
-// ../typings/bank.ts
-var init_bank = __esm({
-  "../typings/bank.ts"() {
-  }
-});
-
-// server/bank/bank.ts
-var exp3, processTransaction, relistTransactions, insertBankTransactions;
-var init_bank2 = __esm({
-  "server/bank/bank.ts"() {
-    init_bank();
-    init_server();
-    exp3 = global.exports;
-    onNet("npwd:getBankCredentials" /* GET_CREDENTIALS */, () => __async(void 0, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      const transactions = yield ox.query_async(`SELECT type, amount, message, name FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
-      const credentials = {
-        balance: ply.getAccount("bank").quantity,
-        name: ply.firstname + " " + ply.lastname,
-        transactions,
-        playerId: ply.source
-      };
-      ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
-    }));
-    onNet("npwd:addTransfer" /* ADD_TRANSFER */, (transferData) => __async(void 0, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      const tgtPly = PMA.getPlayerFromId(transferData.targetID);
-      if (tgtPly) {
-        processTransaction(ply, tgtPly, transferData);
-      } else {
-        ply.triggerEvent("npwd:sendBankAlert" /* SEND_ALERT */, "Individual is not around");
-      }
-    }));
-    processTransaction = (ply, tgtPly, transferData) => __async(void 0, null, function* () {
-      const plyMoney = ply.getAccount("bank").quantity;
-      const tgtPlyMoney = tgtPly.getAccount("bank").quantity;
-      if (ply.lockedStatus) {
-        ply.showNotification("Your assets are currently frozen.");
-        return;
-      }
-      if (plyMoney > transferData.transferAmount && transferData.transferAmount > 0) {
-        ply.removeAccountMoney("bank", transferData.transferAmount);
-        tgtPly.addAccountMoney("bank", transferData.transferAmount);
-        let credentials;
-        AC2.log("*Bank Transfer*", `${GetPlayerName(ply.source)} ${AC2.getDiscordId(ply.source)} transfered ${transferData.transferAmount} to ${GetPlayerName(tgtPly.source)} ${AC2.getDiscordId(tgtPly.source)} with the message of ${transferData.message}`, "red", "phoneBankTransfers");
-        yield insertBankTransactions(ply.uniqueId, "Withdraw", transferData.transferAmount, transferData.message, tgtPly.getPlayerName());
-        const transactionsPly = yield relistTransactions(ply.uniqueId);
-        credentials = {
-          balance: ply.getAccount("bank").quantity,
-          name: ply.getPlayerName(),
-          transactions: transactionsPly,
-          playerId: ply.source
-        };
-        ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
-        ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Sent money to ${tgtPly.getPlayerName()}`);
-        yield insertBankTransactions(tgtPly.uniqueId, "Deposit", transferData.transferAmount, transferData.message, ply.getPlayerName());
-        const transactionsTgt = yield relistTransactions(tgtPly.uniqueId);
-        credentials = {
-          balance: tgtPly.getAccount("bank").quantity,
-          name: tgtPly.getPlayerName(),
-          transactions: transactionsTgt,
-          playerId: tgtPly.source
-        };
-        tgtPly.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
-        let message;
-        if (transferData.message) {
-          message = transferData.message;
-        } else {
-          message = `Received money from ${ply.getPlayerName()}.`;
-        }
-        tgtPly.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, message);
-      } else {
-        ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, "Insufficient funds");
-      }
-    });
-    relistTransactions = (uniqueId) => __async(void 0, null, function* () {
-      const transactions = yield ox.query_async(`SELECT type, amount, name, message FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [uniqueId]);
-      return transactions;
-    });
-    insertBankTransactions = (uniqueId, type, amount, message, playerName) => __async(void 0, null, function* () {
-      yield ox.insert_async(`INSERT INTO npwd_bank_transactions (uniqueId, type, amount, message, name) VALUES (?, ?, ?, ?, ?)`, [uniqueId, type, amount, message, playerName]);
-    });
-    exports("insertBankTransactions", insertBankTransactions);
-  }
-});
-
-// ../typings/darkmarket.ts
-var init_darkmarket = __esm({
-  "../typings/darkmarket.ts"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/utils/Vector3.js
-var Vector3;
-var init_Vector3 = __esm({
-  "node_modules/@nativewrappers/client/lib/utils/Vector3.js"() {
-    Vector3 = class {
-      constructor(x, y, z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-      }
-      static create(v12) {
-        if (typeof v12 === "number")
-          return new Vector3(v12, v12, v12);
-        return new Vector3(v12.x, v12.y, v12.z);
-      }
-      static fromArray(primitive) {
-        return new Vector3(primitive[0], primitive[1], primitive[2]);
-      }
-      static fromArrays(primitives) {
-        return primitives.map((prim) => new Vector3(prim[0], prim[1], prim[2]));
-      }
-      static clone(v12) {
-        return Vector3.create(v12);
-      }
-      static add(v12, v2) {
-        if (typeof v2 === "number")
-          return new Vector3(v12.x + v2, v12.y + v2, v12.z + v2);
-        return new Vector3(v12.x + v2.x, v12.y + v2.y, v12.z + v2.z);
-      }
-      static subtract(v12, v2) {
-        if (typeof v2 === "number")
-          return new Vector3(v12.x - v2, v12.y - v2, v12.z - v2);
-        return new Vector3(v12.x - v2.x, v12.y - v2.y, v12.z - v2.z);
-      }
-      static multiply(v12, v2) {
-        if (typeof v2 === "number")
-          return new Vector3(v12.x * v2, v12.y * v2, v12.z * v2);
-        return new Vector3(v12.x * v2.x, v12.y * v2.y, v12.z * v2.z);
-      }
-      static divide(v12, v2) {
-        if (typeof v2 === "number")
-          return new Vector3(v12.x / v2, v12.y / v2, v12.z / v2);
-        return new Vector3(v12.x / v2.x, v12.y / v2.y, v12.z / v2.z);
-      }
-      static dotProduct(v12, v2) {
-        return v12.x * v2.x + v12.y * v2.y + v12.z * v2.z;
-      }
-      static crossProduct(v12, v2) {
-        const x = v12.y * v2.z - v12.z * v2.y;
-        const y = v12.z * v2.x - v12.z * v2.z;
-        const z = v12.x * v2.y - v12.z * v2.x;
-        return new Vector3(x, y, z);
-      }
-      static normalize(v) {
-        return Vector3.divide(v, v.Length);
-      }
-      clone() {
-        return new Vector3(this.x, this.y, this.z);
-      }
-      distanceSquared(v) {
-        const w = this.subtract(v);
-        return Vector3.dotProduct(w, w);
-      }
-      distance(v) {
-        return Math.sqrt(this.distanceSquared(v));
-      }
-      get normalize() {
-        return Vector3.normalize(this);
-      }
-      crossProduct(v) {
-        return Vector3.crossProduct(this, v);
-      }
-      dotProduct(v) {
-        return Vector3.dotProduct(this, v);
-      }
-      add(v) {
-        return Vector3.add(this, v);
-      }
-      subtract(v) {
-        return Vector3.subtract(this, v);
-      }
-      multiply(v) {
-        return Vector3.multiply(this, v);
-      }
-      divide(v) {
-        return Vector3.divide(this, v);
-      }
-      toArray() {
-        return [this.x, this.y, this.z];
-      }
-      replace(v) {
-        this.x = v.x;
-        this.y = v.y;
-        this.z = v.z;
-      }
-      get Length() {
-        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-      }
-    };
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/utils/Animations.js
-var init_Animations = __esm({
-  "node_modules/@nativewrappers/client/lib/utils/Animations.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/utils/index.js
-var init_utils = __esm({
-  "node_modules/@nativewrappers/client/lib/utils/index.js"() {
-    init_Vector3();
-    init_Animations();
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/enums/index.js
-var init_enums = __esm({
-  "node_modules/@nativewrappers/client/lib/enums/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/hashes/index.js
-var init_hashes = __esm({
-  "node_modules/@nativewrappers/client/lib/hashes/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/models/index.js
-var init_models = __esm({
-  "node_modules/@nativewrappers/client/lib/models/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/interfaces/index.js
-var init_interfaces = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/interfaces/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js
-var init_panels = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/menu/items/panels/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/menu/items/index.js
-var init_items = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/menu/items/index.js"() {
-    init_panels();
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js
-var init_modules = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/menu/modules/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/menu/index.js
-var init_menu = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/menu/index.js"() {
-    init_items();
-    init_modules();
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/ui/index.js
-var init_ui = __esm({
-  "node_modules/@nativewrappers/client/lib/ui/index.js"() {
-    init_interfaces();
-    init_menu();
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/weapon/index.js
-var init_weapon = __esm({
-  "node_modules/@nativewrappers/client/lib/weapon/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/weaponComponent/index.js
-var init_weaponComponent = __esm({
-  "node_modules/@nativewrappers/client/lib/weaponComponent/index.js"() {
-  }
-});
-
-// node_modules/@nativewrappers/client/lib/index.js
-var init_lib = __esm({
-  "node_modules/@nativewrappers/client/lib/index.js"() {
-    init_utils();
-    init_models();
-    init_enums();
-    init_hashes();
-    init_ui();
-    init_weapon();
-    init_weaponComponent();
-  }
-});
-
-// server/darkmarket/darkmarket.config.ts
-var allowedWeapons, Weapon, WeaponCoords;
-var init_darkmarket_config = __esm({
-  "server/darkmarket/darkmarket.config.ts"() {
-    init_lib();
-    allowedWeapons = /* @__PURE__ */ new Set([
-      "WEAPON_APPISTOL",
-      "WEAPON_BERETTA",
-      "WEAPON_FNX",
-      "WEAPON_LUGER",
-      "WEAPON_MACHINEPISTOL",
-      "WEAPON_PISTOL50",
-      "WEAPON_SNSPISTOL_MK2",
-      "WEAPON_AK74U",
-      "WEAPON_ADVANCEDRIFLE",
-      "WEAPON_AKMS",
-      "WEAPON_BULLPUPRIFLE",
-      "WEAPON_BULLPUPRIFLE_MK2",
-      "WEAPON_ASSAULTRIFLE",
-      "WEAPON_ASSAULTRIFLE_MK2",
-      "WEAPON_MAC10",
-      "WEAPON_MAC11",
-      "WEAPON_P90",
-      "WEAPON_DBSHOTGUN",
-      "WEAPON_SPAS12",
-      "WEAPON_SAWNOFFSHOTGUN",
-      "WEAPON_MINISMG"
-    ]);
-    Weapon = new Vector3(170.43, -1099.3, 48.14);
-    WeaponCoords = [
-      new Vector3(179.59, 6395.95, 32.36),
-      new Vector3(-136.73, 6474.97, 32.47),
-      new Vector3(-408.41, 6375.15, 15),
-      new Vector3(-429.83, 6349.29, 14.3),
-      new Vector3(-248.64, 6069.83, 33.35),
-      new Vector3(-108.44, 6213.27, 32.39),
-      new Vector3(-75.16, 6213.6, 31.46),
-      new Vector3(-158.22, 6104.12, 31.37),
-      new Vector3(404.21, 6497.84, 27.85),
-      new Vector3(752.07, 6458.92, 31.53),
-      new Vector3(1462.45, 6539.73, 14.67),
-      new Vector3(2806.62, 5979.01, 350.89),
-      new Vector3(2347.6, 4868.04, 41.81),
-      new Vector3(2539.57, 4674.38, 33.93),
-      new Vector3(2020.13, 4982.9, 41.21),
-      new Vector3(1702.82, 4847.52, 42.1),
-      new Vector3(1633.92, 4856.64, 41.96),
-      new Vector3(-1.23, 3734.31, 39.78),
-      new Vector3(-1133.25, 4942.11, 220.6),
-      new Vector3(-2452.25, 2941.6, 32.96),
-      new Vector3(-2013.82, 3373.09, 31.34),
-      new Vector3(-2225.34, 3488.48, 30.17),
-      new Vector3(-2523.29, 2301.92, 33.28),
-      new Vector3(-1925.01, 2031.24, 140.74),
-      new Vector3(-3244.76, 995.31, 12.48),
-      new Vector3(-2980.05, 592.37, 19.15),
-      new Vector3(-2947.62, 418.06, 15.28),
-      new Vector3(-2954.77, 390.59, 15.02),
-      new Vector3(-2221.85, -366.98, 13.32),
-      new Vector3(-2033.52, -256.61, 23.39),
-      new Vector3(-1801.09, -397.15, 44.82),
-      new Vector3(-1708.32, -497.75, 38.16),
-      new Vector3(-1544, -567.21, 33.74),
-      new Vector3(-1341.44, -761.32, 20.3),
-      new Vector3(-1466.97, -936.94, 10.24),
-      new Vector3(-1257.45, -1220.35, 5),
-      new Vector3(-1259.65, -1142.73, 7.53),
-      new Vector3(-1094.52, -1254.79, 5.38),
-      new Vector3(-923.88, -1529.52, 5.18),
-      new Vector3(-611.07, -1040.2, 22.28),
-      new Vector3(-539.71, -1234.96, 18.46),
-      new Vector3(-480.39, -1682.11, 19.47),
-      new Vector3(-504.21, -1634.42, 17.8),
-      new Vector3(-820.44, -2093.94, 8.81),
-      new Vector3(-700.87, -2446.08, 14.03),
-      new Vector3(-884.01, -3054.58, 12.94),
-      new Vector3(1381.6, 3616.11, 34.89),
-      new Vector3(983.62, 3581.69, 33.62),
-      new Vector3(376.46, 3572.71, 33.29),
-      new Vector3(254.13, -18.62, 73.65),
-      new Vector3(644.59, 137.96, 91.37),
-      new Vector3(969.65, -144.44, 74.35),
-      new Vector3(823.64, -492.56, 30.43),
-      new Vector3(726.01, -715.27, 26.65),
-      new Vector3(941.74, -1242.03, 25.68),
-      new Vector3(930.6, -1546.11, 30.85),
-      new Vector3(1143.47, -2041.13, 31.01),
-      new Vector3(1082.38, -2389.24, 30.47),
-      new Vector3(960.32, -2530.39, 28.3),
-      new Vector3(157.01, -3313.53, 6.02),
-      new Vector3(-39.56, -2731.77, 6.28),
-      new Vector3(2478.47, -401.22, 94.82),
-      new Vector3(2546.04, -310.15, 92.99),
-      new Vector3(2545.63, 386.18, 108.62),
-      new Vector3(2616.85, 1703.01, 27.6),
-      new Vector3(2529.88, 2641.71, 37.94),
-      new Vector3(2631.89, 2929.74, 40.43)
-    ];
-  }
-});
-
-// server/darkmarket/darkmarket.ts
-var exp4, PMA2, ox2, AC3, alertId, weaponDrops;
-var init_darkmarket2 = __esm({
-  "server/darkmarket/darkmarket.ts"() {
-    init_darkmarket();
-    init_darkmarket_config();
-    init_onNetPromise();
-    exp4 = global.exports;
-    PMA2 = exp4["pma-framework"].getData();
-    ox2 = exp4.oxmysql;
-    AC3 = exp4["pma-anticheat"];
-    alertId = 0;
-    onNet("npwd:fetchCrypto" /* FETCH_CRYPTO */, () => {
-      const ply = PMA2.getPlayerFromId(source);
-      ox2.scalar(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId], (amount) => {
-        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, amount);
-      });
-    });
-    onNetPromise("npwd:makePurchase" /* MAKE_PURCHASE */, (reqObj, resp) => __async(void 0, null, function* () {
-      try {
-        const checkoutItems = reqObj.data;
-        const ply = PMA2.getPlayerFromId(source);
-        let totalCoins = 0;
-        checkoutItems.forEach((item) => {
-          totalCoins += item.price;
-        });
-        const currentCurrentAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
-        const newCoinTotal = currentCurrentAmount - totalCoins;
-        if (newCoinTotal < 0) {
-          return resp({
-            status: "error",
-            errorMsg: "You do not have enough money for this transaction"
-          });
-        }
-        yield ox2.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
-          newCoinTotal,
-          ply.uniqueId
-        ]);
-        weaponDrops(ply, checkoutItems, newCoinTotal);
-        resp({ status: "ok", data: newCoinTotal });
-      } catch (err) {
-        console.error(err);
-        resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
-      }
-    }));
-    weaponDrops = (ply, items, newCoinTotal) => __async(void 0, null, function* () {
-      const index = Math.floor(Math.random() * (WeaponCoords.length + 1));
-      const coords = WeaponCoords[index];
-      const jsonString = items.map((newItemString) => {
-        return {
-          name: newItemString.name,
-          price: newItemString.price
-        };
-      });
-      const weaponList = [];
-      for (const item of items) {
-        const [weapon] = PMA2.getWeapon(item.name);
-        if (!weapon || !allowedWeapons.has(item.name)) {
-          AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
-Overhead: ${GetPlayerName(ply.source)} 
- Character Name: ${ply.getPlayerName()} 
- Has ${newCoinTotal} coins after just purchasing... 
-${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase! Ban pwease @moderator.`, `blue`, `darkmarketLogs`);
-          return;
-        }
-        if (item.quantity === 1) {
-          weaponList.push(weapon.name);
-        } else {
-          for (let i = 0; i < item.quantity; i++) {
-            weaponList.push(weapon.name);
-          }
-        }
-      }
-      exp4["pma-inv"].createWorldInventory(ply.source, coords.toArray(), weaponList, `npwd-${alertId += 1}`);
-      emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
-      AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
-Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)} 
- Character Name: ${ply.getPlayerName()} 
- Has ${newCoinTotal} coins after just purchasing... 
-${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
-    });
-    onNet("npwd:tradeCrypto" /* INIATE_TRADE */, (data) => __async(void 0, null, function* () {
-      const ply = PMA2.getPlayerFromId(source);
-      const otherPly = PMA2.getPlayerFromId(Number(data.playerId));
-      if (otherPly) {
-        const plyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [
-          ply.uniqueId
-        ]);
-        const plyAmt = plyAmount - Number(data.amount);
-        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, plyAmt);
-        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
-          plyAmt,
-          ply.uniqueId
-        ]);
-        const otherPlyAmount = yield ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [otherPly.uniqueId]);
-        const otherAmt = otherPlyAmount + Number(data.amount);
-        emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, otherPly.source, otherAmt);
-        yield ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
-          otherAmt,
-          otherPly.uniqueId
-        ]);
-        emitNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, otherPly.source, alertId += 1);
-        AC3.log(`*Coin trade!*`, `Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)}
-      Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmt} coins left.
-      Overhead: ${GetPlayerName(otherPly.source)} ${AC3.getDiscordId(otherPly.source)}
-      Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
-        emitNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, ply.source);
-      } else {
-        emitNet("npwd:dmAlertFailure" /* ALERT_FAILURE */, ply.source);
-      }
-    }));
-  }
-});
-
-// ../typings/bennys.ts
-var init_bennys = __esm({
-  "../typings/bennys.ts"() {
-  }
-});
-
-// server/bennys/bennys.ts
-var init_bennys2 = __esm({
-  "server/bennys/bennys.ts"() {
-    init_server();
-    init_bennys();
-    onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
-      const player = PMA.getPlayerFromId(source);
-      let vehicleList = [];
-      ox.query(`SELECT id, plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
-        results.forEach((veh) => {
-          const model = JSON.parse(veh.vehicle).model;
-          const obj = {
-            id: veh.id,
-            plate: veh.plate,
-            state: veh.state,
-            model,
-            police_lock: veh.police_lock,
-            fuel: veh.fuel,
-            body_health: veh.body_health,
-            engine_health: veh.engine_health
-          };
-          vehicleList.push(obj);
-        });
-        player.triggerEvent("npwd:getVehicleList" /* GET_VEHICLE_LIST */, vehicleList);
-      });
-    });
-    onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
-      const player = PMA.getPlayerFromId(source);
-      if (vehicle.impoundFee <= player.getAccount("bank").quantity) {
-        ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE id = ?`, [vehicle.id], () => {
-          player.removeAccountMoney("bank", vehicle.impoundFee);
-          player.triggerEvent("npwd:freeVehicle" /* FREE_VEHICLE */);
-        });
-      } else {
-        player.triggerEvent("npwd:failImpound" /* FAIL_IMPOUND */);
-      }
-    });
-    onNet("npwd:abandonVehicle" /* ABANDON_VEHICLE */, (vehicle) => {
-      const player = PMA.getPlayerFromId(source);
-      if (vehicle) {
-        ox.execute("DELETE FROM owned_vehicles WHERE id = ?", [vehicle.id], () => {
-          player.triggerEvent("npwd:abandonSuccess" /* ABANDON_SUCCESS */);
-          AC2.log("*Vehicle Abandoned*", `Overhead: ${GetPlayerName(player.source)}
-Character: ${player.getPlayerName()}
-
- **Abandoned a vehicle with this information.** 
-        Plate: ${vehicle.plate}
-        Model: ${vehicle.model}
-        ID: ${vehicle.id}`, `blue`, `abandonVehicleLogs`);
-        });
-      } else {
-        player.triggerEvent("npwd:abandonFail" /* ABANDON_FAIL */);
-      }
-    });
-  }
-});
-
-// ../typings/property.ts
-var init_property = __esm({
-  "../typings/property.ts"() {
-  }
-});
-
-// ../typings/boosting.ts
-var init_boosting = __esm({
-  "../typings/boosting.ts"() {
-  }
-});
-
-// server/property/property.ts
-var OnlinePlayersCache;
-var init_property2 = __esm({
-  "server/property/property.ts"() {
-    init_property();
-    init_player_service();
-    init_boosting();
-    OnlinePlayersCache = /* @__PURE__ */ new Map();
-    onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
-      const player = player_service_default.getPlayer(source);
-      if (player.getName()) {
-        player.fullname = player.getName();
-        player.ssn = player.getIdentifier();
-        OnlinePlayersCache.set(source, player);
-      }
-    });
-    on("playerDropped", () => {
-      OnlinePlayersCache.delete(source);
-    });
-    onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
-      if (app === "boosting") {
-        emitNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
-      } else {
-        emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
-      }
-    });
-  }
-});
-
-// server/boosting/modules/profile/db.ts
-var ProfileDB;
-var init_db2 = __esm({
-  "server/boosting/modules/profile/db.ts"() {
-    init_server();
-    ProfileDB = class {
-      constructor() {
-        __publicField(this, "fetchProfile", (uid) => __async(this, null, function* () {
-          const profile = yield ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE c.ssn = ? and bp.uid = c.ssn`, [uid]);
-          if (profile) {
-            return profile;
-          } else {
-            yield ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
-            return { uid, level: 1, experience: "0" };
-          }
-        }));
-        __publicField(this, "updateCoins", (coinTotal, uid) => __async(this, null, function* () {
-          yield ox.execute_async(`UPDATE cryptocurrency SET small_coin = ? WHERE ssn = ?`, [
-            coinTotal,
-            uid
-          ]);
-        }));
-        __publicField(this, "updateExperience", (boostProfile, uid) => __async(this, null, function* () {
-          yield ox.execute_async(`UPDATE boosting_profile SET level = ?, experience = ? WHERE uid = ?`, [boostProfile.level, boostProfile.experience, uid]);
-        }));
-      }
-    };
-  }
-});
-
-// server/boosting/modules/boosts/db.ts
-var BoostsDB;
-var init_db3 = __esm({
-  "server/boosting/modules/boosts/db.ts"() {
-    init_server();
-    BoostsDB = class {
-      constructor() {
-        __publicField(this, "fetchCarList", () => __async(this, null, function* () {
-          const boostList = yield ox.query_async(`SELECT car_model, type FROM boosting_list`);
-          return boostList;
-        }));
-        __publicField(this, "rewardVehicle", (plate, vehProps, uniqueId) => __async(this, null, function* () {
-          yield ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
-        }));
-      }
-    };
-  }
-});
-
-// server/boosting/modules/boosts/service.ts
-var boostsDB, CarList, BoostMission;
-var init_service = __esm({
-  "server/boosting/modules/boosts/service.ts"() {
-    init_fivem();
-    init_server();
-    init_db3();
-    boostsDB = new BoostsDB();
-    CarList = [];
-    setImmediate(() => __async(void 0, null, function* () {
-      CarList = yield boostsDB.fetchCarList();
-    }));
-    BoostMission = class {
-      constructor() {
-        __publicField(this, "spawnCar", (model, coords) => __async(this, null, function* () {
-          const veh = PMA.createVehicle(model, coords);
-          yield Delay(500);
-          return veh;
-        }));
-      }
-    };
-  }
-});
-
-// server/boosting/controllers/queue.ts
-var QueueList;
-var init_queue = __esm({
-  "server/boosting/controllers/queue.ts"() {
-    init_boosting();
-    init_server();
-    QueueList = /* @__PURE__ */ new Map();
-    onNet("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */, (boostProfile) => {
-      const ply = PMA.getPlayerFromId(source);
-      QueueList.set(ply.source, {
-        ssn: boostProfile.uid,
-        fullName: ply.getPlayerName(),
-        level: boostProfile.level,
-        experience: boostProfile.experience
-      });
-      console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just joined the queue, currently ${QueueList.size} in queue now.`);
-    });
-    onNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */, () => {
-      const ply = PMA.getPlayerFromId(source);
-      QueueList.delete(ply.source);
-      console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just left the queue, currently ${QueueList.size} in queue still.`);
-    });
-  }
-});
-
-// server/boosting/modules/contracts/db.ts
-var ContractsDB;
-var init_db4 = __esm({
-  "server/boosting/modules/contracts/db.ts"() {
-    init_server();
-    ContractsDB = class {
-      constructor() {
-        __publicField(this, "fetchContracts", (uid) => __async(this, null, function* () {
-          const contracts = yield ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
-          return contracts;
-        }));
-        __publicField(this, "deleteContract", (id) => __async(this, null, function* () {
-          yield ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
-        }));
-        __publicField(this, "transferContract", (plyUid, contractId) => __async(this, null, function* () {
-          yield ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [
-            plyUid,
-            contractId
-          ]);
-        }));
-        __publicField(this, "insertContract", (ssn, vehicleType, expires, cost, carModel) => __async(this, null, function* () {
-          const insertId = yield ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
-             VALUES (?, ?, ?, ?, ?)`, [ssn, vehicleType, expires, cost, carModel]);
-          return insertId;
-        }));
-      }
-    };
-  }
-});
-
-// server/boosting/modules/queue/service.ts
-var require_service = __commonJS({
-  "server/boosting/modules/queue/service.ts"(exports2) {
-    init_boosting();
-    init_fivem();
-    init_server();
-    init_queue();
-    init_service();
-    init_db4();
-    var contractsDB = new ContractsDB();
-    setTick(() => __async(exports2, null, function* () {
-      yield Delay(6e5);
-      manageQueuedPlayers();
-    }));
-    var manageQueuedPlayers = () => {
-      console.log("\nBeginning queue selector...\n");
-      const tempCachedPlayers = [];
-      const playerSources = [...QueueList.keys()];
-      if (playerSources.length === 0) {
-        console.log("\nNo one in queue...\n");
-        return;
-      }
-      for (let i = 0; i < 5; i++) {
-        const randomNum = Math.floor(Math.random() * Object.keys(playerSources).length);
-        const plySrc = playerSources[randomNum].toString();
-        const isPingedBefore = tempCachedPlayers.findIndex((source2) => source2 === plySrc);
-        if (isPingedBefore === -1 && PMA.getPlayerFromId(plySrc).job.name !== "police") {
-          tempCachedPlayers.push(plySrc);
-        }
-      }
-      tempCachedPlayers.forEach((plyId) => __async(exports2, null, function* () {
-        const player = QueueList.get(Number(plyId));
-        const boostContract = yield contractHandler(player);
-        console.log(`ID:${plyId} - Name:${player.fullName} rewarded a boosting contract!`);
-        emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
-      }));
-    };
-    on("playerDropped", () => {
-      const player = QueueList.get(source);
-      if (player) {
-        QueueList.delete(source);
-        console.log("Source: " + source + "\nName: " + player.fullName + "\nSSN: " + player.ssn + "\nHas left the boost queue by leaving the server.");
-      }
-    });
-    var contractHandler = (player) => __async(exports2, null, function* () {
-      const boostRank = getBoostRank(player.level);
-      const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
-      const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
-      const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 6)).getTime();
-      const vehicleType = rankedVehicleList[randomNum].type;
-      const carModel = rankedVehicleList[randomNum].car_model;
-      const insertId = yield contractsDB.insertContract(player.ssn, vehicleType, expires, 20, carModel);
-      console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
-      return {
-        id: insertId,
-        uid: player.ssn,
-        contract_type: vehicleType,
-        expires_in: expires,
-        cost: 20,
-        vehicle: carModel
-      };
-    });
-    var getBoostRank = (level) => {
-      let boostRank;
-      switch (level) {
-        case 1:
-          boostRank = "B";
-          break;
-        case 2:
-          boostRank = "B";
-          break;
-        case 3:
-          boostRank = "A";
-          break;
-        case 4:
-          boostRank = "S";
-          break;
-        case 5:
-          boostRank = "S+";
-          break;
-        default:
-          break;
-      }
-      return boostRank;
-    };
-  }
-});
-
-// server/boosting/controllers/profile.ts
-var require_profile = __commonJS({
-  "server/boosting/controllers/profile.ts"(exports2) {
-    init_boosting();
-    init_server();
-    init_db4();
-    init_db2();
-    var profileDB = new ProfileDB();
-    var contractsDB = new ContractsDB();
-    onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, () => __async(exports2, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      const profile = yield profileDB.fetchProfile(ply.uniqueId);
-      let contracts = yield contractsDB.fetchContracts(ply.uniqueId);
-      const contractsDeleted = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) < 0);
-      if (contractsDeleted.length > 0) {
-        contractsDeleted.map((contract) => contractsDB.deleteContract(contract.id));
-      }
-      contracts = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) > 0);
-      ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
-        profile,
-        contracts
-      });
-    }));
-    onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, (contractId) => __async(exports2, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      yield contractsDB.deleteContract(contractId);
-      ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
-    }));
-    onNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, (tradeContract) => __async(exports2, null, function* () {
-      yield contractsDB.transferContract(Number(tradeContract.player.ssn), tradeContract.contract.id);
-      const copyContract = __spreadValues({}, tradeContract.contract);
-      copyContract.uid = Number(tradeContract.player.ssn);
-      emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, tradeContract.player.source, copyContract);
-    }));
-  }
-});
-
-// server/boosting/controllers/boosts.ts
-var require_boosts = __commonJS({
-  "server/boosting/controllers/boosts.ts"(exports2) {
-    init_boosting();
-    init_messages();
-    init_server();
-    init_db3();
-    init_service();
-    init_db4();
-    init_db2();
-    var boostMission = new BoostMission();
-    var boostsDB2 = new BoostsDB();
-    var contractsDB = new ContractsDB();
-    var profilesDB = new ProfileDB();
-    onNet("npwd:boosting:startContract" /* START_CONTRACT */, (contract, coords, totalCoins) => __async(exports2, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      const calculateSubtraction = totalCoins - contract.cost;
-      if (calculateSubtraction >= 0) {
-        if (ply.getInventoryItem("raspberry").quantity > 0) {
-          const newCoinTotal = totalCoins - contract.cost;
-          yield profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
-          yield contractsDB.deleteContract(contract.id);
-          const contractList = yield contractsDB.fetchContracts(ply.uniqueId);
-          const veh = yield boostMission.spawnCar(contract.vehicle, coords);
-          SetVehicleDoorsLocked(veh, 2);
-          ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
-            small_coin: newCoinTotal,
-            contracts: contractList
-          });
-          if (contract.contract_type === "B") {
-            ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
-          }
-        } else {
-          ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing a required item.");
-        }
-      } else {
-        ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing the required coins.");
-      }
-    }));
-    onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, (vehProps, boostProfile) => __async(exports2, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      if (ply.getInventoryItem("raspberry").quantity > 0) {
-        yield boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
-        yield profilesDB.updateExperience(boostProfile, ply.uniqueId);
-        ply.removeInventoryItem("raspberry", 1);
-      } else {
-        ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
-      }
-    }));
-    onNet("npwd:boosting:failBoost" /* FAIL_VEHICLE */, () => __async(exports2, null, function* () {
-      const ply = PMA.getPlayerFromId(source);
-      if (ply.getInventoryItem("raspberry").quantity > 0) {
-        ply.removeInventoryItem("raspberry", 1);
-      }
-      ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
-    }));
-    onNet("SEND_TEXT" /* SEND_TEXT */, (message) => {
-      const plySrc = source;
-      const ply = PMA.getPlayerFromId(plySrc);
-      const dataObj = {
-        source: plySrc,
-        phoneNumber: ply.getPhoneNumber(),
-        message
-      };
-      emit("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, dataObj);
-    });
-  }
-});
-
-// server/boosting/index.ts
-var import_service2, import_profile, import_boosts;
-var init_boosting2 = __esm({
-  "server/boosting/index.ts"() {
-    init_db2();
-    init_db3();
-    init_service();
-    import_service2 = __toESM(require_service());
-    import_profile = __toESM(require_profile());
-    init_queue();
-    import_boosts = __toESM(require_boosts());
-  }
-});
-
-// server/bridge/bridge.utils.ts
-var bridgeLogger;
-var init_bridge_utils = __esm({
-  "server/bridge/bridge.utils.ts"() {
-    init_sv_logger();
-    bridgeLogger = mainLogger.child({ module: "bridge" });
-  }
-});
-
-// server/bridge/sv_exports.ts
-var require_sv_exports = __commonJS({
-  "server/bridge/sv_exports.ts"(exports2) {
-    init_generateUniquePhoneNumber();
-    init_bridge_utils();
-    init_config2();
-    init_player_utils();
-    init_player_service();
-    init_phone();
-    var exp6 = global.exports;
-    var logExport = (exportName, msg) => {
-      bridgeLogger.debug(`[${exportName}] ${msg}`);
-    };
-    exp6("generatePhoneNumber", () => __async(exports2, null, function* () {
-      const num = yield generateUniquePhoneNumber();
-      logExport("generatePhoneNumber", num);
-      return num;
-    }));
-    if (config.general.useResourceIntegration) {
-      exp6("newPlayer", (playerDTO) => __async(exports2, null, function* () {
-        if (typeof playerDTO.source !== "number") {
-          return playerLogger.error("Source must be passed as a number when loading a player");
-        }
-        yield player_service_default.handleNewPlayerEvent(playerDTO);
-        emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, playerDTO.source, true);
-      }));
-      exp6("unloadPlayer", (src) => __async(exports2, null, function* () {
-        if (typeof src !== "number") {
-          return playerLogger.error("Source must be passed as a number when unloading a player");
-        }
-        playerLogger.debug(`Received unloadPlayer event for ${src}`);
-        yield player_service_default.handleUnloadPlayerEvent(src);
-      }));
-    }
-  }
-});
-
-// server/messages/middleware/emitMessage.ts
-var require_emitMessage = __commonJS({
-  "server/messages/middleware/emitMessage.ts"(exports2) {
-    init_messages_service();
-    var exp6 = global.exports;
-    exp6("emitMessage", (_0) => __async(exports2, [_0], function* ({ senderNumber, targetNumber, message }) {
-      yield messages_service_default.handleEmitMessage({ senderNumber, targetNumber, message });
-    }));
-  }
-});
-
-// server/rcon/exports.ts
-var init_exports = __esm({
-  "server/rcon/exports.ts"() {
-    init_messages();
-    global.exports("emitRconMessage", (src, data) => {
-      emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, src, data);
-    });
-  }
-});
-
 // node_modules/@sentry/hub/dist/scope.js
 var require_scope = __commonJS({
   "node_modules/@sentry/hub/dist/scope.js"(exports2) {
@@ -41875,8 +37187,8 @@ var require_scope = __commonJS({
         return this;
       };
       Scope2.prototype.setTag = function(key, value) {
-        var _a2;
-        this._tags = tslib_1.__assign(tslib_1.__assign({}, this._tags), (_a2 = {}, _a2[key] = value, _a2));
+        var _a;
+        this._tags = tslib_1.__assign(tslib_1.__assign({}, this._tags), (_a = {}, _a[key] = value, _a));
         this._notifyScopeListeners();
         return this;
       };
@@ -41886,8 +37198,8 @@ var require_scope = __commonJS({
         return this;
       };
       Scope2.prototype.setExtra = function(key, extra) {
-        var _a2;
-        this._extra = tslib_1.__assign(tslib_1.__assign({}, this._extra), (_a2 = {}, _a2[key] = extra, _a2));
+        var _a;
+        this._extra = tslib_1.__assign(tslib_1.__assign({}, this._extra), (_a = {}, _a[key] = extra, _a));
         this._notifyScopeListeners();
         return this;
       };
@@ -41910,11 +37222,11 @@ var require_scope = __commonJS({
         return this.setTransactionName(name);
       };
       Scope2.prototype.setContext = function(key, context) {
-        var _a2;
+        var _a;
         if (context === null) {
           delete this._contexts[key];
         } else {
-          this._contexts = tslib_1.__assign(tslib_1.__assign({}, this._contexts), (_a2 = {}, _a2[key] = context, _a2));
+          this._contexts = tslib_1.__assign(tslib_1.__assign({}, this._contexts), (_a = {}, _a[key] = context, _a));
         }
         this._notifyScopeListeners();
         return this;
@@ -41928,9 +37240,9 @@ var require_scope = __commonJS({
         return this._span;
       };
       Scope2.prototype.getTransaction = function() {
-        var _a2, _b, _c, _d;
+        var _a, _b, _c, _d;
         var span = this.getSpan();
-        if ((_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.transaction) {
+        if ((_a = span) === null || _a === void 0 ? void 0 : _a.transaction) {
           return (_b = span) === null || _b === void 0 ? void 0 : _b.transaction;
         }
         if ((_d = (_c = span) === null || _c === void 0 ? void 0 : _c.spanRecorder) === null || _d === void 0 ? void 0 : _d.spans[0]) {
@@ -42025,7 +37337,7 @@ var require_scope = __commonJS({
         return this;
       };
       Scope2.prototype.applyToEvent = function(event, hint) {
-        var _a2;
+        var _a;
         if (this._extra && Object.keys(this._extra).length) {
           event.extra = tslib_1.__assign(tslib_1.__assign({}, this._extra), event.extra);
         }
@@ -42046,7 +37358,7 @@ var require_scope = __commonJS({
         }
         if (this._span) {
           event.contexts = tslib_1.__assign({ trace: this._span.getTraceContext() }, event.contexts);
-          var transactionName = (_a2 = this._span.transaction) === null || _a2 === void 0 ? void 0 : _a2.name;
+          var transactionName = (_a = this._span.transaction) === null || _a === void 0 ? void 0 : _a.name;
           if (transactionName) {
             event.tags = tslib_1.__assign({ transaction: transactionName }, event.tags);
           }
@@ -42338,7 +37650,7 @@ var require_hub = __commonJS({
         return this._lastEventId;
       };
       Hub2.prototype.addBreadcrumb = function(breadcrumb, hint) {
-        var _a2 = this.getStackTop(), scope = _a2.scope, client = _a2.client;
+        var _a = this.getStackTop(), scope = _a.scope, client = _a.client;
         if (!scope || !client)
           return;
         var _b = client.getOptions && client.getOptions() || {}, _c = _b.beforeBreadcrumb, beforeBreadcrumb = _c === void 0 ? null : _c, _d = _b.maxBreadcrumbs, maxBreadcrumbs = _d === void 0 ? DEFAULT_BREADCRUMBS : _d;
@@ -42384,7 +37696,7 @@ var require_hub = __commonJS({
           scope.setContext(name, context);
       };
       Hub2.prototype.configureScope = function(callback) {
-        var _a2 = this.getStackTop(), scope = _a2.scope, client = _a2.client;
+        var _a = this.getStackTop(), scope = _a.scope, client = _a.client;
         if (scope && client) {
           callback(scope);
         }
@@ -42427,13 +37739,13 @@ var require_hub = __commonJS({
         this._sendSessionUpdate();
       };
       Hub2.prototype.endSession = function() {
-        var _a2, _b, _c, _d, _e;
-        (_c = (_b = (_a2 = this.getStackTop()) === null || _a2 === void 0 ? void 0 : _a2.scope) === null || _b === void 0 ? void 0 : _b.getSession()) === null || _c === void 0 ? void 0 : _c.close();
+        var _a, _b, _c, _d, _e;
+        (_c = (_b = (_a = this.getStackTop()) === null || _a === void 0 ? void 0 : _a.scope) === null || _b === void 0 ? void 0 : _b.getSession()) === null || _c === void 0 ? void 0 : _c.close();
         this._sendSessionUpdate();
         (_e = (_d = this.getStackTop()) === null || _d === void 0 ? void 0 : _d.scope) === null || _e === void 0 ? void 0 : _e.setSession();
       };
       Hub2.prototype.startSession = function(context) {
-        var _a2 = this.getStackTop(), scope = _a2.scope, client = _a2.client;
+        var _a = this.getStackTop(), scope = _a.scope, client = _a.client;
         var _b = client && client.getOptions() || {}, release = _b.release, environment = _b.environment;
         var global2 = utils_1.getGlobalObject();
         var userAgent = (global2.navigator || {}).userAgent;
@@ -42452,7 +37764,7 @@ var require_hub = __commonJS({
         return session;
       };
       Hub2.prototype._sendSessionUpdate = function() {
-        var _a2 = this.getStackTop(), scope = _a2.scope, client = _a2.client;
+        var _a = this.getStackTop(), scope = _a.scope, client = _a.client;
         if (!scope)
           return;
         var session = scope.getSession && scope.getSession();
@@ -42463,14 +37775,14 @@ var require_hub = __commonJS({
         }
       };
       Hub2.prototype._invokeClient = function(method) {
-        var _a2;
+        var _a;
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
           args[_i - 1] = arguments[_i];
         }
         var _b = this.getStackTop(), scope = _b.scope, client = _b.client;
         if (client && client[method]) {
-          (_a2 = client)[method].apply(_a2, tslib_1.__spread(args, [scope]));
+          (_a = client)[method].apply(_a, tslib_1.__spread(args, [scope]));
         }
       };
       Hub2.prototype._callExtensionMethod = function(method) {
@@ -42522,9 +37834,9 @@ var require_hub = __commonJS({
     }
     exports2.getActiveDomain = getActiveDomain;
     function getHubFromActiveDomain(registry) {
-      var _a2, _b, _c;
+      var _a, _b, _c;
       try {
-        var activeDomain = (_c = (_b = (_a2 = getMainCarrier().__SENTRY__) === null || _a2 === void 0 ? void 0 : _a2.extensions) === null || _b === void 0 ? void 0 : _b.domain) === null || _c === void 0 ? void 0 : _c.active;
+        var activeDomain = (_c = (_b = (_a = getMainCarrier().__SENTRY__) === null || _a === void 0 ? void 0 : _a.extensions) === null || _b === void 0 ? void 0 : _b.domain) === null || _c === void 0 ? void 0 : _c.active;
         if (!activeDomain) {
           return getHubFromCarrier(registry);
         }
@@ -42612,12 +37924,12 @@ var require_sessionflusher = __commonJS({
         this.flush();
       };
       SessionFlusher2.prototype.incrementSessionStatusCount = function() {
-        var _a2, _b;
+        var _a, _b;
         if (!this._isEnabled) {
           return;
         }
         var scope = hub_1.getCurrentHub().getScope();
-        var requestSession = (_a2 = scope) === null || _a2 === void 0 ? void 0 : _a2.getRequestSession();
+        var requestSession = (_a = scope) === null || _a === void 0 ? void 0 : _a.getRequestSession();
         if (requestSession && requestSession.status) {
           this._incrementSessionStatusCount(requestSession.status, new Date());
           (_b = scope) === null || _b === void 0 ? void 0 : _b.setRequestSession(void 0);
@@ -42991,8 +38303,8 @@ var require_baseclient = __commonJS({
         return eventId;
       };
       BaseClient2.prototype.captureEvent = function(event, hint, scope) {
-        var _a2;
-        if (((_a2 = hint) === null || _a2 === void 0 ? void 0 : _a2.originalException) && utils_1.checkOrSetAlreadyCaught(hint.originalException)) {
+        var _a;
+        if (((_a = hint) === null || _a === void 0 ? void 0 : _a.originalException) && utils_1.checkOrSetAlreadyCaught(hint.originalException)) {
           utils_1.logger.log(ALREADY_SEEN_ERROR);
           return;
         }
@@ -43052,7 +38364,7 @@ var require_baseclient = __commonJS({
         }
       };
       BaseClient2.prototype._updateSessionFromEvent = function(session, event) {
-        var e_1, _a2;
+        var e_1, _a;
         var crashed = false;
         var errored = false;
         var exceptions = event.exception && event.exception.values;
@@ -43071,8 +38383,8 @@ var require_baseclient = __commonJS({
             e_1 = { error: e_1_1 };
           } finally {
             try {
-              if (exceptions_1_1 && !exceptions_1_1.done && (_a2 = exceptions_1.return))
-                _a2.call(exceptions_1);
+              if (exceptions_1_1 && !exceptions_1_1.done && (_a = exceptions_1.return))
+                _a.call(exceptions_1);
             } finally {
               if (e_1)
                 throw e_1.error;
@@ -43116,7 +38428,7 @@ var require_baseclient = __commonJS({
       };
       BaseClient2.prototype._prepareEvent = function(event, scope, hint) {
         var _this = this;
-        var _a2 = this.getOptions().normalizeDepth, normalizeDepth = _a2 === void 0 ? 3 : _a2;
+        var _a = this.getOptions().normalizeDepth, normalizeDepth = _a === void 0 ? 3 : _a;
         var prepared = tslib_1.__assign(tslib_1.__assign({}, event), { event_id: event.event_id || (hint && hint.event_id ? hint.event_id : utils_1.uuid4()), timestamp: event.timestamp || utils_1.dateTimestampInSeconds() });
         this._applyClientOptions(prepared);
         this._applyIntegrationsMetadata(prepared);
@@ -43155,7 +38467,7 @@ var require_baseclient = __commonJS({
         if (event.contexts && event.contexts.trace) {
           normalized.contexts.trace = event.contexts.trace;
         }
-        var _a2 = this.getOptions()._experiments, _experiments = _a2 === void 0 ? {} : _a2;
+        var _a = this.getOptions()._experiments, _experiments = _a === void 0 ? {} : _a;
         if (_experiments.ensureNoCircularStructures) {
           return utils_1.normalize(normalized);
         }
@@ -43163,7 +38475,7 @@ var require_baseclient = __commonJS({
       };
       BaseClient2.prototype._applyClientOptions = function(event) {
         var options = this.getOptions();
-        var environment = options.environment, release = options.release, dist = options.dist, _a2 = options.maxValueLength, maxValueLength = _a2 === void 0 ? 250 : _a2;
+        var environment = options.environment, release = options.release, dist = options.dist, _a = options.maxValueLength, maxValueLength = _a === void 0 ? 250 : _a;
         if (!("environment" in event)) {
           event.environment = "environment" in options ? environment : "production";
         }
@@ -43205,7 +38517,7 @@ var require_baseclient = __commonJS({
       };
       BaseClient2.prototype._processEvent = function(event, hint, scope) {
         var _this = this;
-        var _a2, _b;
+        var _a, _b;
         var _c = this.getOptions(), beforeSend = _c.beforeSend, sampleRate = _c.sampleRate;
         var transport = this.getTransport();
         if (!this._isEnabled()) {
@@ -43213,13 +38525,13 @@ var require_baseclient = __commonJS({
         }
         var isTransaction = event.type === "transaction";
         if (!isTransaction && typeof sampleRate === "number" && Math.random() > sampleRate) {
-          (_b = (_a2 = transport).recordLostEvent) === null || _b === void 0 ? void 0 : _b.call(_a2, types_1.Outcome.SampleRate, "event");
+          (_b = (_a = transport).recordLostEvent) === null || _b === void 0 ? void 0 : _b.call(_a, types_1.Outcome.SampleRate, "event");
           return utils_1.SyncPromise.reject(new utils_1.SentryError("Discarding event because it's not included in the random sample (sampling rate = " + sampleRate + ")"));
         }
         return this._prepareEvent(event, scope, hint).then(function(prepared) {
-          var _a3, _b2;
+          var _a2, _b2;
           if (prepared === null) {
-            (_b2 = (_a3 = transport).recordLostEvent) === null || _b2 === void 0 ? void 0 : _b2.call(_a3, types_1.Outcome.EventProcessor, event.type || "event");
+            (_b2 = (_a2 = transport).recordLostEvent) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, types_1.Outcome.EventProcessor, event.type || "event");
             throw new utils_1.SentryError("An event processor returned null, will not send event.");
           }
           var isInternalException = hint && hint.data && hint.data.__sentry__ === true;
@@ -43229,9 +38541,9 @@ var require_baseclient = __commonJS({
           var beforeSendResult = beforeSend(prepared, hint);
           return _this._ensureBeforeSendRv(beforeSendResult);
         }).then(function(processedEvent) {
-          var _a3, _b2;
+          var _a2, _b2;
           if (processedEvent === null) {
-            (_b2 = (_a3 = transport).recordLostEvent) === null || _b2 === void 0 ? void 0 : _b2.call(_a3, types_1.Outcome.BeforeSend, event.type || "event");
+            (_b2 = (_a2 = transport).recordLostEvent) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, types_1.Outcome.BeforeSend, event.type || "event");
             throw new utils_1.SentryError("`beforeSend` returned `null`, will not send event.");
           }
           var session = scope && scope.getSession && scope.getSession();
@@ -43365,7 +38677,7 @@ var require_request = __commonJS({
       if (!api.metadata || !api.metadata.sdk) {
         return;
       }
-      var _a2 = api.metadata.sdk, name = _a2.name, version2 = _a2.version;
+      var _a = api.metadata.sdk, name = _a.name, version2 = _a.version;
       return { name, version: version2 };
     }
     function enhanceEventWithSdkInfo(event, sdkInfo) {
@@ -43397,7 +38709,7 @@ var require_request = __commonJS({
       var sdkInfo = getSdkMetadataForEnvelopeHeader(api);
       var eventType = event.type || "event";
       var useEnvelope = eventType === "transaction" || api.forceEnvelope();
-      var _a2 = event.debug_meta || {}, transactionSampling = _a2.transactionSampling, metadata = tslib_1.__rest(_a2, ["transactionSampling"]);
+      var _a = event.debug_meta || {}, transactionSampling = _a.transactionSampling, metadata = tslib_1.__rest(_a, ["transactionSampling"]);
       var _b = transactionSampling || {}, samplingMethod = _b.method, sampleRate = _b.rate;
       if (Object.keys(metadata).length === 0) {
         delete event.debug_meta;
@@ -43431,12 +38743,12 @@ var require_sdk = __commonJS({
     var hub_1 = require_dist5();
     var utils_1 = require_dist();
     function initAndBind(clientClass, options) {
-      var _a2;
+      var _a;
       if (options.debug === true) {
         utils_1.logger.enable();
       }
       var hub = hub_1.getCurrentHub();
-      (_a2 = hub.getScope()) === null || _a2 === void 0 ? void 0 : _a2.update(options.initialScope);
+      (_a = hub.getScope()) === null || _a === void 0 ? void 0 : _a.update(options.initialScope);
       var client = new clientClass(options);
       hub.bindClient(client);
     }
@@ -43588,7 +38900,7 @@ var require_inboundfilters = __commonJS({
         }
         if (event.exception) {
           try {
-            var _a2 = event.exception.values && event.exception.values[0] || {}, _b = _a2.type, type = _b === void 0 ? "" : _b, _c = _a2.value, value = _c === void 0 ? "" : _c;
+            var _a = event.exception.values && event.exception.values[0] || {}, _b = _a.type, type = _b === void 0 ? "" : _b, _c = _a.value, value = _c === void 0 ? "" : _c;
             return ["" + value, type + ": " + value];
           } catch (oO) {
             utils_1.logger.error("Cannot extract message for event " + utils_1.getEventDescription(event));
@@ -43601,10 +38913,10 @@ var require_inboundfilters = __commonJS({
         if (frames === void 0) {
           frames = [];
         }
-        var _a2, _b;
+        var _a, _b;
         for (var i = frames.length - 1; i >= 0; i--) {
           var frame = frames[i];
-          if (((_a2 = frame) === null || _a2 === void 0 ? void 0 : _a2.filename) !== "<anonymous>" && ((_b = frame) === null || _b === void 0 ? void 0 : _b.filename) !== "[native code]") {
+          if (((_a = frame) === null || _a === void 0 ? void 0 : _a.filename) !== "<anonymous>" && ((_b = frame) === null || _b === void 0 ? void 0 : _b.filename) !== "[native code]") {
             return frame.filename || null;
           }
         }
@@ -44095,10 +39407,10 @@ var require_parsers = __commonJS({
       var filesToRead = [];
       var linesOfContext = options && options.frameContextLines !== void 0 ? options.frameContextLines : DEFAULT_LINES_OF_CONTEXT;
       var frames = stack.map(function(frame) {
-        var _a2;
+        var _a;
         var parsedFrame = {
           colno: frame.columnNumber,
-          filename: ((_a2 = frame.fileName) === null || _a2 === void 0 ? void 0 : _a2.startsWith("file://")) ? frame.fileName.substr(7) : frame.fileName || "",
+          filename: ((_a = frame.fileName) === null || _a === void 0 ? void 0 : _a.startsWith("file://")) ? frame.fileName.substr(7) : frame.fileName || "",
           function: getFunction(frame),
           lineno: frame.lineNumber
         };
@@ -44225,7 +39537,7 @@ var require_base = __commonJS({
         return this._buffer.drain(timeout);
       };
       BaseTransport2.prototype._getProxy = function(protocol) {
-        var e_1, _a2;
+        var e_1, _a;
         var _b = process.env, no_proxy = _b.no_proxy, http_proxy = _b.http_proxy, https_proxy = _b.https_proxy;
         var _c = this.options, httpProxy = _c.httpProxy, httpsProxy = _c.httpsProxy;
         var proxy = protocol === "http" ? httpProxy || http_proxy : httpsProxy || httpProxy || https_proxy || http_proxy;
@@ -44244,8 +39556,8 @@ var require_base = __commonJS({
           e_1 = { error: e_1_1 };
         } finally {
           try {
-            if (_f && !_f.done && (_a2 = _e.return))
-              _a2.call(_e);
+            if (_f && !_f.done && (_a = _e.return))
+              _a.call(_e);
           } finally {
             if (e_1)
               throw e_1.error;
@@ -44277,7 +39589,7 @@ var require_base = __commonJS({
         return this._disabledUntil(requestType) > new Date(Date.now());
       };
       BaseTransport2.prototype._handleRateLimit = function(headers) {
-        var e_2, _a2, e_3, _b;
+        var e_2, _a, e_3, _b;
         var now = Date.now();
         var rlHeader = headers["x-sentry-rate-limits"];
         var raHeader = headers["retry-after"];
@@ -44315,8 +39627,8 @@ var require_base = __commonJS({
             e_2 = { error: e_2_1 };
           } finally {
             try {
-              if (_d && !_d.done && (_a2 = _c.return))
-                _a2.call(_c);
+              if (_d && !_d.done && (_a = _c.return))
+                _a.call(_c);
             } finally {
               if (e_2)
                 throw e_2.error;
@@ -44332,7 +39644,7 @@ var require_base = __commonJS({
       BaseTransport2.prototype._send = function(sentryRequest, originalPayload) {
         return tslib_1.__awaiter(this, void 0, void 0, function() {
           var _this = this;
-          return tslib_1.__generator(this, function(_a2) {
+          return tslib_1.__generator(this, function(_a) {
             if (!this.module) {
               throw new utils_1.SentryError("No module available");
             }
@@ -45048,12 +40360,12 @@ var require_client2 = __commonJS({
         return _super.prototype.captureEvent.call(this, event, hint, scope);
       };
       NodeClient2.prototype.close = function(timeout) {
-        var _a2;
-        (_a2 = this._sessionFlusher) === null || _a2 === void 0 ? void 0 : _a2.close();
+        var _a;
+        (_a = this._sessionFlusher) === null || _a === void 0 ? void 0 : _a.close();
         return _super.prototype.close.call(this, timeout);
       };
       NodeClient2.prototype.initSessionFlusher = function() {
-        var _a2 = this._options, release = _a2.release, environment = _a2.environment;
+        var _a = this._options, release = _a.release, environment = _a.environment;
         if (!release) {
           utils_1.logger.warn("Cannot initialise an instance of SessionFlusher if no release is provided!");
         } else {
@@ -45097,7 +40409,7 @@ var require_console3 = __commonJS({
         this.name = Console2.id;
       }
       Console2.prototype.setupOnce = function() {
-        var e_1, _a2;
+        var e_1, _a;
         try {
           for (var _b = tslib_1.__values(["debug", "info", "warn", "error", "log"]), _c = _b.next(); !_c.done; _c = _b.next()) {
             var level = _c.value;
@@ -45107,8 +40419,8 @@ var require_console3 = __commonJS({
           e_1 = { error: e_1_1 };
         } finally {
           try {
-            if (_c && !_c.done && (_a2 = _b.return))
-              _a2.call(_b);
+            if (_c && !_c.done && (_a = _b.return))
+              _a.call(_b);
           } finally {
             if (e_1)
               throw e_1.error;
@@ -45166,8 +40478,8 @@ var require_http4 = __commonJS({
     var url_1 = require("url");
     var NODE_VERSION = utils_1.parseSemver(process.versions.node);
     function isSentryRequest(url) {
-      var _a2;
-      var dsn = (_a2 = core_1.getCurrentHub().getClient()) === null || _a2 === void 0 ? void 0 : _a2.getDsn();
+      var _a;
+      var dsn = (_a = core_1.getCurrentHub().getClient()) === null || _a === void 0 ? void 0 : _a.getDsn();
       return dsn ? url.includes(dsn.host) : false;
     }
     exports2.isSentryRequest = isSentryRequest;
@@ -45180,13 +40492,13 @@ var require_http4 = __commonJS({
     }
     exports2.extractUrl = extractUrl;
     function cleanSpanDescription(description, requestOptions, request) {
-      var _a2, _b, _c;
+      var _a, _b, _c;
       if (!description) {
         return description;
       }
       var _d = tslib_1.__read(description.split(" "), 2), method = _d[0], requestUrl = _d[1];
       if (requestOptions.host && !requestOptions.protocol) {
-        requestOptions.protocol = (_b = (_a2 = request) === null || _a2 === void 0 ? void 0 : _a2.agent) === null || _b === void 0 ? void 0 : _b.protocol;
+        requestOptions.protocol = (_b = (_a = request) === null || _a === void 0 ? void 0 : _a.agent) === null || _b === void 0 ? void 0 : _b.protocol;
         requestUrl = extractUrl(requestOptions);
       }
       if ((_c = requestUrl) === null || _c === void 0 ? void 0 : _c.startsWith("///")) {
@@ -45215,7 +40527,7 @@ var require_http4 = __commonJS({
     }
     exports2.urlToOptions = urlToOptions;
     function normalizeRequestArgs(httpModule, requestArgs) {
-      var _a2, _b, _c, _d, _e, _f, _g, _h;
+      var _a, _b, _c, _d, _e, _f, _g, _h;
       var callback, requestOptions;
       if (typeof requestArgs[requestArgs.length - 1] === "function") {
         callback = requestArgs.pop();
@@ -45232,7 +40544,7 @@ var require_http4 = __commonJS({
       }
       if (requestOptions.protocol === void 0) {
         if (NODE_VERSION.major && NODE_VERSION.major > 8) {
-          requestOptions.protocol = ((_b = (_a2 = httpModule) === null || _a2 === void 0 ? void 0 : _a2.globalAgent) === null || _b === void 0 ? void 0 : _b.protocol) || ((_c = requestOptions.agent) === null || _c === void 0 ? void 0 : _c.protocol) || ((_d = requestOptions._defaultAgent) === null || _d === void 0 ? void 0 : _d.protocol);
+          requestOptions.protocol = ((_b = (_a = httpModule) === null || _a === void 0 ? void 0 : _a.globalAgent) === null || _b === void 0 ? void 0 : _b.protocol) || ((_c = requestOptions.agent) === null || _c === void 0 ? void 0 : _c.protocol) || ((_d = requestOptions._defaultAgent) === null || _d === void 0 ? void 0 : _d.protocol);
         } else {
           requestOptions.protocol = ((_e = requestOptions.agent) === null || _e === void 0 ? void 0 : _e.protocol) || ((_f = requestOptions._defaultAgent) === null || _f === void 0 ? void 0 : _f.protocol) || ((_h = (_g = httpModule) === null || _g === void 0 ? void 0 : _g.globalAgent) === null || _h === void 0 ? void 0 : _h.protocol);
         }
@@ -45716,9 +41028,9 @@ var require_sdk2 = __commonJS({
       if (options === void 0) {
         options = {};
       }
-      var _a2;
+      var _a;
       var carrier = hub_1.getMainCarrier();
-      var autoloadedIntegrations = ((_a2 = carrier.__SENTRY__) === null || _a2 === void 0 ? void 0 : _a2.integrations) || [];
+      var autoloadedIntegrations = ((_a = carrier.__SENTRY__) === null || _a === void 0 ? void 0 : _a.integrations) || [];
       options.defaultIntegrations = options.defaultIntegrations === false ? [] : tslib_1.__spread(Array.isArray(options.defaultIntegrations) ? options.defaultIntegrations : exports2.defaultIntegrations, autoloadedIntegrations);
       if (options.dsn === void 0 && process.env.SENTRY_DSN) {
         options.dsn = process.env.SENTRY_DSN;
@@ -45759,7 +41071,7 @@ var require_sdk2 = __commonJS({
     function flush(timeout) {
       return tslib_1.__awaiter(this, void 0, void 0, function() {
         var client;
-        return tslib_1.__generator(this, function(_a2) {
+        return tslib_1.__generator(this, function(_a) {
           client = core_1.getCurrentHub().getClient();
           if (client) {
             return [2, client.flush(timeout)];
@@ -45773,7 +41085,7 @@ var require_sdk2 = __commonJS({
     function close(timeout) {
       return tslib_1.__awaiter(this, void 0, void 0, function() {
         var client;
-        return tslib_1.__generator(this, function(_a2) {
+        return tslib_1.__generator(this, function(_a) {
           client = core_1.getCurrentHub().getClient();
           if (client) {
             return [2, client.close(timeout)];
@@ -45810,8 +41122,8 @@ var require_sdk2 = __commonJS({
       var hub = core_1.getCurrentHub();
       hub.startSession();
       process.on("beforeExit", function() {
-        var _a2;
-        var session = (_a2 = hub.getScope()) === null || _a2 === void 0 ? void 0 : _a2.getSession();
+        var _a;
+        var session = (_a = hub.getScope()) === null || _a === void 0 ? void 0 : _a.getSession();
         var terminalStates = [types_1.SessionStatus.Exited, types_1.SessionStatus.Crashed];
         if (session && !terminalStates.includes(session.status))
           hub.endSession();
@@ -45926,9 +41238,9 @@ var require_utils3 = __commonJS({
     exports2.TRACEPARENT_REGEXP = new RegExp("^[ \\t]*([0-9a-f]{32})?-?([0-9a-f]{16})?-?([01])?[ \\t]*$");
     function hasTracingEnabled(options) {
       if (options === void 0) {
-        options = (_a2 = hub_1.getCurrentHub().getClient()) === null || _a2 === void 0 ? void 0 : _a2.getOptions();
+        options = (_a = hub_1.getCurrentHub().getClient()) === null || _a === void 0 ? void 0 : _a.getOptions();
       }
-      var _a2;
+      var _a;
       if (!options) {
         return false;
       }
@@ -45957,8 +41269,8 @@ var require_utils3 = __commonJS({
       if (hub === void 0) {
         hub = hub_1.getCurrentHub();
       }
-      var _a2, _b;
-      return (_b = (_a2 = hub) === null || _a2 === void 0 ? void 0 : _a2.getScope()) === null || _b === void 0 ? void 0 : _b.getTransaction();
+      var _a, _b;
+      return (_b = (_a = hub) === null || _a === void 0 ? void 0 : _a.getScope()) === null || _b === void 0 ? void 0 : _b.getTransaction();
     }
     exports2.getActiveTransaction = getActiveTransaction;
     function msToSec(time) {
@@ -46084,13 +41396,13 @@ var require_span = __commonJS({
         return childSpan;
       };
       Span2.prototype.setTag = function(key, value) {
-        var _a2;
-        this.tags = tslib_1.__assign(tslib_1.__assign({}, this.tags), (_a2 = {}, _a2[key] = value, _a2));
+        var _a;
+        this.tags = tslib_1.__assign(tslib_1.__assign({}, this.tags), (_a = {}, _a[key] = value, _a));
         return this;
       };
       Span2.prototype.setData = function(key, value) {
-        var _a2;
-        this.data = tslib_1.__assign(tslib_1.__assign({}, this.data), (_a2 = {}, _a2[key] = value, _a2));
+        var _a;
+        this.data = tslib_1.__assign(tslib_1.__assign({}, this.data), (_a = {}, _a[key] = value, _a));
         return this;
       };
       Span2.prototype.setStatus = function(value) {
@@ -46134,8 +41446,8 @@ var require_span = __commonJS({
         });
       };
       Span2.prototype.updateWithContext = function(spanContext) {
-        var _a2, _b, _c, _d, _e;
-        this.data = (_a2 = spanContext.data, _a2 !== null && _a2 !== void 0 ? _a2 : {});
+        var _a, _b, _c, _d, _e;
+        this.data = (_a = spanContext.data, _a !== null && _a !== void 0 ? _a : {});
         this.description = spanContext.description;
         this.endTimestamp = spanContext.endTimestamp;
         this.op = spanContext.op;
@@ -46224,7 +41536,7 @@ var require_transaction3 = __commonJS({
       };
       Transaction2.prototype.finish = function(endTimestamp) {
         var _this = this;
-        var _a2, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e;
         if (this.endTimestamp !== void 0) {
           return void 0;
         }
@@ -46235,7 +41547,7 @@ var require_transaction3 = __commonJS({
         _super.prototype.finish.call(this, endTimestamp);
         if (this.sampled !== true) {
           utils_1.logger.log("[Tracing] Discarding transaction because its trace was not chosen to be sampled.");
-          (_e = (_c = (_a2 = this._hub.getClient()) === null || _a2 === void 0 ? void 0 : (_b = _a2).getTransport) === null || _c === void 0 ? void 0 : (_d = _c.call(_b)).recordLostEvent) === null || _e === void 0 ? void 0 : _e.call(_d, types_1.Outcome.SampleRate, "transaction");
+          (_e = (_c = (_a = this._hub.getClient()) === null || _a === void 0 ? void 0 : (_b = _a).getTransport) === null || _c === void 0 ? void 0 : (_d = _c.call(_b)).recordLostEvent) === null || _e === void 0 ? void 0 : _e.call(_d, types_1.Outcome.SampleRate, "transaction");
           return void 0;
         }
         var finishedSpans = this.spanRecorder ? this.spanRecorder.spans.filter(function(s) {
@@ -46274,9 +41586,9 @@ var require_transaction3 = __commonJS({
         return utils_1.dropUndefinedKeys(tslib_1.__assign(tslib_1.__assign({}, spanContext), { name: this.name, trimEnd: this._trimEnd }));
       };
       Transaction2.prototype.updateWithContext = function(transactionContext) {
-        var _a2;
+        var _a;
         _super.prototype.updateWithContext.call(this, transactionContext);
-        this.name = (_a2 = transactionContext.name, _a2 !== null && _a2 !== void 0 ? _a2 : "");
+        this.name = (_a = transactionContext.name, _a !== null && _a !== void 0 ? _a : "");
         this._trimEnd = transactionContext.trimEnd;
         return this;
       };
@@ -46357,7 +41669,7 @@ var require_idletransaction = __commonJS({
         return _this;
       }
       IdleTransaction2.prototype.finish = function(endTimestamp) {
-        var e_1, _a2;
+        var e_1, _a;
         var _this = this;
         if (endTimestamp === void 0) {
           endTimestamp = utils_1.timestampWithMs();
@@ -46375,8 +41687,8 @@ var require_idletransaction = __commonJS({
             e_1 = { error: e_1_1 };
           } finally {
             try {
-              if (_c && !_c.done && (_a2 = _b.return))
-                _a2.call(_b);
+              if (_c && !_c.done && (_a = _b.return))
+                _a.call(_b);
             } finally {
               if (e_1)
                 throw e_1.error;
@@ -46588,8 +41900,8 @@ var require_hubextensions = __commonJS({
       return true;
     }
     function _startTransaction(transactionContext, customSamplingContext) {
-      var _a2, _b;
-      var options = ((_a2 = this.getClient()) === null || _a2 === void 0 ? void 0 : _a2.getOptions()) || {};
+      var _a, _b;
+      var options = ((_a = this.getClient()) === null || _a === void 0 ? void 0 : _a.getOptions()) || {};
       var transaction = new transaction_1.Transaction(transactionContext, this);
       transaction = sample(transaction, options, tslib_1.__assign({ parentSampled: transactionContext.parentSampled, transactionContext }, customSamplingContext));
       if (transaction.sampled) {
@@ -46598,8 +41910,8 @@ var require_hubextensions = __commonJS({
       return transaction;
     }
     function startIdleTransaction(hub, transactionContext, idleTimeout, onScope, customSamplingContext) {
-      var _a2, _b;
-      var options = ((_a2 = hub.getClient()) === null || _a2 === void 0 ? void 0 : _a2.getOptions()) || {};
+      var _a, _b;
+      var options = ((_a = hub.getClient()) === null || _a === void 0 ? void 0 : _a.getOptions()) || {};
       var transaction = new idletransaction_1.IdleTransaction(transactionContext, hub, idleTimeout, onScope);
       transaction = sample(transaction, options, tslib_1.__assign({ parentSampled: transactionContext.parentSampled, transactionContext }, customSamplingContext));
       if (transaction.sampled) {
@@ -46848,8 +42160,8 @@ var require_getVisibilityWatcher = __commonJS({
       return utils_1.getGlobalObject().document.visibilityState === "hidden" ? 0 : Infinity;
     };
     var trackChanges = function() {
-      onHidden_1.onHidden(function(_a2) {
-        var timeStamp = _a2.timeStamp;
+      onHidden_1.onHidden(function(_a) {
+        var timeStamp = _a.timeStamp;
         firstHiddenTime = timeStamp;
       }, true);
     };
@@ -46960,10 +42272,10 @@ var require_metrics = __commonJS({
     };
     var MetricsInstrumentation = function() {
       function MetricsInstrumentation2(_options) {
-        var _a2, _b;
+        var _a, _b;
         this._measurements = {};
         this._performanceCursor = 0;
-        if (!utils_1.isNodeEnv() && ((_a2 = global2) === null || _a2 === void 0 ? void 0 : _a2.performance) && ((_b = global2) === null || _b === void 0 ? void 0 : _b.document)) {
+        if (!utils_1.isNodeEnv() && ((_a = global2) === null || _a === void 0 ? void 0 : _a.performance) && ((_b = global2) === null || _b === void 0 ? void 0 : _b.document)) {
           if (global2.performance.mark) {
             global2.performance.mark("sentry-tracing-init");
           }
@@ -47264,8 +42576,8 @@ var require_metrics = __commonJS({
         endTimestamp: timeOrigin + utils_2.msToSec(entry.responseEnd)
       });
     }
-    function _startChild(transaction, _a2) {
-      var startTimestamp = _a2.startTimestamp, ctx = tslib_1.__rest(_a2, ["startTimestamp"]);
+    function _startChild(transaction, _a) {
+      var startTimestamp = _a.startTimestamp, ctx = tslib_1.__rest(_a, ["startTimestamp"]);
       if (startTimestamp && transaction.startTimestamp > startTimestamp) {
         transaction.startTimestamp = startTimestamp;
       }
@@ -47293,7 +42605,7 @@ var require_request2 = __commonJS({
       tracingOrigins: exports2.DEFAULT_TRACING_ORIGINS
     };
     function instrumentOutgoingRequests(_options) {
-      var _a2 = tslib_1.__assign(tslib_1.__assign({}, exports2.defaultRequestInstrumentationOptions), _options), traceFetch = _a2.traceFetch, traceXHR = _a2.traceXHR, tracingOrigins = _a2.tracingOrigins, shouldCreateSpanForRequest = _a2.shouldCreateSpanForRequest;
+      var _a = tslib_1.__assign(tslib_1.__assign({}, exports2.defaultRequestInstrumentationOptions), _options), traceFetch = _a.traceFetch, traceXHR = _a.traceXHR, tracingOrigins = _a.tracingOrigins, shouldCreateSpanForRequest = _a.shouldCreateSpanForRequest;
       var urlMap = {};
       var defaultShouldCreateSpan = function(url) {
         if (urlMap[url]) {
@@ -47378,8 +42690,8 @@ var require_request2 = __commonJS({
     }
     exports2.fetchCallback = fetchCallback;
     function xhrCallback(handlerData, shouldCreateSpan, spans) {
-      var _a2, _b;
-      if (!utils_2.hasTracingEnabled() || ((_a2 = handlerData.xhr) === null || _a2 === void 0 ? void 0 : _a2.__sentry_own_request__) || !(((_b = handlerData.xhr) === null || _b === void 0 ? void 0 : _b.__sentry_xhr__) && shouldCreateSpan(handlerData.xhr.__sentry_xhr__.url))) {
+      var _a, _b;
+      if (!utils_2.hasTracingEnabled() || ((_a = handlerData.xhr) === null || _a === void 0 ? void 0 : _a.__sentry_own_request__) || !(((_b = handlerData.xhr) === null || _b === void 0 ? void 0 : _b.__sentry_xhr__) && shouldCreateSpan(handlerData.xhr.__sentry_xhr__.url))) {
         return;
       }
       var xhr = handlerData.xhr.__sentry_xhr__;
@@ -47437,8 +42749,8 @@ var require_router = __commonJS({
       }
       if (startTransactionOnLocationChange) {
         utils_1.addInstrumentationHandler({
-          callback: function(_a2) {
-            var to = _a2.to, from = _a2.from;
+          callback: function(_a) {
+            var to = _a.to, from = _a.from;
             if (from === void 0 && startingUrl && startingUrl.indexOf(to) !== -1) {
               startingUrl = void 0;
               return;
@@ -47496,7 +42808,7 @@ var require_browsertracing = __commonJS({
           utils_1.logger.warn("[Tracing] You need to define `tracingOrigins` in the options. Set an array of urls or patterns to trace.");
           utils_1.logger.warn("[Tracing] We added a reasonable default for you: " + request_1.defaultRequestInstrumentationOptions.tracingOrigins);
         }
-        var _a2 = this.options, instrumentRouting = _a2.routingInstrumentation, startTransactionOnLocationChange = _a2.startTransactionOnLocationChange, startTransactionOnPageLoad = _a2.startTransactionOnPageLoad, markBackgroundTransactions = _a2.markBackgroundTransactions, traceFetch = _a2.traceFetch, traceXHR = _a2.traceXHR, tracingOrigins = _a2.tracingOrigins, shouldCreateSpanForRequest = _a2.shouldCreateSpanForRequest;
+        var _a = this.options, instrumentRouting = _a.routingInstrumentation, startTransactionOnLocationChange = _a.startTransactionOnLocationChange, startTransactionOnPageLoad = _a.startTransactionOnPageLoad, markBackgroundTransactions = _a.markBackgroundTransactions, traceFetch = _a.traceFetch, traceXHR = _a.traceXHR, tracingOrigins = _a.tracingOrigins, shouldCreateSpanForRequest = _a.shouldCreateSpanForRequest;
         instrumentRouting(function(context) {
           return _this._createRouteTransaction(context);
         }, startTransactionOnPageLoad, startTransactionOnLocationChange);
@@ -47511,7 +42823,7 @@ var require_browsertracing = __commonJS({
           utils_1.logger.warn("[Tracing] Did not create " + context.op + " transaction because _getCurrentHub is invalid.");
           return void 0;
         }
-        var _a2 = this.options, beforeNavigate = _a2.beforeNavigate, idleTimeout = _a2.idleTimeout, maxTransactionDuration = _a2.maxTransactionDuration;
+        var _a = this.options, beforeNavigate = _a.beforeNavigate, idleTimeout = _a.idleTimeout, maxTransactionDuration = _a.maxTransactionDuration;
         var parentContextFromHeader = context.op === "pageload" ? getHeaderContext() : void 0;
         var expandedContext = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, context), parentContextFromHeader), { trimEnd: true });
         var modifiedContext = typeof beforeNavigate === "function" ? beforeNavigate(expandedContext) : expandedContext;
@@ -47615,9 +42927,9 @@ var require_express = __commonJS({
         }
         case 3: {
           return function(req, res, next) {
-            var _a2;
+            var _a;
             var transaction = res.__sentry_transaction;
-            var span = (_a2 = transaction) === null || _a2 === void 0 ? void 0 : _a2.startChild({
+            var span = (_a = transaction) === null || _a === void 0 ? void 0 : _a.startChild({
               description: fn.name,
               op: "middleware." + method
             });
@@ -47626,17 +42938,17 @@ var require_express = __commonJS({
               for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
               }
-              var _a3;
-              (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
+              var _a2;
+              (_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.finish();
               next.call.apply(next, tslib_1.__spread([this], args));
             });
           };
         }
         case 4: {
           return function(err, req, res, next) {
-            var _a2;
+            var _a;
             var transaction = res.__sentry_transaction;
-            var span = (_a2 = transaction) === null || _a2 === void 0 ? void 0 : _a2.startChild({
+            var span = (_a = transaction) === null || _a === void 0 ? void 0 : _a.startChild({
               description: fn.name,
               op: "middleware." + method
             });
@@ -47645,8 +42957,8 @@ var require_express = __commonJS({
               for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
               }
-              var _a3;
-              (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
+              var _a2;
+              (_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.finish();
               next.call.apply(next, tslib_1.__spread([this], args));
             });
           };
@@ -47708,45 +43020,45 @@ var require_postgres = __commonJS({
         this._usePgNative = !!options.usePgNative;
       }
       Postgres2.prototype.setupOnce = function(_, getCurrentHub) {
-        var _a2;
+        var _a;
         var pkg = utils_1.loadModule("pg");
         if (!pkg) {
           utils_1.logger.error("Postgres Integration was unable to require `pg` package.");
           return;
         }
-        if (this._usePgNative && !((_a2 = pkg.native) === null || _a2 === void 0 ? void 0 : _a2.Client)) {
+        if (this._usePgNative && !((_a = pkg.native) === null || _a === void 0 ? void 0 : _a.Client)) {
           utils_1.logger.error("Postgres Integration was unable to access 'pg-native' bindings.");
           return;
         }
         var Client = (this._usePgNative ? pkg.native : pkg).Client;
         utils_1.fill(Client.prototype, "query", function(orig) {
           return function(config3, values, callback) {
-            var _a3, _b, _c;
+            var _a2, _b, _c;
             var scope = getCurrentHub().getScope();
-            var parentSpan = (_a3 = scope) === null || _a3 === void 0 ? void 0 : _a3.getSpan();
+            var parentSpan = (_a2 = scope) === null || _a2 === void 0 ? void 0 : _a2.getSpan();
             var span = (_b = parentSpan) === null || _b === void 0 ? void 0 : _b.startChild({
               description: typeof config3 === "string" ? config3 : config3.text,
               op: "db"
             });
             if (typeof callback === "function") {
               return orig.call(this, config3, values, function(err, result) {
-                var _a4;
-                (_a4 = span) === null || _a4 === void 0 ? void 0 : _a4.finish();
+                var _a3;
+                (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
                 callback(err, result);
               });
             }
             if (typeof values === "function") {
               return orig.call(this, config3, function(err, result) {
-                var _a4;
-                (_a4 = span) === null || _a4 === void 0 ? void 0 : _a4.finish();
+                var _a3;
+                (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
                 values(err, result);
               });
             }
             var rv = typeof values !== "undefined" ? orig.call(this, config3, values) : orig.call(this, config3);
             if (utils_1.isThenable(rv)) {
               return rv.then(function(res) {
-                var _a4;
-                (_a4 = span) === null || _a4 === void 0 ? void 0 : _a4.finish();
+                var _a3;
+                (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
                 return res;
               });
             }
@@ -47779,24 +43091,24 @@ var require_mysql = __commonJS({
         }
         utils_1.fill(pkg, "createQuery", function(orig) {
           return function(options, values, callback) {
-            var _a2, _b;
+            var _a, _b;
             var scope = getCurrentHub().getScope();
-            var parentSpan = (_a2 = scope) === null || _a2 === void 0 ? void 0 : _a2.getSpan();
+            var parentSpan = (_a = scope) === null || _a === void 0 ? void 0 : _a.getSpan();
             var span = (_b = parentSpan) === null || _b === void 0 ? void 0 : _b.startChild({
               description: typeof options === "string" ? options : options.sql,
               op: "db"
             });
             if (typeof callback === "function") {
               return orig.call(this, options, values, function(err, result, fields) {
-                var _a3;
-                (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
+                var _a2;
+                (_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.finish();
                 callback(err, result, fields);
               });
             }
             if (typeof values === "function") {
               return orig.call(this, options, function(err, result, fields) {
-                var _a3;
-                (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
+                var _a2;
+                (_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.finish();
                 values(err, result, fields);
               });
             }
@@ -47909,17 +43221,17 @@ var require_mongo = __commonJS({
             for (var _i = 0; _i < arguments.length; _i++) {
               args[_i] = arguments[_i];
             }
-            var _a2, _b, _c, _d;
+            var _a, _b, _c, _d;
             var lastArg = args[args.length - 1];
             var scope = getCurrentHub().getScope();
-            var parentSpan = (_a2 = scope) === null || _a2 === void 0 ? void 0 : _a2.getSpan();
+            var parentSpan = (_a = scope) === null || _a === void 0 ? void 0 : _a.getSpan();
             if (typeof lastArg !== "function" || operation === "mapReduce" && args.length === 2) {
               var span_1 = (_b = parentSpan) === null || _b === void 0 ? void 0 : _b.startChild(getSpanContext(this, operation, args));
               var maybePromise = orig.call.apply(orig, tslib_1.__spread([this], args));
               if (utils_1.isThenable(maybePromise)) {
                 return maybePromise.then(function(res) {
-                  var _a3;
-                  (_a3 = span_1) === null || _a3 === void 0 ? void 0 : _a3.finish();
+                  var _a2;
+                  (_a2 = span_1) === null || _a2 === void 0 ? void 0 : _a2.finish();
                   return res;
                 });
               } else {
@@ -47929,8 +43241,8 @@ var require_mongo = __commonJS({
             }
             var span = (_d = parentSpan) === null || _d === void 0 ? void 0 : _d.startChild(getSpanContext(this, operation, args.slice(0, -1)));
             return orig.call.apply(orig, tslib_1.__spread([this], args.slice(0, -1), [function(err, result) {
-              var _a3;
-              (_a3 = span) === null || _a3 === void 0 ? void 0 : _a3.finish();
+              var _a2;
+              (_a2 = span) === null || _a2 === void 0 ? void 0 : _a2.finish();
               lastArg(err, result);
             }]));
           };
@@ -47954,7 +43266,7 @@ var require_mongo = __commonJS({
         }
         try {
           if (operation === "mapReduce") {
-            var _a2 = tslib_1.__read(args, 2), map = _a2[0], reduce = _a2[1];
+            var _a = tslib_1.__read(args, 2), map = _a[0], reduce = _a[1];
             data[signature[0]] = typeof map === "string" ? map : map.name || "<anonymous>";
             data[signature[1]] = typeof reduce === "string" ? reduce : reduce.name || "<anonymous>";
           } else {
@@ -48181,8 +43493,8 @@ var require_handlers = __commonJS({
       if (options === void 0) {
         options = {};
       }
-      var _a2;
-      var method = (_a2 = req.method) === null || _a2 === void 0 ? void 0 : _a2.toUpperCase();
+      var _a;
+      var method = (_a = req.method) === null || _a === void 0 ? void 0 : _a.toUpperCase();
       var path2 = "";
       if (req.route) {
         path2 = "" + (req.baseUrl || "") + req.route.path;
@@ -48202,13 +43514,13 @@ var require_handlers = __commonJS({
       return info;
     }
     function extractTransaction(req, type) {
-      var _a2;
+      var _a;
       switch (type) {
         case "path": {
           return extractExpressTransactionName(req, { path: true });
         }
         case "handler": {
-          return ((_a2 = req.route) === null || _a2 === void 0 ? void 0 : _a2.stack[0].name) || "<anonymous>";
+          return ((_a = req.route) === null || _a === void 0 ? void 0 : _a.stack[0].name) || "<anonymous>";
         }
         case "methodPath":
         default: {
@@ -48468,67 +43780,3679 @@ __export(server_exports, {
   AC: () => AC2,
   PMA: () => PMA,
   config: () => config2,
-  exp: () => exp5,
+  exp: () => exp7,
   ox: () => ox
 });
 module.exports = __toCommonJS(server_exports);
-var import_integrations, import_boot4, import_player16, import_notes3, import_messages6, import_marketplace5, import_sv_exports, import_emitMessage, Sentry, config2, exp5, ox, AC2, PMA;
-var init_server = __esm({
-  "server/server.ts"() {
-    init_config2();
-    import_integrations = __toESM(require_dist3());
-    init_config2();
-    init_registerCommands();
-    init_pool();
-    import_boot4 = __toESM(require_boot_controller());
-    import_player16 = __toESM(require_player_controller());
-    init_calls_controller();
-    import_notes3 = __toESM(require_notes_controller());
-    init_contacts_controller();
-    init_photo_controller();
-    import_messages6 = __toESM(require_messages_controller());
-    import_marketplace5 = __toESM(require_marketplace_controller());
-    init_twitter_controller();
-    init_bank2();
-    init_darkmarket2();
-    init_bennys2();
-    init_property2();
-    init_boosting2();
-    import_sv_exports = __toESM(require_sv_exports());
-    import_emitMessage = __toESM(require_emitMessage());
-    init_exports();
-    init_sv_logger();
-    Sentry = __toESM(require_dist10());
-    init_fivem();
-    init_property();
-    config2 = config;
-    exp5 = global.exports;
-    ox = exp5.oxmysql;
-    AC2 = exp5["pma-anticheat"];
-    PMA = exp5["pma-framework"].getData();
-    registerCommands();
-    if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
-      Sentry.init({
-        dsn: "https://fa466f5b83ab4f029052b06bc9dec5cb@sentry.pma.network/3",
-        integrations: [new import_integrations.RewriteFrames()],
-        release: process.env.SENTRY_VERSION || "0.0.0",
-        tracesSampleRate: 1
-      });
-    }
-    on("onResourceStart", (resource) => __async(void 0, null, function* () {
-      if (GetCurrentResourceName() != resource)
-        return;
-      yield ox.execute_async(`TRUNCATE npwd_marketplace_listings`);
-      yield Delay(5e3);
-      const onlinePlayers = getPlayers();
-      for (const player of onlinePlayers) {
-        emitNet("npwd:property:reload" /* RELOAD_APP */, Number(player));
+
+// ../config.default.json
+var PhoneAsItem = {
+  enabled: false,
+  exportResource: "my-core-resource",
+  exportFunction: "myCheckerFunction"
+};
+var general = {
+  useResourceIntegration: false,
+  toggleKey: "f1",
+  toggleCommand: "phone",
+  defaultLanguage: "en"
+};
+var database = {
+  useIdentifierPrefix: false,
+  playerTable: "users",
+  identifierColumn: "identifier",
+  identifierType: "license",
+  profileQueries: true,
+  phoneNumberColumn: "phone_number"
+};
+var images = {
+  url: "https://i.pma.network/v1/image",
+  type: "imgur",
+  imageEncoding: "jpg",
+  contentType: "multipart/form-data",
+  authorizationPrefix: "Client-ID",
+  useAuthorization: false,
+  returnedDataIndexes: ["data", "link"]
+};
+var imageSafety = {
+  filterUnsafeImageUrls: true,
+  embedUnsafeImages: true,
+  embedUrl: "https://i.pma.network/v1/embed",
+  safeImageUrls: [
+    "imgur.com",
+    "file.glass",
+    "dropbox.com",
+    "tenor.com",
+    "discord.com",
+    "discordapp.com",
+    "wikipedia.org",
+    "i.pma.network"
+  ]
+};
+var profanityFilter = {
+  enabled: false,
+  badWords: ["esx"]
+};
+var twitter = {
+  showNotifications: true,
+  generateProfileNameFromUsers: true,
+  allowEditableProfileName: true,
+  allowDeleteTweets: true,
+  allowReportTweets: true,
+  allowRetweet: false,
+  characterLimit: 160,
+  newLineLimit: 10,
+  enableAvatars: true,
+  enableEmojis: true,
+  enableImages: true,
+  maxImages: 3
+};
+var match = {
+  generateProfileNameFromUsers: true,
+  allowEditableProfileName: true
+};
+var debug = {
+  level: "error",
+  enabled: true,
+  sentryEnabled: true
+};
+var config_default_default = {
+  PhoneAsItem,
+  general,
+  database,
+  images,
+  imageSafety,
+  profanityFilter,
+  twitter,
+  match,
+  debug
+};
+
+// ../shared/deepMergeObjects.ts
+function isObject(item) {
+  return item && typeof item === "object" && !Array.isArray(item);
+}
+function deepMergeObjects(target, ...sources) {
+  if (!sources.length)
+    return target;
+  const source2 = sources.shift();
+  if (isObject(target) && isObject(source2)) {
+    for (const key in source2) {
+      if (isObject(source2[key])) {
+        if (!target[key])
+          Object.assign(target, { [key]: {} });
+        deepMergeObjects(target[key], source2[key]);
+      } else {
+        Object.assign(target, { [key]: source2[key] });
       }
-      mainLogger.info("Successfully started");
-    }));
+    }
+  }
+  return deepMergeObjects(target, ...sources);
+}
+
+// server/utils/config.ts
+var getConfig = () => {
+  const resourceName = GetCurrentResourceName();
+  const config3 = JSON.parse(LoadResourceFile(resourceName, "config.json"));
+  return deepMergeObjects({}, config_default_default, config3);
+};
+
+// server/config.ts
+var config = (() => {
+  const config3 = getConfig();
+  let database2 = GetConvar("npwd:database", "");
+  if (database2 !== "") {
+    database2 = JSON.parse(database2);
+    Object.entries(config3.database).forEach(([key, value]) => {
+      const record = database2;
+      const configDb = config3.database;
+      if (record[key] && typeof value === typeof record[key]) {
+        configDb[key] = record[key];
+      }
+    });
+  }
+  if (GetConvar("npwd:useResourceIntegration", "") == "true") {
+    config3.general.useResourceIntegration = true;
+  }
+  return config3;
+})();
+
+// server/server.ts
+var import_integrations = __toESM(require_dist3());
+
+// server/sv_logger.ts
+var import_path = __toESM(require("path"));
+var import_winston = __toESM(require_winston());
+var manualColorize = (strToColor) => `[\x1B[35m${strToColor}\x1B[0m]`;
+var formatLogs = (log) => {
+  if (log.module)
+    return `${log.label} ${manualColorize(log.module)} [${log.level}]: ${log.message}`;
+  return `${log.label} [${log.level}]: ${log.message}`;
+};
+var findLogPath = () => `${import_path.default.join(GetResourcePath(GetCurrentResourceName()), "sv_npwd.log")}`;
+var mainLogger = (0, import_winston.createLogger)({
+  silent: !config.debug.enabled,
+  transports: [
+    new import_winston.transports.File({
+      filename: findLogPath(),
+      level: "silly",
+      format: import_winston.format.combine(import_winston.format.errors({ stack: true }), import_winston.format.timestamp(), import_winston.format.json())
+    }),
+    new import_winston.transports.Console({
+      level: config.debug.level ?? "info",
+      format: import_winston.format.combine(import_winston.format.label({ label: "[NPWD]" }), import_winston.format.colorize({ all: true }), import_winston.format.printf(formatLogs))
+    })
+  ]
+});
+
+// server/db/pool.ts
+var import_promise = __toESM(require_promise());
+
+// server/db/db_utils.ts
+var CONNECTION_STRING = "mysql_connection_string";
+function parseSemiColonFormat(connectionString) {
+  const parts = connectionString.replace(/(?:host(?:name)|ip|server|data\s?source|addr(?:ess)?)=/gi, "host=").replace(/(?:user\s?(?:id|name)?|uid)=/gi, "user=").replace(/(?:pwd|pass)=/gi, "password=").replace(/(?:db)=/gi, "database=").split(";");
+  if (parts.length === 1) {
+    throw new Error(`Connection string ${connectionString} is in the incorrect format. Please follow the README.`);
+  }
+  return parts.reduce((connectionInfo, parameter) => {
+    const [key, value] = parameter.split("=");
+    if (value)
+      connectionInfo[key] = value;
+    return connectionInfo;
+  }, {});
+}
+
+// server/db/pool.ts
+var mysqlConnectionString = GetConvar(CONNECTION_STRING, "none");
+if (mysqlConnectionString === "none") {
+  const error = new Error(`No connection string provided. make sure "${CONNECTION_STRING}" is set in your config.`);
+  mainLogger.error(error.message);
+  throw error;
+}
+function generateConnectionPool() {
+  try {
+    const config3 = mysqlConnectionString.includes("mysql://") ? { uri: mysqlConnectionString } : parseSemiColonFormat(mysqlConnectionString);
+    return import_promise.default.createPool({
+      connectTimeout: 6e4,
+      ...config3
+    });
+  } catch (e) {
+    mainLogger.error(`SQL Connection Pool Error: ${e.message}`, {
+      connection: mysqlConnectionString
+    });
+  }
+}
+var pool = generateConnectionPool();
+
+// server/db/db_wrapper.ts
+var RESOURCE_NAME = GetCurrentResourceName();
+var _DbInterface = class {
+  logger = mainLogger.child({ module: "DBInterface" });
+  async _internalQuery(query, values) {
+    try {
+      if (!values)
+        values = [];
+      if (config.database.profileQueries) {
+        const startTime = process.hrtime();
+        ScheduleResourceTick(RESOURCE_NAME);
+        const res = await pool.execute(query, values);
+        const timeMs = process.hrtime(startTime)[1] / 1e6;
+        this.logger.info(`Executed query (${query} ${JSON.stringify(values)}) in ${timeMs}ms'`);
+        return res;
+      }
+      ScheduleResourceTick(RESOURCE_NAME);
+      return await pool.execute(query, values);
+    } catch (e) {
+      this.logger.error(`Error executing (${query} ${JSON.stringify(values)}) with error message ${e.message}`);
+    }
+  }
+  async _rawExec(query, values) {
+    return await this._internalQuery(query, values);
+  }
+  async exec(query, values) {
+    const [res] = await this._internalQuery(query, values);
+    return res.affectedRows;
+  }
+  async insert(query, values) {
+    const [res] = await this._internalQuery(query, values);
+    return res.insertId;
+  }
+  async fetch(query, values) {
+    const [res] = await this._internalQuery(query, values);
+    const castRes = res;
+    return castRes;
+  }
+};
+var DbInterface = new _DbInterface();
+var db_wrapper_default = DbInterface;
+
+// server/db/parseUri.ts
+var regex = new RegExp("^(?:([^:/?#.]+):)?(?://(?:([^/?#]*)@)?([\\w\\d\\-\\u0100-\\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\\?([^#]*))?$");
+var parseUri = (connectionUri) => {
+  const splitMatchGroups = connectionUri.match(regex);
+  const authTgt = splitMatchGroups[2] ? splitMatchGroups[2].split(":") : [];
+  const removeForwardSlash = (str) => str.replace(/^\/+/, "");
+  if (connectionUri.includes("mysql://"))
+    return {
+      driver: splitMatchGroups[1],
+      user: authTgt[0] || void 0,
+      password: authTgt[1] || void 0,
+      host: splitMatchGroups[3],
+      port: parseInt(splitMatchGroups[4], 10),
+      database: removeForwardSlash(splitMatchGroups[5]),
+      params: splitMatchGroups[6]
+    };
+  return connectionUri.replace(/(?:host(?:name)|ip|server|data\s?source|addr(?:ess)?)=/gi, "host=").replace(/(?:user\s?(?:id|name)?|uid)=/gi, "user=").replace(/(?:pwd|pass)=/gi, "password=").replace(/(?:db)=/gi, "database=").split(";").reduce((connectionInfo, parameter) => {
+    const [key, value] = parameter.split("=");
+    connectionInfo[key] = value;
+    return connectionInfo;
+  }, {});
+};
+
+// server/commands/registerCommands.ts
+var mysqlConnectionString2 = GetConvar(CONNECTION_STRING, "none");
+var npwdDebugDumpCommand = async (src) => {
+  if (src !== 0)
+    return;
+  const tableSchema = parseUri(mysqlConnectionString2).database;
+  if (config.debug.level === "error") {
+    console.log("SET DEBUG LEVEL TO INFO/SILLY TO SEE LOGS");
+  }
+  mainLogger.info("NPWD DEBUG DUMP STARTED, THIS WILL WRITE TO THE SV_NPWD.LOG FILE");
+  mainLogger.info("Resource Config >");
+  mainLogger.info(config);
+  const versionInfo = GetResourceMetadata(GetCurrentResourceName(), "version", 0);
+  mainLogger.info(`Manifest VERSION > ${versionInfo}`);
+  const fxServerVersion = GetConvar("version", "unknown");
+  mainLogger.info(`FXServer VERSION > ${fxServerVersion}`);
+  const activePlayerCount = GetNumPlayerIndices();
+  mainLogger.info(`Connected Player Count > ${activePlayerCount}`);
+  try {
+    const playerTableResults = await db_wrapper_default._rawExec(`SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
+       FROM information_schema.COLUMNS
+       WHERE TABLE_NAME = ?
+         AND TABLE_SCHEMA = ?`, [config.database.playerTable, tableSchema]);
+    const tableExists = playerTableResults.length > 0;
+    if (tableExists) {
+      mainLogger.info("Player Table Info >");
+      mainLogger.info(playerTableResults[0]);
+    } else {
+      mainLogger.error(`Unable to locate schema metadata for specified player table of ${config.database.playerTable}. Maybe it doesn't exist?`);
+    }
+  } catch (e) {
+    mainLogger.error(`Failed to collect debug info for player table, ${e.message}`);
+  }
+};
+var registerCommands = () => {
+  RegisterCommand("npwd-debug-dump", npwdDebugDumpCommand, false);
+};
+
+// server/boot/boot.db.ts
+var mysqlConnectionString3 = GetConvar(CONNECTION_STRING, "none");
+var _BootDb = class {
+  async doesPlayerTableExist() {
+    const tableSchema = parseUri(mysqlConnectionString3).database;
+    const tblsh = `Tables_in_${tableSchema}`;
+    const query = `SHOW TABLES WHERE \`${tblsh}\`LIKE ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [config.database.playerTable]);
+    const tableDetails = results;
+    return !!tableDetails.length;
+  }
+  async getPlayerTableColumns() {
+    const query = `SHOW COLUMNS IN ${config.database.playerTable}`;
+    const [results] = await db_wrapper_default._rawExec(query, []);
+    const columnResults = results;
+    return columnResults.map((columnData) => columnData.Field);
+  }
+};
+var BootDb = new _BootDb();
+var boot_db_default = BootDb;
+
+// server/boot/boot.utils.ts
+var bootLogger = mainLogger.child({
+  module: "boot"
+});
+var fatalDbError = (reason) => {
+  throw new Error(`
+^1==============================================
+
+!!! NPWD WAS UNABLE TO VALIDATE YOUR DATABASE AND FINISH STARTING !!!
+
+${reason}
+
+This error is most likely caused by incorrect values in the config.json file.
+
+==============================================^0`);
+};
+var { identifierColumn, phoneNumberColumn } = config.database;
+var requiredDbColumns = [identifierColumn, phoneNumberColumn];
+var frameworkDependencies = {
+  ["es_extended"]: ["esx-npwd"],
+  ["qb-core"]: ["qb-npwd"]
+};
+
+// server/boot/boot.service.ts
+var _BootService = class {
+  bootDb;
+  constructor() {
+    this.bootDb = boot_db_default;
+    bootLogger.debug("Boot service started");
+  }
+  async handleResourceStarting() {
+    await this.validateDatabaseSchema();
+    this.performConfigChecks();
+  }
+  async validateDatabaseSchema() {
+    bootLogger.debug("Beginning database schema validation");
+    const doesPlayerTableExist = await this.bootDb.doesPlayerTableExist();
+    if (!doesPlayerTableExist) {
+      fatalDbError(`Player table "${config.database.playerTable}" does not exist in the configured database.`);
+    }
+    const columnData = await this.bootDb.getPlayerTableColumns();
+    if (!requiredDbColumns.every((elem) => columnData.includes(elem))) {
+      const missingColumns = requiredDbColumns.filter((elem) => !columnData.includes(elem));
+      fatalDbError(`Player table is missing required columns: [${missingColumns.join(", ")}]`);
+    }
+    bootLogger.debug("Database schema successfully validated");
+  }
+  performConfigChecks() {
+    if (config.general.useResourceIntegration) {
+      this.checkFrameworkDependencies();
+    }
+  }
+  checkFrameworkDependencies() {
+    bootLogger.debug("Checking for missing framework dependencies");
+    const startedResources = /* @__PURE__ */ new Set();
+    const errorsDetected = /* @__PURE__ */ new Set();
+    const numOfResources = GetNumResources();
+    for (let i = 0; i < numOfResources; i++) {
+      const resourceName = GetResourceByFindIndex(i);
+      if (GetResourceState(resourceName) === "started") {
+        startedResources.add(resourceName);
+      }
+    }
+    for (const [resourceName, depList] of Object.entries(frameworkDependencies)) {
+      if (startedResources.has(resourceName)) {
+        if (!depList.every((elem) => startedResources.has(elem))) {
+          const missingDependencies = depList.filter((depName) => !startedResources.has(depName));
+          errorsDetected.add(`Missing ${resourceName} dependencies detected: ${missingDependencies.join(", ")}`);
+        }
+      }
+    }
+    if (errorsDetected.size) {
+      errorsDetected.forEach((errorString) => bootLogger.error(errorString));
+    } else {
+      bootLogger.debug("No missing dependencies were detected");
+    }
+  }
+};
+var BootService = new _BootService();
+var boot_service_default = BootService;
+
+// server/boot/boot.controller.ts
+on("onServerResourceStart", async (resource) => {
+  if (resource === GetCurrentResourceName()) {
+    await boot_service_default.handleResourceStarting();
   }
 });
-init_server();
+
+// server/utils/miscUtils.ts
+var getSource = () => global.source;
+var clean = (input) => input ? input.replace(/[^0-9a-z]/gi, "") : input;
+var onNetTyped = (eventName, cb) => onNet(eventName, cb);
+var emitNetTyped = (eventName, data, src) => {
+  if (src) {
+    return emitNet(eventName, src, data);
+  }
+  emitNet(eventName, data);
+};
+
+// server/misc/generateUniquePhoneNumber.ts
+var genNumber = (length) => {
+  const addAmount = 1;
+  let localMax = 11;
+  if (length > localMax) {
+    return genNumber(localMax) + genNumber(length - localMax);
+  }
+  localMax = Math.pow(10, length + addAmount);
+  const min = localMax / 10;
+  const number = Math.floor(Math.random() * (localMax - min + 1)) + min;
+  const strNumber = "" + number;
+  return strNumber.substr(addAmount);
+};
+var generateUsNumber = () => {
+  const rawNumber = genNumber(10);
+  return rawNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+};
+async function generateUniquePhoneNumber() {
+  const query = `SELECT EXISTS(SELECT * FROM ${config2.database.playerTable} WHERE ${config2.database.phoneNumberColumn} = ?)`;
+  const dashNumber = generateUsNumber();
+  const [results] = await db_wrapper_default._rawExec(query, [dashNumber]);
+  if (!results)
+    return generateUniquePhoneNumber();
+  return dashNumber;
+}
+
+// server/players/player.utils.ts
+var playerLogger = mainLogger.child({
+  module: "player"
+});
+async function getDefaultProfileNames(source2) {
+  const defaultProfileNames = [];
+  const player = player_service_default.getPlayer(source2);
+  if (player.getFirstName() && player.getLastName()) {
+    defaultProfileNames.push(`${player.getFirstName()}_${player.getLastName()}`);
+  } else if (player.getFirstName()) {
+    defaultProfileNames.push(player.getFirstName());
+  } else if (player.getLastName()) {
+    defaultProfileNames.push(player.getLastName());
+  }
+  if (player.getPhoneNumber()) {
+    defaultProfileNames.push(player.getPhoneNumber());
+  }
+  return defaultProfileNames;
+}
+
+// server/misc/functions.ts
+async function findOrGeneratePhoneNumber(identifier) {
+  const query = `SELECT ${config2.database.phoneNumberColumn} FROM ${config2.database.playerTable} WHERE ${config2.database.identifierColumn} = ? LIMIT 1`;
+  const [res] = await db_wrapper_default._rawExec(query, [identifier]);
+  playerLogger.debug("Find user for number generation data >");
+  playerLogger.debug(res);
+  const castRes = res;
+  if (castRes && castRes[0] && castRes[0][config2.database.phoneNumberColumn] !== null) {
+    return castRes[0][config2.database.phoneNumberColumn];
+  }
+  playerLogger.debug("Phone number was returned as null, generating new number");
+  const gennedNumber = await generateUniquePhoneNumber();
+  playerLogger.debug(`Phone number generated > ${gennedNumber}`);
+  const updateQuery = `UPDATE ${config2.database.playerTable} SET ${config2.database.phoneNumberColumn} = ? WHERE ${config2.database.identifierColumn} = ?`;
+  const result = await db_wrapper_default._rawExec(updateQuery, [gennedNumber, identifier]);
+  if (!result || !result[0] || !result[0].affectedRows) {
+    playerLogger.error(`Failed to store phone number in database`);
+    playerLogger.error(`UPDATE ${config2.database.playerTable} SET ${config2.database.phoneNumberColumn} = ${gennedNumber} WHERE ${config2.database.identifierColumn} = ${identifier}`);
+  }
+  return gennedNumber;
+}
+
+// server/players/player.class.ts
+var Player = class {
+  source;
+  username;
+  fullname;
+  ssn;
+  _phoneNumber;
+  _identifier;
+  _firstname;
+  _lastname;
+  constructor({ source: source2, identifier, phoneNumber, username }) {
+    this.source = source2;
+    this._identifier = identifier;
+    this._phoneNumber = phoneNumber;
+    this.username = username;
+  }
+  getIdentifier() {
+    return this._identifier;
+  }
+  setIdentifier(identifier) {
+    this._identifier = identifier;
+    return this;
+  }
+  getFirstName() {
+    return this._firstname;
+  }
+  setFirstName(firstname) {
+    this._firstname = firstname;
+    return this;
+  }
+  getLastName() {
+    return this._lastname;
+  }
+  setLastName(lastname) {
+    this._lastname = lastname;
+    return this;
+  }
+  getName() {
+    if (!this._firstname || !this._lastname)
+      return null;
+    return `${this._firstname} ${this._lastname}`;
+  }
+  getPhoneNumber() {
+    return this._phoneNumber;
+  }
+  setPhoneNumber(number) {
+    this._phoneNumber = number;
+    return this;
+  }
+};
+
+// node_modules/@discordjs/collection/dist/index.mjs
+var h = Object.defineProperty;
+var r = (u, e) => h(u, "name", { value: e, configurable: true });
+var o = class extends Map {
+  get(e) {
+    return super.get(e);
+  }
+  set(e, i) {
+    return super.set(e, i);
+  }
+  has(e) {
+    return super.has(e);
+  }
+  delete(e) {
+    return super.delete(e);
+  }
+  clear() {
+    return super.clear();
+  }
+  hasAll(...e) {
+    return e.every((i) => super.has(i));
+  }
+  hasAny(...e) {
+    return e.some((i) => super.has(i));
+  }
+  first(e) {
+    if (typeof e == "undefined")
+      return this.values().next().value;
+    if (e < 0)
+      return this.last(e * -1);
+    e = Math.min(this.size, e);
+    let i = this.values();
+    return Array.from({ length: e }, () => i.next().value);
+  }
+  firstKey(e) {
+    if (typeof e == "undefined")
+      return this.keys().next().value;
+    if (e < 0)
+      return this.lastKey(e * -1);
+    e = Math.min(this.size, e);
+    let i = this.keys();
+    return Array.from({ length: e }, () => i.next().value);
+  }
+  last(e) {
+    let i = [...this.values()];
+    return typeof e == "undefined" ? i[i.length - 1] : e < 0 ? this.first(e * -1) : e ? i.slice(-e) : [];
+  }
+  lastKey(e) {
+    let i = [...this.keys()];
+    return typeof e == "undefined" ? i[i.length - 1] : e < 0 ? this.firstKey(e * -1) : e ? i.slice(-e) : [];
+  }
+  random(e) {
+    let i = [...this.values()];
+    return typeof e == "undefined" ? i[Math.floor(Math.random() * i.length)] : !i.length || !e ? [] : Array.from({ length: Math.min(e, i.length) }, () => i.splice(Math.floor(Math.random() * i.length), 1)[0]);
+  }
+  randomKey(e) {
+    let i = [...this.keys()];
+    return typeof e == "undefined" ? i[Math.floor(Math.random() * i.length)] : !i.length || !e ? [] : Array.from({ length: Math.min(e, i.length) }, () => i.splice(Math.floor(Math.random() * i.length), 1)[0]);
+  }
+  find(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    for (let [t, l] of this)
+      if (e(l, t, this))
+        return l;
+  }
+  findKey(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    for (let [t, l] of this)
+      if (e(l, t, this))
+        return t;
+  }
+  sweep(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    let t = this.size;
+    for (let [l, n] of this)
+      e(n, l, this) && this.delete(l);
+    return t - this.size;
+  }
+  filter(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    let t = new this.constructor[Symbol.species]();
+    for (let [l, n] of this)
+      e(n, l, this) && t.set(l, n);
+    return t;
+  }
+  partition(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    let t = [new this.constructor[Symbol.species](), new this.constructor[Symbol.species]()];
+    for (let [l, n] of this)
+      e(n, l, this) ? t[0].set(l, n) : t[1].set(l, n);
+    return t;
+  }
+  flatMap(e, i) {
+    let t = this.map(e, i);
+    return new this.constructor[Symbol.species]().concat(...t);
+  }
+  map(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    let t = this.entries();
+    return Array.from({ length: this.size }, () => {
+      let [l, n] = t.next().value;
+      return e(n, l, this);
+    });
+  }
+  mapValues(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    let t = new this.constructor[Symbol.species]();
+    for (let [l, n] of this)
+      t.set(l, e(n, l, this));
+    return t;
+  }
+  some(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    for (let [t, l] of this)
+      if (e(l, t, this))
+        return true;
+    return false;
+  }
+  every(e, i) {
+    typeof i != "undefined" && (e = e.bind(i));
+    for (let [t, l] of this)
+      if (!e(l, t, this))
+        return false;
+    return true;
+  }
+  reduce(e, i) {
+    let t;
+    if (typeof i != "undefined") {
+      t = i;
+      for (let [n, s] of this)
+        t = e(t, s, n, this);
+      return t;
+    }
+    let l = true;
+    for (let [n, s] of this) {
+      if (l) {
+        t = s, l = false;
+        continue;
+      }
+      t = e(t, s, n, this);
+    }
+    if (l)
+      throw new TypeError("Reduce of empty collection with no initial value");
+    return t;
+  }
+  each(e, i) {
+    return this.forEach(e, i), this;
+  }
+  tap(e, i) {
+    return typeof i != "undefined" && (e = e.bind(i)), e(this), this;
+  }
+  clone() {
+    return new this.constructor[Symbol.species](this);
+  }
+  concat(...e) {
+    let i = this.clone();
+    for (let t of e)
+      for (let [l, n] of t)
+        i.set(l, n);
+    return i;
+  }
+  equals(e) {
+    if (!e)
+      return false;
+    if (this === e)
+      return true;
+    if (this.size !== e.size)
+      return false;
+    for (let [i, t] of this)
+      if (!e.has(i) || t !== e.get(i))
+        return false;
+    return true;
+  }
+  sort(e = o.defaultSort) {
+    let i = [...this.entries()];
+    i.sort((t, l) => e(t[1], l[1], t[0], l[0])), super.clear();
+    for (let [t, l] of i)
+      super.set(t, l);
+    return this;
+  }
+  intersect(e) {
+    let i = new this.constructor[Symbol.species]();
+    for (let [t, l] of e)
+      this.has(t) && i.set(t, l);
+    return i;
+  }
+  difference(e) {
+    let i = new this.constructor[Symbol.species]();
+    for (let [t, l] of e)
+      this.has(t) || i.set(t, l);
+    for (let [t, l] of this)
+      e.has(t) || i.set(t, l);
+    return i;
+  }
+  sorted(e = o.defaultSort) {
+    return new this.constructor[Symbol.species](this).sort((i, t, l, n) => e(i, t, l, n));
+  }
+  toJSON() {
+    return [...this.values()];
+  }
+  static defaultSort(e, i) {
+    return Number(e > i) || Number(e === i) - 1;
+  }
+};
+var c = o;
+r(c, "Collection"), "constructor", c.default = o;
+var f = c;
+
+// server/utils/getPlayerGameLicense.ts
+var getPlayerGameLicense = (src) => {
+  const playerIdentifiers = getPlayerIdentifiers(src.toString());
+  let playerIdentifier;
+  for (const identifier of playerIdentifiers) {
+    if (identifier.includes(config2.database.identifierType + ":")) {
+      if (config2.database.useIdentifierPrefix)
+        playerIdentifier = identifier;
+      else
+        playerIdentifier = identifier.split(":")[1];
+    }
+  }
+  if (!playerIdentifier)
+    return null;
+  return playerIdentifier;
+};
+
+// server/players/player.db.ts
+var PlayerRepo = class {
+  async fetchIdentifierFromPhoneNumber(phoneNumber) {
+    const query = `SELECT ${config.database.identifierColumn} FROM ${config.database.playerTable} WHERE ${config.database.phoneNumberColumn} = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [phoneNumber]);
+    return results[0][config.database.identifierColumn] || null;
+  }
+  async fetchPhoneNumberFromIdentifier(identifier) {
+    const query = `SELECT ${config.database.phoneNumberColumn} FROM ${config.database.playerTable} WHERE ${config.database.identifierColumn} = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    return results[0][config.database.phoneNumberColumn] || null;
+  }
+};
+var player_db_default = new PlayerRepo();
+
+// server/marketplace/marketplace.utils.ts
+var marketplaceLogger = mainLogger.child({ module: "marketplace" });
+
+// server/marketplace/marketplace.db.ts
+var _MarketplaceDB = class {
+  async addListing(identifier, username, name, number, listing) {
+    const query = "INSERT INTO npwd_marketplace_listings (identifier, username, name, number, title, url, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const [result] = await db_wrapper_default._rawExec(query, [
+      identifier,
+      username,
+      name,
+      number,
+      listing.title,
+      listing.url,
+      listing.description
+    ]);
+    const resultCast = result;
+    return resultCast.insertId;
+  }
+  async fetchListings() {
+    const query = "SELECT * FROM npwd_marketplace_listings WHERE reported = 0 ORDER BY id DESC";
+    const [results] = await db_wrapper_default._rawExec(query);
+    return results;
+  }
+  async deleteListing(listingId, identifier) {
+    const query = "DELETE FROM npwd_marketplace_listings WHERE id = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [listingId, identifier]);
+  }
+  async deleteListingsOnDrop(identifier) {
+    const query = `DELETE FROM npwd_marketplace_listings WHERE identifier = ? AND reported = 0`;
+    await db_wrapper_default._rawExec(query, [identifier]);
+  }
+  async getListing(listingId) {
+    const query = `SELECT * FROM npwd_marketplace_listings WHERE id = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [listingId]);
+    const listings = results;
+    return listings[0];
+  }
+  async getListingIdsByIdentifier(identifier) {
+    const query = `SELECT id FROM npwd_marketplace_listings WHERE identifier = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    return results;
+  }
+  async reportListing(listing) {
+    const query = `UPDATE npwd_marketplace_listings SET reported = 1 WHERE id = ?`;
+    await db_wrapper_default._rawExec(query, [listing.id]);
+  }
+  async doesListingExist(listing, identifier) {
+    const query = `SELECT * FROM npwd_marketplace_listings WHERE identifier = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    const listings = results;
+    return listings.length > 0;
+  }
+  async doesReportExist(listingId, profile) {
+    const query = `SELECT * FROM npwd_marketplace_listings WHERE id = ? AND username = ? AND reported = 1`;
+    const [results] = await db_wrapper_default._rawExec(query, [listingId, profile]);
+    const result = results;
+    return result.length > 0;
+  }
+};
+var MarketplaceDB = new _MarketplaceDB();
+var marketplace_db_default = MarketplaceDB;
+
+// server/misc/discord.ts
+var import_axios = __toESM(require_axios2());
+var IMAGE_DELIMITER = "||!||";
+var discordLogger = mainLogger.child({ module: "discord" });
+var DISCORD_WEBHOOK = GetConvar("NPWD_DISCORD_TOKEN", "");
+var postToWebhook = async (content) => {
+  if (!DISCORD_WEBHOOK) {
+    discordLogger.warn("Got a request to report a listing but discord is not configures. See README on how to configure discord endpoints.");
+    return;
+  }
+  const resp = await import_axios.default.post(DISCORD_WEBHOOK, { ...content });
+  if (resp.status < 200 && resp.status >= 300)
+    throw new Error(`Discord Error: ${resp.status} Error - ${resp.statusText}`);
+};
+var createDiscordMsgObj = (type, message, fields) => {
+  const curTime = new Date().toISOString();
+  return {
+    username: "NPWD Report",
+    embeds: [
+      {
+        title: `${type} REPORT`,
+        color: 15158332,
+        description: message,
+        timestamp: curTime,
+        fields
+      }
+    ]
+  };
+};
+async function reportTweetToDiscord(tweet, reportingProfile) {
+  const guaranteedFields = [
+    {
+      name: "Reported By:",
+      value: `\`\`\`Profile Name: ${reportingProfile.profile_name}
+Profile ID: ${reportingProfile.id}
+User Identifier: ${reportingProfile.identifier}\`\`\``
+    },
+    {
+      name: "Reported User Data:",
+      value: `\`\`\`Profile Name: ${tweet.profile_name}
+Profile ID: ${tweet.profile_id}
+User Identifier: ${tweet.identifier}\`\`\``
+    },
+    {
+      name: "Tweet Message:",
+      value: `\`\`\`Message: ${tweet.message}\`\`\``
+    }
+  ];
+  const finalFields = tweet.images ? guaranteedFields.concat({
+    name: "Reported Image:",
+    value: tweet.images.split(IMAGE_DELIMITER).join("\n")
+  }) : guaranteedFields;
+  const msgObj = createDiscordMsgObj("TWITTER", `Received a report for a tweet`, finalFields);
+  try {
+    await postToWebhook(msgObj);
+  } catch (e) {
+    discordLogger.error(e.message);
+  }
+}
+async function reportListingToDiscord(listing, reportingProfile) {
+  const guaranteedFields = [
+    {
+      name: "Reported By",
+      value: `\`\`\`Profile Name: ${reportingProfile}\`\`\``
+    },
+    {
+      name: "Reported User Data",
+      value: `\`\`\`Profile Name: ${listing.username}
+Profile ID: ${listing.id}
+User Identifier: ${listing.identifier}\`\`\``
+    },
+    {
+      name: "Reported Listing Title",
+      value: `\`\`\`Title: ${listing.name}\`\`\``
+    },
+    {
+      name: "Reported Listing Desc.",
+      value: `\`\`\`Description: ${listing.description}\`\`\``
+    }
+  ];
+  const finalFields = listing.url ? guaranteedFields.concat({
+    name: "Reported Image:",
+    value: listing.url.split(IMAGE_DELIMITER).join("\n")
+  }) : guaranteedFields;
+  const msgObj = createDiscordMsgObj("MARKETPLACE", `Received a report for a listing`, finalFields);
+  try {
+    await postToWebhook(msgObj);
+  } catch (e) {
+    discordLogger.error(e.message);
+  }
+}
+
+// server/utils/imageFiltering.ts
+var imageRegex = new RegExp(config.imageSafety.safeImageUrls.join("|"));
+var checkAndFilterImage = (imageUrl) => {
+  const image = imageUrl.trim();
+  if (image == "") {
+    return image;
+  }
+  if (!config.imageSafety.filterUnsafeImageUrls)
+    return image;
+  if (imageRegex.test(image))
+    return image;
+  if (config.imageSafety.embedUnsafeImages)
+    return `${config.imageSafety.embedUrl}?url=${imageUrl}`;
+  return null;
+};
+
+// server/marketplace/marketplace.service.ts
+var _MarketplaceService = class {
+  marketplaceDB;
+  constructor() {
+    this.marketplaceDB = marketplace_db_default;
+    marketplaceLogger.debug("Marketplace service started");
+  }
+  async handleAddListing(reqObj, resp) {
+    marketplaceLogger.debug("Handling add listing, listing:");
+    marketplaceLogger.debug(reqObj.data);
+    const player = player_service_default.getPlayer(reqObj.source);
+    const identifier = player.getIdentifier();
+    try {
+      const doesListingExist = await this.marketplaceDB.doesListingExist(reqObj.data, identifier);
+      if (doesListingExist)
+        return resp({ status: "error", errorMsg: "MARKETPLACE.FEEDBACK.DUPLICATE_LISTING" /* DUPLICATE */ });
+      const imageUrl = checkAndFilterImage(reqObj.data.url);
+      if (imageUrl == null) {
+        return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" /* INVALID_IMAGE_HOST */ });
+      }
+      reqObj.data.url = imageUrl;
+      const listingId = await this.marketplaceDB.addListing(player.getIdentifier(), player.username, player.getName(), player.getPhoneNumber(), reqObj.data);
+      resp({ status: "ok" });
+      const returnObj = {
+        id: listingId,
+        identifier: player.getIdentifier(),
+        name: player.getName(),
+        number: player.getPhoneNumber(),
+        url: reqObj.data.url,
+        username: player.username,
+        description: reqObj.data.description,
+        title: reqObj.data.title
+      };
+      emitNet("npwd:sendMarketplaceBroadcastAdd" /* BROADCAST_ADD */, -1, { type: "ADD", listing: returnObj });
+    } catch (e) {
+      marketplaceLogger.error(`Failed to add listing ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "MARKETPLACE.FEEDBACK.CREATE_LISTING_FAILED" /* CREATE_FAILED */ });
+    }
+  }
+  async handleFetchListings(req, resp) {
+    try {
+      const listings = await this.marketplaceDB.fetchListings();
+      resp({ data: listings, status: "ok" });
+    } catch (e) {
+      marketplaceLogger.error(`Failed to fetch listings, ${e.message}`, {
+        source: req.source
+      });
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleDeleteListing(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      await this.marketplaceDB.deleteListing(reqObj.data.id, identifier);
+      resp({ status: "ok" });
+      const returnObj = reqObj.data.id;
+      emitNet("npwd:sendMarketplaceBroadcastDelete" /* BROADCAST_DELETE */, -1, [returnObj]);
+    } catch (e) {
+      marketplaceLogger.error(`Error in handleDeleteListing, ${e.message}`);
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleDeleteListingsOnDrop(identifier) {
+    try {
+      const listingIds = await this.marketplaceDB.getListingIdsByIdentifier(identifier);
+      emitNet("npwd:sendMarketplaceBroadcastDelete" /* BROADCAST_DELETE */, -1, listingIds);
+      await this.marketplaceDB.deleteListingsOnDrop(identifier);
+    } catch (e) {
+      marketplaceLogger.error(`Error when deleting listings on player drop, ${e.message}`);
+    }
+  }
+  async handleReportListing(reqObj, resp) {
+    try {
+      const rListing = await this.marketplaceDB.getListing(reqObj.data.id);
+      const reportExists = await this.marketplaceDB.doesReportExist(reqObj.data.id, rListing.username);
+      const reportingPlayer = GetPlayerName(reqObj.source.toString());
+      if (reportExists) {
+        marketplaceLogger.error(`This listing has already been reported`);
+        resp({ status: "error", errorMsg: "REPORT_EXISTS" });
+        return;
+      }
+      await this.marketplaceDB.reportListing(rListing);
+      await reportListingToDiscord(rListing, reportingPlayer);
+    } catch (e) {
+      marketplaceLogger.error(`Failed to report listing ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+};
+var MarketplaceService = new _MarketplaceService();
+var marketplace_service_default = MarketplaceService;
+
+// utils/fivem.ts
+var Delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+// server/players/player.service.ts
+var _PlayerService = class {
+  playersBySource;
+  playersByIdentifier;
+  playerDB;
+  constructor() {
+    this.playersBySource = new f();
+    this.playersByIdentifier = new f();
+    this.playerDB = player_db_default;
+    playerLogger.debug("Player Service started");
+  }
+  addPlayerToMaps(source2, player) {
+    this.playersBySource.set(source2, player);
+    this.playersByIdentifier.set(player.getIdentifier(), player);
+  }
+  deletePlayerFromMaps(source2) {
+    const identifier = this.playersBySource.get(source2).getIdentifier();
+    this.playersByIdentifier.delete(identifier);
+    this.playersBySource.delete(source2);
+  }
+  getPlayer(source2) {
+    const player = this.playersBySource.get(source2);
+    if (!player)
+      return null;
+    return player;
+  }
+  getIdentifier(source2) {
+    return this.getPlayer(source2).getIdentifier();
+  }
+  getPlayerFromIdentifier(identifier) {
+    const player = this.playersByIdentifier.get(identifier);
+    if (!player) {
+      return null;
+    }
+    return player;
+  }
+  async getIdentifierFromPhoneNumber(phoneNumber, fetch2) {
+    const onlinePlayer = this.playersBySource.find((player) => player.getPhoneNumber() === phoneNumber);
+    if (onlinePlayer)
+      return onlinePlayer.getIdentifier();
+    if (fetch2) {
+      const fetchResult = await this.playerDB.fetchIdentifierFromPhoneNumber(phoneNumber).catch((e) => {
+        playerLogger.error(`Failed to fetch identifier from phone number for ${phoneNumber}, error: ${e.message}`);
+        return null;
+      });
+      return fetchResult;
+    }
+    return null;
+  }
+  async handleNewPlayerJoined(pSource) {
+    const playerIdentifier = getPlayerGameLicense(pSource);
+    if (!playerIdentifier) {
+      throw new Error(`License identifier could not be found for source (${pSource})`);
+    }
+    const username = GetPlayerName(pSource.toString());
+    playerLogger.info(`Started loading for ${username} (${pSource})`);
+    const phone_number = await findOrGeneratePhoneNumber(playerIdentifier);
+    const newPlayer = new Player({
+      identifier: playerIdentifier,
+      source: pSource,
+      username,
+      phoneNumber: phone_number
+    });
+    this.addPlayerToMaps(pSource, newPlayer);
+    playerLogger.info("NPWD Player Loaded!");
+    playerLogger.debug(newPlayer);
+    if (process.env.NODE_ENV === "development") {
+      await Delay(100);
+    }
+    emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, pSource, true);
+  }
+  async createNewPlayer({
+    src,
+    identifier,
+    phoneNumber
+  }) {
+    const username = GetPlayerName(src.toString());
+    if (!phoneNumber) {
+      phoneNumber = await findOrGeneratePhoneNumber(identifier);
+      if (!phoneNumber)
+        return null;
+    }
+    return new Player({
+      source: src,
+      identifier,
+      phoneNumber,
+      username
+    });
+  }
+  async handleNewPlayerEvent({
+    source: src,
+    identifier,
+    phoneNumber,
+    firstname,
+    lastname
+  }) {
+    const player = await this.createNewPlayer({
+      src,
+      identifier: identifier.toString(),
+      phoneNumber
+    });
+    if (firstname)
+      player.setFirstName(firstname);
+    if (lastname)
+      player.setLastName(lastname);
+    this.addPlayerToMaps(src, player);
+    playerLogger.info(`New NPWD Player added through event (${src}) (${identifier})`);
+    playerLogger.debug(player);
+    emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, src, true);
+  }
+  async getIdentifierByPhoneNumber(phoneNumber, fetch2) {
+    for (const [_, player] of this.playersBySource) {
+      if (player.getPhoneNumber() === phoneNumber)
+        return player.getIdentifier();
+    }
+    if (fetch2) {
+      return await this.playerDB.fetchIdentifierFromPhoneNumber(phoneNumber);
+    }
+  }
+  async getPhoneNumberFromIdentifier(identifier) {
+    return await this.playerDB.fetchPhoneNumberFromIdentifier(identifier);
+  }
+  async clearPlayerData(src) {
+    const identifier = this.getIdentifier(src);
+    try {
+      await marketplace_service_default.handleDeleteListingsOnDrop(identifier);
+    } catch (e) {
+      playerLogger.error(`Failed to clear player data when dropped, Error: ${e.message}`);
+    }
+  }
+  async handleUnloadPlayerEvent(src) {
+    await this.clearPlayerData(src);
+    this.deletePlayerFromMaps(src);
+    emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, src, false);
+    playerLogger.info(`Unloaded NPWD Player, source: (${src})`);
+  }
+};
+var PlayerService = new _PlayerService();
+var player_service_default = PlayerService;
+
+// server/players/player.controller.ts
+onNet("npwd:getCredentials" /* FETCH_CREDENTIALS */, () => {
+  const src = getSource();
+  const phoneNumber = player_service_default.getPlayer(src).getPhoneNumber();
+  emitNet("npwd:sendCredentials" /* SEND_CREDENTIALS */, src, phoneNumber);
+});
+if (!config.general.useResourceIntegration) {
+  on("playerJoining", async () => {
+    const src = getSource();
+    await player_service_default.handleNewPlayerJoined(src);
+  });
+}
+on("playerDropped", async () => {
+  const src = getSource();
+  try {
+    await player_service_default.handleUnloadPlayerEvent(src);
+  } catch (e) {
+    playerLogger.debug(`${src} failed to unload, likely was never loaded in the first place.`);
+  }
+});
+if (!config.general.useResourceIntegration) {
+  on("onServerResourceStart", async (resource) => {
+    if (resource === GetCurrentResourceName()) {
+      const onlinePlayers = getPlayers();
+      for (const player of onlinePlayers) {
+        await player_service_default.handleNewPlayerJoined(parseInt(player));
+      }
+    }
+  });
+}
+
+// server/calls/calls.db.ts
+var CallsRepo = class {
+  async saveCall(call) {
+    const query = "INSERT INTO npwd_calls (identifier, transmitter, receiver, `start`) VALUES (?, ?, ?, ?)";
+    await db_wrapper_default._rawExec(query, [
+      call.identifier,
+      call.transmitter,
+      call.receiver,
+      call.start
+    ]);
+  }
+  async updateCall(call, isAccepted, end) {
+    const query = "UPDATE npwd_calls SET is_accepted=?, end=? WHERE identifier = ?";
+    await db_wrapper_default._rawExec(query, [isAccepted, end, call.identifier]);
+  }
+  async fetchCalls(phoneNumber, limit = 50 /* CALLS_FETCH_LIMIT */) {
+    const query = "SELECT * FROM npwd_calls WHERE receiver = ? OR transmitter = ? ORDER BY id DESC LIMIT ?";
+    const [result] = await db_wrapper_default._rawExec(query, [
+      phoneNumber,
+      phoneNumber,
+      limit.toString()
+    ]);
+    return result;
+  }
+};
+var calls_db_default = new CallsRepo();
+
+// node_modules/uuid/wrapper.mjs
+var import_dist = __toESM(require_dist4(), 1);
+var v1 = import_dist.default.v1;
+var v3 = import_dist.default.v3;
+var v4 = import_dist.default.v4;
+var v5 = import_dist.default.v5;
+var NIL = import_dist.default.NIL;
+var version = import_dist.default.version;
+var validate = import_dist.default.validate;
+var stringify = import_dist.default.stringify;
+var parse = import_dist.default.parse;
+
+// server/calls/calls.utils.ts
+var callLogger = mainLogger.child({ module: "calls" });
+
+// server/calls/calls.service.ts
+var CallsService = class {
+  callMap;
+  callsDB;
+  constructor() {
+    this.callMap = new f();
+    this.callsDB = calls_db_default;
+    callLogger.debug("Call service started");
+  }
+  setCallInMap(transmitterNumber, callObj) {
+    this.callMap.set(transmitterNumber, callObj);
+    callLogger.debug(`Call obj set with key ${transmitterNumber}, value:`);
+    callLogger.debug(callObj);
+  }
+  async handleInitializeCall(reqObj, resp) {
+    const transmittingPlayer = player_service_default.getPlayer(reqObj.source);
+    const transmitterNumber = transmittingPlayer.getPhoneNumber();
+    const receiverIdentifier = await player_service_default.getIdentifierFromPhoneNumber(reqObj.data.receiverNumber, true);
+    const startCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
+    const callIdentifier = v4();
+    const tempSaveCallObj = {
+      identifier: callIdentifier,
+      transmitter: transmitterNumber,
+      receiver: reqObj.data.receiverNumber,
+      is_accepted: false,
+      start: startCallTimeUnix.toString()
+    };
+    if (!receiverIdentifier) {
+      await this.callsDB.saveCall(tempSaveCallObj);
+      return resp({
+        status: "ok",
+        data: {
+          transmitter: transmitterNumber,
+          isTransmitter: true,
+          receiver: reqObj.data.receiverNumber,
+          isUnavailable: true,
+          is_accepted: false,
+          start: startCallTimeUnix.toString(),
+          identifier: callIdentifier
+        }
+      });
+    }
+    const receivingPlayer = player_service_default.getPlayerFromIdentifier(receiverIdentifier);
+    if (!receivingPlayer) {
+      await this.callsDB.saveCall(tempSaveCallObj);
+      return resp({
+        status: "ok",
+        data: {
+          is_accepted: false,
+          transmitter: transmitterNumber,
+          isTransmitter: true,
+          receiver: reqObj.data.receiverNumber,
+          isUnavailable: true,
+          start: startCallTimeUnix.toString(),
+          identifier: callIdentifier
+        }
+      });
+    }
+    callLogger.debug(`Receiving Identifier: ${receiverIdentifier}`);
+    callLogger.debug(`Receiving source: ${receivingPlayer.source} `);
+    const callObj = {
+      identifier: callIdentifier,
+      transmitter: transmitterNumber,
+      transmitterSource: transmittingPlayer.source,
+      receiver: reqObj.data.receiverNumber,
+      receiverSource: receivingPlayer.source,
+      start: startCallTimeUnix.toString(),
+      is_accepted: false
+    };
+    this.setCallInMap(callObj.transmitter, callObj);
+    try {
+      await this.callsDB.saveCall(callObj);
+    } catch (e) {
+      callLogger.error(`Unable to save call object for transmitter number ${transmitterNumber}. Error: ${e.message}`);
+      resp({ status: "error", errorMsg: "DATABASE_ERROR" });
+    }
+    resp({
+      status: "ok",
+      data: {
+        is_accepted: false,
+        transmitter: transmitterNumber,
+        receiver: reqObj.data.receiverNumber,
+        isTransmitter: true,
+        start: startCallTimeUnix.toString(),
+        identifier: callIdentifier
+      }
+    });
+    emitNetTyped("npwd:startCall" /* START_CALL */, {
+      is_accepted: false,
+      transmitter: transmitterNumber,
+      receiver: reqObj.data.receiverNumber,
+      isTransmitter: false
+    }, receivingPlayer.source);
+  }
+  async handleAcceptCall(src, transmitterNumber) {
+    const targetCallItem = this.callMap.get(transmitterNumber);
+    targetCallItem.is_accepted = true;
+    const channelId = targetCallItem.transmitterSource;
+    await this.callsDB.updateCall(targetCallItem, true, null);
+    callLogger.debug(`Call with key ${transmitterNumber} was updated to be accepted`);
+    emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, {
+      ...targetCallItem,
+      is_accepted: true,
+      transmitter: transmitterNumber,
+      receiver: targetCallItem.receiver,
+      isTransmitter: false,
+      channelId
+    }, targetCallItem.receiverSource);
+    mainLogger.debug(targetCallItem);
+    emitNetTyped("npwd:callAccepted" /* WAS_ACCEPTED */, {
+      ...targetCallItem,
+      is_accepted: true,
+      transmitter: transmitterNumber,
+      receiver: targetCallItem.receiver,
+      isTransmitter: true,
+      channelId
+    }, targetCallItem.transmitterSource);
+  }
+  async handleFetchCalls(reqObj, resp) {
+    try {
+      const player = player_service_default.getPlayer(reqObj.source);
+      const srcPlayerNumber = player.getPhoneNumber();
+      const calls = await this.callsDB.fetchCalls(srcPlayerNumber);
+      resp({ status: "ok", data: calls });
+    } catch (e) {
+      resp({ status: "error", errorMsg: "DATABASE_ERROR" });
+      console.error(`Error while fetching calls, ${e.message}`);
+    }
+  }
+  async handleRejectCall(src, transmitterNumber) {
+    const currentCall = this.callMap.get(transmitterNumber);
+    const endCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
+    if (!currentCall) {
+      callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
+      return;
+    }
+    emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
+    emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
+    await this.callsDB.updateCall(currentCall, false, endCallTimeUnix);
+    this.callMap.delete(transmitterNumber);
+  }
+  async handleEndCall(reqObj, resp) {
+    const transmitterNumber = reqObj.data.transmitterNumber;
+    const endCallTimeUnix = Math.floor(new Date().getTime() / 1e3);
+    if (reqObj.data.isUnavailable) {
+      emitNet("npwd:callEnded" /* WAS_ENDED */, reqObj.source);
+      resp({ status: "ok" });
+      return;
+    }
+    const currentCall = this.callMap.get(transmitterNumber);
+    if (!currentCall) {
+      callLogger.error(`Call with transmitter number ${transmitterNumber} does not exist in current calls map!`);
+      return resp({ status: "error", errorMsg: "DOES_NOT_EXIST" });
+    }
+    if (currentCall) {
+      if (currentCall.is_accepted) {
+        emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.receiverSource, currentCall.transmitterSource, currentCall);
+        emitNet("npwd:callEnded" /* WAS_ENDED */, currentCall.transmitterSource, currentCall.transmitterSource, currentCall);
+      } else {
+        emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.receiverSource, currentCall);
+        emitNet("npwd:callRejected" /* WAS_REJECTED */, currentCall.transmitterSource, currentCall);
+      }
+    }
+    resp({ status: "ok" });
+    await this.callsDB.updateCall(currentCall, currentCall?.is_accepted, endCallTimeUnix);
+    this.callMap.delete(transmitterNumber);
+  }
+};
+var calls_service_default = new CallsService();
+
+// server/lib/GlobalRateLimiter.ts
+var GlobalRateLimiter = class {
+  rateLimits = /* @__PURE__ */ new Map();
+  timeBetweenRequests;
+  constructor(timeBetweenReq = 250) {
+    this.timeBetweenRequests = timeBetweenReq;
+  }
+  registerNewEvent(event, options) {
+    this.rateLimits.set(event, { limiters: /* @__PURE__ */ new Map(), options });
+  }
+  isPlayerRateLimited(event, source2) {
+    return !!this.rateLimits?.get(event).limiters.get(source2);
+  }
+  rateLimitPlayer(event, source2) {
+    let rateLimiter = this.rateLimits.get(event);
+    rateLimiter.limiters.set(source2, true);
+    setTimeout(() => {
+      rateLimiter.limiters.delete(source2);
+    }, rateLimiter.options?.rateLimit || this.timeBetweenRequests);
+  }
+};
+
+// server/lib/PromiseNetEvents/onNetPromise.ts
+var netEventLogger = mainLogger.child({ module: "events" });
+var globalRateLimiter = new GlobalRateLimiter(250);
+function onNetPromise(eventName, cb, options = null) {
+  globalRateLimiter.registerNewEvent(eventName, options);
+  onNet(eventName, async (respEventName, data) => {
+    const startTime = process.hrtime.bigint();
+    const src = getSource();
+    if (!respEventName) {
+      return netEventLogger.warn(`Promise event (${eventName}) was called with wrong struct by ${src} (maybe originator wasn't a promiseEvent`);
+    }
+    const promiseRequest = {
+      source: src,
+      data
+    };
+    netEventLogger.silly(`netPromise > ${eventName} > RequestObj`);
+    netEventLogger.silly(promiseRequest);
+    const promiseResp = (data2) => {
+      const endTime = process.hrtime.bigint();
+      const totalTime = Number(endTime - startTime) / 1e6;
+      emitNet(respEventName, src, data2);
+      netEventLogger.silly(`Response Promise Event ${respEventName} (${totalTime}ms), Data >>`);
+      netEventLogger.silly(data2);
+    };
+    if (globalRateLimiter.isPlayerRateLimited(eventName, src)) {
+      return promiseResp({ status: "error", errorMsg: "ERROR_RATE_LIMITED" });
+    } else {
+      globalRateLimiter.rateLimitPlayer(eventName, source);
+    }
+    Promise.resolve(cb(promiseRequest, promiseResp)).catch((e) => {
+      netEventLogger.error(`An error occured for a onNetPromise (${eventName}), Error: ${e.message}`);
+      promiseResp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
+    });
+  });
+}
+
+// server/calls/calls.controller.ts
+onNetPromise("npwd:beginCall" /* INITIALIZE_CALL */, (reqObj, resp) => {
+  calls_service_default.handleInitializeCall(reqObj, resp).catch((e) => {
+    resp({ status: "error", errorMsg: "SERVER_ERROR" });
+    callLogger.error(`Error occured handling init call: ${e.message}`);
+  });
+});
+onNetTyped("npwd:acceptCall" /* ACCEPT_CALL */, ({ transmitterNumber }) => {
+  const src = getSource();
+  calls_service_default.handleAcceptCall(src, transmitterNumber).catch((e) => callLogger.error(`Error occured in accept call event (${transmitterNumber}), Error:  ${e.message}`));
+});
+onNetTyped("npwd:rejectCall" /* REJECTED */, (data) => {
+  const src = getSource();
+  calls_service_default.handleRejectCall(src, data.transmitterNumber).catch((e) => callLogger.error(`Error occured in rejectcall event (${data.transmitterNumber}), Error:  ${e.message}`));
+});
+onNetPromise("npwd:endCall" /* END_CALL */, (reqObj, resp) => {
+  calls_service_default.handleEndCall(reqObj, resp).catch((e) => {
+    callLogger.error(`Error occured in end call event (${reqObj.data.transmitterNumber}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "SERVER_ERROR" });
+  });
+});
+onNetPromise("npwd:fetchCalls" /* FETCH_CALLS */, (reqObj, resp) => {
+  calls_service_default.handleFetchCalls(reqObj, resp).catch((e) => {
+    resp({ status: "error", errorMsg: "SERVER_ERROR" });
+    callLogger.error(`Error occured in fetch call event, Error: ${e.message}`);
+  });
+});
+
+// server/notes/notes.db.ts
+var _NotesDB = class {
+  async addNote(identifier, note) {
+    const query = "INSERT INTO npwd_notes (identifier, title, content) VALUES (?, ?, ?)";
+    const [result] = await db_wrapper_default._rawExec(query, [identifier, note.title, note.content]);
+    return result.insertId;
+  }
+  async fetchNotes(identifier) {
+    const query = "SELECT * FROM npwd_notes WHERE identifier = ? ORDER BY id DESC";
+    const [result] = await db_wrapper_default._rawExec(query, [identifier]);
+    return result;
+  }
+  async deleteNote(noteId, identifier) {
+    const query = "DELETE FROM npwd_notes WHERE id = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [noteId, identifier]);
+  }
+  async updateNote(note, identifier) {
+    const query = "UPDATE npwd_notes SET title = ?, content = ? WHERE id = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [note.title, note.content, note.id, identifier]);
+  }
+};
+var NotesDB = new _NotesDB();
+var notes_db_default = NotesDB;
+
+// server/notes/notes.utils.ts
+var notesLogger = mainLogger.child({ module: "notes" });
+
+// server/notes/notes.service.ts
+var _NotesService = class {
+  notesDB;
+  constructor() {
+    this.notesDB = notes_db_default;
+    notesLogger.debug("Notes service started");
+  }
+  async handleAddNote(reqObj, resp) {
+    notesLogger.debug("Handling add note, note:");
+    notesLogger.debug(reqObj.data);
+    const identifer = player_service_default.getIdentifier(reqObj.source);
+    try {
+      const noteId = await this.notesDB.addNote(identifer, reqObj.data);
+      resp({
+        status: "ok",
+        data: { id: noteId, content: reqObj.data.content, title: reqObj.data.title }
+      });
+    } catch (e) {
+      notesLogger.error(`Error in handleAddNote, ${e.message}`);
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleFetchNotes(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      const notes = await this.notesDB.fetchNotes(identifier);
+      resp({ status: "ok", data: notes });
+    } catch (e) {
+      notesLogger.error(`Error in handleFetchNote, ${e.message}`);
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleUpdateNote(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      await this.notesDB.updateNote(reqObj.data, identifier);
+      resp({ status: "ok" });
+    } catch (e) {
+      notesLogger.error(`Error in handleUpdateNote, ${e.message}`);
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleDeleteNote(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      await this.notesDB.deleteNote(reqObj.data.id, identifier);
+      resp({ status: "ok", data: reqObj.data });
+    } catch (e) {
+      notesLogger.error(`Error in handleDeleteNote, ${e.message}`);
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+};
+var NotesService = new _NotesService();
+var notes_service_default = NotesService;
+
+// server/notes/notes.controller.ts
+onNetPromise("npwd:addNote" /* ADD_NOTE */, (reqObj, resp) => {
+  notes_service_default.handleAddNote(reqObj, resp).catch((e) => {
+    notesLogger.error(`Error occured in add note event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
+  });
+});
+onNetPromise("npwd:fetchAllNotes" /* FETCH_ALL_NOTES */, (reqObj, resp) => {
+  notes_service_default.handleFetchNotes(reqObj, resp).catch((e) => {
+    notesLogger.error(`Error occurred in fetch note event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
+  });
+});
+onNetPromise("npwd:deleteNote" /* DELETE_NOTE */, async (reqObj, resp) => {
+  notes_service_default.handleDeleteNote(reqObj, resp).catch((e) => {
+    notesLogger.error(`Error occured in delete note event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
+  });
+});
+onNetPromise("npwd:updateNote" /* UPDATE_NOTE */, async (reqObj, resp) => {
+  notes_service_default.handleUpdateNote(reqObj, resp).catch((e) => {
+    notesLogger.error(`Error occured in fetch note event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "UNKNOWN_ERROR" });
+  });
+});
+
+// server/contacts/contacts.utils.ts
+var contactsLogger = mainLogger.child({ module: "contact" });
+
+// server/contacts/contacts.db.ts
+var _ContactsDB = class {
+  async fetchAllContacts(identifier) {
+    const query = "SELECT * FROM npwd_phone_contacts WHERE identifier = ? ORDER BY display ASC";
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    return results;
+  }
+  async addContact(identifier, { display, avatar, number }) {
+    const query = "INSERT INTO npwd_phone_contacts (identifier, number, display, avatar) VALUES (?, ?, ?, ?)";
+    const [setResult] = await db_wrapper_default._rawExec(query, [identifier, number, display, avatar]);
+    return {
+      id: setResult.insertId,
+      number,
+      avatar,
+      display
+    };
+  }
+  async updateContact(contact, identifier) {
+    const query = "UPDATE npwd_phone_contacts SET number = ?, display = ?, avatar = ? WHERE id = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [
+      contact.number,
+      contact.display,
+      contact.avatar,
+      contact.id,
+      identifier
+    ]);
+  }
+  async deleteContact(contactId, identifier) {
+    const query = "DELETE FROM npwd_phone_contacts WHERE id = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [contactId, identifier]);
+  }
+};
+var ContactsDB = new _ContactsDB();
+var contacts_db_default = ContactsDB;
+
+// server/contacts/contacts.service.ts
+var _ContactService = class {
+  contactsDB;
+  constructor() {
+    this.contactsDB = contacts_db_default;
+    contactsLogger.debug("Contacts service started");
+  }
+  async handleUpdateContact(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      const imageUrl = checkAndFilterImage(reqObj.data.avatar);
+      if (imageUrl == null) {
+        return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
+      }
+      reqObj.data.avatar = imageUrl;
+      await this.contactsDB.updateContact(reqObj.data, identifier);
+      resp({ status: "ok" });
+    } catch (e) {
+      contactsLogger.error(`Error in handleUpdateContact (${identifier}), ${e.message}`);
+      resp({ status: "error", errorMsg: "CONTACT.FEEDBACK.UPDATE_FAILED" /* UPDATE_FAILED */ });
+    }
+  }
+  async handleDeleteContact(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      await this.contactsDB.deleteContact(reqObj.data.id, identifier);
+      resp({ status: "ok" });
+    } catch (e) {
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+      contactsLogger.error(`Error in handleDeleteContact (${identifier}), ${e.message}`);
+    }
+  }
+  async handleAddContact(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      const imageUrl = checkAndFilterImage(reqObj.data.avatar);
+      if (imageUrl == null) {
+        return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
+      }
+      reqObj.data.avatar = imageUrl;
+      const contact = await this.contactsDB.addContact(identifier, reqObj.data);
+      resp({ status: "ok", data: contact });
+    } catch (e) {
+      contactsLogger.error(`Error in handleAddContact, ${e.message}`);
+      resp({ status: "error", errorMsg: "CONTACT.FEEDBACK.ADD_FAILED" /* ADD_FAILED */ });
+    }
+  }
+  async handleFetchContacts(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      const contacts = await this.contactsDB.fetchAllContacts(identifier);
+      resp({ status: "ok", data: contacts });
+    } catch (e) {
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+      contactsLogger.error(`Error in handleFetchContact (${identifier}), ${e.message}`);
+    }
+  }
+};
+var ContactService = new _ContactService();
+var contacts_service_default = ContactService;
+
+// server/contacts/contacts.controller.ts
+onNetPromise("npwd:getContacts" /* GET_CONTACTS */, (reqObj, resp) => {
+  contacts_service_default.handleFetchContacts(reqObj, resp).catch((e) => {
+    contactsLogger.error(`Error occured in fetch contacts event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:addContacts" /* ADD_CONTACT */, (reqObj, resp) => {
+  contacts_service_default.handleAddContact(reqObj, resp).catch((e) => {
+    contactsLogger.error(`Error occured in fetch contacts event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:updateContact" /* UPDATE_CONTACT */, (reqObj, resp) => {
+  contacts_service_default.handleUpdateContact(reqObj, resp).catch((e) => {
+    contactsLogger.error(`Error occured in update contact event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:deleteContact" /* DELETE_CONTACT */, (reqObj, resp) => {
+  contacts_service_default.handleDeleteContact(reqObj, resp).catch((e) => {
+    contactsLogger.error(`Error occured in delete contact event (${reqObj.source}), Error:  ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+
+// server/photo/photo.db.ts
+var _PhotoDB = class {
+  async uploadPhoto(identifier, image) {
+    const query = "INSERT INTO npwd_phone_gallery (identifier, image) VALUES (?, ?)";
+    const [results] = await db_wrapper_default._rawExec(query, [identifier, image]);
+    return { id: results.insertId, image };
+  }
+  async getPhotosByIdentifier(identifier) {
+    const query = "SELECT id, image FROM npwd_phone_gallery WHERE identifier = ? ORDER BY id DESC";
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    return results;
+  }
+  async deletePhoto(photo, identifier) {
+    const query = "DELETE FROM npwd_phone_gallery WHERE image = ? AND identifier = ?";
+    await db_wrapper_default._rawExec(query, [photo.image, identifier]);
+  }
+};
+var PhotoDB = new _PhotoDB();
+var photo_db_default = PhotoDB;
+
+// server/photo/photo.utils.ts
+var photoLogger = mainLogger.child({ module: "photo" });
+
+// server/photo/photo.service.ts
+var _PhotoService = class {
+  photoDB;
+  constructor() {
+    this.photoDB = photo_db_default;
+    photoLogger.debug("Photo service started");
+  }
+  async handleUploadPhoto(reqObj, resp) {
+    try {
+      if (!reqObj.data)
+        return resp({ status: "error", errorMsg: "CAMERA.FAILED_TO_TAKE_PHOTO" /* GENERIC */ });
+      const imageUrl = checkAndFilterImage(reqObj.data);
+      if (imageUrl == null) {
+        return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" /* INVALID_IMAGE_HOST */ });
+      }
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const photo = await this.photoDB.uploadPhoto(identifier, imageUrl);
+      resp({ status: "ok", data: photo });
+    } catch (e) {
+      photoLogger.error(`Failed to upload photo, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleFetchPhotos(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const photos = await this.photoDB.getPhotosByIdentifier(identifier);
+      resp({ status: "ok", data: photos });
+    } catch (e) {
+      photoLogger.error(`Failed to fetch photos, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+  async handleDeletePhoto(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      await this.photoDB.deletePhoto(reqObj.data, identifier);
+      resp({ status: "ok" });
+    } catch (e) {
+      photoLogger.error(`Failed to delete photo, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "GENERIC_DB_ERROR" });
+    }
+  }
+};
+var PhotoService = new _PhotoService();
+var photo_service_default = PhotoService;
+
+// server/photo/photo.controller.ts
+onNetPromise("npwd:UploadPhoto" /* UPLOAD_PHOTO */, (reqObj, resp) => {
+  photo_service_default.handleUploadPhoto(reqObj, resp).catch((e) => {
+    photoLogger.error(`Error occurred in upload photo event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:FetchPhotos" /* FETCH_PHOTOS */, (reqObj, resp) => {
+  photo_service_default.handleFetchPhotos(reqObj, resp).catch((e) => {
+    photoLogger.error(`Error occurred in upload photo event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:deletePhoto" /* DELETE_PHOTO */, (reqObj, resp) => {
+  photo_service_default.handleDeletePhoto(reqObj, resp).catch((e) => {
+    photoLogger.error(`Error occurred in delete photo event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+
+// server/messages/messages.utils.ts
+var messagesLogger = mainLogger.child({ module: "messages" });
+function createGroupHashID(participants) {
+  participants.sort();
+  return participants.join("+");
+}
+function getIdentifiersFromParticipants(conversationId) {
+  return conversationId.split("+");
+}
+
+// server/messages/messages.db.ts
+var MESSAGES_PER_PAGE = 20;
+var _MessagesDB = class {
+  async getConversations(phoneNumber) {
+    const query = `SELECT npwd_messages_conversations.id,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_participants.unread_count               as unreadCount,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
+                          npwd_messages_conversations.label,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt,
+                          npwd_messages_participants.participant
+                   FROM npwd_messages_conversations
+                            INNER JOIN npwd_messages_participants
+                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
+                   WHERE npwd_messages_participants.participant = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [phoneNumber]);
+    return results;
+  }
+  async getConversation(conversationId) {
+    const query = `SELECT npwd_messages_conversations.id,
+                          npwd_messages_conversations.conversation_list         as conversationList,
+                          npwd_messages_conversations.is_group_chat             as isGroupChat,
+                          npwd_messages_conversations.label,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.createdAt) as createdAt,
+                          UNIX_TIMESTAMP(npwd_messages_conversations.updatedAt) as updatedAt
+                   FROM npwd_messages_conversations
+                   WHERE id = ?
+                   LIMIT 1`;
+    const [results] = await db_wrapper_default._rawExec(query, [conversationId]);
+    const result = results;
+    return result[0];
+  }
+  async getMessages(dto) {
+    const offset = MESSAGES_PER_PAGE * dto.page;
+    const query = `SELECT * FROM (SELECT
+          id,
+          conversation_id,
+          author,
+          message,
+          is_embed,
+          embed,
+		  (UNIX_TIMESTAMP(createdAt) * 1000) as createdAt
+        FROM npwd_messages
+        WHERE conversation_id = ?
+        ORDER BY id DESC
+        LIMIT ?
+        OFFSET ?
+      ) as nm
+    ORDER BY id`;
+    const [results] = await db_wrapper_default._rawExec(query, [
+      dto.conversationId,
+      MESSAGES_PER_PAGE.toString(),
+      offset.toString()
+    ]);
+    return results;
+  }
+  async createConversation(participants, conversationList, conversationLabel, isGroupChat) {
+    const conversationQuery = `INSERT INTO npwd_messages_conversations (conversation_list, label, is_group_chat)
+                               VALUES (?, ?, ?)`;
+    const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
+                              VALUES (?, ?)`;
+    const [results] = await db_wrapper_default._rawExec(conversationQuery, [
+      conversationList,
+      isGroupChat ? conversationLabel : "",
+      isGroupChat
+    ]);
+    const result = results;
+    const conversationId = result.insertId;
+    for (const participant of participants) {
+      await db_wrapper_default._rawExec(participantQuery, [conversationId, participant]);
+    }
+    return conversationId;
+  }
+  async addParticipantToConversation(conversationList, phoneNumber) {
+    const conversationId = await this.getConversationId(conversationList);
+    const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
+                              VALUES (?, ?)`;
+    await db_wrapper_default._rawExec(participantQuery, [conversationId, phoneNumber]);
+    return conversationId;
+  }
+  async createMessage(dto) {
+    const query = `INSERT INTO npwd_messages (message, user_identifier, conversation_id, author, is_embed, embed)
+                   VALUES (?, ?, ?, ?, ?, ?)`;
+    const [results] = await db_wrapper_default._rawExec(query, [
+      dto.message || "",
+      dto.userIdentifier,
+      dto.conversationId,
+      dto.authorPhoneNumber,
+      dto.is_embed || false,
+      dto.embed || ""
+    ]);
+    const result = results;
+    const updateConversation = `UPDATE npwd_messages_conversations
+                                SET updatedAt = current_timestamp()
+                                WHERE id = ?`;
+    setImmediate(async () => {
+      await db_wrapper_default._rawExec(updateConversation, [dto.conversationId]).catch((err) => messagesLogger.error(`Error occurred in message update Error: ${err.message}`));
+    });
+    return result.insertId;
+  }
+  async setMessageUnread(conversationId, tgtPhoneNumber) {
+    const query = `UPDATE npwd_messages_participants
+                   SET unread_count = unread_count + 1
+                   WHERE conversation_id = ?
+                     AND participant = ?`;
+    await db_wrapper_default._rawExec(query, [conversationId, tgtPhoneNumber]);
+  }
+  async setMessageRead(conversationId, participantNumber) {
+    const query = `UPDATE npwd_messages_participants
+                   SET unread_count = 0
+                   WHERE conversation_id = ?
+                     AND participant = ?`;
+    await db_wrapper_default._rawExec(query, [conversationId, participantNumber]);
+  }
+  async deleteMessage(message) {
+    const query = `DELETE
+                   FROM npwd_messages
+                   WHERE id = ?`;
+    await db_wrapper_default._rawExec(query, [message.id]);
+  }
+  async deleteConversation(conversationId, phoneNumber) {
+    const query = `DELETE
+                   FROM npwd_messages_participants
+                   WHERE conversation_id = ?
+                     AND participant = ?`;
+    await db_wrapper_default._rawExec(query, [conversationId, phoneNumber]);
+  }
+  async doesConversationExist(conversationList) {
+    const query = `SELECT COUNT(*) as count
+                   FROM npwd_messages_conversations
+                            INNER JOIN npwd_messages_participants
+                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
+                   WHERE conversation_list = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [conversationList]);
+    const result = results;
+    const count = result[0].count;
+    return count > 0;
+  }
+  async doesConversationExistForPlayer(conversationList, phoneNumber) {
+    const query = `SELECT COUNT(*) as count
+                   FROM npwd_messages_conversations
+                            INNER JOIN npwd_messages_participants
+                                       on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
+                   WHERE conversation_list = ?
+                     AND npwd_messages_participants.participant = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [conversationList, phoneNumber]);
+    const result = results;
+    const count = result[0].count;
+    return count > 0;
+  }
+  async getConversationId(conversationList) {
+    const query = `SELECT id
+                   FROM npwd_messages_conversations
+                   WHERE conversation_list = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [conversationList]);
+    const result = results;
+    return result[0].id;
+  }
+  async getDisplayName(number, player) {
+    const query = `SELECT display 
+                  FROM npwd_phone_contacts
+                  WHERE number = ? AND identifier = ?`;
+    const [results] = await db_wrapper_default._rawExec(query, [number, player.ssn]);
+    const result = results;
+    if (result[0]) {
+      return result[0].display;
+    } else {
+      return player.getPhoneNumber();
+    }
+  }
+};
+var MessagesDB = new _MessagesDB();
+var messages_db_default = MessagesDB;
+
+// server/messages/messages.service.ts
+var _MessagesService = class {
+  messagesDB;
+  constructor() {
+    this.messagesDB = messages_db_default;
+    messagesLogger.debug("Messages service started");
+  }
+  async handleFetchMessageConversations(reqObj, resp) {
+    const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+    try {
+      const conversations = await messages_db_default.getConversations(phoneNumber);
+      resp({ status: "ok", data: conversations });
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleCreateMessageConversation(reqObj, resp) {
+    const playerPhoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+    const conversation = reqObj.data;
+    const participants = conversation.participants;
+    const conversationList = createGroupHashID(participants);
+    const doesExist = await this.messagesDB.doesConversationExist(conversationList);
+    if (doesExist) {
+      const playerHasConversation = await this.messagesDB.doesConversationExistForPlayer(conversationList, playerPhoneNumber);
+      if (playerHasConversation) {
+        return resp({
+          status: "error",
+          errorMsg: "MESSAGES.FEEDBACK.MESSAGE_CONVERSATION_DUPLICATE"
+        });
+      } else {
+        const conversationId = await this.messagesDB.addParticipantToConversation(conversationList, playerPhoneNumber);
+        const respData = {
+          id: conversationId,
+          label: conversation.conversationLabel,
+          conversationList,
+          isGroupChat: conversation.isGroupChat
+        };
+        return resp({ status: "ok", data: { ...respData, participant: playerPhoneNumber } });
+      }
+    }
+    try {
+      const conversationId = await messages_db_default.createConversation(participants, conversationList, conversation.conversationLabel, conversation.isGroupChat);
+      const respData = {
+        id: conversationId,
+        label: conversation.conversationLabel,
+        conversationList,
+        isGroupChat: conversation.isGroupChat
+      };
+      resp({ status: "ok", data: { ...respData, participant: playerPhoneNumber } });
+      for (const participant of participants) {
+        if (participant !== playerPhoneNumber) {
+          const participantIdentifier = await player_service_default.getIdentifierByPhoneNumber(participant);
+          const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
+          if (participantPlayer) {
+            emitNetTyped("npwd:createMessageConversationSuccess" /* CREATE_MESSAGE_CONVERSATION_SUCCESS */, {
+              ...respData,
+              participant: participantPlayer.getPhoneNumber()
+            }, participantPlayer.source);
+          }
+        }
+      }
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleFetchMessages(reqObj, resp) {
+    try {
+      const messages = await messages_db_default.getMessages(reqObj.data);
+      const sortedMessages = messages.sort((a, b) => a.id - b.id);
+      resp({ status: "ok", data: sortedMessages });
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleSendMessage(reqObj, resp) {
+    try {
+      const player = player_service_default.getPlayer(reqObj.source);
+      const authorPhoneNumber = player.getPhoneNumber();
+      const messageData = reqObj.data;
+      const participants = getIdentifiersFromParticipants(messageData.conversationList);
+      const userIdentifier = player.getIdentifier();
+      const conversationDetails = await this.messagesDB.getConversation(messageData.conversationId);
+      const messageId = await this.messagesDB.createMessage({
+        userIdentifier,
+        authorPhoneNumber,
+        conversationId: messageData.conversationId,
+        message: messageData.message,
+        is_embed: messageData.is_embed,
+        embed: messageData.embed
+      });
+      resp({
+        status: "ok",
+        data: {
+          ...messageData,
+          conversation_id: messageData.conversationId,
+          author: authorPhoneNumber,
+          id: messageId,
+          message: messageData.message,
+          embed: messageData.embed,
+          is_embed: messageData.is_embed
+        }
+      });
+      const conversationData = {
+        id: messageData.conversationId,
+        label: conversationDetails.label,
+        conversationList: conversationDetails.conversationList,
+        isGroupChat: conversationDetails.isGroupChat
+      };
+      for (const participantId of participants) {
+        if (participantId !== authorPhoneNumber) {
+          try {
+            const playerHasConversation = await this.messagesDB.doesConversationExistForPlayer(messageData.conversationList, participantId);
+            if (!playerHasConversation) {
+              const conversationId = await this.messagesDB.addParticipantToConversation(conversationDetails.conversationList, participantId);
+            }
+            const participantIdentifier = await player_service_default.getIdentifierByPhoneNumber(participantId, true);
+            const participantNumber = await player_service_default.getPhoneNumberFromIdentifier(participantIdentifier);
+            const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
+            await this.messagesDB.setMessageUnread(messageData.conversationId, participantNumber);
+            if (participantPlayer) {
+              if (!playerHasConversation) {
+                emitNetTyped("npwd:createMessageConversationSuccess" /* CREATE_MESSAGE_CONVERSATION_SUCCESS */, {
+                  ...conversationData,
+                  participant: authorPhoneNumber
+                }, participantPlayer.source);
+              }
+              emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, participantPlayer.source, {
+                ...messageData,
+                conversation_id: messageData.conversationId,
+                author: authorPhoneNumber
+              });
+              const displayName = await this.messagesDB.getDisplayName(authorPhoneNumber, participantPlayer);
+              emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, participantPlayer.source, {
+                conversationName: displayName,
+                conversation_id: messageData.conversationId,
+                message: messageData.message,
+                is_embed: messageData.is_embed,
+                embed: messageData.embed
+              });
+            }
+          } catch (err) {
+            messagesLogger.error(`Failed to broadcast message, Error: ${err.message}`);
+          }
+        }
+      }
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleSendMessageDark(reqObj, resp) {
+    try {
+      const authorPhoneNumber = "666-000-6969";
+      const conversationList = createGroupHashID([authorPhoneNumber, reqObj.phoneNumber]);
+      let conversationId;
+      const doesExist = await this.messagesDB.doesConversationExist(conversationList);
+      if (!doesExist) {
+        conversationId = await messages_db_default.createConversation([authorPhoneNumber, reqObj.phoneNumber], conversationList, "UNKNOWN NUMBER", false);
+      } else {
+        conversationId = await messages_db_default.getConversationId(conversationList);
+      }
+      const messageId = await this.messagesDB.createMessage({
+        userIdentifier: "b00st3D",
+        authorPhoneNumber,
+        conversationId,
+        message: reqObj.message,
+        is_embed: false,
+        embed: false
+      });
+      const messageData = {
+        id: messageId,
+        message: reqObj.message,
+        conversationList,
+        conversation_id: conversationId,
+        author: authorPhoneNumber
+      };
+      emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, reqObj.source, {
+        ...messageData,
+        conversation_id: conversationId,
+        author: reqObj.phoneNumber
+      });
+      emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, reqObj.source, {
+        conversationName: "H4XZ",
+        conversation_id: conversationId,
+        message: messageData.message
+      });
+      await this.messagesDB.setMessageUnread(conversationId, reqObj.phoneNumber);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async handleSetMessageRead(reqObj, resp) {
+    const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+    try {
+      await this.messagesDB.setMessageRead(reqObj.data, phoneNumber);
+      resp({ status: "ok" });
+    } catch (err) {
+      messagesLogger.error(`Failed to read message. Error: ${err.message}`);
+      resp({ status: "error" });
+    }
+  }
+  async handleDeleteMessage(reqObj, resp) {
+    try {
+      await this.messagesDB.deleteMessage(reqObj.data);
+      resp({ status: "ok" });
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleDeleteConversation(reqObj, resp) {
+    const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+    const conversationsId = reqObj.data.conversationsId;
+    try {
+      for (const id of conversationsId) {
+        await this.messagesDB.deleteConversation(id, phoneNumber);
+      }
+      resp({ status: "ok" });
+    } catch (err) {
+      resp({ status: "error", errorMsg: err.message });
+    }
+  }
+  async handleEmitMessage(dto) {
+    const { senderNumber, targetNumber, message } = dto;
+    try {
+      const senderPlayer = await player_service_default.getIdentifierByPhoneNumber(senderNumber, true);
+      const participantIdentifier = await player_service_default.getIdentifierByPhoneNumber(targetNumber);
+      const participantPlayer = player_service_default.getPlayerFromIdentifier(participantIdentifier);
+      const conversationList = createGroupHashID([senderNumber, targetNumber]);
+      const conversationId = await this.messagesDB.getConversationId(conversationList);
+      const messageId = await this.messagesDB.createMessage({
+        message,
+        embed: "",
+        is_embed: false,
+        conversationId,
+        userIdentifier: senderPlayer || senderNumber,
+        authorPhoneNumber: senderNumber
+      });
+      const messageData = {
+        id: messageId,
+        message,
+        conversationList,
+        conversation_id: conversationId,
+        author: senderNumber
+      };
+      if (participantPlayer) {
+        emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, participantPlayer.source, {
+          ...messageData,
+          conversation_id: conversationId,
+          author: senderNumber
+        });
+        emitNet("npwd:createMessagesBroadcast" /* CREATE_MESSAGE_BROADCAST */, participantPlayer.source, {
+          conversationName: senderNumber,
+          conversation_id: conversationId,
+          message: messageData.message
+        });
+      }
+      await this.messagesDB.setMessageUnread(conversationId, targetNumber);
+    } catch (err) {
+      console.log(`Failed to emit message. Error: ${err.message}`);
+    }
+  }
+  async handleGetLocation(reqObj, resp) {
+    const phoneNumber = player_service_default.getPlayer(reqObj.source).getPhoneNumber();
+    const playerPed = GetPlayerPed(reqObj.source.toString());
+    resp({
+      status: "ok",
+      data: {
+        phoneNumber,
+        coords: GetEntityCoords(playerPed)
+      }
+    });
+  }
+};
+var MessagesService = new _MessagesService();
+var messages_service_default = MessagesService;
+
+// server/messages/middleware/onMessage.ts
+var exp = global.exports;
+var OnMessageExportMap = /* @__PURE__ */ new Map();
+exp("onMessage", (phoneNumber, cb) => {
+  OnMessageExportMap.set(phoneNumber, cb);
+});
+
+// server/messages/messages.controller.ts
+onNetPromise("npwd:fetchMessageGroups" /* FETCH_MESSAGE_CONVERSATIONS */, async (reqObj, resp) => {
+  messages_service_default.handleFetchMessageConversations(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred in fetch message conversations (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:createMessageGroup" /* CREATE_MESSAGE_CONVERSATION */, async (reqObj, resp) => {
+  messages_service_default.handleCreateMessageConversation(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred on creating messsage converations (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:fetchMessages" /* FETCH_MESSAGES */, async (reqObj, resp) => {
+  messages_service_default.handleFetchMessages(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred in fetch messages (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:sendMessage" /* SEND_MESSAGE */, async (reqObj, resp) => {
+  messages_service_default.handleSendMessage(reqObj, resp).then(async () => {
+    const funcRef = OnMessageExportMap.get(reqObj.data.tgtPhoneNumber);
+    if (funcRef) {
+      try {
+        await funcRef({ data: reqObj.data, source: reqObj.source });
+      } catch (e) {
+        messagesLogger.error(`Failed to find a callback reference for onMessage. Probably because the resource(s) using the export was stopped or restarted. Please restart said resource(s). Error: ${e.message}`);
+      }
+    }
+  }).catch((e) => {
+    messagesLogger.error(`Error occurred while sending message (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+on("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, async (reqObj, resp) => {
+  await messages_service_default.handleSendMessageDark(reqObj, resp);
+});
+onNetPromise("nwpd:deleteConversation" /* DELETE_CONVERSATION */, async (reqObj, resp) => {
+  messages_service_default.handleDeleteConversation(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred while deleting conversation (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:deleteMessage" /* DELETE_MESSAGE */, async (reqObj, resp) => {
+  messages_service_default.handleDeleteMessage(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred while deleting message (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:setReadMessages" /* SET_MESSAGE_READ */, async (reqObj, resp) => {
+  const src = getSource();
+  messages_service_default.handleSetMessageRead(reqObj, resp).catch((e) => messagesLogger.error(`Error occurred in set message read event (${src}), Error: ${e.message}`));
+});
+onNetPromise("npwd:getMessageLocation" /* GET_MESSAGE_LOCATION */, async (reqObj, resp) => {
+  const src = getSource();
+  messages_service_default.handleGetLocation(reqObj, resp).catch((e) => {
+    messagesLogger.error(`Error occurred in get location event (${src}), Error: ${e.message}`);
+  });
+});
+
+// server/marketplace/marketplace.controller.ts
+onNetPromise("npwd:fetchAllListings" /* FETCH_LISTING */, async (reqObj, resp) => {
+  marketplace_service_default.handleFetchListings(reqObj, resp).catch((e) => {
+    marketplaceLogger.error(`Error occurred in fetch listing event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:addListing" /* ADD_LISTING */, async (reqObj, resp) => {
+  marketplace_service_default.handleAddListing(reqObj, resp).catch((e) => {
+    marketplaceLogger.error(`Error occurred in add listing event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:marketplaceDeleteListing" /* DELETE_LISTING */, async (reqObj, resp) => {
+  marketplace_service_default.handleDeleteListing(reqObj, resp).catch((e) => {
+    marketplaceLogger.error(`Error occurred in delete listing event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+onNetPromise("npwd:reportListing" /* REPORT_LISTING */, async (reqObj, resp) => {
+  marketplace_service_default.handleReportListing(reqObj, resp).catch((e) => {
+    marketplaceLogger.error(`Error occurred in report listing event (${reqObj.source}), Error: ${e.message}`);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  });
+});
+on("npwd:marketplaceDeleteListingsOnDrop" /* DELETE_LISTINGS_ON_DROP */, (identifier) => {
+  marketplace_service_default.handleDeleteListingsOnDrop(identifier).catch((e) => {
+    marketplaceLogger.error(`Error occurred when deleting listing on player drop event, Error: ${e.message}`);
+  });
+});
+
+// server/twitter/twitter.utils.ts
+var twitterLogger = mainLogger.child({ module: "twitter" });
+
+// server/utils/generateProfileName.ts
+async function generateProfileName(identifier, delimiter = "_") {
+  const player = player_service_default.getPlayerFromIdentifier(identifier);
+  const firstname = clean(player.getFirstName());
+  const lastname = clean(player.getLastName());
+  const phone_number = clean(player.getPhoneNumber());
+  if (firstname && lastname) {
+    return `${firstname}${delimiter}${lastname}`;
+  } else if (firstname) {
+    return firstname;
+  } else if (lastname) {
+    return lastname;
+  } else if (phone_number) {
+    return phone_number;
+  }
+  return null;
+}
+
+// server/twitter/twitter.db.ts
+var SELECT_FIELDS = `
+  npwd_twitter_tweets.id,
+  npwd_twitter_tweets.identifier,
+  npwd_twitter_profiles.id AS profile_id,
+  npwd_twitter_profiles.profile_name,
+  npwd_twitter_profiles.avatar_url,
+  npwd_twitter_tweets.likes,
+  npwd_twitter_tweets.visible,
+  IFNULL(COALESCE(retweets.message, npwd_twitter_tweets.message), '') AS message,
+  IFNULL(COALESCE(retweets.images, npwd_twitter_tweets.images), '') AS images,
+  npwd_twitter_tweets.retweet IS NOT NULL AS isRetweet,
+  retweets.id AS retweetId,
+  retweets_profiles.profile_name AS retweetProfileName,
+  retweets_profiles.avatar_url AS retweetAvatarUrl,
+  npwd_twitter_likes.id IS NOT NULL AS isLiked,
+  npwd_twitter_reports.id IS NOT NULL AS isReported,
+  npwd_twitter_tweets.createdAt,
+  npwd_twitter_tweets.updatedAt,
+  TIME_TO_SEC(TIMEDIFF( NOW(), npwd_twitter_tweets.createdAt)) AS seconds_since_tweet
+`;
+var TWEETS_PER_PAGE = 25;
+var formatTweets = (profileId) => (tweet) => ({
+  ...tweet,
+  isMine: tweet.profile_id === profileId,
+  isRetweet: tweet.isRetweet === 1
+});
+var _TwitterDB = class {
+  async fetchAllTweets(profileId, currPage) {
+    currPage = typeof currPage === "number" ? currPage : 1;
+    const offset = currPage * TWEETS_PER_PAGE;
+    const query = `
+        SELECT ${SELECT_FIELDS}
+        FROM npwd_twitter_tweets
+                 LEFT OUTER JOIN npwd_twitter_profiles
+                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
+                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
+                                                       npwd_twitter_likes.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
+                                                         npwd_twitter_reports.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
+                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
+                                 ON retweets.identifier = retweets_profiles.identifier
+        WHERE npwd_twitter_tweets.visible = 1
+        ORDER BY id DESC
+        LIMIT ? OFFSET ?
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [
+      profileId,
+      profileId,
+      TWEETS_PER_PAGE.toString(),
+      offset.toString()
+    ]);
+    const tweets = results;
+    return tweets.map(formatTweets(profileId));
+  }
+  async fetchTweetsFiltered(profileId, searchValue) {
+    const parameterizedSearchValue = `%${searchValue}%`;
+    const query = `
+        SELECT ${SELECT_FIELDS}
+        FROM npwd_twitter_tweets
+                 LEFT OUTER JOIN npwd_twitter_profiles
+                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
+                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
+                                                       npwd_twitter_likes.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
+                                                         npwd_twitter_reports.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
+                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
+                                 ON retweets.identifier = retweets_profiles.identifier
+        WHERE npwd_twitter_tweets.visible = 1
+          AND (npwd_twitter_profiles.profile_name LIKE ? OR npwd_twitter_tweets.message LIKE ?)
+        ORDER BY npwd_twitter_tweets.id DESC
+        LIMIT 25
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [
+      profileId,
+      profileId,
+      parameterizedSearchValue,
+      parameterizedSearchValue
+    ]);
+    const tweets = results;
+    return tweets.map(formatTweets(profileId));
+  }
+  async getTweet(profileId, tweetId) {
+    const query = `
+        SELECT ${SELECT_FIELDS}
+        FROM npwd_twitter_tweets
+                 LEFT OUTER JOIN npwd_twitter_likes ON npwd_twitter_tweets.id = npwd_twitter_likes.tweet_id AND
+                                                       npwd_twitter_likes.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_reports ON npwd_twitter_tweets.id = npwd_twitter_reports.tweet_id AND
+                                                         npwd_twitter_reports.profile_id = ?
+                 LEFT OUTER JOIN npwd_twitter_tweets AS retweets ON retweets.id = npwd_twitter_tweets.retweet
+                 LEFT OUTER JOIN npwd_twitter_profiles AS retweets_profiles
+                                 ON retweets.identifier = retweets_profiles.identifier
+                 LEFT OUTER JOIN npwd_twitter_profiles
+                                 ON npwd_twitter_tweets.identifier = npwd_twitter_profiles.identifier
+        WHERE npwd_twitter_tweets.id = ?
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [profileId, profileId, tweetId]);
+    const tweets = results;
+    return tweets.map(formatTweets(profileId))[0];
+  }
+  async createTweet(identifier, tweet) {
+    const profile = await this.getProfile(identifier);
+    const query = `
+        INSERT INTO npwd_twitter_tweets (identifier, message, images, retweet, profile_id)
+        VALUES (?, ?, ?, ?, ?)
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [
+      identifier,
+      tweet.message,
+      tweet.images,
+      tweet.retweet,
+      profile.id
+    ]);
+    const insertData = results;
+    return await this.getTweet(profile.id, insertData.insertId);
+  }
+  async createTweetReport(tweetId, profileId) {
+    const query = `
+        INSERT INTO npwd_twitter_reports (tweet_id, profile_id)
+        VALUES (?, ?)
+		`;
+    await pool.execute(query, [tweetId, profileId]);
+  }
+  async getProfile(identifier) {
+    const query = `
+        SELECT *
+        FROM npwd_twitter_profiles
+        WHERE identifier = ?
+        LIMIT 1
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [identifier]);
+    const profiles = results;
+    return profiles.length > 0 ? profiles[0] : null;
+  }
+  async createProfile(identifier, profileName) {
+    const query = `
+        INSERT INTO npwd_twitter_profiles (identifier, profile_name)
+        VALUES (?, ?)
+		`;
+    await pool.execute(query, [identifier, profileName]);
+    return await this.getProfile(identifier);
+  }
+  async createDefaultProfile(identifier) {
+    if (!config.twitter.generateProfileNameFromUsers)
+      return null;
+    const defaultProfileName = await generateProfileName(identifier);
+    if (!defaultProfileName)
+      return null;
+    twitterLogger.info(`Creating default Twitter profile ${defaultProfileName} for ${identifier}`);
+    return await this.createProfile(identifier, defaultProfileName);
+  }
+  async getOrCreateProfile(identifier) {
+    const profile = await this.getProfile(identifier);
+    return profile || await this.createDefaultProfile(identifier);
+  }
+  async updateProfile(identifier, profile) {
+    const { avatar_url, profile_name } = profile;
+    const query = `
+        UPDATE npwd_twitter_profiles
+        SET avatar_url   = ?,
+            profile_name = ?
+        WHERE identifier = ?
+		`;
+    await pool.execute(query, [avatar_url, profile_name, identifier]);
+    return profile;
+  }
+  async createLike(profileId, tweetId) {
+    const query = `
+        INSERT INTO npwd_twitter_likes (profile_id, tweet_id)
+        VALUES (?, ?)
+		`;
+    await pool.execute(query, [profileId, tweetId]);
+  }
+  async deleteLike(profileId, tweetId) {
+    const query = `
+        DELETE
+        FROM npwd_twitter_likes
+        WHERE profile_id = ?
+          AND tweet_id = ?
+		`;
+    await pool.execute(query, [profileId, tweetId]);
+  }
+  async deleteTweet(identifier, tweetId) {
+    if (!config.twitter.allowDeleteTweets)
+      return;
+    const query = `
+        DELETE
+        FROM npwd_twitter_tweets
+        WHERE identifier = ?
+          AND id = ?
+		`;
+    await pool.execute(query, [identifier, tweetId]);
+  }
+  async doesLikeExist(profileId, tweetId) {
+    const query = `
+        SELECT *
+        FROM npwd_twitter_likes
+        WHERE profile_id = ?
+          AND tweet_id = ?
+        LIMIT 1
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [profileId, tweetId]);
+    const likes = results;
+    return likes.length > 0;
+  }
+  async doesReportExist(tweetId, profileId) {
+    const query = `
+        SELECT *
+        FROM npwd_twitter_reports
+        WHERE tweet_id = ?
+          AND profile_id = ?
+        LIMIT 1
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [tweetId, profileId]);
+    const reports = results;
+    return reports.length > 0;
+  }
+  async doesRetweetExist(tweetId, identifier) {
+    const query = `
+        SELECT COUNT(id) as count
+        FROM npwd_twitter_tweets
+        WHERE (id = ? OR retweet = ?)
+          AND identifier = ?
+		`;
+    const [results] = await db_wrapper_default._rawExec(query, [tweetId, tweetId, identifier]);
+    const counts = results;
+    return counts[0].count > 0;
+  }
+};
+var TwitterDB = new _TwitterDB();
+var twitter_db_default = TwitterDB;
+
+// server/twitter/twitter.service.ts
+var _TwitterService = class {
+  twitterDB;
+  constructor() {
+    this.twitterDB = twitter_db_default;
+    twitterLogger.debug("Twitter service started");
+  }
+  async handleGetOrCreateProfile(reqObj, resp) {
+    const identifier = player_service_default.getIdentifier(reqObj.source);
+    try {
+      if (!identifier)
+        return;
+      const profile = await this.twitterDB.getOrCreateProfile(identifier);
+      if (!profile) {
+        const defaultProfileNames = await getDefaultProfileNames(reqObj.source);
+        if (!defaultProfileNames)
+          return;
+      } else {
+        resp({ status: "ok", data: profile });
+      }
+    } catch (e) {
+      resp({ status: "error", errorMsg: e.message });
+      twitterLogger.error(`Failed to get or create profile, ${e.message}`, {
+        source: reqObj.source
+      });
+    }
+  }
+  async handleCreateProfile(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const profile = await this.twitterDB.createProfile(identifier, reqObj.data.profile_name);
+      resp({ status: "ok", data: profile });
+    } catch (e) {
+      twitterLogger.error(`Failed to create twitter profile: ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleUpdateProfile(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const imageUrl = checkAndFilterImage(reqObj.data.avatar_url);
+      if (imageUrl == null) {
+        return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
+      }
+      reqObj.data.avatar_url = imageUrl;
+      const profile = await this.twitterDB.updateProfile(identifier, reqObj.data);
+      resp({ status: "ok", data: profile });
+    } catch (e) {
+      twitterLogger.error(`Failed to update twitter profile: ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleFetchTweets(src, pageIdx, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(src);
+      const profile = await this.twitterDB.getProfile(identifier);
+      if (!profile) {
+        twitterLogger.warn(`Aborted fetching tweets for user ${identifier} because they do not have a profile.`);
+        return resp({ status: "ok", data: [] });
+      }
+      const tweets = await this.twitterDB.fetchAllTweets(profile.id, pageIdx);
+      resp({ data: tweets, status: "ok" });
+    } catch (e) {
+      twitterLogger.error(`Fetching tweets failed, ${e.message}`, {
+        source: src
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleFetchTweetsFiltered(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const profile = await this.twitterDB.getProfile(identifier);
+      const tweets = await this.twitterDB.fetchTweetsFiltered(profile.id, reqObj.data.searchValue);
+      resp({ status: "ok", data: tweets });
+    } catch (e) {
+      twitterLogger.error(`Fetch filtered tweets failed, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: "TWITTER.FEEDBACK.FILTERED_FETCH_FAILED" });
+    }
+  }
+  async handleCreateTweet(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      let newImageString = "";
+      const images2 = reqObj.data.images.split("||!||");
+      for (let i = 0; i < images2.length; i++) {
+        const img = images2[i];
+        const imageUrl = checkAndFilterImage(img);
+        if (imageUrl == null) {
+          return resp({ status: "error", errorMsg: "GENERIC_INVALID_IMAGE_HOST" });
+        }
+        newImageString += `${imageUrl}${i != images2.length - 1 ? "||!||" : ""}`;
+      }
+      reqObj.data.images = newImageString;
+      const createdTweet = await this.twitterDB.createTweet(identifier, reqObj.data);
+      resp({ status: "ok" });
+      emitNet("createTweetBroadcast" /* CREATE_TWEET_BROADCAST */, -1, createdTweet);
+    } catch (e) {
+      twitterLogger.error(`Create tweet failed, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleDeleteTweet(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      await this.twitterDB.deleteTweet(identifier, reqObj.data.tweetId);
+      resp({ status: "ok" });
+    } catch (e) {
+      twitterLogger.error(`Delete tweet failed, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleToggleLike(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const profile = await this.twitterDB.getOrCreateProfile(identifier);
+      const likeExists = await this.twitterDB.doesLikeExist(profile.id, reqObj.data.tweetId);
+      if (likeExists) {
+        await this.twitterDB.deleteLike(profile.id, reqObj.data.tweetId);
+      } else {
+        await this.twitterDB.createLike(profile.id, reqObj.data.tweetId);
+      }
+      resp({ status: "ok" });
+    } catch (e) {
+      twitterLogger.error(`Like failed, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleRetweet(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      if (await this.twitterDB.doesRetweetExist(reqObj.data.tweetId, identifier)) {
+        return resp({
+          status: "error",
+          errorMsg: "TWITTER.FEEDBACK.RETWEET_EXISTS"
+        });
+      }
+      const retweet = { message: "", images: "", retweet: reqObj.data.tweetId };
+      const createdTweet = await this.twitterDB.createTweet(identifier, retweet);
+      const profile = await this.twitterDB.getProfile(identifier);
+      const tweet = await this.twitterDB.getTweet(profile.id, createdTweet.id);
+      resp({ status: "ok" });
+      emitNet("createTweetBroadcast" /* CREATE_TWEET_BROADCAST */, -1, tweet);
+    } catch (e) {
+      twitterLogger.error(`Retweet failed, ${e.message}`, {
+        source: reqObj.source
+      });
+      resp({ status: "error", errorMsg: e.message });
+    }
+  }
+  async handleReport(reqObj, resp) {
+    try {
+      const identifier = player_service_default.getIdentifier(reqObj.source);
+      const profile = await this.twitterDB.getProfile(identifier);
+      const tweet = await this.twitterDB.getTweet(profile.id, reqObj.data.tweetId);
+      const reportExists = await this.twitterDB.doesReportExist(tweet.id, profile.id);
+      if (reportExists) {
+        return twitterLogger.warn("This profile has already reported this tweet");
+      }
+      await this.twitterDB.createTweetReport(tweet.id, profile.id);
+      await reportTweetToDiscord(tweet, profile);
+      resp({ status: "ok" });
+    } catch (e) {
+      resp({ status: "error", errorMsg: e.message });
+      twitterLogger.error(`Twitter report failed, ${e.message}`, {
+        source: reqObj.source
+      });
+    }
+  }
+};
+var TwitterService = new _TwitterService();
+var twitter_service_default = TwitterService;
+
+// server/twitter/twitter.controller.ts
+var exp2 = global.exports;
+var AC = exp2["pma-anticheat"];
+onNetPromise("npwd:getOrCreateTwitterProfile" /* GET_OR_CREATE_PROFILE */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleGetOrCreateProfile(reqObj, resp).catch((e) => {
+    twitterLogger.error(`Error occurred in getOrCreateProfile event (${_source}), Error: ${e.message}`);
+  });
+});
+onNetPromise("npwd:createTwitterProfile" /* CREATE_PROFILE */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleCreateProfile(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in createProfile event (${_source}), Error: ${e.message}`));
+});
+onNetPromise("npwd:updateTwitterProfile" /* UPDATE_PROFILE */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleUpdateProfile(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in updateProfile event (${_source}), Error: ${e.message}`));
+});
+onNetPromise("npwd:fetchTweetsFiltered" /* FETCH_TWEETS_FILTERED */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleFetchTweetsFiltered(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in fetchTweetsFiltered event (${_source}), Error: ${e.message}`));
+}, { rateLimit: 5e3 });
+onNetPromise("npwd:createTweet" /* CREATE_TWEET */, async (reqObj, resp) => {
+  AC.log("*Tweeted*", `${GetPlayerName(reqObj.source)} ${AC.getDiscordId(reqObj.source)}} tweeted: 
+ ${reqObj.data.message}`, "red", "tweets");
+  twitter_service_default.handleCreateTweet(reqObj, resp).catch((e) => {
+    twitterLogger.error(`Error occurred in createTweet event (${reqObj.source}), Error: ${e.message}`);
+  });
+});
+onNetPromise("npwd:deleteTweet" /* DELETE_TWEET */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleDeleteTweet(reqObj, resp).catch((e) => {
+    twitterLogger.error(`Error occurred in deleteTweet event (${_source}), Error: ${e.message}`);
+  });
+});
+onNetPromise("npwd:toggleLike" /* TOGGLE_LIKE */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleToggleLike(reqObj, resp).catch((e) => {
+    twitterLogger.error(`Error occurred in toggleEvent event (${_source}), Error: ${e.message}`);
+  });
+});
+onNetPromise("npwd:retweet" /* RETWEET */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleRetweet(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in retweet event (${_source}), Error: ${e.message}`));
+});
+onNetPromise("npwd:reportTweet" /* REPORT */, async (reqObj, resp) => {
+  const _source = getSource();
+  twitter_service_default.handleReport(reqObj, resp).catch((e) => twitterLogger.error(`Error occurred in report event (${_source}), Error: ${e.message}`));
+});
+onNetPromise("npwd:fetchTweets" /* FETCH_TWEETS */, (req, res) => {
+  twitter_service_default.handleFetchTweets(req.source, req.data.pageId, res).catch((e) => twitterLogger.error(`Error occurred in fetchTweets event (${req.source}), Error: ${e.message}`));
+});
+if (!config.twitter.allowEditableProfileName && !config.twitter.generateProfileNameFromUsers) {
+  const warning = `Both allowEdtiableProfileName and generateProfileNameFromUsers are set false - this means users will likely not have profile names for the Twitter App and won't be able to use it!`;
+  twitterLogger.warn(warning);
+}
+
+// server/bank/bank.ts
+var exp3 = global.exports;
+onNet("npwd:getBankCredentials" /* GET_CREDENTIALS */, async () => {
+  const ply = PMA.getPlayerFromId(source);
+  const transactions = await ox.query_async(`SELECT type, amount, message, name FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [ply.uniqueId]);
+  const credentials = {
+    balance: ply.getAccount("bank").quantity,
+    name: ply.firstname + " " + ply.lastname,
+    transactions,
+    playerId: ply.source
+  };
+  ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
+});
+onNet("npwd:addTransfer" /* ADD_TRANSFER */, async (transferData) => {
+  const ply = PMA.getPlayerFromId(source);
+  const tgtPly = PMA.getPlayerFromId(transferData.targetID);
+  if (tgtPly) {
+    processTransaction(ply, tgtPly, transferData);
+  } else {
+    ply.triggerEvent("npwd:sendBankAlert" /* SEND_ALERT */, "Individual is not around");
+  }
+});
+var processTransaction = async (ply, tgtPly, transferData) => {
+  const plyMoney = ply.getAccount("bank").quantity;
+  const tgtPlyMoney = tgtPly.getAccount("bank").quantity;
+  if (ply.lockedStatus) {
+    ply.showNotification("Your assets are currently frozen.");
+    return;
+  }
+  if (plyMoney > transferData.transferAmount && transferData.transferAmount > 0) {
+    ply.removeAccountMoney("bank", transferData.transferAmount);
+    tgtPly.addAccountMoney("bank", transferData.transferAmount);
+    let credentials;
+    AC2.log("*Bank Transfer*", `${GetPlayerName(ply.source)} ${AC2.getDiscordId(ply.source)} transfered ${transferData.transferAmount} to ${GetPlayerName(tgtPly.source)} ${AC2.getDiscordId(tgtPly.source)} with the message of ${transferData.message}`, "red", "phoneBankTransfers");
+    await insertBankTransactions(ply.uniqueId, "Withdraw", transferData.transferAmount, transferData.message, tgtPly.getPlayerName());
+    const transactionsPly = await relistTransactions(ply.uniqueId);
+    credentials = {
+      balance: ply.getAccount("bank").quantity,
+      name: ply.getPlayerName(),
+      transactions: transactionsPly,
+      playerId: ply.source
+    };
+    ply.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
+    ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, `Sent money to ${tgtPly.getPlayerName()}`);
+    await insertBankTransactions(tgtPly.uniqueId, "Deposit", transferData.transferAmount, transferData.message, ply.getPlayerName());
+    const transactionsTgt = await relistTransactions(tgtPly.uniqueId);
+    credentials = {
+      balance: tgtPly.getAccount("bank").quantity,
+      name: tgtPly.getPlayerName(),
+      transactions: transactionsTgt,
+      playerId: tgtPly.source
+    };
+    tgtPly.triggerEvent("npwd:sendBankCredentials" /* SEND_CREDENTIALS */, credentials);
+    let message;
+    if (transferData.message) {
+      message = transferData.message;
+    } else {
+      message = `Received money from ${ply.getPlayerName()}.`;
+    }
+    tgtPly.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, message);
+  } else {
+    ply.triggerEvent("npwd:sendBankNotification" /* SEND_NOTIFICATION */, "Insufficient funds");
+  }
+};
+var relistTransactions = async (uniqueId) => {
+  const transactions = await ox.query_async(`SELECT type, amount, name, message FROM npwd_bank_transactions WHERE uniqueId = ? ORDER BY id DESC LIMIT 20`, [uniqueId]);
+  return transactions;
+};
+var insertBankTransactions = async (uniqueId, type, amount, message, playerName) => {
+  await ox.insert_async(`INSERT INTO npwd_bank_transactions (uniqueId, type, amount, message, name) VALUES (?, ?, ?, ?, ?)`, [uniqueId, type, amount, message, playerName]);
+};
+exports("insertBankTransactions", insertBankTransactions);
+
+// node_modules/@nativewrappers/client/lib/utils/Vector3.js
+var Vector3 = class {
+  constructor(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  static create(v12) {
+    if (typeof v12 === "number")
+      return new Vector3(v12, v12, v12);
+    return new Vector3(v12.x, v12.y, v12.z);
+  }
+  static fromArray(primitive) {
+    return new Vector3(primitive[0], primitive[1], primitive[2]);
+  }
+  static fromArrays(primitives) {
+    return primitives.map((prim) => new Vector3(prim[0], prim[1], prim[2]));
+  }
+  static clone(v12) {
+    return Vector3.create(v12);
+  }
+  static add(v12, v2) {
+    if (typeof v2 === "number")
+      return new Vector3(v12.x + v2, v12.y + v2, v12.z + v2);
+    return new Vector3(v12.x + v2.x, v12.y + v2.y, v12.z + v2.z);
+  }
+  static subtract(v12, v2) {
+    if (typeof v2 === "number")
+      return new Vector3(v12.x - v2, v12.y - v2, v12.z - v2);
+    return new Vector3(v12.x - v2.x, v12.y - v2.y, v12.z - v2.z);
+  }
+  static multiply(v12, v2) {
+    if (typeof v2 === "number")
+      return new Vector3(v12.x * v2, v12.y * v2, v12.z * v2);
+    return new Vector3(v12.x * v2.x, v12.y * v2.y, v12.z * v2.z);
+  }
+  static divide(v12, v2) {
+    if (typeof v2 === "number")
+      return new Vector3(v12.x / v2, v12.y / v2, v12.z / v2);
+    return new Vector3(v12.x / v2.x, v12.y / v2.y, v12.z / v2.z);
+  }
+  static dotProduct(v12, v2) {
+    return v12.x * v2.x + v12.y * v2.y + v12.z * v2.z;
+  }
+  static crossProduct(v12, v2) {
+    const x = v12.y * v2.z - v12.z * v2.y;
+    const y = v12.z * v2.x - v12.z * v2.z;
+    const z = v12.x * v2.y - v12.z * v2.x;
+    return new Vector3(x, y, z);
+  }
+  static normalize(v) {
+    return Vector3.divide(v, v.Length);
+  }
+  clone() {
+    return new Vector3(this.x, this.y, this.z);
+  }
+  distanceSquared(v) {
+    const w = this.subtract(v);
+    return Vector3.dotProduct(w, w);
+  }
+  distance(v) {
+    return Math.sqrt(this.distanceSquared(v));
+  }
+  get normalize() {
+    return Vector3.normalize(this);
+  }
+  crossProduct(v) {
+    return Vector3.crossProduct(this, v);
+  }
+  dotProduct(v) {
+    return Vector3.dotProduct(this, v);
+  }
+  add(v) {
+    return Vector3.add(this, v);
+  }
+  subtract(v) {
+    return Vector3.subtract(this, v);
+  }
+  multiply(v) {
+    return Vector3.multiply(this, v);
+  }
+  divide(v) {
+    return Vector3.divide(this, v);
+  }
+  toArray() {
+    return [this.x, this.y, this.z];
+  }
+  replace(v) {
+    this.x = v.x;
+    this.y = v.y;
+    this.z = v.z;
+  }
+  get Length() {
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+  }
+};
+
+// server/darkmarket/darkmarket.config.ts
+var allowedWeapons = /* @__PURE__ */ new Set([
+  "WEAPON_APPISTOL",
+  "WEAPON_BERETTA",
+  "WEAPON_FNX",
+  "WEAPON_LUGER",
+  "WEAPON_MACHINEPISTOL",
+  "WEAPON_PISTOL50",
+  "WEAPON_SNSPISTOL_MK2",
+  "WEAPON_AK74U",
+  "WEAPON_ADVANCEDRIFLE",
+  "WEAPON_AKMS",
+  "WEAPON_BULLPUPRIFLE",
+  "WEAPON_BULLPUPRIFLE_MK2",
+  "WEAPON_ASSAULTRIFLE",
+  "WEAPON_ASSAULTRIFLE_MK2",
+  "WEAPON_MAC10",
+  "WEAPON_MAC11",
+  "WEAPON_P90",
+  "WEAPON_DBSHOTGUN",
+  "WEAPON_SPAS12",
+  "WEAPON_SAWNOFFSHOTGUN",
+  "WEAPON_MINISMG"
+]);
+var Weapon = new Vector3(170.43, -1099.3, 48.14);
+var WeaponCoords = [
+  new Vector3(179.59, 6395.95, 32.36),
+  new Vector3(-136.73, 6474.97, 32.47),
+  new Vector3(-408.41, 6375.15, 15),
+  new Vector3(-429.83, 6349.29, 14.3),
+  new Vector3(-248.64, 6069.83, 33.35),
+  new Vector3(-108.44, 6213.27, 32.39),
+  new Vector3(-75.16, 6213.6, 31.46),
+  new Vector3(-158.22, 6104.12, 31.37),
+  new Vector3(404.21, 6497.84, 27.85),
+  new Vector3(752.07, 6458.92, 31.53),
+  new Vector3(1462.45, 6539.73, 14.67),
+  new Vector3(2806.62, 5979.01, 350.89),
+  new Vector3(2347.6, 4868.04, 41.81),
+  new Vector3(2539.57, 4674.38, 33.93),
+  new Vector3(2020.13, 4982.9, 41.21),
+  new Vector3(1702.82, 4847.52, 42.1),
+  new Vector3(1633.92, 4856.64, 41.96),
+  new Vector3(-1.23, 3734.31, 39.78),
+  new Vector3(-1133.25, 4942.11, 220.6),
+  new Vector3(-2452.25, 2941.6, 32.96),
+  new Vector3(-2013.82, 3373.09, 31.34),
+  new Vector3(-2225.34, 3488.48, 30.17),
+  new Vector3(-2523.29, 2301.92, 33.28),
+  new Vector3(-1925.01, 2031.24, 140.74),
+  new Vector3(-3244.76, 995.31, 12.48),
+  new Vector3(-2980.05, 592.37, 19.15),
+  new Vector3(-2947.62, 418.06, 15.28),
+  new Vector3(-2954.77, 390.59, 15.02),
+  new Vector3(-2221.85, -366.98, 13.32),
+  new Vector3(-2033.52, -256.61, 23.39),
+  new Vector3(-1801.09, -397.15, 44.82),
+  new Vector3(-1708.32, -497.75, 38.16),
+  new Vector3(-1544, -567.21, 33.74),
+  new Vector3(-1341.44, -761.32, 20.3),
+  new Vector3(-1466.97, -936.94, 10.24),
+  new Vector3(-1257.45, -1220.35, 5),
+  new Vector3(-1259.65, -1142.73, 7.53),
+  new Vector3(-1094.52, -1254.79, 5.38),
+  new Vector3(-923.88, -1529.52, 5.18),
+  new Vector3(-611.07, -1040.2, 22.28),
+  new Vector3(-539.71, -1234.96, 18.46),
+  new Vector3(-480.39, -1682.11, 19.47),
+  new Vector3(-504.21, -1634.42, 17.8),
+  new Vector3(-820.44, -2093.94, 8.81),
+  new Vector3(-700.87, -2446.08, 14.03),
+  new Vector3(-884.01, -3054.58, 12.94),
+  new Vector3(1381.6, 3616.11, 34.89),
+  new Vector3(983.62, 3581.69, 33.62),
+  new Vector3(376.46, 3572.71, 33.29),
+  new Vector3(254.13, -18.62, 73.65),
+  new Vector3(644.59, 137.96, 91.37),
+  new Vector3(969.65, -144.44, 74.35),
+  new Vector3(823.64, -492.56, 30.43),
+  new Vector3(726.01, -715.27, 26.65),
+  new Vector3(941.74, -1242.03, 25.68),
+  new Vector3(930.6, -1546.11, 30.85),
+  new Vector3(1143.47, -2041.13, 31.01),
+  new Vector3(1082.38, -2389.24, 30.47),
+  new Vector3(960.32, -2530.39, 28.3),
+  new Vector3(157.01, -3313.53, 6.02),
+  new Vector3(-39.56, -2731.77, 6.28),
+  new Vector3(2478.47, -401.22, 94.82),
+  new Vector3(2546.04, -310.15, 92.99),
+  new Vector3(2545.63, 386.18, 108.62),
+  new Vector3(2616.85, 1703.01, 27.6),
+  new Vector3(2529.88, 2641.71, 37.94),
+  new Vector3(2631.89, 2929.74, 40.43)
+];
+
+// server/darkmarket/darkmarket.ts
+var exp4 = global.exports;
+var PMA2 = exp4["pma-framework"].getData();
+var ox2 = exp4.oxmysql;
+var AC3 = exp4["pma-anticheat"];
+var alertId = 0;
+onNet("npwd:fetchCrypto" /* FETCH_CRYPTO */, () => {
+  const ply = PMA2.getPlayerFromId(source);
+  ox2.scalar(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId], (amount) => {
+    emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, amount);
+  });
+});
+onNetPromise("npwd:makePurchase" /* MAKE_PURCHASE */, async (reqObj, resp) => {
+  try {
+    const checkoutItems = reqObj.data;
+    const ply = PMA2.getPlayerFromId(source);
+    let totalCoins = 0;
+    checkoutItems.forEach((item) => {
+      totalCoins += item.price;
+    });
+    const currentCurrentAmount = await ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [ply.uniqueId]);
+    const newCoinTotal = currentCurrentAmount - totalCoins;
+    if (newCoinTotal < 0) {
+      return resp({
+        status: "error",
+        errorMsg: "You do not have enough money for this transaction"
+      });
+    }
+    await ox2.update(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      newCoinTotal,
+      ply.uniqueId
+    ]);
+    weaponDrops(ply, checkoutItems, newCoinTotal);
+    resp({ status: "ok", data: newCoinTotal });
+  } catch (err) {
+    console.error(err);
+    resp({ status: "error", errorMsg: "INTERNAL_ERROR" });
+  }
+});
+var weaponDrops = async (ply, items, newCoinTotal) => {
+  const index = Math.floor(Math.random() * (WeaponCoords.length + 1));
+  const coords = WeaponCoords[index];
+  const jsonString = items.map((newItemString) => {
+    return {
+      name: newItemString.name,
+      price: newItemString.price
+    };
+  });
+  const weaponList = [];
+  for (const item of items) {
+    const [weapon] = PMA2.getWeapon(item.name);
+    if (!weapon || !allowedWeapons.has(item.name)) {
+      AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
+Overhead: ${GetPlayerName(ply.source)} 
+ Character Name: ${ply.getPlayerName()} 
+ Has ${newCoinTotal} coins after just purchasing... 
+${JSON.stringify(jsonString).replace(/\[|\]/g, "")} which is an illegal purchase! Ban pwease @moderator.`, `blue`, `darkmarketLogs`);
+      return;
+    }
+    if (item.quantity === 1) {
+      weaponList.push(weapon.name);
+    } else {
+      for (let i = 0; i < item.quantity; i++) {
+        weaponList.push(weapon.name);
+      }
+    }
+  }
+  exp4["pma-inv"].createWorldInventory(ply.source, coords.toArray(), weaponList, `npwd-${alertId += 1}`);
+  emitNet("npwd:pickupWeapons" /* PICKUP_WEAPONS */, ply.source, coords, alertId += 1);
+  AC3.log("*Black Market purchase!*", `Weapons delivered at: ${JSON.stringify(coords).replace(/\[|\]/g, "")}
+Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)} 
+ Character Name: ${ply.getPlayerName()} 
+ Has ${newCoinTotal} coins after just purchasing... 
+${JSON.stringify(jsonString).replace(/\[|\]/g, "")}`, `blue`, `darkmarketLogs`);
+};
+onNet("npwd:tradeCrypto" /* INIATE_TRADE */, async (data) => {
+  const ply = PMA2.getPlayerFromId(source);
+  const otherPly = PMA2.getPlayerFromId(Number(data.playerId));
+  if (otherPly) {
+    const plyAmount = await ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [
+      ply.uniqueId
+    ]);
+    const plyAmt = plyAmount - Number(data.amount);
+    emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, ply.source, plyAmt);
+    await ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      plyAmt,
+      ply.uniqueId
+    ]);
+    const otherPlyAmount = await ox2.scalar_async(`SELECT amount FROM cryptocurrency WHERE ssn = ?`, [otherPly.uniqueId]);
+    const otherAmt = otherPlyAmount + Number(data.amount);
+    emitNet("npwd:showCryptoUi" /* SHOW_CRYPTO_UI */, otherPly.source, otherAmt);
+    await ox2.update_async(`UPDATE cryptocurrency SET amount = ? WHERE ssn = ?`, [
+      otherAmt,
+      otherPly.uniqueId
+    ]);
+    emitNet("npwd:dmNotifyOfTrade" /* NOTIFY_OF_TRADE */, otherPly.source, alertId += 1);
+    AC3.log(`*Coin trade!*`, `Overhead: ${GetPlayerName(ply.source)} ${AC3.getDiscordId(ply.source)}
+      Character Name: ${ply.getPlayerName()} has given ${Number(data.amount)} coins to and has ${plyAmt} coins left.
+      Overhead: ${GetPlayerName(otherPly.source)} ${AC3.getDiscordId(otherPly.source)}
+      Character Name: ${otherPly.getPlayerName()} has received ${Number(data.amount)} coins and now has ${otherAmt} coins.`, `blue`, `coinTradesLog`);
+    emitNet("npwd:dmAlertSuccess" /* ALERT_SUCCESS */, ply.source);
+  } else {
+    emitNet("npwd:dmAlertFailure" /* ALERT_FAILURE */, ply.source);
+  }
+});
+
+// server/bennys/bennys.ts
+onNet("npwd:getVehicleList" /* GET_VEHICLE_LIST */, () => {
+  const player = PMA.getPlayerFromId(source);
+  let vehicleList = [];
+  ox.query(`SELECT id, plate, state, vehicle, police_lock, body_health, engine_health, fuel FROM owned_vehicles WHERE uniqueId = ?`, [player.uniqueId], (results) => {
+    results.forEach((veh) => {
+      const model = JSON.parse(veh.vehicle).model;
+      const obj = {
+        id: veh.id,
+        plate: veh.plate,
+        state: veh.state,
+        model,
+        police_lock: veh.police_lock,
+        fuel: veh.fuel,
+        body_health: veh.body_health,
+        engine_health: veh.engine_health
+      };
+      vehicleList.push(obj);
+    });
+    player.triggerEvent("npwd:getVehicleList" /* GET_VEHICLE_LIST */, vehicleList);
+  });
+});
+onNet("npwd:freeVehicle" /* FREE_VEHICLE */, (vehicle) => {
+  const player = PMA.getPlayerFromId(source);
+  if (vehicle.impoundFee <= player.getAccount("bank").quantity) {
+    ox.execute(`UPDATE owned_vehicles SET state = 0 WHERE id = ?`, [vehicle.id], () => {
+      player.removeAccountMoney("bank", vehicle.impoundFee);
+      player.triggerEvent("npwd:freeVehicle" /* FREE_VEHICLE */);
+    });
+  } else {
+    player.triggerEvent("npwd:failImpound" /* FAIL_IMPOUND */);
+  }
+});
+onNet("npwd:abandonVehicle" /* ABANDON_VEHICLE */, (vehicle) => {
+  const player = PMA.getPlayerFromId(source);
+  if (vehicle) {
+    ox.execute("DELETE FROM owned_vehicles WHERE id = ?", [vehicle.id], () => {
+      player.triggerEvent("npwd:abandonSuccess" /* ABANDON_SUCCESS */);
+      AC2.log("*Vehicle Abandoned*", `Overhead: ${GetPlayerName(player.source)}
+Character: ${player.getPlayerName()}
+
+ **Abandoned a vehicle with this information.** 
+        Plate: ${vehicle.plate}
+        Model: ${vehicle.model}
+        ID: ${vehicle.id}`, `blue`, `abandonVehicleLogs`);
+    });
+  } else {
+    player.triggerEvent("npwd:abandonFail" /* ABANDON_FAIL */);
+  }
+});
+
+// server/property/property.ts
+var OnlinePlayersCache = /* @__PURE__ */ new Map();
+onNet("npwd:property:addPlayerCache" /* ADD_PLAYER */, () => {
+  const player = player_service_default.getPlayer(source);
+  if (player.getName()) {
+    player.fullname = player.getName();
+    player.ssn = player.getIdentifier();
+    OnlinePlayersCache.set(source, player);
+  }
+});
+on("playerDropped", () => {
+  OnlinePlayersCache.delete(source);
+});
+onNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, (app) => {
+  if (app === "boosting") {
+    emitNet("npwd:boosting:getPlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  } else {
+    emitNet("npwd:property:getOnlinePlayers" /* GET_PLAYERS */, source, Object.fromEntries(OnlinePlayersCache), source);
+  }
+});
+
+// server/boosting/modules/profile/db.ts
+var ProfileDB = class {
+  fetchProfile = async (uid) => {
+    const profile = await ox.single_async(`SELECT bp.uid, bp.level, bp.experience, c.small_coin FROM boosting_profile bp, cryptocurrency c WHERE c.ssn = ? and bp.uid = c.ssn`, [uid]);
+    if (profile) {
+      return profile;
+    } else {
+      await ox.execute(`INSERT INTO boosting_profile (uid, level, experience) VALUES (?, ?, ?)`, [uid, 1, 0]);
+      return { uid, level: 1, experience: "0" };
+    }
+  };
+  updateCoins = async (coinTotal, uid) => {
+    await ox.execute_async(`UPDATE cryptocurrency SET small_coin = ? WHERE ssn = ?`, [
+      coinTotal,
+      uid
+    ]);
+  };
+  updateExperience = async (boostProfile, uid) => {
+    await ox.execute_async(`UPDATE boosting_profile SET level = ?, experience = ? WHERE uid = ?`, [boostProfile.level, boostProfile.experience, uid]);
+  };
+};
+
+// server/boosting/modules/boosts/db.ts
+var BoostsDB = class {
+  fetchCarList = async () => {
+    const boostList = await ox.query_async(`SELECT car_model, type FROM boosting_list`);
+    return boostList;
+  };
+  rewardVehicle = async (plate, vehProps, uniqueId) => {
+    await ox.execute_async(`INSERT INTO owned_vehicles (plate, vehicle, uniqueId, temp) VALUES (?, ?, ?, ?)`, [plate, JSON.stringify(vehProps), uniqueId, 1]);
+  };
+};
+
+// server/boosting/modules/boosts/service.ts
+var boostsDB = new BoostsDB();
+var CarList = [];
+setImmediate(async () => {
+  CarList = await boostsDB.fetchCarList();
+});
+var BoostMission = class {
+  spawnCar = async (model, coords) => {
+    const veh = PMA.createVehicle(model, coords);
+    await Delay(500);
+    return veh;
+  };
+};
+
+// server/boosting/controllers/queue.ts
+var QueueList = /* @__PURE__ */ new Map();
+onNet("npwd:boosting:joinWaitList" /* JOIN_WAITLIST */, (boostProfile) => {
+  const ply = PMA.getPlayerFromId(source);
+  QueueList.set(ply.source, {
+    ssn: boostProfile.uid,
+    fullName: ply.getPlayerName(),
+    level: boostProfile.level,
+    experience: boostProfile.experience
+  });
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just joined the queue, currently ${QueueList.size} in queue now.`);
+});
+onNet("npwd:boosting:leaveWaitList" /* LEAVE_WAITLIST */, () => {
+  const ply = PMA.getPlayerFromId(source);
+  QueueList.delete(ply.source);
+  console.log(`***BOOSTING*** ${ply.getPlayerName()} | ${ply.uniqueId} just left the queue, currently ${QueueList.size} in queue still.`);
+});
+
+// server/boosting/modules/contracts/db.ts
+var ContractsDB = class {
+  fetchContracts = async (uid) => {
+    const contracts = await ox.query_async(`SELECT contract_type, expires_in, cost, vehicle, id FROM boosting_contracts WHERE uid = ?`, [uid]);
+    return contracts;
+  };
+  deleteContract = async (id) => {
+    await ox.execute_async(`DELETE FROM boosting_contracts WHERE id = ?`, [id]);
+  };
+  transferContract = async (plyUid, contractId) => {
+    await ox.execute_async(`UPDATE boosting_contracts SET uid = ? WHERE id = ?`, [
+      plyUid,
+      contractId
+    ]);
+  };
+  insertContract = async (ssn, vehicleType, expires, cost, carModel) => {
+    const insertId = await ox.insert_async(`INSERT INTO boosting_contracts (uid, contract_type, expires_in, cost, vehicle)
+             VALUES (?, ?, ?, ?, ?)`, [ssn, vehicleType, expires, cost, carModel]);
+    return insertId;
+  };
+};
+
+// server/boosting/modules/queue/service.ts
+var contractsDB = new ContractsDB();
+setTick(async () => {
+  await Delay(6e5);
+  manageQueuedPlayers();
+});
+var manageQueuedPlayers = () => {
+  console.log("\nBeginning queue selector...\n");
+  const tempCachedPlayers = [];
+  const playerSources = [...QueueList.keys()];
+  if (playerSources.length === 0) {
+    console.log("\nNo one in queue...\n");
+    return;
+  }
+  for (let i = 0; i < 5; i++) {
+    const randomNum = Math.floor(Math.random() * Object.keys(playerSources).length);
+    const plySrc = playerSources[randomNum].toString();
+    const isPingedBefore = tempCachedPlayers.findIndex((source2) => source2 === plySrc);
+    if (isPingedBefore === -1 && PMA.getPlayerFromId(plySrc).job.name !== "police") {
+      tempCachedPlayers.push(plySrc);
+    }
+  }
+  tempCachedPlayers.forEach(async (plyId) => {
+    const player = QueueList.get(Number(plyId));
+    const boostContract = await contractHandler(player);
+    console.log(`ID:${plyId} - Name:${player.fullName} rewarded a boosting contract!`);
+    emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, Number(plyId), boostContract);
+  });
+};
+on("playerDropped", () => {
+  const player = QueueList.get(source);
+  if (player) {
+    QueueList.delete(source);
+    console.log("Source: " + source + "\nName: " + player.fullName + "\nSSN: " + player.ssn + "\nHas left the boost queue by leaving the server.");
+  }
+});
+var contractHandler = async (player) => {
+  const boostRank = getBoostRank(player.level);
+  const rankedVehicleList = CarList.filter((car) => car.type === boostRank);
+  const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
+  const expires = new Date(new Date(new Date()).setHours(new Date().getHours() + 6)).getTime();
+  const vehicleType = rankedVehicleList[randomNum].type;
+  const carModel = rankedVehicleList[randomNum].car_model;
+  const insertId = await contractsDB.insertContract(player.ssn, vehicleType, expires, 20, carModel);
+  console.log(`Congratulations ${player.fullName} has received a ${rankedVehicleList[randomNum].car_model} contract.`);
+  return {
+    id: insertId,
+    uid: player.ssn,
+    contract_type: vehicleType,
+    expires_in: expires,
+    cost: 20,
+    vehicle: carModel
+  };
+};
+var getBoostRank = (level) => {
+  let boostRank;
+  switch (level) {
+    case 1:
+      boostRank = "B";
+      break;
+    case 2:
+      boostRank = "B";
+      break;
+    case 3:
+      boostRank = "A";
+      break;
+    case 4:
+      boostRank = "S";
+      break;
+    case 5:
+      boostRank = "S+";
+      break;
+    default:
+      break;
+  }
+  return boostRank;
+};
+
+// server/boosting/controllers/profile.ts
+var profileDB = new ProfileDB();
+var contractsDB2 = new ContractsDB();
+onNet("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, async () => {
+  const ply = PMA.getPlayerFromId(source);
+  const profile = await profileDB.fetchProfile(ply.uniqueId);
+  let contracts = await contractsDB2.fetchContracts(ply.uniqueId);
+  const contractsDeleted = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) < 0);
+  if (contractsDeleted.length > 0) {
+    contractsDeleted.map((contract) => contractsDB2.deleteContract(contract.id));
+  }
+  contracts = contracts.filter((contract) => Math.floor((contract.expires_in - Date.now()) / (1e3 * 60) % 60) > 0);
+  ply.triggerEvent("npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */, {
+    profile,
+    contracts
+  });
+});
+onNet("npwd:boosting:deleteContract," /* DELETE_CONTRACT */, async (contractId) => {
+  const ply = PMA.getPlayerFromId(source);
+  await contractsDB2.deleteContract(contractId);
+  ply.triggerEvent("npwd:boosting:deleteContract," /* DELETE_CONTRACT */);
+});
+onNet("npwd:boosting:tradeContract" /* TRADE_CONTRACT */, async (tradeContract) => {
+  await contractsDB2.transferContract(Number(tradeContract.player.ssn), tradeContract.contract.id);
+  const copyContract = { ...tradeContract.contract };
+  copyContract.uid = Number(tradeContract.player.ssn);
+  emitNet("npwd:boosting:rewardContract" /* REWARD_CONTRACT */, tradeContract.player.source, copyContract);
+});
+
+// server/boosting/controllers/boosts.ts
+var boostMission = new BoostMission();
+var boostsDB2 = new BoostsDB();
+var contractsDB3 = new ContractsDB();
+var profilesDB = new ProfileDB();
+onNet("npwd:boosting:startContract" /* START_CONTRACT */, async (contract, coords, totalCoins) => {
+  const ply = PMA.getPlayerFromId(source);
+  const calculateSubtraction = totalCoins - contract.cost;
+  if (calculateSubtraction >= 0) {
+    if (ply.getInventoryItem("raspberry").quantity > 0) {
+      const newCoinTotal = totalCoins - contract.cost;
+      await profilesDB.updateCoins(newCoinTotal, ply.uniqueId);
+      await contractsDB3.deleteContract(contract.id);
+      const contractList = await contractsDB3.fetchContracts(ply.uniqueId);
+      const veh = await boostMission.spawnCar(contract.vehicle, coords);
+      SetVehicleDoorsLocked(veh, 2);
+      ply.triggerEvent("PURCHASE_CONTRACT" /* PURCHASE_CONTRACT */, {
+        small_coin: newCoinTotal,
+        contracts: contractList
+      });
+      if (contract.contract_type === "B") {
+        ply.triggerEvent("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, NetworkGetNetworkIdFromEntity(veh), coords);
+      }
+    } else {
+      ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing a required item.");
+    }
+  } else {
+    ply.triggerEvent("MISSING_EQUIPMENT" /* MISSING_EQUIPMENT */, "You are missing the required coins.");
+  }
+});
+onNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, async (vehProps, boostProfile) => {
+  const ply = PMA.getPlayerFromId(source);
+  if (ply.getInventoryItem("raspberry").quantity > 0) {
+    await boostsDB2.rewardVehicle(vehProps.plate, vehProps, ply.uniqueId);
+    await profilesDB.updateExperience(boostProfile, ply.uniqueId);
+    ply.removeInventoryItem("raspberry", 1);
+  } else {
+    ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+  }
+});
+onNet("npwd:boosting:failBoost" /* FAIL_VEHICLE */, async () => {
+  const ply = PMA.getPlayerFromId(source);
+  if (ply.getInventoryItem("raspberry").quantity > 0) {
+    ply.removeInventoryItem("raspberry", 1);
+  }
+  ply.triggerEvent("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+});
+onNet("SEND_TEXT" /* SEND_TEXT */, (message) => {
+  const plySrc = source;
+  const ply = PMA.getPlayerFromId(plySrc);
+  const dataObj = {
+    source: plySrc,
+    phoneNumber: ply.getPhoneNumber(),
+    message
+  };
+  emit("SEND_MESSAGE_DARK" /* SEND_MESSAGE_DARK */, dataObj);
+});
+
+// server/bridge/bridge.utils.ts
+var bridgeLogger = mainLogger.child({ module: "bridge" });
+
+// server/bridge/sv_exports.ts
+var exp5 = global.exports;
+var logExport = (exportName, msg) => {
+  bridgeLogger.debug(`[${exportName}] ${msg}`);
+};
+exp5("generatePhoneNumber", async () => {
+  const num = await generateUniquePhoneNumber();
+  logExport("generatePhoneNumber", num);
+  return num;
+});
+if (config.general.useResourceIntegration) {
+  exp5("newPlayer", async (playerDTO) => {
+    if (typeof playerDTO.source !== "number") {
+      return playerLogger.error("Source must be passed as a number when loading a player");
+    }
+    await player_service_default.handleNewPlayerEvent(playerDTO);
+    emitNet("npwd:setPlayerLoaded" /* SET_PLAYER_LOADED */, playerDTO.source, true);
+  });
+  exp5("unloadPlayer", async (src) => {
+    if (typeof src !== "number") {
+      return playerLogger.error("Source must be passed as a number when unloading a player");
+    }
+    playerLogger.debug(`Received unloadPlayer event for ${src}`);
+    await player_service_default.handleUnloadPlayerEvent(src);
+  });
+}
+
+// server/messages/middleware/emitMessage.ts
+var exp6 = global.exports;
+exp6("emitMessage", async ({ senderNumber, targetNumber, message }) => {
+  await messages_service_default.handleEmitMessage({ senderNumber, targetNumber, message });
+});
+
+// server/rcon/exports.ts
+global.exports("emitRconMessage", (src, data) => {
+  emitNet("npwd:sendMessageSuccess" /* SEND_MESSAGE_SUCCESS */, src, data);
+});
+
+// server/server.ts
+var Sentry = __toESM(require_dist10());
+var config2 = config;
+var exp7 = global.exports;
+var ox = exp7.oxmysql;
+var AC2 = exp7["pma-anticheat"];
+var PMA = exp7["pma-framework"].getData();
+registerCommands();
+if (config2.debug.sentryEnabled && process.env.NODE_ENV === "production") {
+  Sentry.init({
+    dsn: "https://fa466f5b83ab4f029052b06bc9dec5cb@sentry.pma.network/3",
+    integrations: [new import_integrations.RewriteFrames()],
+    release: process.env.SENTRY_VERSION || "0.0.0",
+    tracesSampleRate: 1
+  });
+}
+on("onResourceStart", async (resource) => {
+  if (GetCurrentResourceName() != resource)
+    return;
+  await ox.execute_async(`TRUNCATE npwd_marketplace_listings`);
+  await Delay(5e3);
+  const onlinePlayers = getPlayers();
+  for (const player of onlinePlayers) {
+    emitNet("npwd:property:reload" /* RELOAD_APP */, Number(player));
+  }
+  mainLogger.info("Successfully started");
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   AC,
