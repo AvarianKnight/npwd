@@ -10,18 +10,10 @@ import {
 	getRandomInt,
 	pedRadius,
 	resetBoostMissions,
+	sendText,
 	showRoute,
 	spawnPed,
 } from './utility';
-
-/**
- * Ends boost if dead.
- */
-on('pma:onPlayerDeath', () => {
-	if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
-		resetBoostMissions();
-	}
-});
 
 export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 	const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
@@ -29,8 +21,7 @@ export const lowTierHandler = (contract: Contract, totalCoins: number) => {
 };
 
 onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
-	emitNet(
-		BoostingEvents.SEND_TEXT,
+	sendText(
 		'The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.',
 	);
 	// if active is true you cannot start another mission at the same time.
@@ -110,7 +101,7 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 														method: BoostingEvents.LOAD_BOOSTING_PROFILE,
 														data: boosterProfile,
 													});
-													resetBoostMissions();
+													resetBoostMissions(false);
 													emitNet(
 														BoostMissionEvents.REWARD_VEHICLE,
 														vehProps,
@@ -121,7 +112,7 @@ onNet(BoostingEvents.LOW_TIER_MISSION, (vehNet: number, coords: Vector3) => {
 										});
 									} else {
 										// reset boost if failed
-										resetBoostMissions();
+										resetBoostMissions(true);
 										emitNet(BoostMissionEvents.FAIL_VEHICLE);
 									}
 								},

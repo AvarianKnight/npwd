@@ -39,6 +39,14 @@ onNet(
 						coords,
 					);
 				}
+
+				if (contract.contract_type === 'A' || contract.contract_type === 'S') {
+					ply.triggerEvent(
+						BoostingEvents.MID_TIER_MISSION,
+						NetworkGetNetworkIdFromEntity(veh),
+						coords,
+					);
+				}
 			} else {
 				ply.triggerEvent(
 					BoostingEvents.MISSING_EQUIPMENT,

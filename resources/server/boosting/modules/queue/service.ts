@@ -8,13 +8,13 @@ import {ContractsDB} from '../contracts/db';
 const contractsDB = new ContractsDB();
 
 setTick(async () => {
-	await Delay(600000);
+	await Delay(900000);
 
 	// await Delay(6000);
 	manageQueuedPlayers();
 });
 
-const manageQueuedPlayers = () => {
+export const manageQueuedPlayers = () => {
 	console.log('\nBeginning queue selector...\n');
 	const tempCachedPlayers: string[] = [];
 	const playerSources = [...QueueList.keys()];
@@ -60,8 +60,9 @@ on('playerDropped', () => {
 	}
 });
 
-const contractHandler = async (player: QueuedPlayer) => {
+export const contractHandler = async (player: QueuedPlayer) => {
 	const boostRank = getBoostRank(player.level);
+
 	const rankedVehicleList = CarList.filter((car: BoostList) => car.type === boostRank);
 
 	const randomNum = Math.floor(Math.random() * rankedVehicleList.length);
@@ -92,16 +93,32 @@ const contractHandler = async (player: QueuedPlayer) => {
 	};
 };
 
+const probabilityHandler = () => {
+	return Math.random() * 100;
+};
+
 const getBoostRank = (level: number) => {
 	let boostRank;
+	const probability = probabilityHandler();
 	switch (level) {
 		case 1:
 			boostRank = 'B';
 			break;
 		case 2:
-			boostRank = 'B';
+			if (probability <= 2) {
+				boostRank = 'S';
+			} else if (probability <= 100) {
+				boostRank = 'A';
+			} else {
+				boostRank = 'B';
+			}
 			break;
 		case 3:
+			if (probability <= 35) {
+				boostRank = 'A';
+			} else {
+				boostRank = 'B';
+			}
 			boostRank = 'A';
 			break;
 		case 4:

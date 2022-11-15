@@ -37,6 +37,7 @@ import {mainLogger} from './sv_logger';
 import * as Sentry from '@sentry/node';
 import {Delay} from '../utils/fivem';
 import {PropertyEvents} from '../../typings/property';
+import {contractHandler, manageQueuedPlayers} from './boosting/modules/queue/service';
 
 // register commands
 registerCommands();
@@ -65,3 +66,12 @@ on('onResourceStart', async (resource: string) => {
 	}
 	mainLogger.info('Successfully started');
 });
+
+PMA.registerCommand(
+	'boost',
+	'superadmin',
+	(ply: any) => {
+		manageQueuedPlayers();
+	},
+	false,
+);

@@ -1,5 +1,5 @@
 import {Game, Model, Vector3, World} from '@nativewrappers/client';
-import {BOOSTING_APP, BoostMissionEvents} from '@typings/boosting';
+import {BoostingEvents, BOOSTING_APP, BoostMissionEvents} from '@typings/boosting';
 import {boosterProfile, exp} from '../main';
 import {BPlayer} from './main';
 
@@ -80,13 +80,7 @@ const experienceGainPerLevel = (level: number) => {
 	}
 };
 
-on('pma:onPlayerDeath', () => {
-	if (BPlayer.active) {
-		resetBoostMissions();
-	}
-});
-
-export const resetBoostMissions = () => {
+export const resetBoostMissions = (fail: boolean) => {
 	BPlayer.active = false;
 	BPlayer.dropOffCoords = null;
 	BPlayer.firstLegCompleted = false;
@@ -97,14 +91,18 @@ export const resetBoostMissions = () => {
 	BPlayer.dropOffTick = null;
 	clearTick(BPlayer.hackTick);
 	BPlayer.hackTick = null;
+	clearTick(BPlayer.pdTick);
+	BPlayer.pdTick = null;
 	BPlayer.promptHack = null;
 	ClearGpsPlayerWaypoint();
 
-	SendNUIMessage({
-		app: BOOSTING_APP,
-		method: BoostMissionEvents.FAIL_VEHICLE,
-		data: BPlayer.active,
-	});
+	if (fail) {
+		SendNUIMessage({
+			app: BOOSTING_APP,
+			method: BoostMissionEvents.FAIL_VEHICLE,
+			data: BPlayer.active,
+		});
+	}
 };
 
 export const randomWeaponSelector = () => {
@@ -113,8 +111,8 @@ export const randomWeaponSelector = () => {
 		'WEAPON_BAT',
 		'WEAPON_APPISTOL',
 		'WEAPON_DBSHOTGUN',
-		'WEAPON_DAGGER',
-		'WEAPON_PISTOL',
+		'weapon_ASSAULTRIFLE',
+		'WEAPON_COMPACTRIFLE',
 	];
 
 	return weaponList[Math.floor(Math.random() * weaponList.length + 0)];
@@ -149,3 +147,16 @@ export const spawnPed = async (coord: Vector3, radius: number, pedCount: number)
 		SetPedKeepTask(ped.Handle, true);
 	}
 };
+
+export const sendText = (message: string) => {
+	emitNet(BoostingEvents.SEND_TEXT, message);
+};
+
+/**
+ * Ends boost if dead.
+ */
+on('pma:onPlayerDeath', () => {
+	if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
+		resetBoostMissions(true);
+	}
+});

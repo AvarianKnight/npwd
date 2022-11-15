@@ -43,7 +43,9 @@ on(`__cfx_nui:${BoostingEvents.START_CONTRACT}`, (purchaseContract: PurchaseCont
 			purchaseContract.contract.contract_type === 'B' ||
 			purchaseContract.contract.contract_type === 'A'
 		) {
-			lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+			mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+
+			// lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
 		} else if (purchaseContract.contract.contract_type === 'S') {
 			mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
 		} else if (purchaseContract.contract.contract_type === 'S+') {

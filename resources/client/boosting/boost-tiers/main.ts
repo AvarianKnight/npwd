@@ -12,6 +12,7 @@ export interface BPlayerType {
 	spawnPedTick?: number | null;
 	dropOffTick?: number | null;
 	hackTick?: number | null;
+	pdTick?: number | null;
 	promptHack?: boolean;
 }
 
@@ -23,5 +24,6 @@ export const BPlayer: BPlayerType = {
 	spawnPedTick: null,
 	dropOffTick: null,
 	hackTick: null,
+	pdTick: null,
 	promptHack: false,
 };

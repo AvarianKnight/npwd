@@ -212,10 +212,7 @@
         contentType: "multipart/form-data",
         authorizationPrefix: "Client-ID",
         useAuthorization: false,
-        returnedDataIndexes: [
-          "data",
-          "link"
-        ]
+        returnedDataIndexes: ["data", "link"]
       };
       imageSafety = {
         filterUnsafeImageUrls: true,
@@ -234,9 +231,7 @@
       };
       profanityFilter = {
         enabled: false,
-        badWords: [
-          "esx"
-        ]
+        badWords: ["esx"]
       };
       twitter = {
         showNotifications: true,
@@ -1526,7 +1521,7 @@
             this.x = valueXOrVector.x;
             this.y = valueXOrVector.y;
             this.z = valueXOrVector.z;
-            this.w = yOrW ?? 0;
+            this.w = yOrW != null ? yOrW : 0;
           } else if (yOrW === void 0) {
             this.x = valueXOrVector;
             this.y = valueXOrVector;
@@ -1535,8 +1530,8 @@
           } else {
             this.x = valueXOrVector;
             this.y = yOrW;
-            this.z = z ?? 0;
-            this.w = w ?? 0;
+            this.z = z != null ? z : 0;
+            this.w = w != null ? w : 0;
           }
         }
       };
@@ -1584,7 +1579,7 @@
   var init_Animations = __esm({
     "node_modules/@nativewrappers/client/lib/utils/Animations.js"() {
       init_lib();
-      LoadAnimDict = async (animDict, waitTime = 1e3) => {
+      LoadAnimDict = (animDict, waitTime = 1e3) => __async(void 0, null, function* () {
         const start = GetGameTimer();
         if (!HasAnimDictLoaded(animDict)) {
           RequestAnimDict(animDict);
@@ -1592,10 +1587,10 @@
         while (!HasAnimDictLoaded(animDict)) {
           if (GetGameTimer() - start >= waitTime)
             return false;
-          await Wait(0);
+          yield Wait(0);
         }
         return true;
-      };
+      });
     }
   });
 
@@ -1622,17 +1617,17 @@
       Audio = class {
         static playSoundAt(position, sound, set, generateSoundId = true) {
           const SOUND_ID = generateSoundId ? GetSoundId() : -1;
-          PlaySoundFromCoord(SOUND_ID, sound, position.x, position.y, position.z, set ?? "", false, 0, false);
+          PlaySoundFromCoord(SOUND_ID, sound, position.x, position.y, position.z, set != null ? set : "", false, 0, false);
           return SOUND_ID;
         }
         static playSoundFromEntity(entity, sound, set, generateSoundId = true) {
           const SOUND_ID = generateSoundId ? GetSoundId() : -1;
-          PlaySoundFromEntity(SOUND_ID, sound, entity.Handle, set ?? "", false, 0);
+          PlaySoundFromEntity(SOUND_ID, sound, entity.Handle, set != null ? set : "", false, 0);
           return SOUND_ID;
         }
         static playSoundFrontEnd(sound, set, generateSoundId = true) {
           const SOUND_ID = generateSoundId ? GetSoundId() : -1;
-          PlaySoundFrontend(SOUND_ID, sound, set ?? "", false);
+          PlaySoundFrontend(SOUND_ID, sound, set != null ? set : "", false);
           return SOUND_ID;
         }
         static stopSound(soundId) {
@@ -1668,7 +1663,7 @@
               this.cachedMusicFile = "";
             }
           } else {
-            CancelMusicEvent(musicFile ?? "");
+            CancelMusicEvent(musicFile != null ? musicFile : "");
           }
         }
       };
@@ -4180,7 +4175,7 @@
       EntityBone = class {
         constructor(owner, boneIndex, boneName) {
           this.owner = owner;
-          this.index = boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName ?? "");
+          this.index = boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName != null ? boneName : "");
         }
         get Index() {
           return this.index;
@@ -4213,7 +4208,7 @@
           return GetEntityBoneIndexByName(this.owner.Handle, name) !== -1;
         }
         getBone(boneIndex, boneName) {
-          return new EntityBone(this.owner, boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName ?? ""));
+          return new EntityBone(this.owner, boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName != null ? boneName : ""));
         }
         get Core() {
           return new EntityBone(this.owner, -1);
@@ -4363,10 +4358,12 @@
           this.ped.BlockPermanentEvents = true;
           TaskPerformSequence(this.ped.Handle, sequence.Handle);
         }
-        async playAnimation(animDict, animName, blendInSpeed, blendOutSpeed, duration, playbackRate, flags) {
-          await LoadAnimDict(animDict);
-          TaskPlayAnim(this.ped.Handle, animDict, animName, blendInSpeed, blendOutSpeed, duration, flags, playbackRate, false, false, false);
-          RemoveAnimDict(animDict);
+        playAnimation(animDict, animName, blendInSpeed, blendOutSpeed, duration, playbackRate, flags) {
+          return __async(this, null, function* () {
+            yield LoadAnimDict(animDict);
+            TaskPlayAnim(this.ped.Handle, animDict, animName, blendInSpeed, blendOutSpeed, duration, flags, playbackRate, false, false, false);
+            RemoveAnimDict(animDict);
+          });
         }
         reactAndFlee(ped) {
           TaskReactAndFleePed(this.ped.Handle, ped.Handle);
@@ -6661,12 +6658,14 @@
           return WeaponComponentHudStats.get(this.componentHash);
         }
         static getComponentDisplayNameFromHash(hash, componentHash) {
+          var _a;
           if (!hash) {
             return "WCT_INVALID";
           }
-          return ComponentDisplayNameByHash.get(componentHash) ?? "WCT_INVALID";
+          return (_a = ComponentDisplayNameByHash.get(componentHash)) != null ? _a : "WCT_INVALID";
         }
         static getAttachmentPoint(weaponHash, componentHash) {
+          var _a;
           const componentHashes = WeaponComponentHashesByWeaponHash.get(weaponHash);
           if (!componentHashes) {
             return ComponentAttachmentPoint.Invalid;
@@ -6674,7 +6673,7 @@
           if (componentHashes.every((x) => x !== componentHash)) {
             return ComponentAttachmentPoint.Invalid;
           }
-          return ComponentAttachmentPointByHash.get(componentHash) ?? ComponentAttachmentPoint.Invalid;
+          return (_a = ComponentAttachmentPointByHash.get(componentHash)) != null ? _a : ComponentAttachmentPoint.Invalid;
         }
       };
     }
@@ -6794,9 +6793,10 @@
           return this.AllWeaponComponentHashes.filter((hash) => attachmentPoints.some((attachmentPoint) => ComponentAttachmentPointByHash.get(hash) === attachmentPoint));
         }
         getAnyComponentByAttachmentPoints(index, ...attachmentPoints) {
+          var _a;
           const hashes = this.getComponentHashesByAttachmentPoints(...attachmentPoints);
           if (index === void 0) {
-            return this.get(hashes[0]) ?? this.invalidComponent;
+            return (_a = this.get(hashes[0])) != null ? _a : this.invalidComponent;
           }
           return 0 <= index && index <= hashes.length - 1 ? this.get(hashes[index]) : this.invalidComponent;
         }
@@ -7008,7 +7008,8 @@
           return HasPedGotWeapon(this.owner.Handle, this.hash, false);
         }
         get DisplayName() {
-          return Weapon.getDisplayNameFromHash(this.hash) ?? "WCT_INVALID";
+          var _a;
+          return (_a = Weapon.getDisplayNameFromHash(this.hash)) != null ? _a : "WCT_INVALID";
         }
         get LocalizedName() {
           return Game.getGXTEntry(this.DisplayName);
@@ -7098,10 +7099,11 @@
           return WeaponHudStats.get(this.hash);
         }
         static getDisplayNameFromHash(hash) {
+          var _a;
           if (!hash) {
             return "WT_INVALID";
           }
-          return WeaponDisplayNameByHash.get(hash) ?? "WCT_INVALID";
+          return (_a = WeaponDisplayNameByHash.get(hash)) != null ? _a : "WCT_INVALID";
         }
         static getWeaponComponentHashes(hash) {
           const hashes = WeaponComponentHashesByWeaponHash.get(hash);
@@ -7737,10 +7739,11 @@
           return new Ped(ClonePed(this.handle, false, false, false));
         }
         exists(ped) {
+          var _a;
           if (!ped) {
             return super.exists() && GetEntityType(this.handle) === 1;
           }
-          return ped?.exists() ?? false;
+          return (_a = ped == null ? void 0 : ped.exists()) != null ? _a : false;
         }
         setComponentVariation(componentId, drawableId, textureId, paletteId = 0) {
           SetPedComponentVariation(this.handle, componentId, drawableId, textureId, paletteId);
@@ -7921,7 +7924,7 @@
           ClearPedLastDamageBone(this.owner.Handle);
         }
         getBone(boneIndex, boneName) {
-          return new PedBone(this.owner, boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName ?? ""));
+          return new PedBone(this.owner, boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName != null ? boneName : ""));
         }
       };
     }
@@ -8699,17 +8702,17 @@
         }
         openAllDoors(loose, instantly) {
           this.getAllDoors().forEach((door) => {
-            door?.open(loose, instantly);
+            door == null ? void 0 : door.open(loose, instantly);
           });
         }
         closeAllDoors(instantly) {
           this.getAllDoors().forEach((door) => {
-            door?.close(instantly);
+            door == null ? void 0 : door.close(instantly);
           });
         }
         breakAllDoors(stayInTheWorld) {
           this.getAllDoors().forEach((door) => {
-            door?.break(stayInTheWorld);
+            door == null ? void 0 : door.break(stayInTheWorld);
           });
         }
         hasDoor(index) {
@@ -8858,9 +8861,10 @@
           SetVehicleModKit(this._owner.Handle, 0);
         }
         get Livery() {
-          const modCount = this.getMod(VehicleModType.Livery)?.ModCount;
+          var _a, _b;
+          const modCount = (_a = this.getMod(VehicleModType.Livery)) == null ? void 0 : _a.ModCount;
           if (modCount !== void 0 && modCount > 0) {
-            return this.getMod(VehicleModType.Livery)?.Index;
+            return (_b = this.getMod(VehicleModType.Livery)) == null ? void 0 : _b.Index;
           }
           return GetVehicleLivery(this._owner.Handle);
         }
@@ -8875,7 +8879,8 @@
           }
         }
         get LiveryCount() {
-          const modCount = this.getMod(VehicleModType.Livery)?.ModCount;
+          var _a;
+          const modCount = (_a = this.getMod(VehicleModType.Livery)) == null ? void 0 : _a.ModCount;
           if (modCount !== void 0 && modCount > 0) {
             return modCount;
           }
@@ -9090,12 +9095,12 @@
         }
         burstAllWheels() {
           this.getAllWheels().forEach((wheel) => {
-            wheel?.burst();
+            wheel == null ? void 0 : wheel.burst();
           });
         }
         fixAllWheels() {
           this.getAllWheels().forEach((wheel) => {
-            wheel?.fix();
+            wheel == null ? void 0 : wheel.fix();
           });
         }
         hasWheel(wheel) {
@@ -9193,12 +9198,12 @@
         }
         rollDownAllWindows() {
           this.getAllWindows().forEach((window) => {
-            window?.rollDown();
+            window == null ? void 0 : window.rollDown();
           });
         }
         rollUpAllWindows() {
           this.getAllWindows().forEach((window) => {
-            window?.rollUp();
+            window == null ? void 0 : window.rollUp();
           });
         }
         hasWindow(window) {
@@ -9552,10 +9557,12 @@
         set ShakeAmplitude(amplitude) {
           SetCamShakeAmplitude(this.handle, amplitude);
         }
-        async playAnim(animName, animDict, position, rotation) {
-          await LoadAnimDict(animDict);
-          PlayCamAnim(this.handle, animName, animDict, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, false, 2);
-          RemoveAnimDict(animDict);
+        playAnim(animName, animDict, position, rotation) {
+          return __async(this, null, function* () {
+            yield LoadAnimDict(animDict);
+            PlayCamAnim(this.handle, animName, animDict, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, false, 2);
+            RemoveAnimDict(animDict);
+          });
         }
         pointAt(target, offset = new Vector3(0, 0, 0)) {
           if (target instanceof Entity2) {
@@ -9670,7 +9677,8 @@
           return this.hitSomethingArg;
         }
         get DidHitEntity() {
-          return this.entityHandleArg?.Handle !== 0;
+          var _a;
+          return ((_a = this.entityHandleArg) == null ? void 0 : _a.Handle) !== 0;
         }
         get Material() {
           return this.materialArg;
@@ -9728,13 +9736,14 @@
           return this.currentCloudHat;
         }
         static set CloudHat(value) {
+          var _a;
           this.currentCloudHat = value;
           if (this.currentCloudHat === CloudHat.Unknown) {
             this.currentCloudHat = CloudHat.Clear;
             ClearCloudHat();
             return;
           }
-          SetCloudHatTransition(this.cloudHatDict.get(this.currentCloudHat) ?? "", 3);
+          SetCloudHatTransition((_a = this.cloudHatDict.get(this.currentCloudHat)) != null ? _a : "", 3);
         }
         static get CloudHatOpacity() {
           return GetCloudHatOpacity();
@@ -9856,65 +9865,77 @@
         static createCameraWithParams(cameraType = CameraTypes.Scripted, position, rotation, fieldOfView) {
           return new Camera(CreateCamWithParams(cameraType, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, fieldOfView, true, 2));
         }
-        static async createPed(model, position, heading = 0, isNetwork = true) {
-          if (!model.IsPed || !await model.request(1e3)) {
-            return null;
-          }
-          return new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+        static createPed(model, position, heading = 0, isNetwork = true) {
+          return __async(this, null, function* () {
+            if (!model.IsPed || !(yield model.request(1e3))) {
+              return null;
+            }
+            return new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+          });
         }
         static createRandomPed(position) {
           return new Ped(CreateRandomPed(position.x, position.y, position.z));
         }
-        static async createVehicle(model, position, heading = 0, isNetwork = true) {
-          if (!model.IsVehicle || !await model.request(1e3)) {
-            return null;
-          }
-          return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+        static createVehicle(model, position, heading = 0, isNetwork = true) {
+          return __async(this, null, function* () {
+            if (!model.IsVehicle || !(yield model.request(1e3))) {
+              return null;
+            }
+            return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+          });
         }
-        static async createRandomVehicle(position, heading = 0, isNetwork = true) {
-          const vehicleCount = Object.keys(VehicleHash).length / 2;
-          const randomIndex = Maths.getRandomInt(0, vehicleCount);
-          const randomVehicleName = VehicleHash[randomIndex];
-          const modelHash = GetHashKey(randomVehicleName);
-          const model = new Model(modelHash);
-          if (!model.IsVehicle || !await model.request(1e3)) {
-            return null;
-          }
-          return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+        static createRandomVehicle(position, heading = 0, isNetwork = true) {
+          return __async(this, null, function* () {
+            const vehicleCount = Object.keys(VehicleHash).length / 2;
+            const randomIndex = Maths.getRandomInt(0, vehicleCount);
+            const randomVehicleName = VehicleHash[randomIndex];
+            const modelHash = GetHashKey(randomVehicleName);
+            const model = new Model(modelHash);
+            if (!model.IsVehicle || !(yield model.request(1e3))) {
+              return null;
+            }
+            return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false));
+          });
         }
-        static async createProp(model, position, dynamic, placeOnGround, isNetwork = true) {
-          if (!model.IsProp || !await model.request(1e3)) {
-            return null;
-          }
-          const prop2 = new Prop(CreateObject(model.Hash, position.x, position.y, position.z, isNetwork, true, dynamic));
-          if (placeOnGround) {
-            prop2.placeOnGround();
-          }
-          return prop2;
+        static createProp(model, position, dynamic, placeOnGround, isNetwork = true) {
+          return __async(this, null, function* () {
+            if (!model.IsProp || !(yield model.request(1e3))) {
+              return null;
+            }
+            const prop2 = new Prop(CreateObject(model.Hash, position.x, position.y, position.z, isNetwork, true, dynamic));
+            if (placeOnGround) {
+              prop2.placeOnGround();
+            }
+            return prop2;
+          });
         }
-        static async CreatePickup(type, position, model, value, rotation) {
-          if (!await model.request(1e3)) {
-            return null;
-          }
-          let handle = 0;
-          if (rotation !== void 0)
-            handle = CreatePickupRotate(type, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, 0, value, 2, true, model.Hash);
-          else
-            handle = CreatePickup(type, position.x, position.y, position.z, 0, value, true, model.Hash);
-          if (handle === 0) {
-            return null;
-          }
-          return new Pickup(handle);
+        static CreatePickup(type, position, model, value, rotation) {
+          return __async(this, null, function* () {
+            if (!(yield model.request(1e3))) {
+              return null;
+            }
+            let handle = 0;
+            if (rotation !== void 0)
+              handle = CreatePickupRotate(type, position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, 0, value, 2, true, model.Hash);
+            else
+              handle = CreatePickup(type, position.x, position.y, position.z, 0, value, true, model.Hash);
+            if (handle === 0) {
+              return null;
+            }
+            return new Pickup(handle);
+          });
         }
-        static async CreateAmbientPickup(type, position, model, value) {
-          if (!await model.request(1e3)) {
-            return null;
-          }
-          const handle = CreateAmbientPickup(type, position.x, position.y, position.z, 0, value, model.Hash, false, true);
-          if (handle === 0) {
-            return null;
-          }
-          return new Prop(handle);
+        static CreateAmbientPickup(type, position, model, value) {
+          return __async(this, null, function* () {
+            if (!(yield model.request(1e3))) {
+              return null;
+            }
+            const handle = CreateAmbientPickup(type, position.x, position.y, position.z, 0, value, model.Hash, false, true);
+            if (handle === 0) {
+              return null;
+            }
+            return new Prop(handle);
+          });
         }
         static drawMarker(type, position, direction, rotation, scale, color, bobUpAndDown = false, faceCamera = false, rotateY = false, textureDict = null, textureName = null, drawOnEntity = false) {
           DrawMarker(Number(type), position.x, position.y, position.z, direction.x, direction.y, direction.z, rotation.x, rotation.y, rotation.z, scale.x, scale.y, scale.z, color.r, color.g, color.b, color.a, bobUpAndDown, faceCamera, 2, rotateY, textureDict, textureName, drawOnEntity);
@@ -10387,55 +10408,8 @@
     }
   });
 
-  // client/boosting/coords.ts
-  var LowTierCoords, MidTierCoords, HighTierCoords;
-  var init_coords = __esm({
-    "client/boosting/coords.ts"() {
-      init_lib();
-      LowTierCoords = [
-        new Vector3(275.94, -3046.85, 5),
-        new Vector3(-153.86, -2693.72, 5.01),
-        new Vector3(-115.53, -2530.63, 5),
-        new Vector3(-138.13, -2222.1, 6.81),
-        new Vector3(-798.66, -2855.8, 12.95),
-        new Vector3(-1072.02, -2163.85, 12.28),
-        new Vector3(-584.54, -1779.67, 21.66),
-        new Vector3(-623.11, -1653.56, 24.83),
-        new Vector3(-579.45, -1640.24, 18.47),
-        new Vector3(-224.1, -1699.32, 33.02),
-        new Vector3(-58.1, -1837.87, 25.62),
-        new Vector3(450.75, -1967.04, 21.93),
-        new Vector3(553.87, -1790.86, 28.2),
-        new Vector3(341.04, -1097.04, 28.41),
-        new Vector3(373.89, -764.07, 28.29),
-        new Vector3(-13.54, -638.16, 34.72),
-        new Vector3(-349.4, -1088.49, 22.03),
-        new Vector3(-642.97, -1163.53, 8.48),
-        new Vector3(-1078.5, -1660.92, 3.4),
-        new Vector3(-1345.05, -750.67, 21.36),
-        new Vector3(-1153.49, -456.11, 33.77),
-        new Vector3(-470.31, -58.82, 43.52),
-        new Vector3(-132.37, -27.94, 57.12),
-        new Vector3(187.58, 299.48, 104.47),
-        new Vector3(-1569.99, -243.29, 48.48),
-        new Vector3(-1654.81, -387.19, 44.15),
-        new Vector3(-2528.39, 2340.31, 32.06),
-        new Vector3(-1604.18, 3091.37, 31.57),
-        new Vector3(-2173.48, 4270.72, 47.96),
-        new Vector3(-1579.02, 5161.39, 18.77),
-        new Vector3(-665.29, 5824.74, 16.33),
-        new Vector3(202.06, 6404.33, 30.38),
-        new Vector3(3568.64, 3662.4, 32.94),
-        new Vector3(2669.41, 3519.53, 51.68),
-        new Vector3(472.35, 3570.04, 32.24)
-      ];
-      MidTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
-      HighTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
-    }
-  });
-
   // client/boosting/boost-tiers/utility.ts
-  var pedRadius, dropOffSpot, showRoute, spawnPedRadius, calculateExperience, experienceGainPerLevel, resetBoostMissions, randomWeaponSelector, getRandomInt, spawnPed;
+  var pedRadius, dropOffSpot, showRoute, spawnPedRadius, calculateExperience, experienceGainPerLevel, resetBoostMissions, randomWeaponSelector, getRandomInt, spawnPed, sendText;
   var init_utility = __esm({
     "client/boosting/boost-tiers/utility.ts"() {
       init_lib();
@@ -10492,12 +10466,7 @@
             break;
         }
       };
-      on("pma:onPlayerDeath", () => {
-        if (BPlayer.active) {
-          resetBoostMissions();
-        }
-      });
-      resetBoostMissions = () => {
+      resetBoostMissions = (fail) => {
         BPlayer.active = false;
         BPlayer.dropOffCoords = null;
         BPlayer.firstLegCompleted = false;
@@ -10508,13 +10477,17 @@
         BPlayer.dropOffTick = null;
         clearTick(BPlayer.hackTick);
         BPlayer.hackTick = null;
+        clearTick(BPlayer.pdTick);
+        BPlayer.pdTick = null;
         BPlayer.promptHack = null;
         ClearGpsPlayerWaypoint();
-        SendNUIMessage({
-          app: BOOSTING_APP,
-          method: "npwd:boosting:failBoost" /* FAIL_VEHICLE */,
-          data: BPlayer.active
-        });
+        if (fail) {
+          SendNUIMessage({
+            app: BOOSTING_APP,
+            method: "npwd:boosting:failBoost" /* FAIL_VEHICLE */,
+            data: BPlayer.active
+          });
+        }
       };
       randomWeaponSelector = () => {
         const weaponList = [
@@ -10522,8 +10495,8 @@
           "WEAPON_BAT",
           "WEAPON_APPISTOL",
           "WEAPON_DBSHOTGUN",
-          "WEAPON_DAGGER",
-          "WEAPON_PISTOL"
+          "weapon_ASSAULTRIFLE",
+          "WEAPON_COMPACTRIFLE"
         ];
         return weaponList[Math.floor(Math.random() * weaponList.length + 0)];
       };
@@ -10548,42 +10521,65 @@
           SetPedKeepTask(ped.Handle, true);
         }
       });
+      sendText = (message) => {
+        emitNet("SEND_TEXT" /* SEND_TEXT */, message);
+      };
+      on("pma:onPlayerDeath", () => {
+        if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
+          resetBoostMissions(true);
+        }
+      });
     }
   });
 
-  // client/boosting/boost-tiers/medium.ts
-  var mediumTierHandler;
-  var init_medium = __esm({
-    "client/boosting/boost-tiers/medium.ts"() {
-      mediumTierHandler = (contract) => {
-        console.log("medium");
-      };
-    }
-  });
-
-  // client/boosting/boost-tiers/main.ts
-  var BPlayer;
-  var init_main = __esm({
-    "client/boosting/boost-tiers/main.ts"() {
-      init_utility();
-      init_low();
-      init_medium();
-      init_high();
-      BPlayer = {
-        active: false,
-        dropOffCoords: null,
-        firstLegCompleted: false,
-        secondLegCompleted: false,
-        spawnPedTick: null,
-        dropOffTick: null,
-        hackTick: null,
-        promptHack: false
-      };
+  // client/boosting/coords.ts
+  var LowTierCoords, MidTierCoords, HighTierCoords;
+  var init_coords = __esm({
+    "client/boosting/coords.ts"() {
+      init_lib();
+      LowTierCoords = [
+        new Vector3(275.94, -3046.85, 5),
+        new Vector3(-153.86, -2693.72, 5.01),
+        new Vector3(-115.53, -2530.63, 5),
+        new Vector3(-138.13, -2222.1, 6.81),
+        new Vector3(-798.66, -2855.8, 12.95),
+        new Vector3(-1072.02, -2163.85, 12.28),
+        new Vector3(-584.54, -1779.67, 21.66),
+        new Vector3(-623.11, -1653.56, 24.83),
+        new Vector3(-579.45, -1640.24, 18.47),
+        new Vector3(-224.1, -1699.32, 33.02),
+        new Vector3(-58.1, -1837.87, 25.62),
+        new Vector3(450.75, -1967.04, 21.93),
+        new Vector3(553.87, -1790.86, 28.2),
+        new Vector3(341.04, -1097.04, 28.41),
+        new Vector3(373.89, -764.07, 28.29),
+        new Vector3(-13.54, -638.16, 34.72),
+        new Vector3(-349.4, -1088.49, 22.03),
+        new Vector3(-642.97, -1163.53, 8.48),
+        new Vector3(-1078.5, -1660.92, 3.4),
+        new Vector3(-1345.05, -750.67, 21.36),
+        new Vector3(-1153.49, -456.11, 33.77),
+        new Vector3(-470.31, -58.82, 43.52),
+        new Vector3(-132.37, -27.94, 57.12),
+        new Vector3(187.58, 299.48, 104.47),
+        new Vector3(-1569.99, -243.29, 48.48),
+        new Vector3(-1654.81, -387.19, 44.15),
+        new Vector3(-2528.39, 2340.31, 32.06),
+        new Vector3(-1604.18, 3091.37, 31.57),
+        new Vector3(-2173.48, 4270.72, 47.96),
+        new Vector3(-1579.02, 5161.39, 18.77),
+        new Vector3(-665.29, 5824.74, 16.33),
+        new Vector3(202.06, 6404.33, 30.38),
+        new Vector3(3568.64, 3662.4, 32.94),
+        new Vector3(2669.41, 3519.53, 51.68),
+        new Vector3(472.35, 3570.04, 32.24)
+      ];
+      MidTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
+      HighTierCoords = [new Vector3(-507.7, -608.7, 25.3)];
     }
   });
 
   // client/boosting/boost-tiers/low.ts
-  var lowTierHandler;
   var init_low = __esm({
     "client/boosting/boost-tiers/low.ts"() {
       init_lib();
@@ -10593,17 +10589,8 @@
       init_main2();
       init_main();
       init_utility();
-      on("pma:onPlayerDeath", () => {
-        if (BPlayer.firstLegCompleted || BPlayer.secondLegCompleted) {
-          resetBoostMissions();
-        }
-      });
-      lowTierHandler = (contract, totalCoins) => {
-        const randomCoords = LowTierCoords[Math.floor(Math.random() * (LowTierCoords.length - 1))];
-        emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords, totalCoins);
-      };
       onNet("LOW_TIER_MISSION" /* LOW_TIER_MISSION */, (vehNet, coords) => {
-        emitNet("SEND_TEXT" /* SEND_TEXT */, "The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.");
+        sendText("The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.");
         BPlayer.active = true;
         showRoute(coords);
         BPlayer.spawnPedTick = setTick(() => __async(void 0, null, function* () {
@@ -10644,13 +10631,13 @@
                                 method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
                                 data: boosterProfile
                               });
-                              resetBoostMissions();
+                              resetBoostMissions(false);
                               emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
                             }
                           }
                         }));
                       } else {
-                        resetBoostMissions();
+                        resetBoostMissions(true);
                         emitNet("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
                       }
                     });
@@ -10664,13 +10651,130 @@
     }
   });
 
+  // client/boosting/boost-tiers/medium.ts
+  var mediumTierHandler, timeLeft, hackPassed;
+  var init_medium = __esm({
+    "client/boosting/boost-tiers/medium.ts"() {
+      init_lib();
+      init_boosting();
+      init_fivem();
+      init_client();
+      init_coords();
+      init_main2();
+      init_main();
+      init_utility();
+      mediumTierHandler = (contract, totalCoins) => {
+        const randomCoords = MidTierCoords[Math.floor(Math.random() * (MidTierCoords.length - 1))];
+        emitNet("npwd:boosting:startContract" /* START_CONTRACT */, contract, randomCoords, totalCoins);
+      };
+      timeLeft = 6e3;
+      hackPassed = false;
+      onNet("MID_TIER_MISSION" /* MID_TIER_MISSION */, (vehNet, coords) => {
+        sendText("The boosted car is located on your GPS; get there before someone else does. If it is not there when you arrive, you are out of luck.");
+        BPlayer.active = true;
+        showRoute(coords);
+        let showDropOff = false;
+        const randomSeconds = getRandomInt(12, 15) * 1e3;
+        const randomRounds = getRandomInt(2, 5);
+        BPlayer.spawnPedTick = setTick(() => __async(void 0, null, function* () {
+          if (exp2["pma-inv"].getInventoryItem("lockpick").quantity > 0 && Game.PlayerPed.Position.distance(coords) < 3 && IsControlJustPressed(0, Control.Pickup)) {
+            spawnPed(coords, pedRadius, getRandomInt(1, 3));
+            BPlayer.firstLegCompleted = true;
+            clearTick(BPlayer.spawnPedTick);
+            BPlayer.spawnPedTick = null;
+          }
+        }));
+        BPlayer.pdTick = setTick(() => __async(void 0, null, function* () {
+          if (!BPlayer.firstLegCompleted)
+            return;
+          const veh = GetVehiclePedIsEntering(Game.PlayerPed.Handle);
+          if (veh === 0)
+            return;
+          const boostedVehNet = VehToNet(veh);
+          while (timeLeft >= 0) {
+            yield Delay(0);
+            if (timeLeft === 6e3 || timeLeft === 4e3 || timeLeft === 2e3 || timeLeft === 0) {
+              if (timeLeft === 6e3) {
+                sendText("10 minutes... PD is headed to you, keep driving!");
+              } else if (timeLeft === 4e3) {
+                sendText("5 minutes... you got this! Focus and drive like your life depends on it");
+              } else if (timeLeft === 2e3) {
+                sendText("3 minutes... nearly done... but wait..");
+              } else if (timeLeft === 0) {
+                sendText("You did it... get this vehicle stored immediately.");
+              }
+              const vehModel = GetEntityModel(veh);
+              emitNet("pma-dispatch:addNewCall", GetHashKey("10-89"), GetEntityCoords(PlayerPedId(), true), `('%s was reported stolen'):format(hashLabels[${vehModel}] or GetLabelText(GetDisplayNameFromVehicleModel(${vehModel})))`, GetVehicleNumberPlateText(veh));
+            }
+            if (Game.PlayerPed.isInAnyVehicle() && !BPlayer.promptHack && timeLeft === 3250) {
+              BPlayer.promptHack = true;
+              exp2["pma-hack"].startHacking(randomSeconds, randomRounds, (success) => {
+                if (success) {
+                  hackPassed = true;
+                } else {
+                  resetBoostMissions(true);
+                  emitNet("npwd:boosting:failBoost" /* FAIL_VEHICLE */);
+                }
+              });
+            }
+            if (boostedVehNet === vehNet && !showDropOff && hackPassed && timeLeft === 0) {
+              showDropOff = true;
+              BPlayer.dropOffCoords = dropOffSpot();
+              showRoute(BPlayer.dropOffCoords);
+              BPlayer.secondLegCompleted = true;
+            }
+            timeLeft--;
+          }
+        }));
+        BPlayer.dropOffTick = setTick(() => __async(void 0, null, function* () {
+          if (hackPassed && timeLeft === -1 && Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < 10) {
+            const veh = GetVehiclePedIsIn(Game.PlayerPed.Handle, false);
+            const boostedVehNet = VehToNet(veh);
+            if (boostedVehNet === vehNet && Game.PlayerPed.Position.distance(BPlayer.dropOffCoords) < 5 && IsControlJustPressed(0, Control.Pickup)) {
+              const vehProps = PMA.Game.GetVehicleProperties(veh);
+              boosterProfile.profile = calculateExperience();
+              SendNUIMessage({
+                app: BOOSTING_APP,
+                method: "npwd:boosting:loadBoostingProfile" /* LOAD_BOOSTING_PROFILE */,
+                data: boosterProfile
+              });
+              resetBoostMissions(false);
+              emitNet("npwd:boosting:rewardVehicle" /* REWARD_VEHICLE */, vehProps, boosterProfile.profile);
+            }
+          }
+        }));
+      });
+    }
+  });
+
+  // client/boosting/boost-tiers/main.ts
+  var BPlayer;
+  var init_main = __esm({
+    "client/boosting/boost-tiers/main.ts"() {
+      init_utility();
+      init_low();
+      init_medium();
+      init_high();
+      BPlayer = {
+        active: false,
+        dropOffCoords: null,
+        firstLegCompleted: false,
+        secondLegCompleted: false,
+        spawnPedTick: null,
+        dropOffTick: null,
+        hackTick: null,
+        pdTick: null,
+        promptHack: false
+      };
+    }
+  });
+
   // client/boosting/nui.ts
   var init_nui = __esm({
     "client/boosting/nui.ts"() {
       init_boosting();
       init_property();
       init_high();
-      init_low();
       init_main();
       init_medium();
       init_utility();
@@ -10697,7 +10801,7 @@
       on(`__cfx_nui:${"npwd:boosting:startContract" /* START_CONTRACT */}`, (purchaseContract, cb) => {
         if (!BPlayer.active) {
           if (purchaseContract.contract.contract_type === "B" || purchaseContract.contract.contract_type === "A") {
-            lowTierHandler(purchaseContract.contract, purchaseContract.small_coin);
+            mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
           } else if (purchaseContract.contract.contract_type === "S") {
             mediumTierHandler(purchaseContract.contract, purchaseContract.small_coin);
           } else if (purchaseContract.contract.contract_type === "S+") {
