@@ -203,17 +203,17 @@ class _MessagesService {
 						const participantIdentifier =
 							await PlayerService.getIdentifierByPhoneNumber(participantId, true);
 
-						const participantNumber = await PlayerService.getPhoneNumberFromIdentifier(
-							participantIdentifier,
-						);
+						// const participantNumber = await PlayerService.getPhoneNumberFromIdentifier(
+						// 	participantIdentifier,
+						// );
 
 						const participantPlayer =
 							PlayerService.getPlayerFromIdentifier(participantIdentifier);
 
-						await this.messagesDB.setMessageUnread(
-							messageData.conversationId,
-							participantNumber,
-						);
+						// await this.messagesDB.setMessageUnread(
+						// 	messageData.conversationId,
+						// 	participantNumber,
+						// );
 
 						if (participantPlayer) {
 							if (!playerHasConversation) {

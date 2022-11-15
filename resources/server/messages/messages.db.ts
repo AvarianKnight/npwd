@@ -8,6 +8,7 @@ import {
 import {ResultSetHeader} from 'mysql2';
 import {messagesLogger} from './messages.utils';
 import {Player} from '../players/player.class';
+import {ox} from '../server';
 
 const MESSAGES_PER_PAGE = 20;
 
@@ -25,8 +26,8 @@ export class _MessagesDB {
                                        on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
                    WHERE npwd_messages_participants.participant = ?`;
 
-		const [results] = await DbInterface._rawExec(query, [phoneNumber]);
-
+		// const [results] = await DbInterface._rawExec(query, [phoneNumber]);
+		const results = await ox.query_async(query, [phoneNumber]);
 		return <MessageConversation[]>results;
 	}
 
@@ -40,8 +41,9 @@ export class _MessagesDB {
                    FROM npwd_messages_conversations
                    WHERE id = ?
                    LIMIT 1`;
-		const [results] = await DbInterface._rawExec(query, [conversationId]);
+		// const [results] = await DbInterface._rawExec(query, [conversationId]);
 
+		const results = await ox.query_async(query, [conversationId]);
 		const result = <MessageConversation[]>results;
 		return result[0];
 	}
@@ -65,12 +67,22 @@ export class _MessagesDB {
       ) as nm
     ORDER BY id`;
 
-		const [results] = await DbInterface._rawExec(query, [
-			dto.conversationId,
-			MESSAGES_PER_PAGE.toString(),
-			offset.toString(),
-		]);
-		return <Message[]>results;
+		// const [results] = await DbInterface._rawExec(query, [
+		// 	dto.conversationId,
+		// 	MESSAGES_PER_PAGE.toString(),
+		// 	offset.toString(),
+		// ]);
+		try {
+			const results: Message[] = await ox.query_async(query, [
+				dto.conversationId,
+				MESSAGES_PER_PAGE,
+				offset,
+			]);
+
+			return results;
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	async createConversation(
@@ -84,17 +96,24 @@ export class _MessagesDB {
 		const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
                               VALUES (?, ?)`;
 
-		const [results] = await DbInterface._rawExec(conversationQuery, [
+		// const [results] = await DbInterface._rawExec(conversationQuery, [
+		// 	conversationList,
+		// 	isGroupChat ? conversationLabel : '',
+		// 	isGroupChat,
+		// ]);
+		const results = await ox.execute_async(conversationQuery, [
 			conversationList,
 			isGroupChat ? conversationLabel : '',
 			isGroupChat,
 		]);
+
 		const result = <ResultSetHeader>results;
 
 		const conversationId = result.insertId;
 
 		for (const participant of participants) {
-			await DbInterface._rawExec(participantQuery, [conversationId, participant]);
+			// await DbInterface._rawExec(participantQuery, [conversationId, participant]);
+			await ox.execute_async(participantQuery, [conversationId, participant]);
 		}
 
 		return conversationId;
@@ -106,7 +125,9 @@ export class _MessagesDB {
 		const participantQuery = `INSERT INTO npwd_messages_participants (conversation_id, participant)
                               VALUES (?, ?)`;
 
-		await DbInterface._rawExec(participantQuery, [conversationId, phoneNumber]);
+		await ox.execute_async(participantQuery, [conversationId, phoneNumber]);
+
+		// await DbInterface._rawExec(participantQuery, [conversationId, phoneNumber]);
 
 		return conversationId;
 	}
@@ -115,7 +136,16 @@ export class _MessagesDB {
 		const query = `INSERT INTO npwd_messages (message, user_identifier, conversation_id, author, is_embed, embed)
                    VALUES (?, ?, ?, ?, ?, ?)`;
 
-		const [results] = await DbInterface._rawExec(query, [
+		// const [results] = await DbInterface._rawExec(query, [
+		// 	dto.message || '',
+		// 	dto.userIdentifier,
+		// 	dto.conversationId,
+		// 	dto.authorPhoneNumber,
+		// 	dto.is_embed || false,
+		// 	dto.embed || '',
+		// ]);
+
+		const results = await ox.execute_async(query, [
 			dto.message || '',
 			dto.userIdentifier,
 			dto.conversationId,
@@ -132,9 +162,11 @@ export class _MessagesDB {
 
 		// We await here so we're not blocking the return call
 		setImmediate(async () => {
-			await DbInterface._rawExec(updateConversation, [dto.conversationId]).catch((err) =>
-				messagesLogger.error(`Error occurred in message update Error: ${err.message}`),
-			);
+			await ox.execute_async(updateConversation, [dto.conversationId]);
+
+			// await DbInterface._rawExec(updateConversation, [dto.conversationId]).catch((err) =>
+			// 	messagesLogger.error(`Error occurred in message update Error: ${err.message}`),
+			// );
 		});
 
 		return result.insertId;
@@ -145,8 +177,9 @@ export class _MessagesDB {
                    SET unread_count = unread_count + 1
                    WHERE conversation_id = ?
                      AND participant = ?`;
+		await ox.execute_async(query, [conversationId, tgtPhoneNumber]);
 
-		await DbInterface._rawExec(query, [conversationId, tgtPhoneNumber]);
+		// await DbInterface._rawExec(query, [conversationId, tgtPhoneNumber]);
 	}
 
 	async setMessageRead(conversationId: number, participantNumber: string) {
@@ -154,16 +187,18 @@ export class _MessagesDB {
                    SET unread_count = 0
                    WHERE conversation_id = ?
                      AND participant = ?`;
+		await ox.execute_async(query, [conversationId, participantNumber]);
 
-		await DbInterface._rawExec(query, [conversationId, participantNumber]);
+		// await DbInterface._rawExec(query, [conversationId, participantNumber]);
 	}
 
 	async deleteMessage(message: Message) {
 		const query = `DELETE
                    FROM npwd_messages
                    WHERE id = ?`;
+		await ox.execute_async(query, [message.id]);
 
-		await DbInterface._rawExec(query, [message.id]);
+		// await DbInterface._rawExec(query, [message.id]);
 	}
 
 	async deleteConversation(conversationId: number, phoneNumber: string) {
@@ -171,8 +206,9 @@ export class _MessagesDB {
                    FROM npwd_messages_participants
                    WHERE conversation_id = ?
                      AND participant = ?`;
+		await ox.execute_async(query, [conversationId, phoneNumber]);
 
-		await DbInterface._rawExec(query, [conversationId, phoneNumber]);
+		// await DbInterface._rawExec(query, [conversationId, phoneNumber]);
 	}
 
 	async doesConversationExist(conversationList: string): Promise<boolean> {
@@ -181,8 +217,9 @@ export class _MessagesDB {
                             INNER JOIN npwd_messages_participants
                                        on npwd_messages_conversations.id = npwd_messages_participants.conversation_id
                    WHERE conversation_list = ?`;
+		const results = await ox.query_async(query, [conversationList]);
 
-		const [results] = await DbInterface._rawExec(query, [conversationList]);
+		// const [results] = await DbInterface._rawExec(query, [conversationList]);
 		const result = <any>results;
 		const count = result[0].count;
 
@@ -200,7 +237,9 @@ export class _MessagesDB {
                    WHERE conversation_list = ?
                      AND npwd_messages_participants.participant = ?`;
 
-		const [results] = await DbInterface._rawExec(query, [conversationList, phoneNumber]);
+		// const [results] = await DbInterface._rawExec(query, [conversationList, phoneNumber]);
+		const results = await ox.query_async(query, [conversationList, phoneNumber]);
+
 		const result = <any>results;
 		const count = result[0].count;
 
@@ -213,7 +252,9 @@ export class _MessagesDB {
                    FROM npwd_messages_conversations
                    WHERE conversation_list = ?`;
 
-		const [results] = await DbInterface._rawExec(query, [conversationList]);
+		// const [results] = await DbInterface._rawExec(query, [conversationList]);
+		const results = await ox.query_async(query, [conversationList]);
+
 		const result = <any>results;
 
 		return result[0].id;
@@ -223,7 +264,9 @@ export class _MessagesDB {
 		const query = `SELECT display 
                   FROM npwd_phone_contacts
                   WHERE number = ? AND identifier = ?`;
-		const [results] = await DbInterface._rawExec(query, [number, player.ssn]);
+		// const [results] = await DbInterface._rawExec(query, [number, player.ssn]);
+		const results = await ox.query_async(query, [number, player.ssn]);
+
 		const result = <any>results;
 		if (result[0]) {
 			return result[0].display;
